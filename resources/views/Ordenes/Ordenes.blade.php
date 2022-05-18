@@ -110,7 +110,7 @@
         <div class="content">
           @include('layouts.nav_gumadesk')
           <div class="row mb-3 g-3">
-            <div class="col-lg-12 col-xxl-9">
+            <div class="col-lg-12 col-xxl-12">
               <div class="card">
               <div class="card-header">
               <div class="row flex-between-center">
@@ -139,7 +139,7 @@
             </div>
               </div>
             </div>
-            <div class="col-xxl-3">
+            <div class="col-xxl-3" style="display:none">
               <div class="card">
                 <div class="card-header d-flex flex-between-center py-2 border-bottom">
                   <h6 class="mb-0">Resumen</h6>
