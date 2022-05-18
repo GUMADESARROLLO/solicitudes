@@ -12,8 +12,8 @@
               <div class="col-md-5 text-center bg-card-gradient">
                 <div class="position-relative p-4 pt-md-5 pb-md-7 light">
                   <div class="bg-holder bg-auth-card-shape" style="background-image:url({{ asset('images/theme_gumadesk/half-circle.png') }});"></div>
-                  <div class="z-index-1 position-relative"><a class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" href="./">GumaDesk</a>
-                    <p class="opacity-75 text-white">Genere sus solicitudes de manera practica y directa hacia las personas correspondientes</p>
+                  <div class="z-index-1 position-relative"><a class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" href="./">Solicitudes</a>
+                    <p class="opacity-75 text-white">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. </p>
                   </div>
                 </div>
                 <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">

@@ -87,4 +87,11 @@ Route::get('Carrito', 'OrdenesController@getCarrito')->name('Carrito');
 Route::get('Resumen', 'OrdenesController@getResumen')->name('Resumen');
 
 
+Route::get('getArticulos', 'OrdenesController@getArticulos')->name('getArticulos');
+Route::post('guardar_solicitud', 'OrdenesController@getGuardarSolicitud')->name('guardar_solicitud');
+Route::post('/Update', 'OrdenesController@Update')->name('/Update');
+
+Route::post('getSolicitudes', 'OrdenesController@getSolicitudes')->name('getSolicitudes');
+
+
 Auth::routes();

@@ -11,7 +11,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>GumaDesk | Tickets &amp; Solicitudes</title>
+    <title>Solcitudes | Lorem &amp; ipsum </title>
 
 
     <!-- ===============================================-->
@@ -36,7 +36,8 @@
     <link href="{{ asset('css/theme_gumadesk/css/theme.min.css') }}" rel="stylesheet" id="style-default">
     <link href="{{ asset('css/theme_gumadesk/css/user-rtl.min.css') }}" rel="stylesheet" id="user-style-rtl">
     <link href="{{ asset('css/theme_gumadesk/css/user.min.css') }}" rel="stylesheet" id="user-style-default">
-
+    <link href="{{ asset('js/theme_gumadesk/vendors/choices/choices.min.css') }}" rel="stylesheet" >
+    <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
     
     <script>
         var linkRTL = document.getElementById('style-rtl');
@@ -96,21 +97,17 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="{{ asset('js/theme_gumadesk/vendors/list.js/list.min.js') }}"></script>
     <script src="{{ asset('js/theme_gumadesk/theme.js') }}"></script>
-    
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/theme_gumadesk/vendors/choices/choices.min.js') }}"></script>
+    <script src="{{ asset('js/Numeral.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
     
-    <script>
-        $("#id_new_ticket").click(function(event) {
-            window.location = "nuevo_ticket" ;
-
-        });
-        var navbarStyle = localStorage.getItem("navbarStyle");
-            if (navbarStyle && navbarStyle !== 'transparent') {
-                document.querySelector('.navbar-vertical').classList.add(`navbar-${navbarStyle}`);
-            }
-    </script>
-    @include('jsViews.js_catalogo');
+    <script src="{{ asset('js/sweetalert2.all.js') }}"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>    
+    
+    @yield('metodosjs')
+    
+    
 </body>
 
 </html>
