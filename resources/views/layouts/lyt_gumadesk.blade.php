@@ -98,6 +98,7 @@
     <script src="{{ asset('js/theme_gumadesk/vendors/list.js/list.min.js') }}"></script>
     <script src="{{ asset('js/theme_gumadesk/theme.js') }}"></script>
     <script src="{{ asset('js/theme_gumadesk/vendors/choices/choices.min.js') }}"></script>
+    <script src="{{ asset('js/moment.js') }}"></script>
     <script src="{{ asset('js/Numeral.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>

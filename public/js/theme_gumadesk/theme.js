@@ -3925,37 +3925,8 @@ var searchInit = function searchInit() {
 
 
 
-  var searchAreas = document.querySelectorAll(Selectors.SEARCH_BOX);
 
-  var hideAllSearchAreas = function hideAllSearchAreas() {
-    searchAreas.forEach(hideSearchSuggestion);
-  };
 
-  searchAreas.forEach(function (searchArea) {
-    var input = searchArea.querySelector(Selectors.SEARCH_INPUT);
-    var btnDropdownClose = searchArea.querySelector(Selectors.SEARCH_DISMISS);
-    var dropdownMenu = searchArea.querySelector(Selectors.DROPDOWN_MENU);
-
-    if (input) {
-      input.addEventListener(Events.FOCUS, function () {
-        hideAllSearchAreas();
-        var el = searchArea.querySelector(Selectors.SEARCH_TOGGLE);
-        el.setAttribute(Attribute.ARIA_EXPANDED, 'true');
-        el.classList.add(ClassName.SHOW);
-        dropdownMenu.classList.add(ClassName.SHOW);
-      });
-    }
-
-    document.addEventListener(Events.CLICK, function (_ref11) {
-      var target = _ref11.target;
-    });
-    btnDropdownClose && btnDropdownClose.addEventListener(Events.CLICK, function (e) {
-      hideSearchSuggestion(searchArea);
-      input.value = '';
-      var event = new CustomEvent(Events.SEARCH_CLOSE);
-      e.currentTarget.dispatchEvent(event);
-    });
-  });
   document.querySelectorAll(Selectors.DROPDOWN_TOGGLE).forEach(function (dropdown) {
     dropdown.addEventListener(Events.SHOW_BS_DROPDOWN, function () {
       hideAllSearchAreas();

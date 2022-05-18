@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use App\Models\Notificaciones;
+use App\Models\Ingreso;
 
 class solicitud extends Model {
     protected $table = "view_Solicitudes";
@@ -30,7 +31,7 @@ class solicitud extends Model {
                 $obj_solicitud->Estados             = '0';
 
                 $obj_solicitud->save();
-                solicitud::InsertNotificaciones($request);
+                //solicitud::InsertNotificaciones($request);
                 return response()->json($obj_solicitud);
                 
             } catch (Exception $e) {
@@ -73,15 +74,27 @@ class solicitud extends Model {
                 $Campo  = $request->input('Campo');
                 $Valor  = $request->input('valor');
 
-                $response =   solicitud::where('id_solicitud',  $id)->update([
-                    $Campo => $Valor,
-                ]);
+                
+
+                if($Campo!='Ingreso'){
+                    $response =   tblsolicitud::where('id_solicitud',  $id)->update([
+                        $Campo => $Valor,
+                    ]);
+                }else{
+                    $Ingreso = new Ingreso();
+                    $Ingreso->id_solicitud           = $id;
+                    $Ingreso->Cantidad         = $Valor;                
+                    $Ingreso->Fecha    = date('Y-m-d');
+                    $Ingreso->Activo     = 'S';
+                    
+                    $Ingreso->save();
+                }
 
                 
 
                 return response()->json($response);
 
-                solicitud::InsertNotificaciones($request);
+                //solicitud::InsertNotificaciones($request);
 
             } catch (Exception $e) {
                 $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";

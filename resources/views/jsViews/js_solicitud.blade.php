@@ -5,6 +5,29 @@
     var nMes   = $("#id_select_nmes option:selected").val();           
     var annio  = $("#id_select_annio option:selected").val()
 
+    var tbl_hide_colum = []
+
+    
+    
+    var intVal = function ( i ) {
+        return typeof i === 'string' ?
+        i.replace(/[^0-9.]/g, '')*1 :
+        typeof i === 'number' ?
+        i : 0;
+    };
+
+    var var_rol = intVal($("#id_rol").text());      
+
+    if(var_rol===1){
+
+    } else if(var_rol===5){
+        tbl_hide_colum = [2,3,4,5,6,7,9]
+    }else if(var_rol===6){
+        tbl_hide_colum = [1,3,6,7,9]
+    }else if(var_rol===4){
+        tbl_hide_colum = [1,2,4,5]
+    }
+
     
 
     getData();
@@ -228,8 +251,6 @@
                     tt_pie_In_parci = ( In_parci  * 100 ) /  tt_row
                     tt_pie_In_Total = ( In_Total  * 100 ) /  tt_row
 
-                    console.log(tt_pie_Transito)
-
 
                     $('#id_porcent_transito').text(numeral(tt_pie_Transito).format('0,0'));
                     $('#id_porcent_Retenido').text(numeral(tt_pie_Retenido).format('0,0'));
@@ -324,16 +345,41 @@
                     "title": "Solicitud",
                     "data": "Articulos",
                     "render": function(data, type, row, meta) {
+                        var scope = moment(row.Fecha_Solicitada).format("D MMM, YYYY")
+
+                        var icon = 'fa-ban text-warning'
+                        var sta = 1;
+                        var btnRetencion = ''
+
+                        if(row.Estados === '1'){
+                            icon = 'fa-check text-success'
+                            sta = 0;
+                        }
+
+                        if(( var_rol === 4 ) || ( var_rol === 1 ) ){
+
+                            btnRetencion = '<span class="ms-1 fas '+icon+' " data-fa-transform="shrink-2" onclick="ChanceStatus(' + row.id_solicitud + ','+sta+')" ></span> '
+
+                        }
+
                         return '<div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset("images/user/avatar-4.jpg") }}"alt="" width="60">'+
                         '<div class="flex-1 ms-3">'+
-                            '<h6 class="mb-1 fw-semi-bold text-nowrap"><a class="text-900 stretched-link" href="#!"> <a href="OrdenesDetalles"> <strong>#' + row.id_solicitud + ' </strong></a> - ' + row.Descripcion + ' </a></h6>'+
-                            '<p class="fw-semi-bold mb-0 text-500">' + row.Articulos + ' - -</p>'+
+                            '<h6 class="mb-1 fw-semi-bold text-nowrap"><a href="OrdenesDetalles"> <strong>#' + row.id_solicitud + ' </strong></a> - ' + row.Descripcion + '</h6>'+
+                            '<p class="fw-semi-bold mb-0 text-500">' + row.Articulos + ' -'+ 
+                            btnRetencion+
+                            '<span class="ms-1 fas fa-trash text-danger" data-fa-transform="shrink-2" onclick="ChanceStatus(' + row.id_solicitud + ',4)" ></span>'+
+                            
+                            '</p>'+ 
+                            
+                            '<p class="fs--2 mb-0">' + scope + '</p>'+                           
                         '</div>'+
                         '</div>'
 
+                        
+
                     },
                 },
-                {"title": "Fecha Solicitada","data": "Fecha_Solicitada"},
+                //{"title": "Fecha Solicitada","data": "Fecha_Solicitada"},
                 {"title": "Proyeccion Mensual","data": "proyect_mensual", "render" : function (data, type, row, meta){
 
                         return numeral(data).format('0,0.00')
@@ -367,41 +413,28 @@
                 },
                 {"title": "Dias Transcurridos","data": "Dias_Transcurridos","render": $.fn.dataTable.render.number(',', '.', 0)},
                 {"title": "Transito","data": "Estados", "render" : function (data, type, row, meta){
-                        if(row.Estados === '0'){
-                            return '<span class="badge badge rounded-pill d-block badge-soft-secondary">Transito<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span></span> '
-                        }
+
                         if(row.Estados === '1'){
-                            return '<span class="badge badge rounded-pill d-block badge-soft-warning">Retenido<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span>'
+                            return '<span class="badge badge rounded-pill d-block badge-soft-warning">Retenido<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span></span>'
                         }
-                        if(row.Estados === '2'){
-                            return '<span class="badge badge rounded-pill d-block badge-soft-primary">Ingreso Parcial<span class="ms-1 fas fa-redo" data-fa-transform="shrink-2"></span></span>'
-                        }
-                        if(row.Estados === '3'){
+
+                        if(intVal(row.Ingreso) === 0){
+                            return '<span class="badge badge rounded-pill d-block badge-soft-secondary">En Proceso<span class="ms-1 fas fa-clock" data-fa-transform="shrink-2"></span></span> '
+                        }                       
+
+                        
+                        if(intVal(row.Pendiente) <= 0){
                             return '<span class="badge badge rounded-pill d-block badge-soft-success">Ingreso Total<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>'
+                        }else{
+                            return '<span class="badge badge rounded-pill d-block badge-soft-primary">Ingreso Parcial<span class="ms-1 fas fa-redo" data-fa-transform="shrink-2"></span></span>'
                         }
 
                     }
                 },
-                {
-                    "title": " - ",
-                    "data": "Articulos",
-                    "render": function(data, type, row, meta) {
-                        return '<div class="dropdown font-sans-serif position-static">'+
-                            '<button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>'+
-                            '<div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">'+
-                                '<div class="bg-white py-2">'+
-                                '<a class="dropdown-item" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ',0)">Transito</a>'+
-                                '<a class="dropdown-item" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ',1)">Retenido</a>'+
-                                '<a class="dropdown-item" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ',2)">Ingreso Parcial</a>'+
-                                '<a class="dropdown-item" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ',3)">Ingreso Total</a>'+
-                                '<div class="dropdown-divider"  ></div><a class="dropdown-item text-danger" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ',4)">Borrar</a>'+
-                                '</div>'+
-                            '</div>'+
-                            '</div>'
-
-                    },
-                },
-
+                
+                {"title": "","data": "Dias_Transcurridos","render": function(data, type, row, meta) {
+                    return 'COMENATARIOS'
+                }}
                 
 
             ],
@@ -417,13 +450,13 @@
                 
                 {
                     "className": "py-2 align-middle white-space-nowrap text-end",
-                    "targets": [11]
+                    "targets": [10]
                 },
                 
                 {
                     "visible": false,
                     "searchable": false,
-                    "targets": []
+                    "targets": tbl_hide_colum
                 },
                 {
                     "width": "10%",
@@ -524,36 +557,83 @@
 
         var vali_number = 'soloNumeros(event.keyCode, event, $(this).val())'
 
+        let estado = dtData.Estados
+
+        
 
         let IdSolci = dtData.id_solicitud;
 
-        if(visIdx===3){
-            Campo = 'Inventario_real'
-            lblTitulo = 'Inventario Real'
-            isSend = true
-        }
-        if(visIdx===4){
-            Campo = 'Cant_solicitada'
-            lblTitulo ='Cantidad Solicitada'
-            isSend = true
+        console.log(visIdx)
+
+        if(var_rol === 1){
+            if(visIdx===2){
+                Campo = 'Inventario_real'
+                lblTitulo = 'Inventario Real'
+                isSend = true
+            }
+            if(visIdx===3){
+                Campo = 'Cant_solicitada'
+                lblTitulo ='Cantidad Solicitada'
+                isSend = true
+            }
+
+            if(visIdx===4){
+                Campo = 'Ingreso'
+                lblTitulo = 'Ingreso'
+                isSend = true
+            }
+            
+            if(visIdx===6){
+                Campo = 'Tiempo_Entrega'
+                lblTitulo = 'Tiempo de Entrega'
+                isSend = true
+            }
+            if(visIdx===7){
+                Campo = 'Proveedor'
+                lblTitulo = 'Proveedor'
+                isSend = true
+                vali_number = ''
+            }
         }
 
-        if(visIdx===5){
-            Campo = 'Ingreso'
-            lblTitulo = 'Ingreso'
-            isSend = true
+        if(var_rol === 4){
+            if(visIdx===1){
+                Campo = 'Cant_solicitada'
+                lblTitulo ='Cantidad Solicitada'
+                isSend = true
+            }
+
+            
+            if(visIdx===2){
+                Campo = 'Tiempo_Entrega'
+                lblTitulo = 'Tiempo de Entrega'
+                isSend = true
+            }
+            if(visIdx===3){
+                Campo = 'Proveedor'
+                lblTitulo = 'Proveedor'
+                isSend = true
+                vali_number = ''
+            }
         }
-        
-        if(visIdx===7){
-            Campo = 'Tiempo_Entrega'
-            lblTitulo = 'Tiempo de Entrega'
-            isSend = true
+
+        if(var_rol === 6){
+            if(visIdx===1){
+                Campo = 'Inventario_real'
+                lblTitulo = 'Inventario Real'
+                isSend = true
+            }
+
+            if(visIdx===2){
+                Campo = 'Ingreso'
+                lblTitulo = 'Ingreso'
+                isSend = true
+            }            
+            
         }
-        if(visIdx===8){
-            Campo = 'Proveedor'
-            lblTitulo = 'Proveedor'
-            isSend = true
-            vali_number = ''
+
+        if(intVal(estado) === 1){
+            isSend= false
         }
 
         
