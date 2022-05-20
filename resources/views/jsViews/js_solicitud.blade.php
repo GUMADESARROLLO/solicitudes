@@ -491,6 +491,7 @@
 			},
         });
         $('#tbl_solicitudes thead').addClass('bg-200 text-900');
+        $('#tbl_solicitudes thead tr th').addClass('sort pe-1 align-middle white-space-nowrap');
         
         $("#tbl_solicitudes_length").hide();
         $("#tbl_solicitudes_filter").hide();
