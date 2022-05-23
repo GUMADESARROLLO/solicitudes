@@ -38,7 +38,6 @@
     <link href="{{ asset('css/theme_gumadesk/css/user.min.css') }}" rel="stylesheet" id="user-style-default">
     <link href="{{ asset('js/theme_gumadesk/vendors/choices/choices.min.css') }}" rel="stylesheet" >
     <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
-    
     <script>
         var linkRTL = document.getElementById('style-rtl');
         var userLinkRTL = document.getElementById('user-style-rtl');
@@ -105,6 +104,7 @@
     
     <script src="{{ asset('js/sweetalert2.all.js') }}"></script>
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>    
+    
     
     @yield('metodosjs')
     

@@ -128,6 +128,10 @@
                       <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span>
                       <span class="d-none d-sm-inline-block ms-1">Nuevo</span>
                     </button>
+                    <button class="btn btn-falcon-default btn-sm" type="button" id="">
+                      <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span>
+                      <span class="d-none d-sm-inline-block ms-1">Cargar</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -171,8 +175,7 @@
                         </div>
                         <p class="fs--1 text-500 mb-0 fw-semi-bold" id="id_count_Retenido">0.00</p>
                         <h6 class="text-700 mb-0"> <span id="id_porcent_Retenido"> 00 </span> %</h6>
-                      </div>
-                      <div class="d-flex flex-between-center border-bottom py-3">
+                      </div>                      <div class="d-flex flex-between-center border-bottom py-3">
                         <div class="d-flex">
                           <span class="badge badge rounded-pill d-block badge-soft-primary">Ingreso Parcial<span class="ms-1 fas fa-redo" data-fa-transform="shrink-2"></span></span>
                         </div>
@@ -192,6 +195,7 @@
                 <div class="card-footer bg-light p-0"><a class="btn btn-sm btn-link d-block py-2" href="#!"><br></a></div>
               </div>
             </div>
+            
           </div>
           @include('layouts.footer_gumadesk')
         </div>

@@ -5,7 +5,7 @@
     var nMes   = $("#id_select_nmes option:selected").val();           
     var annio  = $("#id_select_annio option:selected").val()
 
-    var tbl_hide_colum = []
+    var tbl_hide_colum = [2]
 
     
     
@@ -23,7 +23,7 @@
     } else if(var_rol===5){
         tbl_hide_colum = [2,3,4,5,6,7,9]
     }else if(var_rol===6){
-        tbl_hide_colum = [1,3,6,7,9]
+        tbl_hide_colum = [1,2,3,6,7,9]
     }else if(var_rol===4){
         tbl_hide_colum = [1,2,4,5]
     }
@@ -567,29 +567,29 @@
         console.log(visIdx)
 
         if(var_rol === 1){
-            if(visIdx===2){
+            /*if(visIdx===2){
                 Campo = 'Inventario_real'
                 lblTitulo = 'Inventario Real'
                 isSend = true
-            }
-            if(visIdx===3){
+            }*/
+            if(visIdx===2){
                 Campo = 'Cant_solicitada'
                 lblTitulo ='Cantidad Solicitada'
                 isSend = true
             }
 
-            if(visIdx===4){
+            if(visIdx===3){
                 Campo = 'Ingreso'
                 lblTitulo = 'Ingreso'
                 isSend = true
             }
             
-            if(visIdx===6){
+            if(visIdx===5){
                 Campo = 'Tiempo_Entrega'
                 lblTitulo = 'Tiempo de Entrega'
                 isSend = true
             }
-            if(visIdx===7){
+            if(visIdx===6){
                 Campo = 'Proveedor'
                 lblTitulo = 'Proveedor'
                 isSend = true
@@ -619,13 +619,13 @@
         }
 
         if(var_rol === 6){
-            if(visIdx===1){
+            /*if(visIdx===1){
                 Campo = 'Inventario_real'
                 lblTitulo = 'Inventario Real'
                 isSend = true
-            }
+            }*/
 
-            if(visIdx===2){
+            if(visIdx===1){
                 Campo = 'Ingreso'
                 lblTitulo = 'Ingreso'
                 isSend = true
