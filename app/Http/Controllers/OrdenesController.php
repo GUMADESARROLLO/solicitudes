@@ -59,6 +59,11 @@ class OrdenesController extends Controller {
         $response = Solicitud::GuardarSolicitud($request);
         return response()->json($response);
     }
+    public function postGuardarExcel(Request $request)
+    {
+        $response = Solicitud::GuardarExcel($request);
+        return response()->json($response);
+    }
     public function Update(Request $request)
     {
         $response = Solicitud::getUpdate($request);

@@ -1,7 +1,9 @@
 <script type="text/javascript">
     var dta_inventarios = []  
     var dta_aportes_mercados = []
+    var dta_table_excel = []
     var table = ''
+    var table_excel = ''
     var nMes   = $("#id_select_nmes option:selected").val();           
     var annio  = $("#id_select_annio option:selected").val()
 
@@ -32,6 +34,7 @@
 
     getData();
     CargarDatos(nMes,annio);
+    table_render_excel(dta_table_excel)
 
     function soloNumeros(caracter, e, numeroVal) {
         var numero = numeroVal;
@@ -124,7 +127,8 @@
     };
     var Selectors = {
         ADD_NUEVA_SOLCITUD: '#addNuevaSolicitud',
-        TABLE_SETTING: '#tbl_setting',        
+        TABLE_SETTING: '#tbl_setting',
+        ADD_MULTI_ROW: '#addMultiRow',
     };
    
     $("#id_btn_nueva_solicitud").click(function(){
@@ -134,7 +138,14 @@
         modal.show();
 
     });
+    $("#id_add_multi_row").click(function(){
+    
+        var addMultiRow = document.querySelector(Selectors.ADD_MULTI_ROW);
+        var modal = new window.bootstrap.Modal(addMultiRow);
+        modal.show();
 
+    });
+    
     $("#id_btn_setting").click(function(){
     
         var TABLE_SETTING = document.querySelector(Selectors.TABLE_SETTING);
@@ -142,7 +153,56 @@
         modal.show();
 
     });
+    $("#id_send_data_excel").click(function(){
+        var slct_mes    = $("#IdSelectMes option:selected").val();   
+        var slct_me_name    = $("#IdSelectMes option:selected").text();   
+        var slct_annio  = $("#IdSelectAnnio option:selected").val();   
 
+        if(dta_table_excel.length > 0){
+            Swal.fire({
+            title: '¿Estas Seguro de cargar ' + slct_me_name + ' ' + slct_annio + ' ?',
+            text: "¡Se cargara la informacion previamente visualizada!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si!',
+            target: document.getElementById('mdlMatPrima'),
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                $.ajax({
+                url: "guardar_excel",
+                data: {
+                    mes     : slct_mes,
+                    annio   : slct_annio,
+                    datos   : dta_table_excel,
+                    _token  : "{{ csrf_token() }}" 
+                },
+                type: 'post',
+                async: true,
+                success: function(response) {
+                    Swal.fire("Exito!", "Guardado exitosamente", "success");
+                },
+                error: function(response) {
+                    Swal.fire("Oops", "No se ha podido guardar!", "error");
+                }
+                }).done(function(data) {
+                    //CargarDatos(nMes,annio);
+                });
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        });
+
+            
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No hay datos para cargar!!!...',
+                
+            })
+        }
+    })
     $("#id_send_info").click(function(){
 
         var slct_valu   = $("#organizerSingle option:selected").val();   
@@ -150,7 +210,6 @@
         var dtaFecha    = $("#eventStartDate").val()
         var txtCantidad = $("#id_txt_proyeccion_mensual").val()
 
-        console.log()
 
         if(slct_valu===''){
             Swal.fire(
@@ -183,10 +242,10 @@
                 type: 'post',
                 async: true,
                 success: function(response) {
-                    swal("Exito!", "Guardado exitosamente", "success");
+                    Swal.fire("Exito!", "Guardado exitosamente", "success");
                 },
                 error: function(response) {
-                    swal("Oops", "No se ha podido guardar!", "error");
+                    Swal.fire("Oops", "No se ha podido guardar!", "error");
                 }
             }).done(function(data) {
                 CargarDatos(nMes,annio);
@@ -272,6 +331,54 @@
 
         CargarDatos(var_nMes,var_annio)
     })
+
+    $("#id_get_history").click(function(){
+        var var_nMes   = $("#IdSelectMes option:selected").val();           
+        var var_annio  = $("#IdSelectAnnio option:selected").val()
+        CargarDatos(var_nMes,var_annio)
+
+        $.ajax({
+            type: 'post',
+            data: {
+                mes      : nMes,
+                annio   : annio,                
+                _token  : "{{ csrf_token() }}" 
+            },
+            url: 'getSolicitudes', 
+            async: false,
+            dataType: "json",
+            success: function(data){
+                if (data[0]['data'].length > 0) {
+                    var Transito = 0;
+                    var Retenido = 0;
+                    var In_parci= 0;
+                    var In_Total= 0;
+
+                    dta_table_excel = [];
+                    $.each(data[0]['data'],function(key, registro) {
+
+                        
+                        dta_table_excel.push({ 
+                            Articulos: registro.Articulos,
+                            Descripcion: registro.Descripcion,
+                            proyect_mensual: '0.00',
+                            Fecha_Solicitada: registro.Fecha_Solicitada,
+                        })
+
+                    });
+                    table_render_excel(dta_table_excel)
+
+    
+                }
+
+                
+            },
+            error: function(data) {
+            }
+        });
+    })
+
+    
     function getData(){
         $.ajax({
             type: "GET",
@@ -310,6 +417,10 @@
     $('#tbl_search_solicitud').on('keyup', function() {
         table.search(this.value).draw();
     });
+    $('#id_searh_table_Excel').on('keyup', function() {
+        table_excel.search(this.value).draw();
+    });
+
 
 
     function table_render_solicitud(datos){
@@ -498,6 +609,76 @@
         
     }
 
+    function table_render_excel(datos){
+
+        table_excel =  $('#tbl_excel').DataTable({
+            "data": datos,
+            "destroy": true,
+            "info": false,
+            "bPaginate": true,
+            "order": [
+                [0, "asc"]
+            ],
+            "lengthMenu": [
+                [5, -1],
+                [5, "Todo"]
+            ],
+            "language": {
+                "zeroRecords": "NO HAY COINCIDENCIAS",
+                "paginate": {
+                    "first": "Primera",
+                    "last": "Última ",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "lengthMenu": "MOSTRAR _MENU_",
+                "emptyTable": "-",
+                "search": "BUSCAR"
+            },
+            'columns': [
+                {"title": "Articulo","data": "Articulos"},
+                {"title": "Descripcion","data": "Descripcion"},                
+                {"title": "Fecha de Solicitud","data": "Fecha_Solicitada"},
+                {"title": "Proyeccion Mensual","data": "proyect_mensual","render": $.fn.dataTable.render.number(',', '.', 2)},
+
+            ],
+            "columnDefs": [
+                {
+                    "className": "dt-center",
+                    "targets": [0,2]
+                },
+                {
+                    "className": "dt-right",
+                    "targets": [3]
+                },
+                
+                {
+                    "className": "dt-left",
+                    "targets": [1]
+                },
+                
+                {
+                    "visible": false,
+                    "searchable": false,
+                    "targets": []
+                },
+                {
+                    "width": "10%",
+                    "targets": []
+                },
+                {
+                    "width": "15%",
+                    "targets": []
+                },
+            ],
+            "footerCallback": function(row, data, start, end, display) {
+                
+            },
+        });
+        $("#tbl_excel_length").hide();
+        $("#tbl_excel_filter").hide();
+    }
+
     function ChanceStatus(id,value){
 
         var Campo = 'Estados'
@@ -531,10 +712,10 @@
                     },
                     async: true,
                     success: function(response) {
-                        swal("Exito!", "Guardado exitosamente", "success");
+                        Swal.fire("Exito!", "Guardado exitosamente", "success");
                     },
                     error: function(response) {
-                        swal("Oops", "No se ha podido guardar!", "error");
+                        Swal.fire("Oops", "No se ha podido guardar!", "error");
                     }
                 }).done(function(data) {
                     CargarDatos(nMes,annio);
@@ -678,10 +859,10 @@
                             },
                             async: true,
                             success: function(response) {
-                                swal("Exito!", "Guardado exitosamente", "success");
+                                Swal.fire("Exito!", "Guardado exitosamente", "success");
                             },
                             error: function(response) {
-                                swal("Oops", "No se ha podido guardar!", "error");
+                                Swal.fire("Oops", "No se ha podido guardar!", "error");
                             }
                         }).done(function(data) {
                             CargarDatos(nMes,annio);
@@ -702,10 +883,10 @@
                             },
                             async: true,
                             success: function(response) {
-                                swal("Exito!", "Guardado exitosamente", "success");
+                                Swal.fire("Exito!", "Guardado exitosamente", "success");
                             },
                             error: function(response) {
-                                swal("Oops", "No se ha podido guardar!", "error");
+                                Swal.fire("Oops", "No se ha podido guardar!", "error");
                             }
                         }).done(function(data) {
                             CargarDatos(nMes,annio);
@@ -723,4 +904,73 @@
             {value: 40,name: 'INGRESO TOTAL'}
         )
     Echarts_Pie_Aportes_Mercado(dta_aportes_mercados)
+
+
+    var ExcelToJSON = function() {
+
+        this.parseExcel = function(file) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var data = e.target.result;
+            var workbook = XLSX.read(data, {type: 'binary'});
+            workbook.SheetNames.forEach(function(sheetName) {
+                var XL_row_object   = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                var json_object     = JSON.stringify(XL_row_object);
+                var objJson         = JSON.parse(json_object)
+
+                dta_table_excel = [];
+                $.each(objJson,function(key, objJson) {
+
+                    var varCodigo  = isValue(objJson.Codigo,'N/D',true)
+                    var varDescripcion  = isValue(objJson.Descripcion,'N/D',true)
+                    var varFecha_de_Solicitud  = isValue(objJson.Fecha_de_Solicitud,'0000-00-00',true)                    
+                    varFecha_de_Solicitud = (varFecha_de_Solicitud ==='0000-00-00') ? varFecha_de_Solicitud : moment(varFecha_de_Solicitud).format("YYYY-MM-DD")
+                    var varProyeccion_Mensual  = isValue(objJson.Proyeccion_Mensual,'0.00',true)
+
+                    
+                    dta_table_excel.push({ 
+                        Articulos: varCodigo,
+                        Descripcion: varDescripcion,
+                        proyect_mensual: varProyeccion_Mensual,
+                        Fecha_Solicitada: varFecha_de_Solicitud,
+                    })
+
+
+                });
+                table_render_excel(dta_table_excel)
+            })
+        };
+
+        reader.onerror = function(ex) {
+
+        };
+
+        reader.readAsBinaryString(file);
+
+        };
+    };
+    function handleFileSelect(evt) {    
+        var files = evt.target.files;
+        var xl2json = new ExcelToJSON();
+        console.log("XD")
+        xl2json.parseExcel(files[0]);
+    }
+    $('#upload').on("change", function(e){ 
+        console.log("XD")
+        handleFileSelect(e)
+    });
+
+    function isValue(value, def, is_return) {
+    if ( $.type(value) == 'null'
+        || $.type(value) == 'undefined'
+        || $.trim(value) == ''
+        || ($.type(value) == 'number' && !$.isNumeric(value))
+        || ($.type(value) == 'array' && value.length == 0)
+        || ($.type(value) == 'object' && $.isEmptyObject(value)) ) {
+        return ($.type(def) != 'undefined') ? def : false;
+    } else {
+        return ($.type(is_return) == 'boolean' && is_return === true ? value : true);
+    }
+}
 </script>

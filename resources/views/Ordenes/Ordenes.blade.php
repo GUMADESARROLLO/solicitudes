@@ -10,14 +10,29 @@
         padding-top: 20px;
 
     }
-
+    .notification-body {
+      width: 100% !important;
+    }
     .dataTables_paginate a {
         padding: 0 10px;
-        /*border:1px solid #979797;*/
-        /* background: linear-gradient(to bottom, white 0%, #0F85FC 100%);*/
         margin-inline: 5px;
     }
 
+    .dataTables_wrapper .dataTables_paginate {
+      font-size: .8rem;      
+    }
+
+    .dt-center {
+      text-align: center;
+    }
+
+    .dt-right {
+      text-align: right;
+    }
+
+    .dt-left {
+      text-align: left;
+    }
     .custom {
         min-width: 70%;
         min-height: 100%;
@@ -124,11 +139,8 @@
                       <span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span>
                       <span class="d-none d-sm-inline-block ms-1">Filtro</span>
                     </button>
-                    <button class="btn btn-falcon-default btn-sm" type="button" id="id_btn_nueva_solicitud">
-                      <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span>
-                      <span class="d-none d-sm-inline-block ms-1">Nuevo</span>
-                    </button>
-                    <button class="btn btn-falcon-default btn-sm" type="button" id="">
+                    
+                    <button class="btn btn-falcon-default btn-sm" type="button" id="id_add_multi_row">
                       <span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span>
                       <span class="d-none d-sm-inline-block ms-1">Cargar</span>
                     </button>
@@ -195,13 +207,15 @@
                 <div class="card-footer bg-light p-0"><a class="btn btn-sm btn-link d-block py-2" href="#!"><br></a></div>
               </div>
             </div>
-            
           </div>
+          
+       
+          
           @include('layouts.footer_gumadesk')
         </div>
             
         <div class="modal fade" id="addNuevaSolicitud" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
-          <div class="modal-dialog mt-6" role="document">
+          <div class="modal-dialog modal-xl mt-6" role="document">
             <div class="modal-content border-0">
               <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
                 <div class="position-relative z-index-1 light">
@@ -218,7 +232,7 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                  <label class="fs-0" for="eventStartDate">Fecha</label>
+                  <label class="fs-0" for="eventStartDate">Fecha de Solicitud</label>
                   <input class="form-control datetimepicker" id="eventStartDate" type="text" required="required" name="startDate" placeholder="yyyy/mm/dd" data-options='{"static":"true","enableTime":"false","dateFormat":"Y-m-d"}' />
                 </div>
                 <div class="row gx-2">
@@ -235,8 +249,93 @@
           </div>
         </div>
 
+        <div class="modal fade" id="addMultiRow" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
+          <div class="modal-dialog modal-xl mt-6" role="document">
+            <div class="modal-content border-0">
+              <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
+                <div class="position-relative z-index-1 light">
+                  <h4 class="mb-0 text-white" id="authentication-modal-label">Multiples Filas</h4>
+                  <p class="fs--1 mb-0 text-white">Puede descar el formato para carga la informacion dando click Aqui</p>
+                </div>
+                <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body py-4 px-5 ">
+                <div class="row">
+                  <div class="col-md-5">
+                    <input class="form-control" id="upload" type=file  name="files[]"/>
+                  </div>
+                  <div class="col-md-2">
+                    <select class="form-select" id="IdSelectMes">
+                        <?php                        
+                            $mes = date("m");
+
+                            $meses = array('none','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
+
+                            for ($i= 1; $i <= 12 ; $i++) {
+                              if ($i==$mes) {
+                                  echo'<option selected value="'.$i.'">'.$meses[$i].'</option>';
+                              }else {
+                                  echo'<option value="'.$i.'">'.$meses[$i].'</option>';
+                              }
+                            }
+                        ?>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                      <select class="form-select" id="IdSelectAnnio">
+                        <?php
+                            $year = date("Y");
+                            for ($i= 2018; $i <= $year ; $i++) {
+                                if ($i==$year) {
+                                    echo'<option selected value="'.$i.'">'.$i.'</option>';
+                                }else {
+                                    echo'<option value="'.$i.'">'.$i.'</option>';
+                                }
+                            }
+                        ?>
+                      </select>
+                  </div>
+                  
+                  <div class="col-md-3">
+                        <div class="input-group">
+                          <input class="form-control  shadow-none search" type="search"  id="id_searh_table_Excel" placeholder="Ingrese informacion a buscar." aria-label="search" />
+                          <div class="input-group-text bg-transparent">
+                            <span class="fa fa-search fs--1 text-600"></span>
+                          </div>
+                          <div class="input-group-text bg-transparent" id="id_get_history">
+                            <span class="fa fa-history fs--1 text-600"></span>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                  
+                  
+
+                  <div class="mb-3 mt-3">
+                    
+
+                      <div class="notification" href="#!">
+                        
+                        <div class="notification-body">
+                        <table class="table table-hover table-striped overflow-hidden" id="tbl_excel" style="width:100%"></table>  
+                    
+                        </div>
+                          </div>
+
+
+                    
+                  </div>
+                              
+                  <div class="mb-3">
+                    <button class="btn btn-primary d-block w-100 mt-3" id="id_send_data_excel" type="submit" name="submit">Cargar</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="modal fade" id="tbl_setting" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
-          <div class="modal-dialog mt-6" role="document">
+          <div class="modal-dialog modal-xl mt-6" role="document">
             <div class="modal-content border-0">
               <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
                 <div class="position-relative z-index-1 light">

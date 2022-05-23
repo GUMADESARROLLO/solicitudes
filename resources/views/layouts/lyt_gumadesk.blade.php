@@ -102,9 +102,10 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
     
-    <script src="{{ asset('js/sweetalert2.all.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>    
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
     
     @yield('metodosjs')
     

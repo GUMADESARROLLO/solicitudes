@@ -92,6 +92,7 @@ Route::post('guardar_solicitud', 'OrdenesController@getGuardarSolicitud')->name(
 Route::post('/Update', 'OrdenesController@Update')->name('/Update');
 
 Route::post('getSolicitudes', 'OrdenesController@getSolicitudes')->name('getSolicitudes');
+Route::post('guardar_excel', 'OrdenesController@postGuardarExcel')->name('guardar_excel');
 
 
 Auth::routes();
