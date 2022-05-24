@@ -21,13 +21,17 @@
     var var_rol = intVal($("#id_rol").text());      
 
     if(var_rol===1){
-
+        $("#id_add_multi_row").show();
     } else if(var_rol===5){
         tbl_hide_colum = [2,3,4,5,6,7,9]
+
+        $("#id_add_multi_row").show();
     }else if(var_rol===6){
         tbl_hide_colum = [1,2,3,6,7,9]
+        $("#id_add_multi_row").hide();
     }else if(var_rol===4){
         tbl_hide_colum = [1,2,4,5]
+        $("#id_add_multi_row").hide();
     }
 
     
@@ -205,19 +209,14 @@
     })
     $("#id_send_info").click(function(){
 
-        var slct_valu   = $("#organizerSingle option:selected").val();   
-        var slct_text   = $("#organizerSingle option:selected").text().split("-");
+        var dtaId       = $("#id_row").text()
         var dtaFecha    = $("#eventStartDate").val()
         var txtCantidad = $("#id_txt_proyeccion_mensual").val()
 
+        console.log(dtaId + " - > " + dtaFecha + " - > " + txtCantidad)
 
-        if(slct_valu===''){
-            Swal.fire(
-            'Articulo',
-            'No tiene articulo seleccionado',
-            'error'
-            )
-        }else if(dtaFecha===''){
+
+        if(dtaFecha===''){
             Swal.fire(
                 'Fecha',
                 'No tiene Fecha seleccionada',
@@ -233,8 +232,7 @@
             $.ajax({
                 url: "guardar_solicitud",
                 data: {
-                    articulo    : slct_valu,
-                    descripcion : slct_text[1],
+                    rowID       : dtaId,
                     fecha       : dtaFecha,
                     cantidad    : txtCantidad,
                     _token: "{{ csrf_token() }}" 
@@ -436,8 +434,8 @@
                 [0, "asc"]
             ],
             "lengthMenu": [
-                [5, -1],
-                [5, "Todo"]
+                [10, -1],
+                [10, "Todo"]
             ],
             "language": {
                 "zeroRecords": "NO HAY COINCIDENCIAS",
@@ -493,7 +491,8 @@
                 //{"title": "Fecha Solicitada","data": "Fecha_Solicitada"},
                 {"title": "Proyeccion Mensual","data": "proyect_mensual", "render" : function (data, type, row, meta){
 
-                        return numeral(data).format('0,0.00')
+                        
+                        return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
                     } 
                 },
                 {"title": "Inventario Real","data": "Inventario_real", "render" : function (data, type, row, meta){
@@ -745,14 +744,20 @@
 
         let IdSolci = dtData.id_solicitud;
 
-        console.log(visIdx)
-
         if(var_rol === 1){
-            /*if(visIdx===2){
-                Campo = 'Inventario_real'
-                lblTitulo = 'Inventario Real'
-                isSend = true
-            }*/
+            if(visIdx===1){               
+
+                $("#id_mdl_articulo").text(dtData.Articulos)
+                $("#id_row").text(dtData.id_solicitud)
+                $("#id_mdl_nombre_articulo").text(dtData.Descripcion)
+                
+
+                var addNuevaSolicitud = document.querySelector(Selectors.ADD_NUEVA_SOLCITUD);
+                var modal = new window.bootstrap.Modal(addNuevaSolicitud);
+                modal.show();
+
+                
+            }
             if(visIdx===2){
                 Campo = 'Cant_solicitada'
                 lblTitulo ='Cantidad Solicitada'
@@ -797,6 +802,21 @@
                 isSend = true
                 vali_number = ''
             }
+        }
+
+        if(var_rol === 5){
+            if(visIdx===1){
+                
+                $("#id_mdl_articulo").text(dtData.Articulos)
+                $("#id_row").text(dtData.id_solicitud)
+                $("#id_mdl_nombre_articulo").text(dtData.Descripcion)
+                
+
+                var addNuevaSolicitud = document.querySelector(Selectors.ADD_NUEVA_SOLCITUD);
+                var modal = new window.bootstrap.Modal(addNuevaSolicitud);
+                modal.show();                
+            }            
+            
         }
 
         if(var_rol === 6){

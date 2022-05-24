@@ -17,22 +17,16 @@ class solicitud extends Model {
         if ($request->ajax()) {
             try {
 
-                $obj_solicitud = new tblsolicitud();
-                $obj_solicitud->Articulos           = $request->input('articulo');
-                $obj_solicitud->Descripcion         = $request->input('descripcion');                
-                $obj_solicitud->Fecha_Solicitada    = $request->input('fecha');
-                $obj_solicitud->Cant_solicitada     = number_format(0,2);
-                $obj_solicitud->proyect_mensual     = $request->input('cantidad');
-                $obj_solicitud->Inventario_real     = number_format(0,2);                                
-                $obj_solicitud->Ingreso             = number_format(0,2);                
-                $obj_solicitud->Tiempo_Entrega      = 'N/D';                
-                $obj_solicitud->Proveedor           = 'N/D';                
-                $obj_solicitud->Activo              = 'S';
-                $obj_solicitud->Estados             = '0';
+                $id         = $request->input('rowID');
+                $Fecha      = $request->input('fecha');
+                $Cantidad   = $request->input('cantidad');
 
-                $obj_solicitud->save();
-                //solicitud::InsertNotificaciones($request);
-                return response()->json($obj_solicitud);
+
+                $response =   tblsolicitud::where('id_solicitud',  $id)->update([
+                    'Fecha_Solicitada'  => $Fecha,
+                    'proyect_mensual'   => $Cantidad,
+                ]);
+                return response()->json($response);
                 
             } catch (Exception $e) {
                 $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";

@@ -219,13 +219,13 @@
             <div class="modal-content border-0">
               <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
                 <div class="position-relative z-index-1 light">
-                  <h4 class="mb-0 text-white" id="authentication-modal-label">Solicitud</h4>
-                  <p class="fs--1 mb-0 text-white">Por favor ingrese los datos necesarios</p>
+                  <h4 class="mb-0 text-white" id="id_mdl_nombre_articulo">Nombre del Articulo a Modificar</h4>
+                  <p class="fs--1 mb-0 text-white" ><span id="id_mdl_articulo">000000</span>  - #<a href="!#" class="text-white"> <strong id="id_row"># 000 </strong></a> </p> 
                 </div>
                 <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body py-4 px-5">
-                <div class="mb-3">
+                <div class="mb-3" style="display:none">
                   <label for="organizerSingle">Articulo</label>
                     <select class="form-select js-choice" id="organizerSingle" size="1" name="organizerSingle" data-options='{"removeItemButton":true,"placeholder":true}'>
                       <option value="">Select organizer...</option>
@@ -242,7 +242,7 @@
                   </div>
                 </div>                
                 <div class="mb-3">
-                  <button class="btn btn-primary d-block w-100 mt-3" id="id_send_info" type="submit" name="submit">Crear</button>
+                  <button class="btn btn-primary d-block w-100 mt-3" id="id_send_info" type="submit" name="submit">Guardar</button>
                 </div>
               </div>
             </div>
@@ -255,7 +255,7 @@
               <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
                 <div class="position-relative z-index-1 light">
                   <h4 class="mb-0 text-white" id="authentication-modal-label">Multiples Filas</h4>
-                  <p class="fs--1 mb-0 text-white">Puede descar el formato para carga la informacion dando click Aqui</p>
+                  <p class="fs--1 mb-0 text-white">Puede descar el formato para carga la información dando click <a href="{{ asset('Formatos/Formato_Proyecciones.xlsx') }}" class="text-white" >Aqui </a></p>
                 </div>
                 <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
