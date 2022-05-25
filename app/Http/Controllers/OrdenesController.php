@@ -64,6 +64,16 @@ class OrdenesController extends Controller {
         $response = Solicitud::GuardarExcel($request);
         return response()->json($response);
     }
+    public function postGuardarComment(Request $request)
+    {
+        $response = Solicitud::postGuardarComment($request);
+        return response()->json($response);
+    }
+    public function getComment(Request $request)
+    {
+        $response = Solicitud::getComment($request);
+        return response()->json($response);
+    }
     public function Update(Request $request)
     {
         $response = Solicitud::getUpdate($request);

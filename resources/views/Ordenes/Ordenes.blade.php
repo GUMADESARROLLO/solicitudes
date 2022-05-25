@@ -129,8 +129,24 @@
               <div class="card">
               <div class="card-header">
               <div class="row flex-between-center">
+                
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                  <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Historial de Solicitudes</h5> <span id="id_rol" class="invisible">{{Session::get('rol')}}</span>
+                <div class="w-100">
+                    <h6 class="mb-3 text-800">Un total de <strong class="text-dark" id="id_total_solicitud"> 0.00 </strong> <span id="id_title_solicitudes"></span></h6>
+                    
+                    <div class="row fs--1 fw-semi-bold text-500 g-0" id="id_count_table">
+                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-warning"></span><span>Retenido </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block" id="id_total_Retenido"> (0)</span></div>
+                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-info"></span><span>Ingreso Parcial </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block" id="id_total_Parcial"> (0)</span></div>
+                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-success"></span><span>Ingreso Total </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block" id="id_total_total"> (0)</span></div>
+                      <div class="col-auto d-flex align-items-center"><span class="dot bg-200"></span><span>En Proceso </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block" id="id_total_soli"> (0)</span></div>
+                    </div>
+                  </div>
+
+               
+
+
+                  <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0 invisible" >Historial de Solicitudes</h5> 
+                  <span id="id_rol" class="invisible">{{Session::get('rol')}}</span>
                 </div>
                 <div class="col-8 col-sm-auto ms-auto text-end ps-0">
                   <div id="orders-actions">
@@ -168,7 +184,7 @@
                         <div class="echart-most-leads my-2" data-echart-responsive="true"></div>
                         <div class="position-absolute top-50 start-50 translate-middle text-center">
                           <p class="fs--1 mb-0 text-400 font-sans-serif fw-medium">Total</p>
-                          <p class="fs-3 mb-0 font-sans-serif fw-medium mt-n2" id="id_total_soli">00</p>
+                          <p class="fs-3 mb-0 font-sans-serif fw-medium mt-n2" >00</p>
                         </div>
                       </div>
                     </div>
@@ -214,6 +230,45 @@
           @include('layouts.footer_gumadesk')
         </div>
             
+
+        <div class="modal fade" id="IdmdlComment" data-keyboard="false" tabindex="-1" aria-labelledby="scrollinglongcontentLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+            <div class="card-header bg-light">
+                  <div class="row justify-content-between">
+                    <div class="col">
+                      <div class="d-flex">
+                        <div class="avatar avatar-2xl">
+                          <img class="rounded-circle" src="{{ asset('images/item.png') }}" alt="" />
+
+                        </div>
+                        <div class="flex-1 align-self-center ms-2">
+                          <p class="mb-1 lh-1"><a class="fw-semi-bold" href="!#" id="id_modal_name_item" >Nombre Item</a></p>
+                          <p class="mb-0 fs--1"><span id="id_modal_articulo"></span> &bull; #<span id="id_modal_nSoli"></span> &bull; <span id="id_modal_Fecha"></span> <span class="fas fa-calendar"></span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div class="modal-body">
+                
+                <div class="d-flex align-items-center border-top border-200 pt-3">
+                  <div class="avatar avatar-xl">
+                    <img class="rounded-circle" src="{{ asset('images/user/avatar-4.jpg') }}" alt="" />
+                  </div>
+                  <input class="form-control rounded-pill ms-2 fs--1" type="text" placeholder="Escribe un Comentario..." id="id_textarea_comment" />
+                </div>
+
+                
+                <div id="id_comment_item"></div>
+                
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
         <div class="modal fade" id="addNuevaSolicitud" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
           <div class="modal-dialog modal-xl mt-6" role="document">
             <div class="modal-content border-0">

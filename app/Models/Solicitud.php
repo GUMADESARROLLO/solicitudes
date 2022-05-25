@@ -54,7 +54,6 @@ class solicitud extends Model {
 
                 }else{                    
                     $id_insert = $isExit[0]['id_metas'];
-
                     tblsolicitud::where('id_meta',$id_insert)->delete();
                 }
                 
@@ -65,12 +64,13 @@ class solicitud extends Model {
                     $datos_a_insertar[$key]['Fecha_Solicitada']     = $val['Fecha_Solicitada'];
                     $datos_a_insertar[$key]['Activo']               = 'S';
                     $datos_a_insertar[$key]['Proveedor']            = 'N/D';
+                    $datos_a_insertar[$key]['Estados']              = '0';
                     $datos_a_insertar[$key]['created_at']           = date('Y-m-d H:i:s');
                     $datos_a_insertar[$key]['id_meta']              = $id_insert;
                 }
 
                 tblsolicitud::insert($datos_a_insertar); 
-
+                
                 return response()->json($datos_a_insertar);
                 
             } catch (Exception $e) {
@@ -142,10 +142,41 @@ class solicitud extends Model {
         }
 
     }
+    public static function postGuardarComment(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+
+                $id         = $request->input('id_item');
+                $Comment    = $request->input('comment');
+                $id_user    = $request->user()->id;
+
+                
+
+                $ObjComment = new Comment();
+                $ObjComment->id_solicitud  = $id;
+                $ObjComment->comment       = $Comment; 
+                $ObjComment->Activo        = 'S';      
+                $ObjComment->id_usuario    = $id_user;           
+                $ObjComment->save();                
+
+                return response()->json($ObjComment);
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+
+    }
     public static function getSolicitudes(Request $request){
         $Mes     = $request->input('mes');
         $Annio  = $request->input('annio');
         return solicitud::where('Activo', 'S')->where('nMes', $Mes)->where('nAnnio', $Annio)->get();
+    }
+    public static function getComment(Request $request){
+        $Id     = $request->input('id_item');
+        return viewcomment::where('Activo', 'S')->where('id_solicitud', $Id)->get();
     }
 
     public static function getSolicitudesCount(Request $request){

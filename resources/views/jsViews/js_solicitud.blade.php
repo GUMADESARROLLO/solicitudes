@@ -4,10 +4,13 @@
     var dta_table_excel = []
     var table = ''
     var table_excel = ''
+
     var nMes   = $("#id_select_nmes option:selected").val();           
     var annio  = $("#id_select_annio option:selected").val()
 
-    var tbl_hide_colum = [2]
+    
+
+    var tbl_hide_colum = [2,10]
 
     
     
@@ -22,23 +25,30 @@
 
     if(var_rol===1){
         $("#id_add_multi_row").show();
+        $("#id_count_table").show();
+        
     } else if(var_rol===5){
-        tbl_hide_colum = [2,3,4,5,6,7,9]
+        tbl_hide_colum = [2,3,4,5,6,7,9,10]
 
         $("#id_add_multi_row").show();
+        $("#id_count_table").show();
     }else if(var_rol===6){
-        tbl_hide_colum = [1,2,3,6,7,9]
+        tbl_hide_colum = [1,2,3,6,7,9,10]
         $("#id_add_multi_row").hide();
+        $("#id_count_table").hide();
     }else if(var_rol===4){
-        tbl_hide_colum = [1,2,4,5]
+        tbl_hide_colum = [1,2,4,5,10]
         $("#id_add_multi_row").hide();
+        $("#id_count_table").hide();
     }
 
     
 
+
     getData();
     CargarDatos(nMes,annio);
     table_render_excel(dta_table_excel)
+    
 
     function soloNumeros(caracter, e, numeroVal) {
         var numero = numeroVal;
@@ -133,8 +143,8 @@
         ADD_NUEVA_SOLCITUD: '#addNuevaSolicitud',
         TABLE_SETTING: '#tbl_setting',
         ADD_MULTI_ROW: '#addMultiRow',
+        MODAL_COMMENT: '#IdmdlComment',
     };
-   
     $("#id_btn_nueva_solicitud").click(function(){
     
         var addNuevaSolicitud = document.querySelector(Selectors.ADD_NUEVA_SOLCITUD);
@@ -191,7 +201,7 @@
                     Swal.fire("Oops", "No se ha podido guardar!", "error");
                 }
                 }).done(function(data) {
-                    //CargarDatos(nMes,annio);
+                    CargarDatos(nMes,annio);
                 });
             },
             allowOutsideClick: () => !Swal.isLoading()
@@ -213,7 +223,6 @@
         var dtaFecha    = $("#eventStartDate").val()
         var txtCantidad = $("#id_txt_proyeccion_mensual").val()
 
-        console.log(dtaId + " - > " + dtaFecha + " - > " + txtCantidad)
 
 
         if(dtaFecha===''){
@@ -254,6 +263,11 @@
     });
     
     function CargarDatos(nMes,annio){
+        var name_nMes   = $("#id_select_nmes option:selected").text();           
+        $("#id_title_solicitudes").text(" Solicitudes al " + name_nMes + ' ' + annio)
+
+        table_render_solicitud([])
+
         $.ajax({
             type: 'post',
             data: {
@@ -333,7 +347,7 @@
     $("#id_get_history").click(function(){
         var var_nMes   = $("#IdSelectMes option:selected").val();           
         var var_annio  = $("#IdSelectAnnio option:selected").val()
-        CargarDatos(var_nMes,var_annio)
+        //CargarDatos(var_nMes,var_annio)
 
         $.ajax({
             type: 'post',
@@ -360,10 +374,11 @@
                             Articulos: registro.Articulos,
                             Descripcion: registro.Descripcion,
                             proyect_mensual: '0.00',
-                            Fecha_Solicitada: registro.Fecha_Solicitada,
+                            Fecha_Solicitada: moment(new Date()).format("YYYY-MM-DD"),
                         })
 
                     });
+
                     table_render_excel(dta_table_excel)
 
     
@@ -415,6 +430,37 @@
     $('#tbl_search_solicitud').on('keyup', function() {
         table.search(this.value).draw();
     });
+
+    $('#id_textarea_comment').keydown(function(event){
+        if (event.which == 13){
+
+            var id_Item = $("#id_modal_nSoli").text()
+            var value = $(this).val();
+
+            $.ajax({
+                url: "AddComment",
+                type: 'post',
+                data: {
+                    id_item     : id_Item,
+                    comment     : value,                    
+                    _token      : "{{ csrf_token() }}" 
+                },
+                async: true,
+                success: function(response) {
+                    getComment(id_Item)
+                },
+                error: function(response) {
+                   // Swal.fire("Oops", "No se ha podido guardar!", "error");
+                }
+            }).done(function(data) {
+                //CargarDatos(nMes,annio);
+            });
+        }
+    });
+
+
+    
+
     $('#id_searh_table_Excel').on('keyup', function() {
         table_excel.search(this.value).draw();
     });
@@ -422,8 +468,6 @@
 
 
     function table_render_solicitud(datos){
-
-        
 
         table = $('#tbl_solicitudes').DataTable({
             "data": datos,
@@ -446,7 +490,7 @@
                     "previous": "Anterior"
                 },
                 "lengthMenu": "MOSTRAR _MENU_",
-                "emptyTable": "REALICE UNA BUSQUEDA UTILIZANDO LOS FILTROS DE FECHA",
+                "emptyTable": "-",
                 "search": "BUSCAR"
             },
             'columns': [
@@ -454,6 +498,7 @@
                     "title": "Solicitud",
                     "data": "Articulos",
                     "render": function(data, type, row, meta) {
+                        
                         var scope = moment(row.Fecha_Solicitada).format("D MMM, YYYY")
 
                         var icon = 'fa-ban text-warning'
@@ -467,20 +512,22 @@
 
                         if(( var_rol === 4 ) || ( var_rol === 1 ) ){
 
-                            btnRetencion = '<span class="ms-1 fas '+icon+' " data-fa-transform="shrink-2" onclick="ChanceStatus(' + row.id_solicitud + ','+sta+')" ></span> '
+                            btnRetencion = '<span class="ms-1 fas '+icon+' " data-fa-transform="shrink-2" ></span> '
 
                         }
 
-                        return '<div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset("images/user/avatar-4.jpg") }}"alt="" width="60">'+
+                        return '<div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset("images/item.png") }}"alt="" width="60">'+
                         '<div class="flex-1 ms-3">'+
                             '<h6 class="mb-1 fw-semi-bold text-nowrap"><a href="OrdenesDetalles"> <strong>#' + row.id_solicitud + ' </strong></a> - ' + row.Descripcion + '</h6>'+
-                            '<p class="fw-semi-bold mb-0 text-500">' + row.Articulos + ' -'+ 
-                            btnRetencion+
-                            '<span class="ms-1 fas fa-trash text-danger" data-fa-transform="shrink-2" onclick="ChanceStatus(' + row.id_solicitud + ',4)" ></span>'+
-                            
+                            '<p class="fw-semi-bold mb-0 text-500">' + row.Articulos + ' - '+ 
+                            scope+
                             '</p>'+ 
                             
-                            '<p class="fs--2 mb-0">' + scope + '</p>'+                           
+                            '<div class="row g-0 fw-semi-bold text-center py-2 fs--1">'+ 
+                                '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ','+sta+')">'+btnRetencion+'<span class="ms-1">Retención</span></a></div>'+ 
+                                '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="AddComment(' + meta.row + ')"><span class="ms-1 fas fa-comment text-primary" data-fa-transform="shrink-2"  ></span><span class="ms-1">Comentarios</span></a></div>'+ 
+                                '<div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ',4)" ><span class="ms-1 fas fa-trash text-danger" data-fa-transform="shrink-2" ></span><span class="ms-1">Borrar</span></a></div>'+ 
+                            '</div>'+ 
                         '</div>'+
                         '</div>'
 
@@ -534,6 +581,7 @@
 
                         
                         if(intVal(row.Pendiente) <= 0){
+                            
                             return '<span class="badge badge rounded-pill d-block badge-soft-success">Ingreso Total<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>'
                         }else{
                             return '<span class="badge badge rounded-pill d-block badge-soft-primary">Ingreso Parcial<span class="ms-1 fas fa-redo" data-fa-transform="shrink-2"></span></span>'
@@ -578,28 +626,41 @@
                 },
             ],
             "footerCallback": function(row, data, start, end, display) {
-				var api = this.api(),
-					data;
-
-
-
-				var intVal = function(i) {
-					return typeof i === 'string' ?
-						i.replace(/[\$,]/g, '') * 1 :
-						typeof i === 'number' ?
-						i : 0;
-				};
-
-                $.each(data, function(i, item) {
-                    if(intVal(item.Estados) === '0'){
-                        Transito++;
-                    }
-                        
-                });
-				
-                $('#id_total_soli').text(numeral(data.length).format('0,0'));
+             
 			},
         });
+
+
+        var cEnProceso = 0;
+        var cRetenido = 0;
+        var cParcial = 0;
+        var cTotal = 0;
+        var lng = 0;
+        table.rows().every( function () {
+
+            var d   = this.data();
+            lng = this.column( 0 ).data().length;
+
+            if(d.Estados ==='1'){
+                cRetenido++;
+            }
+            if(intVal(d.Ingreso) === 0){
+                cEnProceso++;
+            }
+            if(intVal(d.Pendiente) <=0){
+                cTotal++
+            }else{
+                cParcial++;
+            }
+        } );
+
+        $('#id_total_soli').text(" ( " + numeral(cEnProceso).format('0,0') + " )");
+        $('#id_total_Retenido').text(" ( " + numeral(cRetenido).format('0,0') + " )");
+        $('#id_total_total').text(" ( " + numeral(cTotal).format('0,0') + " )");
+        $('#id_total_Parcial').text(" ( " + numeral(cParcial).format('0,0') + " )");
+        $('#id_total_solicitud').text( numeral(lng).format('0,0') );
+        
+
         $('#tbl_solicitudes thead').addClass('bg-200 text-900');
         $('#tbl_solicitudes thead tr th').addClass('sort pe-1 align-middle white-space-nowrap');
         
@@ -619,8 +680,8 @@
                 [0, "asc"]
             ],
             "lengthMenu": [
-                [5, -1],
-                [5, "Todo"]
+                [10, -1],
+                [10, "Todo"]
             ],
             "language": {
                 "zeroRecords": "NO HAY COINCIDENCIAS",
@@ -676,6 +737,58 @@
         });
         $("#tbl_excel_length").hide();
         $("#tbl_excel_filter").hide();
+    }
+    function AddComment(id){
+        var addcomment_ = document.querySelector(Selectors.MODAL_COMMENT);
+        var modal = new window.bootstrap.Modal(addcomment_);
+
+        dtData = table.row( id ).data();
+        var fecha_humana = moment(dtData.Fecha_Solicitada).format("D MMM, YYYY")
+        
+        $("#id_modal_name_item").text(dtData.Descripcion)
+        $("#id_modal_articulo").text(dtData.Articulos)
+        $("#id_modal_nSoli").text(dtData.id_solicitud)
+        $("#id_modal_Fecha").text(fecha_humana)
+        modal.show();
+
+        getComment(dtData.id_solicitud)
+
+    }
+
+    function getComment(Id){
+        var items_comment = '';
+        $("#id_textarea_comment").val(items_comment)
+        $.ajax({
+            url: 'getComment',
+            type: 'post',
+            data: {
+                id_item     : Id,                  
+                _token      : "{{ csrf_token() }}" 
+            }, 
+            async: false,
+            dataType: "json",
+            success: function(data){
+                $.each(data,function(key, c) {
+                    var date_comment = moment(c.created_at).format("D MMM, YYYY")
+                    items_comment += ' <div class="d-flex mt-3">'+
+                                            '<div class="avatar avatar-xl">'+
+                                                '<img class="rounded-circle" src="{{ asset("images/user/avatar-4.jpg") }}" alt="" />'+
+                                            '</div>'+
+                                            '<div class="flex-1 ms-2 fs--1">'+
+                                                '<p class="mb-1 bg-200 rounded-3 p-2">'+
+                                                '<a class="fw-semi-bold" href="!#">'+c.username+'</a> '+
+                                                ' '+c.comment+'  </p>'+
+                                                '<div class="px-2"><a href="#!">Borrar</a> &bull; <a href="#!">Editar</a> &bull; '+date_comment+' </div>'+
+                                            '</div>'+
+                                        '</div>'
+                }); 	 
+            },
+            error: function(data) {
+                //alert('error');
+            }
+        }); 
+
+        $("#id_comment_item").html(items_comment)
     }
 
     function ChanceStatus(id,value){
@@ -973,11 +1086,9 @@
     function handleFileSelect(evt) {    
         var files = evt.target.files;
         var xl2json = new ExcelToJSON();
-        console.log("XD")
         xl2json.parseExcel(files[0]);
     }
     $('#upload').on("change", function(e){ 
-        console.log("XD")
         handleFileSelect(e)
     });
 
