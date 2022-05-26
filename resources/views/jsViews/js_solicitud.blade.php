@@ -502,12 +502,18 @@
                         
                         var scope = moment(row.Fecha_Solicitada).format("D MMM, YYYY")
 
+
+                        var iComent = ''
                         var icon = 'fa-ban text-warning'
                         var sta = 1;
                         var btnRetencion = ''
 
+                        if(row.CountComment !== 0){
+                            iComent = ' ( ' + row.CountComment + ' ) '
+                        }
+
                         if(row.Estados === '1'){
-                            icon = 'fa-check text-success'
+                            icon = 'fa-check text-danger'
                             sta = 0;
                         }
 
@@ -526,7 +532,7 @@
                             
                             '<div class="row g-0 fw-semi-bold text-center py-2 fs--1">'+ 
                                 '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ','+sta+')">'+btnRetencion+'<span class="ms-1">Retención</span></a></div>'+ 
-                                '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="AddComment(' + meta.row + ')"><span class="ms-1 fas fa-comment text-primary" data-fa-transform="shrink-2"  ></span><span class="ms-1">Comentarios</span></a></div>'+ 
+                                '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="AddComment(' + meta.row + ')"><span class="ms-1 fas fa-comment text-primary" data-fa-transform="shrink-2"  ></span><span class="ms-1">Comentarios ' + iComent +'</span></a></div>'+ 
                                 '<div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ',4)" ><span class="ms-1 fas fa-trash text-danger" data-fa-transform="shrink-2" ></span><span class="ms-1">Borrar</span></a></div>'+ 
                             '</div>'+ 
                         '</div>'+
@@ -648,11 +654,16 @@
             if(intVal(d.Ingreso) === 0){
                 cEnProceso++;
             }
-            if(intVal(d.Pendiente) <=0){
-                cTotal++
-            }else{
+            if( ( intVal(d.Pendiente) ) > 0){                
                 cParcial++;
             }
+
+            if( (intVal(d.Cant_solicitada) !== 0 && intVal(d.Ingreso) !== 0) ){
+                if(intVal(d.Cant_solicitada) == intVal(d.Ingreso)){
+                    cTotal++
+                }
+            }
+
         } );
 
         $('#id_total_soli').text(" ( " + numeral(cEnProceso).format('0,0') + " )");
