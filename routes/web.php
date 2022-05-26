@@ -95,6 +95,7 @@ Route::post('getSolicitudes', 'OrdenesController@getSolicitudes')->name('getSoli
 Route::post('guardar_excel', 'OrdenesController@postGuardarExcel')->name('guardar_excel');
 Route::post('AddComment', 'OrdenesController@postGuardarComment')->name('AddComment');
 Route::post('getComment', 'OrdenesController@getComment')->name('getComment');
+Route::post('DeleteComment', 'OrdenesController@DeleteComment')->name('DeleteComment');
 
 
 Auth::routes();

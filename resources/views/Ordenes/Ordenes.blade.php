@@ -147,6 +147,7 @@
 
                   <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0 invisible" >Historial de Solicitudes</h5> 
                   <span id="id_rol" class="invisible">{{Session::get('rol')}}</span>
+                  <span id="id_login_user" class="invisible">{{auth()->user()->id}}</span>
                 </div>
                 <div class="col-8 col-sm-auto ms-auto text-end ps-0">
                   <div id="orders-actions">

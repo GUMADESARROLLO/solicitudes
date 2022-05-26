@@ -176,10 +176,31 @@ class solicitud extends Model {
     }
     public static function getComment(Request $request){
         $Id     = $request->input('id_item');
-        return viewcomment::where('Activo', 'S')->where('id_solicitud', $Id)->get();
+        return viewcomment::where('Activo', 'S')->where('id_solicitud', $Id)->orderBy('id_solicitud', 'DESC')->get();
     }
+    public static function DeleteComment(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
 
+                $id     = $request->input('id');
+                
+                $response =   comment::where('id_comment',  $id)->update([
+                    "Activo" => 'N',
+                ]);
+
+                return response()->json($response);
+
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+
+    }
     public static function getSolicitudesCount(Request $request){
+        
         $Mes     = $request->input('mes');
         $Annio  = $request->input('annio');
 

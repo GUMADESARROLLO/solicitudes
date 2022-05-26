@@ -21,7 +21,8 @@
         i : 0;
     };
 
-    var var_rol = intVal($("#id_rol").text());      
+    var var_rol         = intVal($("#id_rol").text());      
+    var var_login_user  = intVal($("#id_login_user").text());      
 
     if(var_rol===1){
         $("#id_add_multi_row").show();
@@ -769,6 +770,19 @@
             dataType: "json",
             success: function(data){
                 $.each(data,function(key, c) {
+                    var var_borrar = ''
+
+                    if(var_rol==1){
+                        var_borrar = '<a href="#!" onClick="DeleteComment('+c.id_comment+' , '+c.id_solicitud+' )">Borrar</a> &bull; ' 
+                    }else{
+                        var_borrar = (c.id_usuario ===  var_login_user)? '<a href="#!" onClick="DeleteComment('+c.id_comment+' , '+c.id_solicitud+' )">Borrar</a> &bull; ' : ''
+
+                    }
+
+
+                    
+                    
+
                     var date_comment = moment(c.created_at).format("D MMM, YYYY")
                     items_comment += ' <div class="d-flex mt-3">'+
                                             '<div class="avatar avatar-xl">'+
@@ -778,7 +792,9 @@
                                                 '<p class="mb-1 bg-200 rounded-3 p-2">'+
                                                 '<a class="fw-semi-bold" href="!#">'+c.username+'</a> '+
                                                 ' '+c.comment+'  </p>'+
-                                                '<div class="px-2"><a href="#!">Borrar</a> &bull; <a href="#!">Editar</a> &bull; '+date_comment+' </div>'+
+                                                '<div class="px-2">'+
+                                                var_borrar+
+                                                date_comment+'</div>'+
                                             '</div>'+
                                         '</div>'
                 }); 	 
@@ -791,6 +807,42 @@
         $("#id_comment_item").html(items_comment)
     }
 
+
+    function DeleteComment(id_comment,id_Solicitud){
+        Swal.fire({
+            title: '¿Estas Seguro de borrar el Comentario?',
+            text: "¡Esta acción no podrá ser revertida!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si!',
+            target:"",
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: "DeleteComment",
+                    type: 'post',
+                    data: {
+                        id      : id_comment,
+                        _token  : "{{ csrf_token() }}" 
+                    },
+                    async: true,
+                    success: function(response) {
+                        //Swal.fire("Exito!", "Guardado exitosamente", "success");
+                    },
+                    error: function(response) {
+                        //Swal.fire("Oops", "No se ha podido guardar!", "error");
+                    }
+                }).done(function(data) {
+                    getComment(id_Solicitud)
+                });
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        });
+    }
+
+  
     function ChanceStatus(id,value){
 
         var Campo = 'Estados'

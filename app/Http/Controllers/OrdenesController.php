@@ -79,6 +79,11 @@ class OrdenesController extends Controller {
         $response = Solicitud::getUpdate($request);
         return response()->json($response);
     }
+    public function DeleteComment(Request $request)
+    {
+        $response = Solicitud::DeleteComment($request);
+        return response()->json($response);
+    }
 
     
 }
