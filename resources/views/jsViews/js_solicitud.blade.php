@@ -646,6 +646,7 @@
         table.rows().every( function () {
 
             var d   = this.data();
+
             lng = this.column( 0 ).data().length;
 
             if(d.Estados ==='1'){
@@ -665,6 +666,8 @@
             }
 
         } );
+
+        cEnProceso = lng - cParcial - cRetenido - cTotal
 
         $('#id_total_soli').text(" ( " + numeral(cEnProceso).format('0,0') + " )");
         $('#id_total_Retenido').text(" ( " + numeral(cRetenido).format('0,0') + " )");
