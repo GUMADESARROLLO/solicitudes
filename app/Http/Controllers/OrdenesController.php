@@ -32,9 +32,17 @@ class OrdenesController extends Controller {
         return response()->json($Solci);
 
     }
-    public function getOrdenesDetalles()
+    public function getOrdenesDetalles($id_Solicitud)
     {
-        return view('Ordenes.OrdenesDetalles');
+        $Solicitud_Detalles = solicitud::getSolicitudes_Detalles($id_Solicitud);
+        
+        return view('Ordenes.OrdenesDetalles',compact('Solicitud_Detalles'));
+    }
+    public function Delete_Ingreso($id_ingreso,$id_solicitud)
+    {
+        Solicitud::Delete_Ingreso($id_ingreso);
+        $Solicitud_Detalles = solicitud::getSolicitudes_Detalles($id_solicitud);        
+        return view('Ordenes.OrdenesDetalles',compact('Solicitud_Detalles'));
     }
     public function getClientes()
     {

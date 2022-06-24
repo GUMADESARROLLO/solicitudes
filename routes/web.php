@@ -81,7 +81,8 @@ Route::get('UnidadNegocio', 'TicketsController@getUnidadNegocio')->name('UnidadN
 
 Route::get('Catalogo', 'OrdenesController@getCatalogo')->name('Catalogo');
 Route::get('Ordenes', 'OrdenesController@getOrdenes')->name('Ordenes');
-Route::get('OrdenesDetalles', 'OrdenesController@getOrdenesDetalles')->name('OrdenesDetalles');
+Route::get('OrdenesDetalles/{id}', 'OrdenesController@getOrdenesDetalles')->name('OrdenesDetalles');
+Route::get('DelIngreso/{Ingreso}/{Soli}', 'OrdenesController@Delete_Ingreso')->name('DelIngreso');
 Route::get('Clientes', 'OrdenesController@getClientes')->name('Clientes');
 Route::get('Carrito', 'OrdenesController@getCarrito')->name('Carrito');
 Route::get('Resumen', 'OrdenesController@getResumen')->name('Resumen');

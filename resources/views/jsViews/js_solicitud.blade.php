@@ -507,6 +507,7 @@
                         var icon = 'fa-ban text-warning'
                         var sta = 1;
                         var btnRetencion = ''
+                        var pathDelIngreso = '#!'
 
                         if(row.CountComment !== 0){
                             iComent = ' ( ' + row.CountComment + ' ) '
@@ -517,6 +518,13 @@
                             sta = 0;
                         }
 
+
+                        if(( var_rol === 6 ) || ( var_rol === 1 ) ){
+
+                        pathDelIngreso = "OrdenesDetalles/" + row.id_solicitud 
+
+                        }
+
                         if(( var_rol === 4 ) || ( var_rol === 1 ) ){
 
                             btnRetencion = '<span class="ms-1 fas '+icon+' " data-fa-transform="shrink-2" ></span> '
@@ -525,7 +533,7 @@
 
                         return '<div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset("images/item.png") }}"alt="" width="60">'+
                         '<div class="flex-1 ms-3">'+
-                            '<h6 class="mb-1 fw-semi-bold text-nowrap"><a href="OrdenesDetalles"> <strong>#' + row.id_solicitud + ' </strong></a> - ' + row.Descripcion + '</h6>'+
+                            '<h6 class="mb-1 fw-semi-bold text-nowrap"><a href="' + pathDelIngreso+ '"> <strong>#' + row.id_solicitud + ' </strong></a> - ' + row.Descripcion + '</h6>'+
                             '<p class="fw-semi-bold mb-0 text-500">' + row.Articulos + ' - '+ 
                             scope+
                             '</p>'+ 

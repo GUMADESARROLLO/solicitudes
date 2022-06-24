@@ -142,6 +142,20 @@ class solicitud extends Model {
         }
 
     }
+    public static function Delete_Ingreso($Id_Ingreso)
+    {
+        try {                
+            $response =   Ingreso::where('id_ingreso',  $Id_Ingreso)->update([
+                'Activo' => 'N',
+            ]);
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+            return response()->json($mensaje);
+        }
+
+    }
     public static function postGuardarComment(Request $request)
     {
         if ($request->ajax()) {
@@ -173,6 +187,9 @@ class solicitud extends Model {
         $Mes     = $request->input('mes');
         $Annio  = $request->input('annio');
         return solicitud::where('Activo', 'S')->where('nMes', $Mes)->where('nAnnio', $Annio)->get();
+    }
+    public static function getSolicitudes_Detalles($id_solicitud){
+        return Ingreso::where('id_solicitud', $id_solicitud)->where('Activo', 'S')->get();
     }
     public static function getComment(Request $request){
         $Id     = $request->input('id_item');

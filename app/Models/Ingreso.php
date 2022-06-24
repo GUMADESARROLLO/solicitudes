@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ingreso extends Model {
     protected $table = "tbl_ingresos";
-    protected $fillable = ['id_solicitud', 'Cantidad', 'Fecha','Activo'];
+    protected $fillable = ['id_ingreso','id_solicitud', 'Cantidad', 'Fecha','Activo'];
 
 }
