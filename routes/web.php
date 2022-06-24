@@ -90,6 +90,7 @@ Route::get('Resumen', 'OrdenesController@getResumen')->name('Resumen');
 
 Route::get('getArticulos', 'OrdenesController@getArticulos')->name('getArticulos');
 Route::post('guardar_solicitud', 'OrdenesController@getGuardarSolicitud')->name('guardar_solicitud');
+Route::post('update_ingreso', 'OrdenesController@getUpdateIngreso')->name('update_ingreso');
 Route::post('/Update', 'OrdenesController@Update')->name('/Update');
 
 Route::post('getSolicitudes', 'OrdenesController@getSolicitudes')->name('getSolicitudes');

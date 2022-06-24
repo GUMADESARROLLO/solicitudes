@@ -2,7 +2,7 @@
 <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand">
 
 <button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-<a class="navbar-brand me-1 me-sm-3" href="Ordenes">
+<a class="navbar-brand me-1 me-sm-3" href="{{ url('/Ordenes') }}">
   <div class="d-flex align-items-center"><span class="font-sans-serif">Solicitudes</span>
   </div>
 </a>

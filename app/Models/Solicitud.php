@@ -34,6 +34,27 @@ class solicitud extends Model {
             }
         }
     }
+    public static function UpdateSolicitud(Request $request) {
+        if ($request->ajax()) {
+            try {
+
+                $id         = $request->input('rowID');
+                $Fecha      = $request->input('fecha');
+                $Cantidad   = $request->input('cantidad');
+
+
+                $response =   Ingreso::where('id_ingreso',  $id)->update([
+                    'Fecha'  => $Fecha,
+                    'Cantidad'   => $Cantidad,
+                ]);
+                return response()->json($response);
+                
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+    }
     public static function GuardarExcel(Request $request) {
         if ($request->ajax()) {
             try {

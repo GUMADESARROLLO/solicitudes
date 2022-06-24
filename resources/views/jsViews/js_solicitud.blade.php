@@ -454,10 +454,12 @@
                    // Swal.fire("Oops", "No se ha podido guardar!", "error");
                 }
             }).done(function(data) {
-                //CargarDatos(nMes,annio);
+                location.reload();
             });
         }
     });
+
+    
 
 
     
