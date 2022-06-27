@@ -79,19 +79,19 @@
             <div class="modal-content border-0">
               <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
                 <div class="position-relative z-index-1 light">
-                  <h4 class="mb-0 text-white" id="id_mdl_nombre_articulo">Modificar el valor de Ingreso</h4>
+                  <h4 class="mb-0 text-white" id="id_mdl_nombre_articulo">Editar</h4>
                   <p class="fs--1 mb-0 text-white" ><span id="id_mdl_articulo">Nº : </span>  #<a href="!#" class="text-white"> <strong id="id_row"># 000 </strong></a> </p> 
                 </div>
                 <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body py-4 px-5">                
                 <div class="mb-3">
-                  <label class="fs-0" for="eventStartDate">Fecha de Solicitud</label>
+                  <label class="fs-0" for="eventStartDate">Fecha de Ingreso</label>
                   <input class="form-control datetimepicker" id="eventStartDate" type="text" required="required" name="startDate" placeholder="yyyy/mm/dd" data-options='{"static":"true","enableTime":"false","dateFormat":"Y-m-d"}' />
                 </div>
                 <div class="row gx-2">
                   <div class="mb-3 col-sm-12">
-                    <label class="form-label" for="txt_proyeccion_mensual">Proyeccion Mensual</label>
+                    <label class="form-label" for="txt_proyeccion_mensual">Cantidad</label>
                     <input class="form-control" type="text" autocomplete="on" id="id_txt_proyeccion_mensual" onkeypress="soloNumeros(event.keyCode, event, $(this).val())"/>
                   </div>
                 </div>                
