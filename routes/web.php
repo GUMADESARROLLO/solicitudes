@@ -100,4 +100,12 @@ Route::post('getComment', 'OrdenesController@getComment')->name('getComment');
 Route::post('DeleteComment', 'OrdenesController@DeleteComment')->name('DeleteComment');
 
 
+//RUTA PROYECCION MENSUAL
+Route::get('getDataCalendar/{mes}/{annio}', 'ProyeccionesController@getDataCalendar')->name('getDataCalendar');
+Route::get('getArticuloCalendar/{mes}/{annio}', 'ProyeccionesController@getArticuloCalendar')->name('getArticuloCalendar');
+Route::post('insert_evento', 'ProyeccionesController@InsertEvento')->name('insert_evento');
+Route::get('Calendario', 'ProyeccionesController@getCalendario')->name('Calendario');
+Route::get('proyecciones', 'ProyeccionesController@getProyecciones')->name('proyecciones');
+Route::post('guardar_excel_proyecciones', 'ProyeccionesController@postGuardarExcelProyecciones')->name('guardar_excel_proyecciones');
+Route::post('dtProyeccion', 'ProyeccionesController@getDataProyeccion')->name('dtProyeccion');
 Auth::routes();
