@@ -108,4 +108,5 @@ Route::get('Calendario', 'ProyeccionesController@getCalendario')->name('Calendar
 Route::get('proyecciones', 'ProyeccionesController@getProyecciones')->name('proyecciones');
 Route::post('guardar_excel_proyecciones', 'ProyeccionesController@postGuardarExcelProyecciones')->name('guardar_excel_proyecciones');
 Route::post('dtProyeccion', 'ProyeccionesController@getDataProyeccion')->name('dtProyeccion');
+Route::post('dltEvent', 'ProyeccionesController@dltEvent')->name('dltEvent');
 Auth::routes();

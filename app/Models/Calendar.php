@@ -11,6 +11,5 @@ class Calendar extends Model {
     {
         return Calendar::where('nMonth', $nMonth)->where('nYear', $nYear)->get();
     }
-   
 
 }

@@ -6,8 +6,8 @@
     var table = ''
     var table_excel = ''
 
-    var nMes   = $("#id_select_nmes option:selected").val();           
-    var annio  = $("#id_select_annio option:selected").val()
+    var nMes   = $("#IdSelectMes option:selected").val();           
+    var annio  = $("#IdSelectAnnio option:selected").val()
 
     
 
@@ -44,10 +44,10 @@
         $("#id_count_table").hide();
     }
 
-    var month_ = moment().format('M');
-    var year_ = moment().format('YYYY');
+   // var month_ = moment().format('M');
+   // var year_ = moment().format('YYYY');
 
-    getDataCalendar(month_,year_)
+    getDataCalendar()
 
     
     appCalendarInit(dta_calendar)
@@ -157,12 +157,49 @@
     |   Calendar
     -----------------------------------------------*/
     function getStackIcon(icon, transform) {
-        return "\n  <span class=\"fa-stack ms-n1 me-3\">\n    <i class=\"fas fa-circle fa-stack-2x text-200\"></i>\n    <i class=\"".concat(icon, " fa-stack-1x text-primary\" data-fa-transform=").concat(transform, "></i>\n  </span>\n");
+        return `<span class="fa-stack ms-n1 me-3">
+                    <i class="fas fa-circle fa-stack-2x text-200"></i>
+                    <i class="${icon} fa-stack-1x text-primary" data-fa-transform=${transform}></i>
+                </span>
+                `;
+        
     };
     function getTemplate(event) {
-        return "\n<div class=\"modal-header bg-light ps-card pe-5 border-bottom-0\">\n  <div>\n    <h5 class=\"modal-title mb-0\">".concat(event.title, "</h5>\n    ").concat(event.extendedProps.organizer ? "<p class=\"mb-0 fs--1 mt-1\">\n        by <a href=\"#!\">".concat(event.extendedProps.organizer, "</a>\n      </p>") : '', "\n  </div>\n  <button type=\"button\" class=\"btn-close position-absolute end-0 top-0 mt-3 me-3\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n</div>\n<div class=\"modal-body px-card pb-card pt-1 fs--1\">\n  ").concat(event.extendedProps.description ? "\n      <div class=\"d-flex mt-3\">\n        ".concat(getStackIcon('fas fa-align-left'), "\n        <div class=\"flex-1\">\n          <h6>Comentarios</h6>\n          <p class=\"mb-0\">\n            \n          ").concat(event.extendedProps.description.split(' ').slice(0, 30).join(' '), "\n          </p>\n        </div>\n      </div>\n    ") : '', " \n  <div class=\"d-flex mt-3\">\n    ").concat(getStackIcon('fas fa-calendar-check'), "\n    <div class=\"flex-1\">\n        <h6>Fecha y Hora</h6>\n        <p class=\"mb-1\">\n          ").concat(window.dayjs && window.dayjs(event.start).format('dddd, MMMM D, YYYY, h:mm A'), " \n          ").concat(event.end ? "\u2013 <br/>".concat(window.dayjs && window.dayjs(event.end).subtract(1, 'day').format('dddd, MMMM D, YYYY, h:mm A')) : '', "\n        </p>\n    </div>\n  </div>\n  ").concat(event.extendedProps.location ? "\n        <div class=\"d-flex mt-3\">\n          ".concat(getStackIcon('fas fa-map-marker-alt'), "\n          <div class=\"flex-1\">\n              <h6>Location</h6>\n              <p class=\"mb-0\">").concat(event.extendedProps.location, "</p>\n          </div>\n        </div>\n      ") : '', "\n  ").concat(event.schedules ? "\n        <div class=\"d-flex mt-3\">\n        ".concat(getStackIcon('fas fa-clock'), "\n        <div class=\"flex-1\">\n            <h6>Schedule</h6>\n            \n            <ul class=\"list-unstyled timeline mb-0\">\n              ").concat(event.schedules.map(function (schedule) {
-            return "<li>".concat(schedule.title, "</li>");
-        }).join(''), "\n            </ul>\n        </div>\n      ") : '', "\n  </div>\n</div>\n<div class=\"modal-footer d-flex justify-content-end bg-light px-card border-top-0\">\n </div>\n");
+        return `
+        <div class="modal-header bg-light ps-card pe-5 border-bottom-0">
+        <div>
+            <h5 class="modal-title mb-0">${event.title}</h5>
+        </div>
+        <button type="button" class="btn-close position-absolute end-0 top-0 mt-3 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-card pb-card pt-1 fs--1">
+            <div class="d-flex mt-3">
+                ${getStackIcon('fas fa-align-left')}
+                <div class="flex-1">
+                <h6>Description</h6>
+                <p class="mb-0">
+                    
+                ${event.extendedProps.description.split(' ').slice(0, 30).join(' ')}
+                </p>
+                </div>
+            </div>
+            <div class="d-flex mt-3">
+                ${getStackIcon('fas fa-calendar-check')}
+                <div class="flex-1">
+                    <h6>Fecha</h6>
+                    <p class="mb-1">
+                    ${window.dayjs && window.dayjs(event.start).format('dddd, MMMM D, YYYY, h:mm A')} 
+                    </p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-end bg-light px-card border-top-0">
+        <a href="#!" class="btn btn-falcon-danger btn-sm" onClick="dltEvent(${event.extendedProps.Id_evnt})">
+            <span class="fas fa-trash-alt fs--2 mr-2"></span> 
+        </a>
+        </div>
+        `;
     };
     function appCalendarInit(events) {
 
@@ -292,34 +329,23 @@
                 }
             });
             });
-            document.querySelectorAll(Selectors.DATA_CALENDAR_VIEW).forEach(function (link) {
-            link.addEventListener(Events.CLICK, function (e) {
-                e.preventDefault();
-                var el = e.currentTarget;
-                var text = el.textContent;
-                el.parentElement.querySelector(Selectors.ACTIVE).classList.remove(ClassNames.ACTIVE);
-                el.classList.add(ClassNames.ACTIVE);
-                document.querySelector(Selectors.DATA_VIEW_TITLE).textContent = text;
-                calendar.changeView(utils.getData(el, DataKeys.FC_VIEW));
-                updateTitle(calendar.currentData.viewTitle);
-            });
-            });
+
             addEventForm && addEventForm.addEventListener(Events.SUBMIT, function (e) {
             e.preventDefault();
             var _e$target = e.target,
                 title = _e$target.title,
-                startDate = _e$target.startDate,
-                endDate = _e$target.endDate,
+                startDate = _e$target.eDate,
+                description = _e$target.eComentario;
+                /*endDate = _e$target.endDate,
                 label = _e$target.label,
-                description = _e$target.description,
-                allDay = _e$target.allDay;
+                
+                allDay = _e$target.allDay;*/
+
             calendar.addEvent({
-                title: title.value,
+                title: numeral(title.value).format('0,0.00') + " KG.",
                 start: startDate.value,
-                end: endDate.value ? endDate.value : null,
-                allDay: allDay.checked,
-                className: allDay.checked && label.value ? "bg-soft-".concat(label.value) : ''
-                //description: description.value
+                className: 'bg-soft-success',
+                description: description.value
             });
             e.target.reset();
             window.bootstrap.Modal.getInstance(addEventModal).hide();
@@ -443,8 +469,8 @@
 
     });
     
-    function CargarDatos(nMes,annio){
-        var name_nMes   = $("#id_select_nmes option:selected").text();           
+    function CargarDatos(nMes,annio){        
+        var name_nMes   = $("#IdSelectMes option:selected").text();           
         $("#id_title_solicitudes").text(" Solicitudes al " + name_nMes + ' ' + annio)
 
         table_render_solicitud([])
@@ -461,13 +487,7 @@
             dataType: "json",
             success: function(data){
                 if (data[0]['data'].length > 0) {
-                    var Transito = 0;
-                    var Retenido = 0;
-                    var In_parci= 0;
-                    var In_Total= 0;
-
                     table_render_solicitud(data[0]['data'])
-    
                 }
 
                 
@@ -538,11 +558,9 @@
             async: false,
             dataType: "json",
             success: function(data){
+                //$("#eArticulos").empty().append('<option value="0"> -- SIN RESULTADO--</option>')
                 $.each(data,function(key, registro) {
-                    $("#eArticulos").append('<option value='+registro.Articulos+'>'+registro.Articulos + ' | ' + registro.Descripcion+'</option>');
-                    
-
-
+                    $("#eArticulos").append('<option value='+registro.id_solicitud+'>'+registro.Articulos + ' | ' + registro.Descripcion+'</option>');
                 }); 	 
                 
             },
@@ -550,10 +568,14 @@
                 //alert('error');
             }
         });
-
-       
     }
-    function getDataCalendar(mes,annio){
+    function getDataCalendar(){
+
+        //var mes   = $("#IdSelectMes option:selected").val();           
+        //var annio  = $("#IdSelectAnnio option:selected").val()
+
+        var mes = moment().format('M');
+        var annio = moment().format('YYYY');
 
         dta_calendar = []
 
@@ -570,10 +592,11 @@
 
                     dta_calendar.push(
                         {
-                            'title': numeral(registro.Cantidad).format('0,0.00') + " Kg.",
-                            'start': registro.Fecha,
-                            'description': registro.Descripcion + " <br> <br>" + registro.Comentarios,
-                            'className': 'bg-soft-success'
+                            'Id_evnt'       : registro.id_produccion,
+                            'title'         : numeral(registro.Cantidad).format('0,0.00') + " Kg.",
+                            'start'         : registro.Fecha,
+                            'description'   : registro.Descripcion + " <br> <br>" + registro.Comentarios,
+                            'className'     : 'bg-soft-success'
                         }
                     )
                     SumCantidad += parseFloat(registro.Cantidad)
@@ -623,7 +646,7 @@
                    // Swal.fire("Oops", "No se ha podido guardar!", "error");
                 }
             }).done(function(data) {
-                location.reload();
+                //location.reload();
             });
         }
     });
@@ -656,8 +679,7 @@
             $.ajax({
                 url: "./insert_evento",
                 data: {
-                    Articulo       : var_articulo,
-                    
+                    Articulo       : var_articulo,                    
                     Descrip       : var_articulo_txt,
                     cantidad    : txtCantidad,
                     fecha       : dtaFecha,
@@ -673,7 +695,7 @@
                     Swal.fire("Oops", "No se ha podido guardar!", "error");
                 }
             }).done(function(data) {
-                location.reload();
+                //location.reload();
             });
         }
     })
@@ -690,36 +712,74 @@
     function table_render_solicitud(datos){
 
         var html_grid_product = '' ;
+        var tt_Meta = 0;
+        var tt_Real = 0;
 
         
-            $.each(datos, function (ind, elem) { 
+        $.each(datos, function (ind, elem) { 
 
-                html_grid_product += `<div class="mb-3 col-md-6 col-lg-3">
-                            <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
-                            <div class="overflow-hidden">
-                                <div class="position-relative rounded-top overflow-hidden">
-                                <a class="d-block" href="!#">
-                                    <img class="img-fluid rounded-top" src="images/item-stock-03.png" alt="" />
-                                </a>
-                                </div>
-                                <div class="p-3">
-                                <h5 class="fs-0"><a class="text-dark" href="!#">`+elem.Descripcion+`</a></h5>
-                                <p class="fs--1 mb-3"><a class="text-500" href="#!">SKU: `+elem.Articulos+`</a></p>
-                                <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> `+elem.proyect_mensual+` Kg.</h5>
-                                <p class="fs--1 mb-1">REAL: <strong> 00.0 Kg.</strong></p>
-                                <span class="badge rounded-pill badge-soft-primary">
-                                    <span class="fas fa-caret-up"></span> 0.00 %
-                                </span>
-                                </p>
-                                </div>
-                            </div>                    
+            var pReal    = parseFloat(isValue(elem.Ingreso,'0',true))
+            var pMeta    = parseFloat(isValue(elem.proyect_mensual,'0',true))
+
+            tt_Meta += pMeta;
+            tt_Real += pReal;
+
+            var pPorcent = numeral((parseFloat(pReal) / parseFloat(pMeta) ) * 100 ).format('0,0.00');
+
+            pReal    = numeral(pReal).format('0,0.00')
+            pMeta    = numeral(pMeta).format('0,0.00')
+
+
+            html_grid_product += `<div class="mb-3 col-md-6 col-lg-3">
+                        <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+                        <div class="overflow-hidden">
+                            <div class="position-relative rounded-top overflow-hidden">
+                            <a class="d-block" href="!#">
+                                <img class="img-fluid rounded-top" src="images/item-stock-03.png" alt="" />
+                            </a>
                             </div>
-                        </div>`
+                            <div class="p-3">
+                            <h5 class="fs-0"><a class="text-dark" href="!#">`+ elem.Descripcion +`</a></h5>
+                            <p class="fs--1 mb-3"><a class="text-500" href="#!">SKU: `+ elem.Articulos +`</a></p>
+                            <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> `+ pMeta +` Kg.</h5>
+                            <p class="fs--1 mb-1">REAL: <strong> `+ pReal +` Kg.</strong></p>
+                            <span class="badge rounded-pill badge-soft-primary">
+                                <span class="fas fa-caret-up"></span> `+ pPorcent +` %
+                            </span>
+                            </p>
+                            </div>
+                        </div>                    
+                        </div>
+                    </div>`
 
 
-            }); 
+        }); 
 
-            $("#id_render_grid_html").html(html_grid_product)
+        
+
+        tt_Real_tns     = tt_Real / 1000 ;
+        tt_Meta_tns     = tt_Meta / 1000 ;
+        tt_Porcent_tns  = numeral((parseFloat(tt_Real_tns) / parseFloat(tt_Meta_tns) ) * 100 ).format('0,0.00');
+
+
+        tt_Porcent      = numeral((parseFloat(tt_Real) / parseFloat(tt_Meta) ) * 100 ).format('0,0.00');
+        tt_Real         = numeral(tt_Real).format('0,0.00')
+        tt_Meta         = numeral(tt_Meta).format('0,0.00')
+        
+        tt_Real_tns     = numeral(tt_Real_tns).format('0,0.00')
+        tt_Meta_tns     = numeral(tt_Meta_tns).format('0,0.00')
+
+        $("#id_render_grid_html").html(html_grid_product)
+
+        $("#id_tt_real").html(tt_Real)
+        $("#id_tt_meta").html(tt_Meta)
+        $("#id_tt_procent").html(tt_Porcent)
+
+
+        $("#id_tt_real_tns").html(tt_Real_tns)
+        $("#id_tt_meta_tns").html(tt_Meta_tns)
+        $("#id_tt_procent_tns").html(tt_Porcent_tns)
+        
             
     }
 
@@ -859,9 +919,9 @@
     }
 
 
-    function DeleteComment(id_comment,id_Solicitud){
+    function dltEvent(id_event){
         Swal.fire({
-            title: '¿Estas Seguro de borrar el Comentario?',
+            title: '¿Estas Seguro de borrarlo?',
             text: "¡Esta acción no podrá ser revertida!",
             icon: 'warning',
             showCancelButton: true,
@@ -872,10 +932,10 @@
             showLoaderOnConfirm: true,
             preConfirm: () => {
                 $.ajax({
-                    url: "DeleteComment",
+                    url: "dltEvent",
                     type: 'post',
                     data: {
-                        id      : id_comment,
+                        id      : id_event,
                         _token  : "{{ csrf_token() }}" 
                     },
                     async: true,
@@ -886,7 +946,7 @@
                         //Swal.fire("Oops", "No se ha podido guardar!", "error");
                     }
                 }).done(function(data) {
-                    getComment(id_Solicitud)
+                    location.reload();
                 });
             },
             allowOutsideClick: () => !Swal.isLoading()

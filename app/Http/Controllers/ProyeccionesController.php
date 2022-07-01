@@ -45,8 +45,28 @@ class ProyeccionesController extends Controller {
         $response = ArticulosCalendar::getArticuloCalendar($nMonth,$nYear);
         return response()->json($response);
     }
+    public function dltEvent(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+
+                $id     = $request->input('id');
+                
+                $response =   tlb_ingresos_proyeccion::where('id_produccion',  $id)->update([
+                    "Activo" => 'N',
+                ]);
+
+                return response()->json($response);
+
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+    }
     public function InsertEvento(Request $request){        
-         if ($request->ajax()) {
+        if ($request->ajax()) {
             try {
 
                 $Articulo         = $request->input('Articulo');
@@ -61,6 +81,8 @@ class ProyeccionesController extends Controller {
                 $obj_metas->Cantidad           = $Cantidad;
                 $obj_metas->Comentarios         = $comentario;                
                 $obj_metas->Fecha         = $Fecha;                
+                $obj_metas->Activo         = 'S';                
+                
                 $obj_metas->save();
 
                 return response()->json($obj_metas);

@@ -135,7 +135,7 @@
                       <div class="border-sm-end border-300">
                         <div class="text-center">
                           <h6 class="text-700">Proyeccion del Mes</h6>
-                          <h3 class="fw-normal text-700">0.00 Tns</h3>
+                          <h3 class="fw-normal text-700"><span id="id_tt_meta_tns"></span> Tns</h3>
                         </div>                        
                       </div>
                     </div>
@@ -143,7 +143,7 @@
                       <div class="border-sm-end border-300">
                         <div class="text-center">
                           <h6 class="text-700">Real</h6>
-                          <h3 class="fw-normal text-700"> 0.00 Tns</h3>
+                          <h3 class="fw-normal text-700"> <span id="id_tt_real_tns"></span> Tns</h3>
                         </div>                        
                       </div>
                     </div>
@@ -151,7 +151,7 @@
                       <div>
                         <div class="text-center">
                           <h6 class="text-700">Tasa de conversión</h6>
-                          <h3 class="fw-normal text-700"> 00.00 %</h3>
+                          <h3 class="fw-normal text-700"> <span id="id_tt_procent_tns"></span> %</h3>
                         </div>                        
                       </div>
                     </div>
@@ -168,7 +168,7 @@
                       <div class="border-sm-end border-300">
                         <div class="text-center">
                         <h6 class="text-700">Proyeccion del Mes</h6>
-                          <h3 class="fw-normal text-700">00.00 Kg</h3>
+                          <h3 class="fw-normal text-700"><span id="id_tt_meta"></span> Kg</h3>
                         </div>                        
                       </div>
                     </div>
@@ -176,7 +176,7 @@
                       <div class="border-sm-end border-300">
                         <div class="text-center">
                           <h6 class="text-700">Real</h6>
-                          <h3 class="fw-normal text-700">00.00 Kg.</h3>
+                          <h3 class="fw-normal text-700"><span id="id_tt_real"></span> Kg.</h3>
                         </div>                        
                       </div>
                     </div>
@@ -184,7 +184,7 @@
                       <div>
                         <div class="text-center">
                         <h6 class="text-700">Tasa de conversión</h6>
-                          <h3 class="fw-normal text-700">00.00 %</h3>
+                          <h3 class="fw-normal text-700"><span id="id_tt_procent"></span> %</h3>
                         </div>
                         
                       </div>
@@ -407,7 +407,7 @@
               <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
                 <div class="position-relative z-index-1 light">
                   <h4 class="mb-0 text-white" id="authentication-modal-label">Multiples Filas</h4>
-                  <p class="fs--1 mb-0 text-white">Puede descar el formato para carga la información dando click <a href="{{ asset('Formatos/Formato_Proyecciones.xlsx') }}" class="text-white" >Aqui </a></p>
+                  <p class="fs--1 mb-0 text-white">Puede descar el formato para carga la información dando click <a href="{{ asset('Formatos/Formato2022.xlsx') }}" class="text-white" >Aqui </a></p>
                 </div>
                 <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
