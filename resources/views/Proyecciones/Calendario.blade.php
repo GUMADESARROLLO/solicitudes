@@ -37,27 +37,7 @@
                   <button class="btn icon-item icon-item-sm shadow-none p-0 me-1 ms-md-2" type="button" data-event="prev" data-bs-toggle="tooltip" title="Previous"><span class="fas fa-arrow-left"></span></button>
                   <button class="btn icon-item icon-item-sm shadow-none p-0 me-1 me-lg-2" type="button" data-event="next" data-bs-toggle="tooltip" title="Next"><span class="fas fa-arrow-right"></span></button>
                 </div>
-                <div class="col col-md-auto d-flex justify-content-end order-md-3">
-                  <button class="btn btn-falcon-primary btn-sm" type="button" data-event="today">Hoy</button>
-                </div>
-                <div class="col-md-auto d-md-none">
-                  <hr />
-                  
-                </div>
-                <div class="col d-flex justify-content-end order-md-2">
-                  <div class="dropdown font-sans-serif me-md-2">
-                    <button class="btn btn-falcon-default text-600 btn-sm dropdown-toggle dropdown-caret-none" type="button" id="email-filter" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
-                      <span data-view-title="data-view-title">Por Mes</span><span class="fas fa-sort ms-2 fs--1"></span></button>
-                    <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="email-filter">
-                      <a class="active dropdown-item d-flex justify-content-between" href="#!" data-fc-view="dayGridMonth">Por Mes<span class="icon-check">
-                        <span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a>
-                        <a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="timeGridWeek">Por Semana<span class="icon-check">
-                          <span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a>
-                          <a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="timeGridDay">Por Dia<span class="icon-check">
-                            <span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a><a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="listWeek">Por Lista<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a><a class="dropdown-item d-flex justify-content-between" href="#!" data-fc-view="listYear">Ver año<span class="icon-check"><span class="fas fa-check" data-fa-transform="down-4 shrink-4"></span></span></a>
-                    </div>
-                  </div>
-                </div>
+               
               </div>
             </div>
             <div class="card-body p-0">

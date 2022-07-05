@@ -1,0 +1,64 @@
+
+ref: importacion.id < importacion_detalle.id_importacion
+ref: Laboratorio.id - importacion_detalle.id_laboratorio
+ref: unidad_negocio.id < importacion.id_unidad_negocio
+
+
+Table importacion {
+  id int [pk, increment] 
+  
+  factura varchar(10)
+  recibo varchar(10)
+  id_unidad_negocio int
+  fecha_despacho date
+  fecha_orden_compra date
+  
+  estado int(5)
+  activo varchar(5)
+  
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table importacion_detalle{
+  id int [pk, increment] 
+  id_importacion int(10)
+  id_laboratorio int
+  
+  articulo varchar(10)
+  descripcion varchar(100)
+  cantidad decimal(10,2)
+  
+  precio_farmacia decimal(10,2)
+  precio_publico decimal(10,2)
+  precio_institucion decimal(10,2)
+  
+  mific varchar(5)
+  regencia varchar(5)
+  minsa varchar(10)
+  
+  created_at timestamp
+  updated_at timestamp
+  
+}
+
+Table Laboratorio{
+  id int [pk, increment] 
+  descripcion varchar(100)
+  
+  activo varchar(5)
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table unidad_negocio {
+  id int [pk, increment] 
+  descripcion varchar(100)
+  activo varchar(5)
+  created_at timestamp
+  updated_at timestamp
+}
+
+
+
+

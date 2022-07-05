@@ -43,6 +43,10 @@ class LoginController extends Controller
             case '3':
                 return 'Ordenes';
             break;
+
+            case '7':
+                return 'Calendario';
+            break;
             
             default:
                 return '/login';

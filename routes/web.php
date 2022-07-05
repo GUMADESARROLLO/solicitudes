@@ -110,3 +110,8 @@ Route::post('guardar_excel_proyecciones', 'ProyeccionesController@postGuardarExc
 Route::post('dtProyeccion', 'ProyeccionesController@getDataProyeccion')->name('dtProyeccion');
 Route::post('dltEvent', 'ProyeccionesController@dltEvent')->name('dltEvent');
 Auth::routes();
+
+
+//RUTAS DE IMPORTACIONES
+Route::get('Importaciones', 'ImportacionesController@getImportaciones')->name('Importaciones');
+Route::get('ImportacionesDetalles', 'ImportacionesController@getDetalles')->name('ImportacionesDetalles');

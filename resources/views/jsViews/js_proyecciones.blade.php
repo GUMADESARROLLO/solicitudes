@@ -5,10 +5,16 @@
     var dta_table_excel = []
     var table = ''
     var table_excel = ''
-
     var nMes   = $("#IdSelectMes option:selected").val();           
     var annio  = $("#IdSelectAnnio option:selected").val()
-
+    moment.lang('es', {
+            months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
+            monthsShort: 'Ene._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dic.'.split('_'),
+            weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
+            weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+            weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')
+        }
+    );
     
 
     var tbl_hide_colum = [2,10]
@@ -188,7 +194,7 @@
                 <div class="flex-1">
                     <h6>Fecha</h6>
                     <p class="mb-1">
-                    ${window.dayjs && window.dayjs(event.start).format('dddd, MMMM D, YYYY, h:mm A')} 
+                    ${ moment(event.start).locale('es').format("dddd, MMMM D, YYYY, h:mm A") } 
                     </p>
                 </div>
             </div>
@@ -245,6 +251,10 @@
         }, []);
 
         var updateTitle = function updateTitle(title) {
+
+
+
+
             document.querySelector(Selectors.CALENDAR_TITLE).textContent = title;
 
             
@@ -265,6 +275,7 @@
             headerToolbar: false,
             dayMaxEvents: 2,
             height: 800,
+            locale: 'es',
             stickyHeaderDates: false,
             views: {
                 week: {
@@ -300,6 +311,7 @@
                 flatpickr.setDate([info.dateStr]);
             }
             });
+
             updateTitle(calendar.currentData.viewTitle);
             document.querySelectorAll(Selectors.DATA_EVENT).forEach(function (button) {
             button.addEventListener(Events.CLICK, function (e) {
