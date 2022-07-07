@@ -12,10 +12,10 @@ class ImportacionesController extends Controller {
 
     public function getImportaciones()
     {
-        return view('Importaciones.home');
+        return view('Importaciones.Ordenes');
     }
     public function getDetalles()
-    {
-        return view('Importaciones.importacinesDetalles');
+    {     
+        return view('Importaciones.Detalles');
     }
 }
