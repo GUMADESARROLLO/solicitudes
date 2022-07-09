@@ -9,13 +9,11 @@ use App\Models\ArticulosUMK;
 use App\Models\ArticulosGP;
 use App\Models\Laboratorios;
 use App\Models\Consignados;
-use App\Traits\ModelScopes;
 use Illuminate\Support\Facades\DB;
 use Exception;
 
 class HomeController extends Controller
 {
-    use ModelScopes;
     /**
      * Create a new controller instance.
      *
@@ -49,7 +47,7 @@ class HomeController extends Controller
     }
     public function getArtiGP()
     {
-        $Articulos = ArticulosUMK::getArticulos();
+        $Articulos = ArticulosGP::getArticulos();
         return response()->json($Articulos);
     }
     public function getLab()
