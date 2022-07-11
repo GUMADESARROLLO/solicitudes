@@ -1,6 +1,6 @@
 @extends('layouts.lyt_gumadesk')
 @section('metodosjs')
-@include('jsViews.js_importaciones');
+@include('jsViews.js_importacion');
 @endsection
 @section('content')
 

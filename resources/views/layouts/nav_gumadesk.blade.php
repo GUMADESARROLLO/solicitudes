@@ -74,7 +74,7 @@
         @if( Session::get('rol')[0] == '5' || Session::get('rol')[0] == '1')
           <a class="dropdown-item" href="Calendario">Calendario</a>
           <a class="dropdown-item" href="proyecciones">Proyecciones</a>
-          <a class="dropdown-item" href="Importaciones">Importaciones</a>
+          <a class="dropdown-item" href="Importacion">Importacion</a>
           <div class="dropdown-divider"></div>
         @endif
 

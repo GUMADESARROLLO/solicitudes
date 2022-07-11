@@ -113,5 +113,8 @@ Auth::routes();
 
 
 //RUTAS DE IMPORTACIONES
-Route::get('Importaciones', 'ImportacionesController@getImportaciones')->name('Importaciones');
-Route::get('ImportacionesDetalles', 'ImportacionesController@getDetalles')->name('ImportacionesDetalles');
+Route::get('Importacion', 'ImportacionController@getImportacion')->name('Importacion');
+Route::get('ImportacionDetalles', 'ImportacionController@getDetalles')->name('ImportacionDetalles');
+Route::get('Vendor', 'ImportacionController@getVendor')->name('Vendor');
+Route::get('Shipto', 'ImportacionController@getShipto')->name('Shipto');
+Route::get('Product', 'ImportacionController@getProduct')->name('Product');
