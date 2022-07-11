@@ -728,6 +728,8 @@
         var tt_Real = 0;
 
         
+
+        
         $.each(datos, function (ind, elem) { 
 
             var pReal    = parseFloat(isValue(elem.Ingreso,'0',true))
@@ -742,33 +744,33 @@
             pMeta    = numeral(pMeta).format('0,0.00')
 
 
-            html_grid_product += `<div class="mb-3 col-md-6 col-lg-3">
-                        <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
-                        <div class="overflow-hidden">
-                            <div class="position-relative rounded-top overflow-hidden">
-                            <a class="d-block" href="!#">
-                                <img class="img-fluid rounded-top" src="images/item-stock-03.png" alt="" />
-                            </a>
-                            </div>
-                            <div class="p-3">
-                            <h5 class="fs-0"><a class="text-dark" href="!#">`+ elem.Descripcion +`</a></h5>
-                            <p class="fs--1 mb-3"><a class="text-500" href="#!">SKU: `+ elem.Articulos +`</a></p>
-                            <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> `+ pMeta +` Kg.</h5>
-                            <p class="fs--1 mb-1">REAL: <strong> `+ pReal +` Kg.</strong></p>
-                            <span class="badge rounded-pill badge-soft-primary">
-                                <span class="fas fa-caret-up"></span> `+ pPorcent +` %
-                            </span>
-                            </p>
-                            </div>
-                        </div>                    
-                        </div>
-                    </div>`
+
+            html_grid_product +=    `<tr class="btn-reveal-trigger">
+                            <td class="align-middle white-space-nowrap name">
+                            <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="images/item-stock-03.png" width="60" alt="" />
+                                <div class="flex-1 ms-3">
+                                    <h6 class="mb-1 fw-semi-bold text-nowrap"><a class="text-900 stretched-link" href="#!">`+ elem.Descripcion +`</a></h6>
+                                    <p class="fw-semi-bold mb-0 text-500">SKU: `+ elem.Articulos +`</p>
+                                </div>
+                                </div>
+                            </td>
+                            <td class="align-middle white-space-nowrap email"> `+ pMeta +`</td>
+                            <td class="align-middle white-space-nowrap product">0.00</td>
+                            <td class="align-middle text-center fs-0 white-space-nowrap">
+                            `+ pReal +`
+                            </td>
+                            <td class="align-middle text-end amount">$99</td>
+                            <td class="align-middle text-end fs-0 white-space-nowrap">
+                            <span class="badge badge rounded-pill badge-soft-success">`+ pReal +` %
+                                <span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span>
+                                </span>
+                            </td>
+                            
+                            <td class="align-middle text-end amount">$99</td>
+                            </tr>`;
 
 
         }); 
-
-        
-
         tt_Real_tns     = tt_Real / 1000 ;
         tt_Meta_tns     = tt_Meta / 1000 ;
         tt_Porcent_tns  = numeral((parseFloat(tt_Real_tns) / parseFloat(tt_Meta_tns) ) * 100 ).format('0,0.00');
@@ -780,6 +782,8 @@
         
         tt_Real_tns     = numeral(tt_Real_tns).format('0,0.00')
         tt_Meta_tns     = numeral(tt_Meta_tns).format('0,0.00')
+
+        console.log(html_grid_product)
 
         $("#id_render_grid_html").html(html_grid_product)
 

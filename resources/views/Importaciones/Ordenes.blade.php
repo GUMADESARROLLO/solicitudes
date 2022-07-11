@@ -116,42 +116,42 @@
                 </div>
             </div>
             <div class="col-md-6 col-xxl-3">
-            <div class="card">
-            <div class="card-header">
-                  <div class="row flex-between-center">
-                    <div class="col-auto mt-2">
-                      <div class="row g-sm-4">
-                        <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                            <h6 class="fs-1 mb-1">Pedido</h6>
-                            <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2">Despachado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+              <div class="card">
+              <div class="card-header">
+                    <div class="row flex-between-center">
+                      <div class="col-auto mt-2">
+                        <div class="row g-sm-4">
+                          <div class="col-12 col-sm-auto">
+                          <div class="mb-3 pe-4 border-sm-end border-200">
+                              <h6 class="fs-1 mb-1">Pedido</h6>
+                              <div class="d-flex align-items-center">
+                              <div class="badge rounded-pill badge-soft-success fs--2">Despachado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                            <h6 class="fs-1 mb-1">Transito</h6>
-                            <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2">Pagado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                          <div class="col-12 col-sm-auto">
+                          <div class="mb-3 pe-4 border-sm-end border-200">
+                              <h6 class="fs-1 mb-1">Transito</h6>
+                              <div class="d-flex align-items-center">
+                              <div class="badge rounded-pill badge-soft-success fs--2">Pagado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-12 col-sm-auto">
-                          <div class="mb-3 pe-0">
-                            <h6 class="fs-1 mb-1">Minsa</h6>
-                            <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2"> Consolidada<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                          <div class="col-12 col-sm-auto">
+                            <div class="mb-3 pe-0">
+                              <h6 class="fs-1 mb-1">Minsa</h6>
+                              <div class="d-flex align-items-center">
+                              <div class="badge rounded-pill badge-soft-success fs--2"> Consolidada<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                </div>
-                
-          </div>
+                  </div>
+                  
+            </div>
 
           <div class="card mb-3" id="ordersTable" data-list='{"valueNames":["order","date","address","status","amount"],"page":10,"pagination":true}'>
           
