@@ -114,7 +114,24 @@ Auth::routes();
 
 //RUTAS DE IMPORTACIONES
 Route::get('Importacion', 'ImportacionController@getImportacion')->name('Importacion');
-Route::get('ImportacionDetalles', 'ImportacionController@getDetalles')->name('ImportacionDetalles');
-Route::get('Vendor', 'ImportacionController@getVendor')->name('Vendor');
+Route::get('ImportacionDetalles/{ID}', 'ImportacionController@getDetalles')->name('ImportacionDetalles');
+
 Route::get('Shipto', 'ImportacionController@getShipto')->name('Shipto');
 Route::get('Product', 'ImportacionController@getProduct')->name('Product');
+
+//VENDOR
+Route::get('Vendor', 'ImportacionController@getVendor')->name('Vendor');
+Route::POST('SaveVendor', 'ImportacionController@SaveVendor')->name('SaveVendor');
+Route::post('DeleteVendor', 'ImportacionController@DeleteVendor')->name('DeleteVendor');
+Route::get('getOneVendor/{ID}', 'ImportacionController@getOneVendor')->name('getOneVendor');
+
+
+//SHIP TO
+Route::get('ShipTo', 'ImportacionController@getShipTo')->name('ShipTo');
+Route::post('SaveShipTo', 'ImportacionController@SaveShipTo')->name('SaveShipTo');
+Route::post('DeleteShipTo', 'ImportacionController@DeleteShipTo')->name('DeleteShipTo');
+Route::get('getOneShipTo/{ID}', 'ImportacionController@getOneShipTo')->name('getOneShipTo');
+
+
+//RUTAS PARA LAS NUEVAS ORDENES DE COMPRAS
+Route::post('SaveNewPO', 'ImportacionController@SaveNewPO')->name('SaveNewPO');

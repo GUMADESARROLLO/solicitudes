@@ -7,6 +7,7 @@
 <!-- ===============================================-->
 <!--    Main Content-->
 <!-- ===============================================-->
+
 <main class="main" id="top">
     <div class="container-fluid" data-layout="container">
         <div class="content">
@@ -198,12 +199,50 @@
                     </tr>
                   </thead>
                   <tbody class="list" id="table-orders-body">
+                    @foreach ($ListPO as $lp)
+                    <tr class="btn-reveal-trigger ">
+                      <td class="py-2 align-middle white-space-nowrap">
+                        <div class="d-flex align-items-center position-relative">
+                          <div class="avatar avatar-xl">
+                            <div class="avatar-name rounded-circle text-primary bg-success fs-0"><span></span></div>
+                          </div>
+                          <div class="flex-1 ms-3">
+                            <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900" href="ImportacionDetalles/{{ strtoupper($lp['id']) }}"># {{ strtoupper($lp['num_po']) }}</a></h6>
+                            <p class="text-500 fs--2 mb-0">Falcon</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="date py-2 align-middle">20/04/2019</td>
+                      <td class="date py-2 align-middle">AQUI VA LA VIA</td>
+                      <td class="date py-2 align-middle">AQUI VA LA CARGA</td>
+                      <td class="date py-2 align-middle">AQUI VA LA VENDEDOR FABRICANTE</td>
+                      <td class="address py-2 align-middle white-space-nowrap">{{ strtoupper($lp['nombre_shipto']) }}
+                        <p class="mb-0 text-500">{{ strtoupper($lp['Descripcion']) }}</p>
+                      </td>
+                      <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-soft-success">Depachado<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                      </td>
+                      <td class="amount py-2 align-middle text-end fs-0 fw-medium">$99</td>
+                      <td class="py-2 align-middle white-space-nowrap text-end">
+                        <div class="dropdown font-sans-serif position-static">
+                          <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
+                          <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
+                            <div class="bg-white py-2"><a class="dropdown-item" href="#!">Completed</a><a class="dropdown-item" href="#!">Processing</a><a class="dropdown-item" href="#!">On Hold</a><a class="dropdown-item" href="#!">Pending</a>
+                              <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Delete</a>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    
+                    @endforeach
 
                   <?php
+
+
                   
 
-                  for($i=0;$i<=1;$i++){
-                    echo '
+                   /*for($i=0;$i<=1;$i++){
+                   echo '
                     <tr class="btn-reveal-trigger ">
                       <td class="py-2 align-middle white-space-nowrap">
                         <div class="d-flex align-items-center position-relative">
@@ -338,7 +377,7 @@
                     </tr>
                     
                     ';
-                  }
+                  }*/
                   ?>
                     
                   </tbody>
@@ -370,13 +409,16 @@
               </div>
               <div class="modal-body py-4 px-5">
               <div class="mb-3">
-                <label class="col-form-label" for="recipient-name">P.O. NO:</label>
-                <input class="form-control" id="recipient-name" type="text" />
+                <label class="col-form-label" for="id_num_po">P.O. NO:</label>
+                <input class="form-control" id="id_num_po" type="text" />
               </div>
                 <div class="mb-3">
                   <label for="">VENDOR</label>
-                  <select class="form-select" id="id_select_">
-                    
+                  <select class="form-select" id="id_select_vendor">
+                      
+                      @foreach ($Vendors as $vnd)
+                      <option value="{{ strtoupper($vnd['id']) }}">{{ strtoupper($vnd['nombre_vendor']) }}</option>
+                      @endforeach
                         
                     </select>
                 </div>
@@ -384,13 +426,17 @@
                 <div class="row gx-2">
                   <div class="mb-3 col-sm-12">
                   <label for="">Ship To</label>
-                  <select class="form-select" id="id_select_">
-                        
+                  <select class="form-select" id="id_select_shipto">
+
+                      @foreach ($ShipTo as $sht)
+                      <option value="{{ strtoupper($sht['id']) }}">{{ strtoupper($sht['nombre_shipto']) }}</option>
+                      @endforeach
+
                   </select>
                   </div>
                 </div>                
                 <div class="mb-3">
-                  <button class="btn btn-primary d-block w-100 mt-3" id="id_send_filtros" type="submit" name="submit">Guardar</button>
+                  <button class="btn btn-primary d-block w-100 mt-3" id="id_send_frm_new_po" type="submit" name="submit">Guardar</button>
                 </div>
               </div>
             </div>
