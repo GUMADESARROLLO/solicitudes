@@ -1,12 +1,13 @@
 @extends('layouts.lyt_gumadesk')
 @section('metodosjs')
-@include('jsViews.js_importaciones');
+@include('jsViews.js_importacion');
 @endsection
 @section('content')
 
 <!-- ===============================================-->
 <!--    Main Content-->
 <!-- ===============================================-->
+
 <main class="main" id="top">
     <div class="container-fluid" data-layout="container">
         <div class="content">
@@ -29,7 +30,21 @@
                             <div class="col-md-auto position-relative">
                                 <input class="form-control form-control-sm datetimepicker ps-4" id="CRMDateRange" type="text" data-options="{&quot;mode&quot;:&quot;range&quot;,&quot;dateFormat&quot;:&quot;M d&quot;,&quot;disableMobile&quot;:true , &quot;defaultDate&quot;: [&quot;Sep 12&quot;, &quot;Sep 19&quot;] }" /><span class="fas fa-calendar-alt text-primary position-absolute top-50 translate-middle-y ms-2"> </span>
                             </div>
-                            <div class="col-auto"><a class="btn btn-falcon-primary btn-sm" href="../../app/email/compose.html"><span class="fas fa-plus me-1" data-fa-transform="shrink-3"></span>Crear </a></div>
+                            <div class="col-auto">                              
+                              <div class="dropdown font-sans-serif btn-reveal-trigger">
+                                <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-top-products" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
+                                <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-top-products">
+                                  <a class="dropdown-item"  href="#!" id="id_btn_new_po"><span class="fas fa-plus me-1"></span>P.O </a>
+                                  <a class="dropdown-item"  href="Vendor"><span class="fas fa-plus me-1"></span>VENDOR </a>
+                                  <a class="dropdown-item"  href="Shipto"><span class="fas fa-plus me-1"></span>SHIP TO </a>
+                                  <a class="dropdown-item"  href="Product"><span class="fas fa-plus me-1"></span>PRODUCT</a>
+                                  
+                                </div>
+                              </div>
+                            </div>
+
+                           
+                            
                             </form>
                         </div>
                         
@@ -116,42 +131,42 @@
                 </div>
             </div>
             <div class="col-md-6 col-xxl-3">
-            <div class="card">
-            <div class="card-header">
-                  <div class="row flex-between-center">
-                    <div class="col-auto mt-2">
-                      <div class="row g-sm-4">
-                        <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                            <h6 class="fs-1 mb-1">Pedido</h6>
-                            <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2">Despachado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+              <div class="card">
+              <div class="card-header">
+                    <div class="row flex-between-center">
+                      <div class="col-auto mt-2">
+                        <div class="row g-sm-4">
+                          <div class="col-12 col-sm-auto">
+                          <div class="mb-3 pe-4 border-sm-end border-200">
+                              <h6 class="fs-1 mb-1">Pedido</h6>
+                              <div class="d-flex align-items-center">
+                              <div class="badge rounded-pill badge-soft-success fs--2">Despachado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                            <h6 class="fs-1 mb-1">Transito</h6>
-                            <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2">Pagado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                          <div class="col-12 col-sm-auto">
+                          <div class="mb-3 pe-4 border-sm-end border-200">
+                              <h6 class="fs-1 mb-1">Transito</h6>
+                              <div class="d-flex align-items-center">
+                              <div class="badge rounded-pill badge-soft-success fs--2">Pagado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-12 col-sm-auto">
-                          <div class="mb-3 pe-0">
-                            <h6 class="fs-1 mb-1">Minsa</h6>
-                            <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2"> Consolidada<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                          <div class="col-12 col-sm-auto">
+                            <div class="mb-3 pe-0">
+                              <h6 class="fs-1 mb-1">Minsa</h6>
+                              <div class="d-flex align-items-center">
+                              <div class="badge rounded-pill badge-soft-success fs--2"> Consolidada<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                </div>
-                
-          </div>
+                  </div>
+                  
+            </div>
 
           <div class="card mb-3" id="ordersTable" data-list='{"valueNames":["order","date","address","status","amount"],"page":10,"pagination":true}'>
           
@@ -184,12 +199,7 @@
                     </tr>
                   </thead>
                   <tbody class="list" id="table-orders-body">
-
-                  <?php
-                  
-
-                  for($i=0;$i<=1;$i++){
-                    echo '
+                    @foreach ($ListPO as $lp)
                     <tr class="btn-reveal-trigger ">
                       <td class="py-2 align-middle white-space-nowrap">
                         <div class="d-flex align-items-center position-relative">
@@ -197,7 +207,50 @@
                             <div class="avatar-name rounded-circle text-primary bg-success fs-0"><span></span></div>
                           </div>
                           <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900" href="ImportacionesDetalles"># 181</a></h6>
+                            <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900" href="ImportacionDetalles/{{ strtoupper($lp['id']) }}"># {{ strtoupper($lp['num_po']) }}</a></h6>
+                            <p class="text-500 fs--2 mb-0">Falcon</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="date py-2 align-middle">20/04/2019</td>
+                      <td class="date py-2 align-middle">AQUI VA LA VIA</td>
+                      <td class="date py-2 align-middle">AQUI VA LA CARGA</td>
+                      <td class="date py-2 align-middle">AQUI VA LA VENDEDOR FABRICANTE</td>
+                      <td class="address py-2 align-middle white-space-nowrap">{{ strtoupper($lp['nombre_shipto']) }}
+                        <p class="mb-0 text-500">{{ strtoupper($lp['Descripcion']) }}</p>
+                      </td>
+                      <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-soft-success">Depachado<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                      </td>
+                      <td class="amount py-2 align-middle text-end fs-0 fw-medium">$99</td>
+                      <td class="py-2 align-middle white-space-nowrap text-end">
+                        <div class="dropdown font-sans-serif position-static">
+                          <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
+                          <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
+                            <div class="bg-white py-2"><a class="dropdown-item" href="#!">Completed</a><a class="dropdown-item" href="#!">Processing</a><a class="dropdown-item" href="#!">On Hold</a><a class="dropdown-item" href="#!">Pending</a>
+                              <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Delete</a>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    
+                    @endforeach
+
+                  <?php
+
+
+                  
+
+                   /*for($i=0;$i<=1;$i++){
+                   echo '
+                    <tr class="btn-reveal-trigger ">
+                      <td class="py-2 align-middle white-space-nowrap">
+                        <div class="d-flex align-items-center position-relative">
+                          <div class="avatar avatar-xl">
+                            <div class="avatar-name rounded-circle text-primary bg-success fs-0"><span></span></div>
+                          </div>
+                          <div class="flex-1 ms-3">
+                            <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900" href="ImportacionDetalles"># 181</a></h6>
                             <p class="text-500 fs--2 mb-0">Falcon</p>
                           </div>
                         </div>
@@ -324,7 +377,7 @@
                     </tr>
                     
                     ';
-                  }
+                  }*/
                   ?>
                     
                   </tbody>
@@ -341,6 +394,55 @@
           </div>
             @include('layouts.footer_gumadesk')
         </div>
+
+
+        <!--OPEN MODALS -->
+        <div class="modal fade" id="tbl_setting" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
+          <div class="modal-dialog modal-xl mt-6" role="document">
+            <div class="modal-content border-0">
+              <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
+                <div class="position-relative z-index-1 light">
+                  <h4 class="mb-0 text-white" id="authentication-modal-label">Nueva P.O. NO</h4>
+                  <p class="fs--1 mb-0 text-white">Aperturar nueva orden de pedido</p>
+                </div>
+                <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body py-4 px-5">
+              <div class="mb-3">
+                <label class="col-form-label" for="id_num_po">P.O. NO:</label>
+                <input class="form-control" id="id_num_po" type="text" />
+              </div>
+                <div class="mb-3">
+                  <label for="">VENDOR</label>
+                  <select class="form-select" id="id_select_vendor">
+                      
+                      @foreach ($Vendors as $vnd)
+                      <option value="{{ strtoupper($vnd['id']) }}">{{ strtoupper($vnd['nombre_vendor']) }}</option>
+                      @endforeach
+                        
+                    </select>
+                </div>
+                
+                <div class="row gx-2">
+                  <div class="mb-3 col-sm-12">
+                  <label for="">Ship To</label>
+                  <select class="form-select" id="id_select_shipto">
+
+                      @foreach ($ShipTo as $sht)
+                      <option value="{{ strtoupper($sht['id']) }}">{{ strtoupper($sht['nombre_shipto']) }}</option>
+                      @endforeach
+
+                  </select>
+                  </div>
+                </div>                
+                <div class="mb-3">
+                  <button class="btn btn-primary d-block w-100 mt-3" id="id_send_frm_new_po" type="submit" name="submit">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--CLOSE MODALS -->
     </div>
 </main>
 @endsection('content')

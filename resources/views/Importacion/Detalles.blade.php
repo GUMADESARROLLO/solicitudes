@@ -1,6 +1,6 @@
 @extends('layouts.lyt_gumadesk')
 @section('metodosjs')
-@include('jsViews.js_importaciones');
+@include('jsViews.js_importacion');
 @endsection
 @section('content')
 
@@ -15,7 +15,7 @@
 
 
             <div class="row g-3 mb-3">
-            <div class="col-lg-9">
+            <div class="col-md-10 col-xxl-10">
            
               <div class="card">
                 <div class="card-header">
@@ -123,10 +123,10 @@
                     <div class="row align-items-center">
                     <div class="w-100">
                         <div class="row fs--1 fw-semi-bold text-500 g-0">
-                            <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-primary"></span><span>MIFIC </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block">( SI )</span></div>
-                            <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-info"></span><span>REGENCIA </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block">( SI )</span></div>
-                            <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-success"></span><span>MINSA </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block">( SI )</span></div>
-                            <div class="col-auto d-flex align-items-center"><span class="dot bg-200"></span><span> Vendedor / Fabricante  </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block m"> --- <span></div>
+                            <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-primary"></span><span>MIFIC </span><span class="d-none d-md-inline-block d-lg-block d-xxl-inline-block">( SI )</span></div>
+                            <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-info"></span><span>REGENCIA </span><span class="d-none d-md-inline-block d-lg-block d-xxl-inline-block">( SI )</span></div>
+                            <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-success"></span><span>MINSA </span><span class="d-none d-md-inline-block d-lg-block d-xxl-inline-block">( SI )</span></div>
+                            <div class="col-auto d-flex align-items-center"><span class="dot bg-200"></span><span> Vendedor / Fabricante  </span><span class="d-none d-md-inline-block d-lg-block d-xxl-inline-block m"> --- <span></div>
                             
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-md-2 col-xxl-2">
               <div class="card h-100">
                 <div class="card-body pb-0">
                   <div class="mx-ncard">

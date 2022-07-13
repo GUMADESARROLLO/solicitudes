@@ -1,32 +1,99 @@
 
-ref: importacion.id < importacion_detalle.id_importacion
-ref: Laboratorio.id - importacion_detalle.id_laboratorio
-ref: unidad_negocio.id < importacion.id_unidad_negocio
+ref: tbl_imp_importacion.id < tbl_imp_importacion_detalle.id_importacion
+ref: tbl_imp_Laboratorio.id - tbl_imp_importacion_detalle.id_laboratorio
+ref: tbl_imp_importacion.id_vendor - tbl_imp_vendor.id
+ref: tbl_imp_importacion.id_shipto - tbl_imp_shipto.id
+ref: tbl_imp_Product.id < tbl_imp_importacion_detalle.id_product
+ref: tbl_imp_importacion.id_via - tbl_imp_vias.id
+ref: tbl_imp_importacion.id_estados_pagos - tbl_imp_estados_pagos.id
+ref: tbl_imp_importacion.tipo_carga - tbl_imp_tipo_carga.id
 
-
-Table importacion {
-  id int [pk, increment] 
+Table tbl_imp_importacion {
+  id int(10) [pk, increment] 
+  
+  num_po varchar(20)
+  id_vendor int(10)
+  id_shipto int(10) 
+  id_via int(10)
+  id_estados_pagos int (10)
+  estados_pagos int (5)
+  tipo_carga int (5)
+  
   
   factura varchar(10)
   recibo varchar(10)
-  id_unidad_negocio int
   fecha_despacho date
   fecha_orden_compra date
+  estado_importacion int(5)
   
-  estado int(5)
+  activo varchar(5)
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table tbl_imp_vias {
+  id int(10) [pk, increment] 
+  
+  Descripcion varchar(250)
   activo varchar(5)
   
   created_at timestamp
   updated_at timestamp
 }
 
-Table importacion_detalle{
-  id int [pk, increment] 
+Table tbl_imp_tipo_carga {
+  id int(10) [pk, increment] 
+  
+  Descripcion varchar(250)
+  activo varchar(5)
+  
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table tbl_imp_estados_pagos {
+  id int(10) [pk, increment] 
+  
+  Descripcion varchar(250)
+  activo varchar(5)
+  
+  created_at timestamp
+  updated_at timestamp
+}
+
+
+
+Table tbl_imp_vendor {
+  id int(10) [pk, increment]
+  
+  nombre_vendor varchar(100)
+  Descripcion varchar(250)
+  time_despacho int (10)
+  activo varchar(5)
+  
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table tbl_imp_shipto {
+  id int(10) [pk, increment] 
+  
+  nombre_shipto varchar(250)
+  Descripcion varchar(250)
+  activo varchar(5)
+  
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table tbl_imp_importacion_detalle{
+  id int(10) [pk, increment] 
   id_importacion int(10)
-  id_laboratorio int
+  id_laboratorio int(10)
+  id_product int(10) 
   
   articulo varchar(10)
-  descripcion varchar(100)
+  descripcion varchar(250)
   cantidad decimal(10,2)
   
   precio_farmacia decimal(10,2)
@@ -42,22 +109,28 @@ Table importacion_detalle{
   
 }
 
-Table Laboratorio{
-  id int [pk, increment] 
-  descripcion varchar(100)
+Table tbl_imp_Laboratorio{
+  id int(10) [pk, increment] 
+  descripcion varchar(250)
   
   activo varchar(5)
   created_at timestamp
   updated_at timestamp
 }
 
-Table unidad_negocio {
-  id int [pk, increment] 
-  descripcion varchar(100)
+
+Table tbl_imp_Product{
+  id int(10) [pk, increment] 
+  
+  Articulo_exactus varchar(50)
+  descripcion varchar(250)
+  
   activo varchar(5)
   created_at timestamp
   updated_at timestamp
 }
+
+
 
 
 

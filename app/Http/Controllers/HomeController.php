@@ -42,7 +42,7 @@ class HomeController extends Controller
     }
     public function getArtiUMK()
     {
-        $Articulos = ArticulosUMK::getArticulos();
+        $Articulos = ArticulosGP::getArticulos();
         return response()->json($Articulos);
     }
     public function getArtiGP()

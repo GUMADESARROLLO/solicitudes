@@ -127,79 +127,109 @@
           @include('layouts.nav_gumadesk')
 
           <div class="row g-3 mb-3">
-            <div class="col-md-6 col-xxl-6">
+            <div class="col-xxl-12 col-xl-12">
+              
               <div class="card">
-                <div class="card-body py-5 py-sm-3">
-                  <div class="row g-5 g-sm-0">
-                    <div class="col-sm-4">
-                      <div class="border-sm-end border-300">
-                        <div class="text-center">
-                          <h6 class="text-700">Proyeccion del Mes</h6>
-                          <h3 class="fw-normal text-700"><span id="id_tt_meta_tns"></span> Tns</h3>
-                        </div>                        
+                <div class="card-header">
+                  <div class="row flex-between-center g-0">
+                    <div class="col-auto">
+                      <h6 class="mb-0">Total Produccion</h6>
+                    </div>
+                    <div class="col-auto d-flex">
+                      <div class="form-check mb-0 d-flex">
+                        <input class="form-check-input form-check-input-primary" id="ecommerceLastMonth" type="checkbox" checked="checked" />
+                        <label class="form-check-label ps-2 fs--2 text-600 mb-0" for="ecommerceLastMonth">Lorem ipsum<span class="text-dark d-none d-md-inline">: $32,502.00</span></label>
+                      </div>
+                      <div class="form-check mb-0 d-flex ps-0 ps-md-3">
+                        <input class="form-check-input ms-2 form-check-input-warning opacity-75" id="ecommercePrevYear" type="checkbox" checked="checked" />
+                        <label class="form-check-label ps-2 fs--2 text-600 mb-0" for="ecommercePrevYear">Lorem ipsum<span class="text-dark d-none d-md-inline">: $46,018.00</span></label>
                       </div>
                     </div>
-                    <div class="col-sm-4">
-                      <div class="border-sm-end border-300">
-                        <div class="text-center">
-                          <h6 class="text-700">Real</h6>
-                          <h3 class="fw-normal text-700"> <span id="id_tt_real_tns"></span> Tns</h3>
-                        </div>                        
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div>
-                        <div class="text-center">
-                          <h6 class="text-700">Tasa de conversión</h6>
-                          <h3 class="fw-normal text-700"> <span id="id_tt_procent_tns"></span> %</h3>
-                        </div>                        
-                      </div>
+                    <div class="col-auto">
+                      
                     </div>
                   </div>
                 </div>
-              </div>
-
-            </div>
-            <div class="col-md-6 col-xxl-6">
-              <div class="card">
-                <div class="card-body py-5 py-sm-3">
-                  <div class="row g-5 g-sm-0">
-                    <div class="col-sm-4">
-                      <div class="border-sm-end border-300">
-                        <div class="text-center">
-                        <h6 class="text-700">Proyeccion del Mes</h6>
-                          <h3 class="fw-normal text-700"><span id="id_tt_meta"></span> Kg</h3>
-                        </div>                        
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="border-sm-end border-300">
-                        <div class="text-center">
-                          <h6 class="text-700">Real</h6>
-                          <h3 class="fw-normal text-700"><span id="id_tt_real"></span> Kg.</h3>
-                        </div>                        
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div>
-                        <div class="text-center">
-                        <h6 class="text-700">Tasa de conversión</h6>
-                          <h3 class="fw-normal text-700"><span id="id_tt_procent"></span> %</h3>
+                <div class="card-body pe-xxl-0">
+                <div class="row g-1">                  
+                    <div class="col-xxl-3">
+                      <div class="row g-0 my-2">
+                        <div class="col-md-6 col-xxl-6">
+                          <div class="border-xxl-bottom border-xxl-200 mb-2 ">
+                            <h2 class="text-primary"><span id="id_tt_real"></span> </h2>
+                            <p class="fs--2 text-500 fw-semi-bold"><span class="fas fa-circle text-primary me-2"></span>Total Bolson</p>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-6">
+                          <div class="border-xxl-bottom border-xxl-200 mb-2 ">
+                            <h2 class="text-primary">0.00</h2>
+                            <p class="fs--2 text-500 fw-semi-bold"><span class="fas fa-circle text-warning me-2"></span>Total Toneladas</p>
+                          </div>
                         </div>
                         
+                        
+                        <div class="col-md-6 col-xxl-12 py-2">
+                          <div class="row mx-0">
+                            <div class="col-6 col-md-6 border-200 border-bottom border-end pb-4">
+                              <h6 class="pb-1 text-700">Proyeccion. Toneladas </h6>
+                              <p class="font-sans-serif lh-1 mb-1 fs-2"><span id="id_tt_meta_tns"></span>  </p>
+                              <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">Real. <span id="id_tt_real_tns"></span> </h6>
+                                <h6 class="fs--2 ps-3 mb-0 text-primary"><span class="me-1 fas fa-caret-up"></span><span id="id_tt_procent_tns"></span> %</h6>
+                              </div>
+                            </div>
+                            
+                            <div class="col-6 col-md-6 border-200 border-md-200 border-bottom border-md-end pb-4 ps-3">
+                              <h6 class="pb-1 text-700">Proyeccion. Kilogramos. </h6>
+                              <p class="font-sans-serif lh-1 mb-1 fs-2"><span id="id_tt_meta"></span> KG.</p>
+                              <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">Real. 0.00</h6>
+                                <h6 class="fs--2 ps-3 mb-0 text-warning"><span class="me-1 fas fa-caret-up"></span><span id="id_tt_procent"></span>%</h6>
+                              </div>
+                            </div>
+
+                            
+                            
+                            <div class="col-6 col-md-6 border-200 border-md-200 border-bottom border-md-bottom-0 border-md-end pt-4 pb-md-0 ps-3 ps-md-0">
+                              <h6 class="pb-1 text-700"> ---</h6>
+                              <p class="font-sans-serif lh-1 mb-1 fs-2">0.00 </p>
+                              <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">0.00</h6>
+                                <h6 class="fs--2 ps-3 mb-0 text-danger"><span class="me-1 fas fa-caret-up"></span>0.00%</h6>
+                              </div>
+                            </div>
+
+                            <div class="col-6 col-md-6 border-200 border-md-bottom-0 border-end pt-4 pb-md-0 ps-md-3">
+                              <h6 class="pb-1 text-700"> --- </h6>
+                              <p class="font-sans-serif lh-1 mb-1 fs-2"> 0.00 </p>
+                              <div class="d-flex align-items-center">
+                                <h6 class="fs--1 text-500 mb-0">0.00 </h6>
+                                <h6 class="fs--2 ps-3 mb-0 text-success"><span class="me-1 fas fa-caret-up"></span> 0.00 %</h6>
+                              </div>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xxl-9">
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="crm-revenue" role="tabpanel" aria-labelledby="crm-revenue-tab">
+                          <div class="echart-crm-revenue" data-echart-responsive="true" data-echart-tab="data-echart-tab" style="height:320px;"></div>
+                        </div>
+                      
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          
-          <div class="row mb-3 g-3">
-            <div class="col-lg-12 col-xxl-12">
-              <div class="card">
-              <div class="card-header">
-              <div class="row flex-between-center">
+            <div class="col-xxl-12 col-xl-12">
+              <div class="row g-3">
+                <div class="col-lg-12">
+                <div class="card z-index-1" id="recentPurchaseTable" data-list='{"valueNames":["name","email","product","payment","amount"],"page":7,"pagination":true}'>
+                <div class="card-header">
+                <div class="row flex-between-center">
                 
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
                   <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0" >Articulos de Proyección</h5> 
@@ -252,78 +282,50 @@
                   </div>
                 </div>
               </div>
-            </div>  
-            <div class="card-body p-0">
-              <!--<div class="table-responsive scrollbar">
-                  <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden" id="tbl_solicitudes" ></table>  
-              </div>-->
-              
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row" id="id_render_grid_html">
+                </div>
+                <div class="card-body px-0 py-0">
+                  <div class="table-responsive scrollbar">
+                    <table class="table table-sm fs--1 mb-0 overflow-hidden">
+                      <thead class="bg-200 text-900">
+                        <tr>
+                          
+                          <th class="sort pe-1 align-middle white-space-nowrap" >Producto</th>
+                          <th class="sort pe-1 align-middle white-space-nowrap" >Proy. Bolsones</th>
+                          <th class="sort pe-1 align-middle white-space-nowrap" >Proy. Kilos</th>
+                          <th class="sort pe-1 align-middle white-space-nowrap text-center">Real Bolsones</th>
+                          <th class="sort pe-1 align-middle white-space-nowrap text-end" >Real Kilos</th>
+                          <th class="sort pe-1 align-middle white-space-nowrap text-end" >% Cump Bolsones</th>
+                          <th class="sort pe-1 align-middle white-space-nowrap text-end" >% Cump Kilos</th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody class="list"id="id_render_grid_html" >
+                        
+                        
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-              </div>
-
-            </div>
-              </div>
-            </div>
-            <div class="col-xxl-3" style="display:none">
-              <div class="card">
-                <div class="card-header d-flex flex-between-center py-2 border-bottom">
-                  <h6 class="mb-0">Resumen</h6>
-                  
-                </div>
-                <div class="card-body d-flex flex-column justify-content-between">
+                <div class="card-footer">
                   <div class="row align-items-center">
-                    <div class="col-md-5 col-xxl-12 mb-xxl-1">
-                      <div class="position-relative">
-                        <div class="echart-most-leads my-2" data-echart-responsive="true"></div>
-                        <div class="position-absolute top-50 start-50 translate-middle text-center">
-                          <p class="fs--1 mb-0 text-400 font-sans-serif fw-medium">Total</p>
-                          <p class="fs-3 mb-0 font-sans-serif fw-medium mt-n2" >00</p>
-                        </div>
-                      </div>
+                    <div class="pagination d-none"></div>
+                    <div class="col">
+                      <p class="mb-0 fs--1"><span class="d-none d-sm-inline-block me-2" data-list-info="data-list-info"> </span>
+                      </p>
                     </div>
-                    <div class="col-xxl-12 col-md-7">
-                      <hr class="mx-ncard mb-0 d-md-none d-xxl-block" />
-                      <div class="d-flex flex-between-center border-bottom py-3 pt-md-0 pt-xxl-3">
-                        <div class="d-flex">
-                        <span class="badge badge rounded-pill d-block badge-soft-secondary">Transito<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span></span> 
-                        </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold" id="id_count_transito">0.00</p>
-                        <h6 class="text-700 mb-0"> <span id="id_porcent_transito"> 00 </span> %</h6>
-                      </div>
-                      <div class="d-flex flex-between-center border-bottom py-3">
-                        <div class="d-flex">
-                          <span class="badge badge rounded-pill d-block badge-soft-warning">Retenido<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span>
-                        </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold" id="id_count_Retenido">0.00</p>
-                        <h6 class="text-700 mb-0"> <span id="id_porcent_Retenido"> 00 </span> %</h6>
-                      </div>                      <div class="d-flex flex-between-center border-bottom py-3">
-                        <div class="d-flex">
-                          <span class="badge badge rounded-pill d-block badge-soft-primary">Ingreso Parcial<span class="ms-1 fas fa-redo" data-fa-transform="shrink-2"></span></span>
-                        </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold" id="id_count_In_parci">0.00</p>
-                        <h6 class="text-700 mb-0"> <span id="id_porcent_In_parci"> 00 </span> %</h6>
-                      </div>
-                      <div class="d-flex flex-between-center border-bottom py-3 border-bottom-0 pb-0">
-                        <div class="d-flex">
-                          <span class="badge badge rounded-pill d-block badge-soft-success">Ingreso Total<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
-                        </div>
-                        <p class="fs--1 text-500 mb-0 fw-semi-bold" id="id_count_In_Total">00</p>
-                        <h6 class="text-700 mb-0"> <span id="id_porcent_In_Total"> 00 </span> %</h6>
-                      </div>
+                    <div class="col-auto d-flex">
+                      <button class="btn btn-sm btn-primary" type="button" data-list-pagination="prev"><span>Previous</span></button>
+                      <button class="btn btn-sm btn-primary px-4 ms-2" type="button" data-list-pagination="next"><span>Next</span></button>
                     </div>
                   </div>
                 </div>
-                <div class="card-footer bg-light p-0"><a class="btn btn-sm btn-link d-block py-2" href="#!"><br></a></div>
+              </div>
+                </div>
               </div>
             </div>
+            
+         
           </div>
-          
-       
-          
           @include('layouts.footer_gumadesk')
         </div>
             
@@ -434,13 +436,11 @@
                   <div class="mb-3 mt-3">
                     
 
-                      <div class="notification" href="#!">
-                        
+                      <div class="notification" href="#!">                        
                         <div class="notification-body">
-                        <table class="table table-hover table-striped overflow-hidden" id="tbl_excel" style="width:100%"></table>  
-                    
+                          <table class="table table-hover table-striped overflow-hidden" id="tbl_excel" ></table>  
                         </div>
-                          </div>
+                      </div>
 
 
                     
