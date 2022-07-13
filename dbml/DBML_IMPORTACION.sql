@@ -99,14 +99,14 @@ ALTER TABLE `tbl_imp_importacion_detalle` ADD FOREIGN KEY (`id_importacion`) REF
 
 ALTER TABLE `tbl_imp_importacion_detalle` ADD FOREIGN KEY (`id_laboratorio`) REFERENCES `tbl_imp_Laboratorio` (`id`);
 
-ALTER TABLE `tbl_imp_vendor` ADD FOREIGN KEY (`id`) REFERENCES `tbl_imp_importacion` (`id_vendor`);
+ALTER TABLE `tbl_imp_importacion` ADD FOREIGN KEY (`id_vendor`) REFERENCES `tbl_imp_vendor` (`id`);
 
-ALTER TABLE `tbl_imp_shipto` ADD FOREIGN KEY (`id`) REFERENCES `tbl_imp_importacion` (`id_shipto`);
+ALTER TABLE `tbl_imp_importacion` ADD FOREIGN KEY (`id_shipto`) REFERENCES `tbl_imp_shipto` (`id`);
 
 ALTER TABLE `tbl_imp_importacion_detalle` ADD FOREIGN KEY (`id_product`) REFERENCES `tbl_imp_Product` (`id`);
 
-ALTER TABLE `tbl_imp_vias` ADD FOREIGN KEY (`id`) REFERENCES `tbl_imp_importacion` (`id_via`);
+ALTER TABLE `tbl_imp_importacion` ADD FOREIGN KEY (`id_via`) REFERENCES `tbl_imp_vias` (`id`);
 
-ALTER TABLE `tbl_imp_estados_pagos` ADD FOREIGN KEY (`id`) REFERENCES `tbl_imp_importacion` (`id_estados_pagos`);
+ALTER TABLE `tbl_imp_importacion` ADD FOREIGN KEY (`id_estados_pagos`) REFERENCES `tbl_imp_estados_pagos` (`id`);
 
-ALTER TABLE `tbl_imp_tipo_carga` ADD FOREIGN KEY (`id`) REFERENCES `tbl_imp_importacion` (`tipo_carga`);
+ALTER TABLE `tbl_imp_importacion` ADD FOREIGN KEY (`tipo_carga`) REFERENCES `tbl_imp_tipo_carga` (`id`);
