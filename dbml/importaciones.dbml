@@ -1,12 +1,12 @@
 
 ref: tbl_imp_importacion.id < tbl_imp_importacion_detalle.id_importacion
-ref: tbl_imp_Laboratorio.id - tbl_imp_importacion_detalle.id_laboratorio
-ref: tbl_imp_vendor.id - tbl_imp_importacion.id_vendor
-ref: tbl_imp_shipto.id - tbl_imp_importacion.id_shipto
+ref: tbl_imp_Laboratorio.id < tbl_imp_importacion_detalle.id_laboratorio
+ref: tbl_imp_vendor.id < tbl_imp_importacion.id_vendor
+ref: tbl_imp_shipto.id < tbl_imp_importacion.id_shipto
 ref: tbl_imp_Product.id < tbl_imp_importacion_detalle.id_product
-ref: tbl_imp_vias.id - tbl_imp_importacion.id_via
-ref: tbl_imp_estados_pagos.id - tbl_imp_importacion.id_estados_pagos
-ref: tbl_imp_tipo_carga.id - tbl_imp_importacion.tipo_carga
+ref: tbl_imp_vias.id < tbl_imp_importacion.id_via
+ref: tbl_imp_estados_pagos.id < tbl_imp_importacion.id_estados_pagos
+ref: tbl_imp_tipo_carga.id < tbl_imp_importacion.tipo_carga
 
 Table tbl_imp_importacion {
   id int(10) [pk, increment] 

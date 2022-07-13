@@ -135,3 +135,5 @@ Route::get('getOneShipTo/{ID}', 'ImportacionController@getOneShipTo')->name('get
 
 //RUTAS PARA LAS NUEVAS ORDENES DE COMPRAS
 Route::post('SaveNewPO', 'ImportacionController@SaveNewPO')->name('SaveNewPO');
+Route::post('DeletePO', 'ImportacionController@DeletePO')->name('DeletePO');
+Route::post('getOrdenesRangeDates', 'ImportacionController@getOrdenesRangeDates')->name('getOrdenesRangeDates');

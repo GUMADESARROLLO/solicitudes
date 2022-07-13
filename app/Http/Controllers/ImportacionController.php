@@ -16,19 +16,7 @@ class ImportacionController extends Controller {
         $this->middleware('auth');
     }
 
-    public function getImportacion()
-    {
-        $Vendors = Vendor::where('activo', 'S')->orderBy('id', 'asc')->get();
-        $ShipTo = ShipTo::where('activo', 'S')->orderBy('id', 'asc')->get();
-        $ListPO = view_master_ordenes_compras::where('activo', 'S')->orderBy('id', 'asc')->get();
-
-        return view('Importacion.Home', compact('Vendors','ShipTo','ListPO'));
-        
-    }
-    public function getDetalles()
-    {     
-        return view('Importacion.Detalles');
-    }
+    
 
     public function getProduct()
     {     
@@ -97,11 +85,41 @@ class ImportacionController extends Controller {
     /**
      * Toda Las Rutas las ordenes de compras
      */
+    // MUESTRA TODA LA INFORMACION DE LA PANTALLA DE INICIO
+    public function getImportacion()
+    {
+        $Vendors = Vendor::where('activo', 'S')->orderBy('id', 'asc')->get();
+        $ShipTo = ShipTo::where('activo', 'S')->orderBy('id', 'asc')->get();
+        $Ordenes = OrdendesCompras::where('activo', 'S')->get();
 
+        return view('Importacion.Home', compact('Vendors','ShipTo','Ordenes'));
+        
+    }
+
+    //MUESTRA LA INFORMACION SOBRE LOS DETALLS DE LA ORDEN
+    public function getDetalles($IdOrden)
+    {   
+        
+
+        $Orden_Detalles = OrdendesCompras::where('activo', 'S')->where('id',$IdOrden)->get();
+        return view('Importacion.Detalles', compact('Orden_Detalles'));
+    }
     //GUARDA LA INFORMACION DE LA NUEVA PO
     public function SaveNewPO(Request $request)
     {
         $response = OrdendesCompras::SaveNewPO($request);
+        return response()->json($response);
+    }
+    // CAMBIA EL ESTADO DEL VENDODOR EN LA A INACTIVO
+    public function DeletePO(Request $request)
+    {
+        $response = OrdendesCompras::DeletePO($request);
+        return response()->json($response);
+    }
+    // RECIBE LAS PETICIONES DEL HOME POR RANGOS DE FECHAS
+    public function getOrdenesRangeDates(Request $request)
+    {
+        $response = OrdendesCompras::getOrdenesRangeDates($request);
         return response()->json($response);
     }
 

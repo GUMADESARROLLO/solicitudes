@@ -11,6 +11,10 @@ class ShipTo extends Model {
     protected $table = "tbl_imp_shipto";
     protected $fillable = ['id','nombre_shipto','Descripcion','activo','created_at'];
 
+    public function Ordenes(){
+        return $this->hasMany('App\Models\OrdendesCompras');
+    }
+
     public static function SaveShipTo(Request $request) {
         if ($request->ajax()) {
             try {

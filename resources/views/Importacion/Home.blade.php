@@ -1,13 +1,15 @@
 @extends('layouts.lyt_gumadesk')
 @section('metodosjs')
-@include('jsViews.js_importacion');
+@include('jsViews.js_Ordenes');
 @endsection
 @section('content')
 
 <!-- ===============================================-->
 <!--    Main Content-->
 <!-- ===============================================-->
-
+<?php
+//dd($Ordenes);
+?>
 <main class="main" id="top">
     <div class="container-fluid" data-layout="container">
         <div class="content">
@@ -28,8 +30,8 @@
                                 <h6 class="text-700 mb-0">Mostrando datos para: </h6>
                             </div>
                             <div class="col-md-auto position-relative">
-                                <input class="form-control form-control-sm datetimepicker ps-4" id="CRMDateRange" type="text" data-options="{&quot;mode&quot;:&quot;range&quot;,&quot;dateFormat&quot;:&quot;M d&quot;,&quot;disableMobile&quot;:true , &quot;defaultDate&quot;: [&quot;Sep 12&quot;, &quot;Sep 19&quot;] }" /><span class="fas fa-calendar-alt text-primary position-absolute top-50 translate-middle-y ms-2"> </span>
-                            </div>
+                            <span class="fas fa-calendar-alt text-primary position-absolute translate-middle-y ms-2 mt-3"> </span>
+                            <input id="id_range_select" class="form-control form-control-sm datetimepicker ps-4" type="text" data-options='{"mode":"range","dateFormat":"Y-m-d","disableMobile":true}'/></div>
                             <div class="col-auto">                              
                               <div class="dropdown font-sans-serif btn-reveal-trigger">
                                 <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-top-products" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
@@ -52,85 +54,125 @@
                     </div>
                 </div>
             </div>
-            <div class="row g-3 mb-3">
-              <div class="col-md-6 col-xxl-3">
-                <div class="card">
+            <div class="row g-3">
+              <div class="col-md-3 col-xxl-3">
+                <div class="card h-100">
                   <div class="card-header">
-                    <h6 class="mb-0">MIFIC</h6>
-                  </div>
-                    <div class="row h-100 justify-content-between g-0">
-                      <div class="row mb-2">
-                        <div class="col-6 border-end border-200">
-                          <h4 class="mb-0">5,432</h4>
-                          <p class="fs--1 text-600 mb-0">Total</p>
-                        </div>
-                        <div class="col-3 text-center">
-                        <h6 class="fs--1 ps-3 mb-0 text-primary"><span class="me-1 fas fa-caret-up"></span>21.8%</h6>
-                          <p class="fs--1 text-600 mb-0">con si</p>
-                        </div>
-                        <div class="col-3 text-center">
-                        <h6 class="fs--1 ps-3 mb-0 text-warning"><span class="me-1 fas fa-caret-up"></span>21.8%</h6>
-                          <p class="fs--1 text-600 mb-0">con no</p>
+                      <div class="row flex-between-center">  
+                      <div class="col-auto">
+                        <h6 class="mb-2">ORDENES MIFIC</h6>
+                      </div>                      
+                        <div class="col-auto mt-2">
+                          <div class="row g-sm-4">
+                            <div class="col-12 col-sm-auto">
+                              <div class="mb-3 pe-4 border-sm-end border-200">
+                                <h6 class="fs--2 text-600 mb-1">Total de Ordenes</h6>
+                                <div class="d-flex align-items-center">
+                                  <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 20.2%</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-sm-auto">
+                              <div class="mb-3 pe-4 border-sm-end border-200">
+                                <h6 class="fs--2 text-600 mb-1">Con si</h6>
+                                <div class="d-flex align-items-center">
+                                  <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-success"><span class="fas fa-caret-up"></span> 20%</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-sm-auto">
+                              <div class="mb-3 pe-0">
+                                <h6 class="fs--2 text-600 mb-1">Con no</h6>
+                                <div class="d-flex align-items-center">
+                                  <h5 class="fs-0 text-900 mb-0 me-2">$256,489</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 18%</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
             </div>
-            <div class="col-md-6 col-xxl-3">
+            <div class="col-md-3 col-xxl-3">
               <div class="card">
                 <div class="card-header">
-                  <h6 class="mb-0">REGENCIA NECESITA PERMISO
-                      <span class="ms-1 text-400" data-bs-toggle="tooltip" data-bs-placement="top" title="Calculated according to last week's sales">
-                          <span class="far fa-question-circle" data-fa-transform="shrink-1"></span>
-                      </span>
-                  </h6>
-                </div>
-                  <div class="row h-100 justify-content-between g-0">
-                    <div class="row mb-2">
-                      <div class="col-6 border-end border-200">
-                        <h4 class="mb-0">5,432</h4>
-                        <p class="fs--1 text-600 mb-0">Total</p>
+                    <div class="row flex-between-center">
+                      <div class="col-auto">
+                        <h6 class="mb-2">REGENCIA QUE NECESITA PERMISO</h6>
                       </div>
-                      <div class="col-3 text-center">
-                      <h6 class="fs--1 ps-3 mb-0 text-primary"><span class="me-1 fas fa-caret-up"></span>21.8%</h6>
-                        <p class="fs--1 text-600 mb-0">con si</p>
-                      </div>
-                      <div class="col-3 text-center">
-                      <h6 class="fs--1 ps-3 mb-0 text-warning"><span class="me-1 fas fa-caret-up"></span>21.8%</h6>
-                        <p class="fs--1 text-600 mb-0">con no</p>
+                      <div class="col-auto mt-2">
+                        <div class="row g-sm-4">
+                          <div class="col-12 col-sm-auto">
+                            <div class="mb-3 pe-4 border-sm-end border-200">
+                              <h6 class="fs--2 text-600 mb-1">Total de Ordenes </h6>
+                              <div class="d-flex align-items-center">
+                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 20.2%</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-auto">
+                            <div class="mb-3 pe-4 border-sm-end border-200">
+                              <h6 class="fs--2 text-600 mb-1">con no</h6>
+                              <div class="d-flex align-items-center">
+                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-success"><span class="fas fa-caret-up"></span> 20%</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-auto">
+                            <div class="mb-3 pe-0">
+                              <h6 class="fs--2 text-600 mb-1">con si</h6>
+                              <div class="d-flex align-items-center">
+                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 18%</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+              </div>
             </div>
-            <div class="col-md-6 col-xxl-3">
+            <div class="col-md-3 col-xxl-3">
               <div class="card">
-                <div class="card-header">
-                  <h6 class="mb-0">MINSA Ó PRIVADO
-                      <span class="ms-1 text-400" data-bs-toggle="tooltip" data-bs-placement="top" title="Calculated according to last week's sales">
-                          <span class="far fa-question-circle" data-fa-transform="shrink-1"></span>
-                      </span>
-                  </h6>
-                </div>
-                  <div class="row h-100 justify-content-between g-0">
-                    <div class="row mb-2">
-                      <div class="col-6 border-end border-200">
-                        <h4 class="mb-0">5,432</h4>
-                        <p class="fs--1 text-600 mb-0">Total</p>
+                  <div class="card-header">
+                    <div class="row flex-between-center">
+                      <div class="col-auto">
+                        <h6 class="mb-2">MINSA Ó PRIVADO </h6>
                       </div>
-                      <div class="col-3 text-center">
-                      <h6 class="fs--1 ps-3 mb-0 text-primary"><span class="me-1 fas fa-caret-up"></span>21.8%</h6>
-                        <p class="fs--1 text-600 mb-0">con si</p>
-                      </div>
-                      <div class="col-3 text-center">
-                      <h6 class="fs--1 ps-3 mb-0 text-warning"><span class="me-1 fas fa-caret-up"></span>21.8%</h6>
-                        <p class="fs--1 text-600 mb-0">con no</p>
+                      <div class="col-auto mt-2">
+                        <div class="row g-sm-4">
+                          <div class="col-12 col-sm-auto">
+                            <div class="mb-3 pe-4 border-sm-end border-200">
+                              <h6 class="fs--2 text-600 mb-1">Total Ordenes</h6>
+                              <div class="d-flex align-items-center">
+                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 20.2%</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-auto">
+                            <div class="mb-3 pe-4 border-sm-end border-200">
+                              <h6 class="fs--2 text-600 mb-1">Con Si</h6>
+                              <div class="d-flex align-items-center">
+                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-success"><span class="fas fa-caret-up"></span> 20%</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-sm-auto">
+                            <div class="mb-3 pe-0">
+                              <h6 class="fs--2 text-600 mb-1">Con no</h6>
+                              <div class="d-flex align-items-center">
+                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 18%</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
             </div>
-            <div class="col-md-6 col-xxl-3">
+            <div class="col-md-3 col-xxl-3">
               <div class="card">
               <div class="card-header">
                     <div class="row flex-between-center">
@@ -175,10 +217,10 @@
               <div class="row flex-between-center">
               <div class="w-100">
                     <div class="row fs--1 fw-semi-bold text-500 g-0">
-                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-danger"></span><span>Rojo</span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block">(50)</span></div>
-                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-warning"></span><span>Naranja</span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block">(40)</span></div>
-                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-success"></span><span>Verde</span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block">(10)</span></div>
-                      <div class="col-auto d-flex align-items-center"><span class="dot bg-200"></span><span>Total </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block">(100)</span></div>
+                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-danger"></span><span>Rojo</span><span class="d-none d-md-inline-block d-xxl-inline-block">(50)</span></div>
+                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-warning"></span><span>Naranja</span><span class="d-none d-md-inline-block d-xxl-inline-block">(40)</span></div>
+                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-success"></span><span>Verde</span><span class="d-none d-md-inline-block d-xxl-inline-block">(10)</span></div>
+                      <div class="col-auto d-flex align-items-center"><span class="dot bg-200"></span><span>Total </span><span class="d-none d-md-inline-block d-xxl-inline-block">(100)</span></div>
                     </div>
                   </div>
               </div>
@@ -199,7 +241,7 @@
                     </tr>
                   </thead>
                   <tbody class="list" id="table-orders-body">
-                    @foreach ($ListPO as $lp)
+                    @foreach ($Ordenes as $orden)
                     <tr class="btn-reveal-trigger ">
                       <td class="py-2 align-middle white-space-nowrap">
                         <div class="d-flex align-items-center position-relative">
@@ -207,7 +249,7 @@
                             <div class="avatar-name rounded-circle text-primary bg-success fs-0"><span></span></div>
                           </div>
                           <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900" href="ImportacionDetalles/{{ strtoupper($lp['id']) }}"># {{ strtoupper($lp['num_po']) }}</a></h6>
+                            <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900" href="ImportacionDetalles/{{$orden->id}}"># {{$orden->num_po}}</a></h6>
                             <p class="text-500 fs--2 mb-0">Falcon</p>
                           </div>
                         </div>
@@ -216,8 +258,8 @@
                       <td class="date py-2 align-middle">AQUI VA LA VIA</td>
                       <td class="date py-2 align-middle">AQUI VA LA CARGA</td>
                       <td class="date py-2 align-middle">AQUI VA LA VENDEDOR FABRICANTE</td>
-                      <td class="address py-2 align-middle white-space-nowrap">{{ strtoupper($lp['nombre_shipto']) }}
-                        <p class="mb-0 text-500">{{ strtoupper($lp['Descripcion']) }}</p>
+                      <td class="address py-2 align-middle white-space-nowrap">{{strtoupper($orden->proveedor->nombre_shipto)}}
+                        <p class="mb-0 text-500">{{ strtoupper($orden->proveedor->Descripcion) }}</p>
                       </td>
                       <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-soft-success">Depachado<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
                       </td>
@@ -226,8 +268,13 @@
                         <div class="dropdown font-sans-serif position-static">
                           <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
                           <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
-                            <div class="bg-white py-2"><a class="dropdown-item" href="#!">Completed</a><a class="dropdown-item" href="#!">Processing</a><a class="dropdown-item" href="#!">On Hold</a><a class="dropdown-item" href="#!">Pending</a>
-                              <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Delete</a>
+                            <div class="bg-white py-2">
+                              <a class="dropdown-item" href="#!">Completed</a>
+                              <a class="dropdown-item" href="#!">Processing</a>
+                              <a class="dropdown-item" href="#!">On Hold</a>
+                              <a class="dropdown-item" href="#!">Pending</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item text-danger" href="#!" onClick="RemoveOrden({{ $orden->id }})">Borrrar</a>
                             </div>
                           </div>
                         </div>

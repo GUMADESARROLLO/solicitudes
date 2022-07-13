@@ -9,8 +9,15 @@ use Exception;
 
 class OrdendesCompras extends Model {
     protected $table = "tbl_imp_importacion";
-    protected $fillable = ['id','num_po','id_vendor','id_shipto','activo','created_at'];
+    protected $fillable = ['id','num_po','id_shipto','id_vendor','id_shipto','activo','created_at'];
 
+    public function proveedor(){
+        return $this->belongsTo('App\Models\ShipTo','id_shipto');
+    }
+    public function Vendor(){
+        return $this->belongsTo('App\Models\Vendor','id_vendor');
+    }
+    
     public static function SaveNewPO(Request $request) {
         if ($request->ajax()) {
             try {
@@ -35,6 +42,50 @@ class OrdendesCompras extends Model {
                 return response()->json($mensaje);
             }
         }
+    }
+    public static function DeletePO(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+
+                $id     = $request->input('id');
+                
+                $response =   OrdendesCompras::where('id',  $id)->update([
+                    "activo" => 'N',
+                ]);
+
+                return response()->json($response);
+
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+
+    }
+    public static function getOrdenesRangeDates(Request $request)
+    {
+        DB::enableQueryLog();
+        if ($request->ajax()) {
+            try {
+                $start   = $request->input('DateStart');
+                $end     = $request->input('DateEnds');
+
+                $start   = $start.' 00:00:00';
+                $end     = $end.' 23:59:59';
+
+                $response = OrdendesCompras::where('activo', 'S')->whereBetween('created_at', [$start, $end])->get();
+
+                return response()->json($response);
+
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+
     }
 
 }

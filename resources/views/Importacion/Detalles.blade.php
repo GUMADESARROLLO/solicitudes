@@ -1,9 +1,8 @@
 @extends('layouts.lyt_gumadesk')
 @section('metodosjs')
-@include('jsViews.js_importacion');
+@include('jsViews.js_Orden_Detalles');
 @endsection
 @section('content')
-
 <!-- ===============================================-->
 <!--    Main Content-->
 <!-- ===============================================-->
@@ -21,7 +20,7 @@
                 <div class="card-header">
                   <div class="row flex-between-center">
                     <div class="col-auto">
-                      <h5 class="mb-2">P.O. NO. : #2737</h5>
+                      <h5 class="mb-2">P.O. NO. : # {{ $Orden_Detalles[0]->num_po }} </h5>
                     </div>
                     <div class="col-auto mt-2">
                       <div class="row g-sm-4">
@@ -79,43 +78,21 @@
                 </div>
                 <div class="card-body py-5 py-sm-3">
                   <div class="row g-5 g-sm-0">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                       <div class="border-sm-end border-300">
                       <h5 class="mb-3 fs-0">VENDOR</h5>
-                        <h6 class="mb-2">Hiral Labs Limited</h6>
+                        <h6 class="mb-2">{{ $Orden_Detalles[0]->Vendor->nombre_vendor }}</h6>
                         <p class="mb-1 fs--1">
-                            265, SISONA, Nr. Bhagwanpur, Roorkee, Uttarakhand- 247661, India</br>
-                            Phone number: +91</br>
-                            9368235030</br>
-                            Tax ID: 05AAACH9991E1ZF</br>
-                            India</p>
+                          {{ $Orden_Detalles[0]->Vendor->Descripcion }}
                       </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="border-sm-end border-300 text-center">
                         <h5 class="mb-3 fs-0">SHIP TO</h5>
-                        <h6 class="mb-2">Guma Pharma, LLC Sucursal Nicaragua</h6>
-                        <p class="mb-0 fs--1">                        
-                            Edificio Discover II, 5to Piso, Oficina 5-A.</br>
-                            Managua, Nicaragua Phone: 505-2227-7200</br>
-                            RUC: J0310000375640
-                        </p>
+                        <h6 class="mb-2">{{ $Orden_Detalles[0]->proveedor->nombre_shipto }}</h6>
+                        <p class="mb-0 fs--1">{{ $Orden_Detalles[0]->proveedor->Descripcion }}</p>
                                               
                         </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div>
-                        <div class="text-center">
-                        <h5 class="mb-3 fs-0">SHIP TO</h5>
-                            <h6 class="mb-2">Guma Pharma, LLC Sucursal Nicaragua</h6>
-                            <p class="mb-0 fs--1">                        
-                                Edificio Discover II, 5to Piso, Oficina 5-A.</br>
-                                Managua, Nicaragua Phone: 505-2227-7200</br>
-                                RUC: J0310000375640
-                            </p>
-                        </div>
-                        
-                      </div>
                     </div>
                   </div>
                 </div>

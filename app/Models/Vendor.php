@@ -10,6 +10,10 @@ use Exception;
 class Vendor extends Model {
     protected $table = "tbl_imp_vendor";
     protected $fillable = ['id','nombre_vendor','Descripcion','time_despacho','activo','created_at'];
+    
+    public function Ordenes(){
+        return $this->hasMany('App\Models\OrdendesCompras');
+    }
 
     public static function SaveVendor(Request $request) {
         if ($request->ajax()) {
