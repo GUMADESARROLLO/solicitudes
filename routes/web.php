@@ -137,3 +137,6 @@ Route::get('getOneShipTo/{ID}', 'ImportacionController@getOneShipTo')->name('get
 Route::post('SaveNewPO', 'ImportacionController@SaveNewPO')->name('SaveNewPO');
 Route::post('DeletePO', 'ImportacionController@DeletePO')->name('DeletePO');
 Route::post('getOrdenesRangeDates', 'ImportacionController@getOrdenesRangeDates')->name('getOrdenesRangeDates');
+Route::post('SaveProducto', 'ImportacionController@SaveProducto')->name('SaveProducto');
+Route::post('DeleteProducto', 'ImportacionController@DeleteProducto')->name('DeleteProducto');
+Route::get('getOneProducto/{ID}', 'ImportacionController@getOneProducto')->name('getOneProducto');

@@ -84,7 +84,7 @@
                               <div class="mb-3 pe-0">
                                 <h6 class="fs--2 text-600 mb-1">Con no</h6>
                                 <div class="d-flex align-items-center">
-                                  <h5 class="fs-0 text-900 mb-0 me-2">$256,489</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 18%</span>
+                                  <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 18%</span>
                                 </div>
                               </div>
                             </div>

@@ -6,21 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Vendor;
 use App\Models\ShipTo;
 use App\Models\OrdendesCompras;
-use App\Models\view_master_ordenes_compras;
-
+use App\Models\ArticulosUMK;
+use App\Models\ProductoType;
+use App\Models\Productos;
 
 
 class ImportacionController extends Controller {
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    
-
-    public function getProduct()
-    {     
-        return view('Importacion.Product');
     }
 
     /**
@@ -99,8 +93,6 @@ class ImportacionController extends Controller {
     //MUESTRA LA INFORMACION SOBRE LOS DETALLS DE LA ORDEN
     public function getDetalles($IdOrden)
     {   
-        
-
         $Orden_Detalles = OrdendesCompras::where('activo', 'S')->where('id',$IdOrden)->get();
         return view('Importacion.Detalles', compact('Orden_Detalles'));
     }
@@ -123,6 +115,35 @@ class ImportacionController extends Controller {
         return response()->json($response);
     }
 
+    /**
+     * Toda Las Rutas para los productos de UNIMARK
+     */
+    // MUESTRA TODA LA LISTA DE ARTICULOS QUE CONTIENE UNIMAK
+    public function getProduct()
+    {  
+        $Tipos = ProductoType::where('activo', 'S')->get();
+        $Articulos = ArticulosUMK::getArticulos();
+        $Productos = Productos::where('activo', 'S')->get();
+        return view('Importacion.Product', compact('Articulos','Tipos','Productos'));         
+    }
+    //GUARDA LA INFORMACION DE LA NUEVA PO
+    public function SaveProducto(Request $request)
+    {
+        $response = Productos::SaveProducto($request);
+        return response()->json($response);
+    }
+    // CAMBIA EL ESTADO DEL PRODUCTO EN LA A INACTIVO
+    public function DeleteProducto(Request $request)
+    {
+        $response = Productos::DeleteProducto($request);
+        return response()->json($response);
+    }
+    //OBTIENE EL VALOR DE UN PRODUCTO
+    public function getOneProducto($ID)
+    {     
+        $Vendors = Productos::where('ID', $ID)->orderBy('id', 'asc')->get();
+        return response()->json($Vendors);
+    }
 
 
 

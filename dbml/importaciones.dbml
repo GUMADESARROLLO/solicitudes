@@ -7,6 +7,7 @@ ref: tbl_imp_Product.id < tbl_imp_importacion_detalle.id_product
 ref: tbl_imp_vias.id < tbl_imp_importacion.id_via
 ref: tbl_imp_estados_pagos.id < tbl_imp_importacion.id_estados_pagos
 ref: tbl_imp_tipo_carga.id < tbl_imp_importacion.tipo_carga
+ref: tbl_imp_Type_Product.id < tbl_imp_Product.id_type_product
 
 Table tbl_imp_importacion {
   id int(10) [pk, increment] 
@@ -120,9 +121,19 @@ Table tbl_imp_Laboratorio{
 
 
 Table tbl_imp_Product{
-  id int(10) [pk, increment] 
+  id int(10) [pk, increment]
+  id_type_product int (10)
   
   Articulo_exactus varchar(50)
+  descripcion varchar(250)
+  
+  activo varchar(5)
+  created_at timestamp
+  updated_at timestamp
+}
+Table tbl_imp_Type_Product{
+  id int(10) [pk, increment] 
+  
   descripcion varchar(250)
   
   activo varchar(5)
