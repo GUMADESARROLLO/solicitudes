@@ -21,6 +21,8 @@
         i : 0;
     };
 
+    
+
     var var_rol         = intVal($("#id_rol").text());      
     var var_login_user  = intVal($("#id_login_user").text());      
 
@@ -1167,7 +1169,6 @@
     $('#upload').on("change", function(e){ 
         handleFileSelect(e)
     });
+    
 
-   
-}
 </script>
