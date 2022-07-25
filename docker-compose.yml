@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+  
+  nginx_importaciones:
+    image: nginx:stable-alpine
+    container_name: nginx_importaciones
+    ports:
+      - 8000:80
+    volumes:
+      - .:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app_importacion
+      - mysql_importaciones
+    networks:
+      - networkapp
+
+  mysql_importaciones:
+    image: mysql:5.7
+    container_name: mysql_importaciones
+    restart: always
+    environment:
+      MYSQL_DATABASE: db_importacion
+      MYSQL_USER: usr_container
+      MYSQL_PASSWORD: pss_container
+      MYSQL_ROOT_PASSWORD: db_root_password
+    ports:
+      - 33069:3306
+    volumes:
+      - _vol:/var/lib/mysql
+    networks:
+      - networkapp
+
+  app_importacion:
+    build:
+      args:
+        user: laraveluser
+        uid: 1000
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: app_importacion
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    networks:
+      - networkapp
+    ports:
+      - 8081:80
+
+networks: 
+  networkapp:
+
+volumes:
+  _vol:
