@@ -9,6 +9,7 @@ use App\Models\OrdendesCompras;
 use App\Models\ArticulosUMK;
 use App\Models\ProductoType;
 use App\Models\Productos;
+use App\Models\OrdenCompraDetalle;
 
 
 class ImportacionController extends Controller {
@@ -93,8 +94,9 @@ class ImportacionController extends Controller {
     //MUESTRA LA INFORMACION SOBRE LOS DETALLS DE LA ORDEN
     public function getDetalles($IdOrden)
     {   
-        $Orden_Detalles = OrdendesCompras::where('activo', 'S')->where('id',$IdOrden)->get();
-        return view('Importacion.Detalles', compact('Orden_Detalles'));
+        $Productos      = Productos::where('activo', 'S')->get();
+        $Orden          = OrdendesCompras::find($IdOrden);
+        return view('Importacion.Detalles', compact('Orden','Productos'));
     }
     //GUARDA LA INFORMACION DE LA NUEVA PO
     public function SaveNewPO(Request $request)
@@ -114,6 +116,19 @@ class ImportacionController extends Controller {
         $response = OrdendesCompras::getOrdenesRangeDates($request);
         return response()->json($response);
     }
+    //OBTIENE EL VALOR DE UN PRODUCTO EN LA ORDEN
+    public function getInfoLinea(Request $request)
+    {     
+        $idProducto         = $request->input('id_linea');
+        $LineaProducto      = OrdenCompraDetalle::where('id', $idProducto)->orderBy('id', 'asc')->get();
+        return response()->json($LineaProducto);
+    }
+    // CAMBIA EL ESTADO DEL PRODUCTO EN LA A INACTIVO
+    public function delInfoLinea(Request $request)
+    {
+        $response = OrdenCompraDetalle::delInfoLinea($request);
+        return response()->json($response);
+    }
 
     /**
      * Toda Las Rutas para los productos de UNIMARK
@@ -130,6 +145,12 @@ class ImportacionController extends Controller {
     public function SaveProducto(Request $request)
     {
         $response = Productos::SaveProducto($request);
+        return response()->json($response);
+    }
+    //GUARDA LOS ARTICULOS AGREGADOS A LA PO
+    public function AddProductPO(Request $request)
+    {
+        $response = OrdenCompraDetalle::AddProductPO($request);
         return response()->json($response);
     }
     // CAMBIA EL ESTADO DEL PRODUCTO EN LA A INACTIVO

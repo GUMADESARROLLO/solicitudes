@@ -10,17 +10,13 @@
     <div class="container-fluid" data-layout="container">
         <div class="content">
             @include('layouts.nav_gumadesk')
-
-
-
             <div class="row g-3 mb-3">
             <div class="col-md-10 col-xxl-10">
-           
               <div class="card">
                 <div class="card-header">
                   <div class="row flex-between-center">
                     <div class="col-auto">
-                      <h5 class="mb-2">P.O. NO. : # {{ $Orden_Detalles[0]->num_po }} </h5>
+                      <h5 class="mb-2">P.O. NO. : # {{ $Orden->num_po }} </h5>
                     </div>
                     <div class="col-auto mt-2">
                       <div class="row g-sm-4">
@@ -81,33 +77,20 @@
                     <div class="col-sm-6">
                       <div class="border-sm-end border-300">
                       <h5 class="mb-3 fs-0">VENDOR</h5>
-                        <h6 class="mb-2">{{ $Orden_Detalles[0]->Vendor->nombre_vendor }}</h6>
+                        <h6 class="mb-2">{{ $Orden->Vendor->nombre_vendor }}</h6>
                         <p class="mb-1 fs--1">
-                          {{ $Orden_Detalles[0]->Vendor->Descripcion }}
+                          {{ $Orden->Vendor->Descripcion }}
                       </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="border-sm-end border-300 text-center">
                         <h5 class="mb-3 fs-0">SHIP TO</h5>
-                        <h6 class="mb-2">{{ $Orden_Detalles[0]->proveedor->nombre_shipto }}</h6>
-                        <p class="mb-0 fs--1">{{ $Orden_Detalles[0]->proveedor->Descripcion }}</p>
+                        <h6 class="mb-2">{{ $Orden->proveedor->nombre_shipto }}</h6>
+                        <p class="mb-0 fs--1">{{ $Orden->proveedor->Descripcion }}</p>
                                               
                         </div>
                     </div>
                   </div>
-                </div>
-                <div class="card-footer">
-                    <div class="row align-items-center">
-                    <div class="w-100">
-                        <div class="row fs--1 fw-semi-bold text-500 g-0">
-                            <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-primary"></span><span>MIFIC </span><span class="d-none d-md-inline-block d-lg-block d-xxl-inline-block">( SI )</span></div>
-                            <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-info"></span><span>REGENCIA </span><span class="d-none d-md-inline-block d-lg-block d-xxl-inline-block">( SI )</span></div>
-                            <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-success"></span><span>MINSA </span><span class="d-none d-md-inline-block d-lg-block d-xxl-inline-block">( SI )</span></div>
-                            <div class="col-auto d-flex align-items-center"><span class="dot bg-200"></span><span> Vendedor / Fabricante  </span><span class="d-none d-md-inline-block d-lg-block d-xxl-inline-block m"> --- <span></div>
-                            
-                        </div>
-                    </div>
-                    </div>
                 </div>
               </div>
             </div>
@@ -141,12 +124,6 @@
                             <p class="fs--2 text-600 mb-0">07 Jul, 2022  </p>
                             </div>
                         </li> 
-                        <!-- <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" data-calendar-events="">
-                            <div class="border-start border-3 border-warning ps-3 mt-1">
-                            <h6 class="mb-1 fw-semi-bold text-700">Vendedor / Fabricante</h6>
-                            <p class="fs--2 text-600 mb-0">Lorem ipsum dolor sit amet </p>
-                            </div>
-                        </li>-->
                     </ul>
                 </div>
                   </div>
@@ -156,53 +133,141 @@
           </div>
 
             <div class="card mb-3">
+              <div class="card-header">
+                <div class="row flex-between-center">
+                  <div class="col-auto col-sm-6 col-lg-7">
+
+                    <div class="row g-sm-4">
+                    <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200">
+                          <h6 class="fs--2 text-600 mb-1">TOTAL</h6>
+                          <div class="d-flex align-items-center">
+                            <h5 class="fs-0 text-900 mb-0 me-2"> {{count($Orden->Detalles)}} </h5>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200">
+                          <h6 class="fs--2 text-600 mb-1">MIFIC</h6>
+                          <div class="d-flex align-items-center">
+                            <h5 class="fs-0 text-900 mb-0 me-2">3</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 20.2%</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200">
+                          <h6 class="fs--2 text-600 mb-1">REGENCIA</h6>
+                          <div class="d-flex align-items-center">
+                            <h5 class="fs-0 text-900 mb-0 me-2">4</h5><span class="badge rounded-pill badge-soft-success"><span class="fas fa-caret-up"></span> 20%</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200">
+                          <h6 class="fs--2 text-600 mb-1">MINSA</h6>
+                          <div class="d-flex align-items-center">
+                            <h5 class="fs-0 text-900 mb-0 me-2">5</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 18%</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-0">
+                          <h6 class="fs--2 text-600 mb-1">Vendedor / Fabricante </h6>
+                          <div class="d-flex align-items-center">
+                            <h5 class="fs-0 text-900 mb-0 me-2">5</h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                  </div>
+                  <div class="col-auto col-sm-6 col-lg-5">
+                    <div class="input-group" >
+                      <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Buscar..." aria-label="search" id="id_txt_buscar" />
+                      <div class="input-group-text bg-transparent">
+                        <span class="fa fa-search fs--1 text-600"></span>
+                      </div>
+                      <div class="input-group-text bg-transparent" id="id_btn_add_product">
+                        <span class="fa fa-plus fs--1 text-600"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
                 <div class="card-body">
                 <div class="table-responsive fs--1">
-                    <table class="table table-striped border-bottom">
+                    <table class="table table-striped border-bottom" id="tbl_detalles_articulos_po">
                     <thead class="bg-200 text-900">
                         <tr>
-                        <th class="border-0">Products</th>
-                        <th class="border-0 text-center">Quantity</th>
-                        <th class="border-0 text-end">Precio. Farmacia</th>
-                        <th class="border-0 text-end">Precio. Publico</th>
-                        <th class="border-0 text-end">Precio. Institucion</th>
+                          <th class="border-0">Productos </th>
+                          <th class="border-0 text-center">Cantidad</th>
+                          <th class="border-0 text-end">Precio. Farmacia</th>
+                          <th class="border-0 text-end">Precio. Público</th>
+                          <th class="border-0 text-end">Precio. Institución</th>
+                          <th class="border-0 text-end">MIFIC</th>
+                          <th class="border-0 text-end">REGENCIA</th>
+                          <th class="border-0 text-end">MINSA</th>
                         </tr>
                     </thead>
                     <tbody>
+
+                  
+                        @foreach ($Orden->Detalles as $lstProducto)
+
                         <tr class="border-200">
-                        <td class="align-middle">
-                            <h6 class="mb-0 text-nowrap">MED:GUMAFENIT® 100 BP 100 Tabs</h6>
-                            <p class="mb-0">Phenytoin Sodium 100 BP Tablets 100 Tabs/Box (Propiedad MINSA)</p>
-                        </td>
-                        <td class="align-middle text-center">18900</td>
-                        <td class="align-middle text-end">$65.00</td>
-                        <td class="align-middle text-end">$130.00</td>
-                        <td class="align-middle text-end">$130.00</td>
+                          <td class="align-middle">
+                            <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
+                              <div class="flex-1 ms-3">
+                                <h6 class="mb-1 fw-semi-bold text-nowrap"><a href=""> <strong>{{$lstProducto->isProduct->Tipo->descripcion}} </strong></a> : {{$lstProducto->isProduct->descripcion_corta}}</h6>
+                                <p class="fw-semi-bold mb-0 text-500">{{$lstProducto->isProduct->descripcion_larga}}</p>                            
+                                <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
+                                    <div class="col-auto">
+                                      <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Editar({{$lstProducto->id}})"> <span class="ms-1 fas fa-pencil-alt text-primary " data-fa-transform="shrink-2" ></span> 
+                                      <span class="ms-1">Editar</span></a>
+                                    </div>
+                                    <div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="Remover({{$lstProducto->id}})" ><span class="ms-1 fas fa-trash-alt text-danger" data-fa-transform="shrink-2" ></span><span class="ms-1">Borrar</span></a></div>
+                                </div> 
+                              </div>
+                            </div>
+                          </td>
+                          <td class="align-middle text-center">{{$lstProducto->cantidad}}</td>
+                          <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_farmacia,2)}}</td>
+                          <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_publico,2)}}</td>
+                          <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_institucion,2)}}</td>
+                          <td class="align-middle text-end">
+                            @if($lstProducto->mific =='0')
+                            <span class="badge badge rounded-pill badge-soft-success">SI<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                            @else
+                            <span class="badge badge rounded-pill badge-soft-danger">NO<span class="ms-1 fas fa-close" data-fa-transform="shrink-2"></span></span>
+                            @endif
+                          </td>
+                          <td class="align-middle text-end">
+                            @if($lstProducto->regencia =='0')
+                            <span class="badge badge rounded-pill badge-soft-success">SI<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                            @else
+                            <span class="badge badge rounded-pill badge-soft-danger">NO<span class="ms-1 fas fa-close" data-fa-transform="shrink-2"></span></span>
+                            @endif
+                          </td>
+                          <td class="align-middle text-end">
+                            @if($lstProducto->minsa =='0')
+                            <span class="badge badge rounded-pill badge-soft-success">SI<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                            @else
+                            <span class="badge badge rounded-pill badge-soft-danger">NO<span class="ms-1 fas fa-close" data-fa-transform="shrink-2"></span></span>
+                            @endif
+                          </td>
+                          
                         </tr>
-                        <tr class="border-200">
-                        <td class="align-middle">
-                            <h6 class="mb-0 text-nowrap">MED:GUMA ZINC® 50 mg 100 Tabs</h6>
-                            <p class="mb-0">Zinc Gluconate USP 50 mg Tablets 100 Tabs/Box (Propiedad MINSA)</p>
-                        </td>
-                        <td class="align-middle text-center">1</td>
-                        <td class="align-middle text-end">$2,100.00</td>
-                        <td class="align-middle text-end">$2,100.00</td>
-                        <td class="align-middle text-end">$130.00</td>
-                        </tr>
-                        <tr>
-                        <td class="align-middle">
-                            <h6 class="mb-0 text-nowrap">MED:LABELOW® 200 mg 100 Tabs</h6>
-                            <p class="mb-0">Labetalol Tablets USP 200 mg 100 Tabs/Box (Propiedad MINSA)</p>
-                        </td>
-                        <td class="align-middle text-center">8</td>
-                        <td class="align-middle text-end">$5,00.00</td>
-                        <td class="align-middle text-end">$4,000.00</td>
-                        <td class="align-middle text-end">$130.00</td>
-                        </tr>
+                          
+                        @endforeach
+
+                        
+                     
                     </tbody>
                     </table>
                 </div>
-                <div class="row g-0 justify-content-end">
+                <div class="row g-0 justify-content-end mt-3">
                     <div class="col-auto">
                     <table class="table table-sm table-borderless fs--1 text-end">
                         
@@ -230,6 +295,108 @@
             </div>
             @include('layouts.footer_gumadesk')
         </div>
+
+
+        <!--OPEN MODALS -->
+        <div class="modal fade" id="mdl_add_product" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
+          <div class="modal-dialog modal-xl mt-6" role="document">
+            <div class="modal-content border-0">
+              <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
+                <div class="position-relative z-index-1 light">
+                  <h4 class="mb-0 text-white" id="authentication-modal-label"><span id="id_modal_state"></span> producto P.O.</h4>
+                  <p class="fs--1 mb-0 text-white">Aperturar nueva orden de pedido</p>                  
+                  <p class="fs--1 mb-0 text-white" id="id_mdl_po">  {{ $Orden->id   }}  </p>
+                </div>
+                <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body py-4 px-5">
+                
+              
+
+                
+                <div class="row g-2">
+                  <div class="col-8">
+                    <div class="mb-3">
+                      <label for="">Producto</label>
+                      <select class="form-select" id="id_select_producto">                  
+                          @foreach ($Productos as $pdt)
+                          <option value="{{ strtoupper($pdt['id']) }}">{{ strtoupper($pdt->Tipo->descripcion) }} : {{ strtoupper($pdt['descripcion_corta']) }}</option>
+                          @endforeach
+                            
+                        </select>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="form-label" for="">Cantidad:</label>
+                      <input class="form-control" type="text" name="" placeholder="0.00" required="required" id="id_frm_cantidad"/>                      
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="form-label" for="">Precio. Farmacia:</label>
+                      <input class="form-control" type="text" name="" placeholder="C$ 0.00" required="required" id="id_frm_precio_farma"/>
+                      <div class="invalid-feedback">Please enter password</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="form-label" for="">Precio Público:</label>
+                      <input class="form-control" type="text" name="" placeholder="C$ 0.00" required="required"id="id_frm_precio_public"/>                      
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label class="form-label" for="">Precio Institución:</label>
+                      <input class="form-control" type="text" name="" placeholder="C$ 0.00" required="required" id="id_frm_precio_insti" />                      
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-2">
+                  <div class="col-4">
+                    <div class="mt-3">
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="id_chk_mific">MIFIC</label>
+                        <input class="form-check-input" id="id_chk_mific" type="checkbox"  />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mt-3">
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="id_chk_regencia">REGENCIA</label>
+                        <input class="form-check-input" id="id_chk_regencia" type="checkbox"  />
+                      </div>             
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mt-3">
+                      <div class="form-check form-switch">
+                        <label class="form-check-label" for="id_chk_minsa">MINSA</label>
+                        <input class="form-check-input" id="id_chk_minsa" type="checkbox"  />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+               
+                      
+                <div class="mb-3">
+                  <button class="btn btn-primary d-block w-100 mt-3" id="id_frm_add_articulo_po" type="submit" name="submit">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--CLOSE MODALS -->
+
+
+
+
     </div>
 </main>
 @endsection('content')

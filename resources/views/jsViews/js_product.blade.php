@@ -109,8 +109,7 @@
                 url: "getOneProducto/" + Id,
                 type: 'GET',
                 async: true,
-                success: function(obj_producto) {   
-                    console.log(obj_producto[0].id_type_product)                 
+                success: function(obj_producto) {               
                     $("#id_nombre_corto").val(obj_producto[0].descripcion_corta);   
                     $("#id_nombre_largo").val(obj_producto[0].descripcion_larga);
                     $("#id_articulo").val(obj_producto[0].Articulo_exactus).change();;   

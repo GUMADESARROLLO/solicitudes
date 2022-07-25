@@ -17,6 +17,10 @@ class OrdendesCompras extends Model {
     public function Vendor(){
         return $this->belongsTo('App\Models\Vendor','id_vendor');
     }
+
+    public function Detalles(){
+        return $this->hasMany('App\Models\OrdenCompraDetalle','id_importacion','id');
+    }
     
     public static function SaveNewPO(Request $request) {
         if ($request->ajax()) {

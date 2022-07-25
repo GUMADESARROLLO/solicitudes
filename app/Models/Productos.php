@@ -14,7 +14,6 @@ class Productos extends Model{
     public function Tipo(){
         return $this->belongsTo('App\Models\ProductoType','id_type_product');
     }
-
     public static function SaveProducto(Request $request) {
         if ($request->ajax()) {
             try {
