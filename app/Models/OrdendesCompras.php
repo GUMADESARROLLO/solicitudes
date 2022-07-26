@@ -14,6 +14,20 @@ class OrdendesCompras extends Model {
     public function proveedor(){
         return $this->belongsTo('App\Models\ShipTo','id_shipto');
     }
+    public function Vias(){
+        return $this->belongsTo('App\Models\Vias','id_via');
+    }
+    public function EstadoPago(){
+        return $this->belongsTo('App\Models\EstadosPagos','id_estados_pagos');
+    }
+    public function TipoCarga(){
+        return $this->belongsTo('App\Models\TipoCarga','tipo_carga');
+    }
+
+    public function Estado(){
+        return $this->belongsTo('App\Models\EstadoOrden','id_estado_orden','id');
+    }
+    
     public function Vendor(){
         return $this->belongsTo('App\Models\Vendor','id_vendor');
     }
@@ -21,6 +35,7 @@ class OrdendesCompras extends Model {
     public function Detalles(){
         return $this->hasMany('App\Models\OrdenCompraDetalle','id_importacion','id');
     }
+
     
     public static function SaveNewPO(Request $request) {
         if ($request->ajax()) {
@@ -56,6 +71,32 @@ class OrdendesCompras extends Model {
                 
                 $response =   OrdendesCompras::where('id',  $id)->update([
                     "activo" => 'N',
+                ]);
+
+                return response()->json($response);
+
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+
+    }
+    public static function UpdateImportacion(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+
+                $id         = $request->input('id');
+                $ori        = $request->input('origen');
+                $valor      = $request->input('valor');
+                $Campo      = $request->input('Campo');
+
+                $array_Campos = ($ori == 0) ? array("factura", "recibo", "id_via", "","id_estados_pagos",'tipo_carga') : array("fecha_despacho", "fecha_estimada", "fecha_factura", "fecha_orden_compra") ;
+                
+                $response =   OrdendesCompras::where('id',  $id)->update([
+                    $array_Campos[$Campo] => $valor,
                 ]);
 
                 return response()->json($response);

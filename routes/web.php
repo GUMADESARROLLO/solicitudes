@@ -144,3 +144,5 @@ Route::post('AddProductPO', 'ImportacionController@AddProductPO')->name('AddProd
 
 Route::post('getInfoLinea', 'ImportacionController@getInfoLinea')->name('getInfoLinea');
 Route::post('delInfoLinea', 'ImportacionController@delInfoLinea')->name('delInfoLinea');
+Route::post('/UpdateImportacion', 'ImportacionController@UpdateImportacion')->name('UpdateImportacion');
+Route::get('/dtaSelect', 'ImportacionController@dtaSelect')->name('dtaSelect');

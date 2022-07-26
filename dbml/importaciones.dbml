@@ -9,6 +9,8 @@ ref: tbl_imp_estados_pagos.id < tbl_imp_importacion.id_estados_pagos
 ref: tbl_imp_tipo_carga.id < tbl_imp_importacion.tipo_carga
 ref: tbl_imp_Type_Product.id < tbl_imp_Product.id_type_product
 
+ref: tbl_imp_estado_orden.id < tbl_imp_importacion.id_estado_orden
+
 Table tbl_imp_importacion {
   id int(10) [pk, increment] 
   
@@ -17,7 +19,7 @@ Table tbl_imp_importacion {
   id_shipto int(10) 
   id_via int(10)
   id_estados_pagos int (10)
-  estados_pagos int (5)
+  
   tipo_carga int (5)
   
   
@@ -25,7 +27,11 @@ Table tbl_imp_importacion {
   recibo varchar(10)
   fecha_despacho date
   fecha_orden_compra date
-  estado_importacion int(5)
+  
+  fecha_factura date
+  fecha_estimada date
+  
+  id_estado_orden int(5)
   
   activo varchar(5)
   created_at timestamp
@@ -132,6 +138,16 @@ Table tbl_imp_Product{
   updated_at timestamp
 }
 Table tbl_imp_Type_Product{
+  id int(10) [pk, increment] 
+  
+  descripcion varchar(250)
+  
+  activo varchar(5)
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table tbl_imp_estado_orden{
   id int(10) [pk, increment] 
   
   descripcion varchar(250)

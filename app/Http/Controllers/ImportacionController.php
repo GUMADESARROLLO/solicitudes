@@ -10,6 +10,9 @@ use App\Models\ArticulosUMK;
 use App\Models\ProductoType;
 use App\Models\Productos;
 use App\Models\OrdenCompraDetalle;
+use App\Models\Vias;
+use App\Models\EstadosPagos;
+use App\Models\TipoCarga;
 
 
 class ImportacionController extends Controller {
@@ -104,10 +107,28 @@ class ImportacionController extends Controller {
         $response = OrdendesCompras::SaveNewPO($request);
         return response()->json($response);
     }
-    // CAMBIA EL ESTADO DEL VENDODOR EN LA A INACTIVO
+
+     // TODO : CAMBIAR NOMBRE MARYAN DEL FUTURO
     public function DeletePO(Request $request)
     {
         $response = OrdendesCompras::DeletePO($request);
+        return response()->json($response);
+    }
+     // TODO : CAMBIAR NOMBRE MARYAN DEL FUTURO
+    public function dtaSelect(Request $request)
+    {
+        $DataSelects[] = array(
+            'Vias'          => Vias::where('activo','S')->get(),
+            'EstadosPagos'  => EstadosPagos::where('activo','S')->get(),
+            'TipoCarga'     => TipoCarga::where('activo','S')->get(),
+        );
+        return response()->json($DataSelects);
+    }
+
+    // CAMBIA EL ESTADO DEL VENDODOR EN LA A INACTIVO
+    public function UpdateImportacion(Request $request)
+    {
+        $response = OrdendesCompras::UpdateImportacion($request);
         return response()->json($response);
     }
     // RECIBE LAS PETICIONES DEL HOME POR RANGOS DE FECHAS

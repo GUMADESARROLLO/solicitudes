@@ -17,6 +17,7 @@
                   <div class="row flex-between-center">
                     <div class="col-auto">
                       <h5 class="mb-2">P.O. NO. : # {{ $Orden->num_po }} </h5>
+                      <span style="display:none" id="id_lbl_po">{{ $Orden->id }}</span>
                     </div>
                     <div class="col-auto mt-2">
                       <div class="row g-sm-4">
@@ -24,7 +25,7 @@
                           <div class="mb-3 pe-4 border-sm-end border-200">
                             <h6 class="fs--2 text-600 mb-1">Factura NO.: </h6>
                             <div class="d-flex align-items-center">
-                              <h5 class="fs-0 text-900 mb-0 me-2">00000</h5>
+                              <h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert(0)">{{ number_format($Orden->factura,0) }}</h5>
                             </div>
                           </div>
                         </div>
@@ -32,7 +33,7 @@
                           <div class="mb-3 pe-4 border-sm-end border-200">
                             <h6 class="fs--2 text-600 mb-1">RECIBO NO.:</h6>
                             <div class="d-flex align-items-center">
-                              <h5 class="fs-0 text-900 mb-0 me-2">0000</h5>
+                              <h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert(1)">{{ number_format($Orden->recibo,0) }}</h5>
                             </div>
                           </div>
                         </div>                        
@@ -40,7 +41,7 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                             <h6 class="fs--2 text-600 mb-1 ">Via</h6>
                             <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2">0000</h5>
+                            <h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert(2)">{{ $Orden->Vias->Descripcion }}</h5>
                             </div>
                           </div>
                         </div>
@@ -48,7 +49,7 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                             <h6 class="fs--2 text-600 mb-1">Status</h6>
                             <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2">Despachado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                            <div class="badge rounded-pill badge-soft-success fs--2" >{{ $Orden->Estado->descripcion }}</div>
                             </div>
                           </div>
                         </div>
@@ -56,7 +57,7 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                             <h6 class="fs--2 text-600 mb-1">Estado de pago</h6>
                             <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2">Pagado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                            <div class="badge rounded-pill badge-soft-success fs--2" onclick="frmSweetAlert(4)">{{ $Orden->EstadoPago->Descripcion }}</div>
                             </div>
                           </div>
                         </div>
@@ -64,7 +65,7 @@
                           <div class="mb-3 pe-0">
                             <h6 class="fs--2 text-600 mb-1">Carga</h6>
                             <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2"> Consolidada<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                            <div class="badge rounded-pill badge-soft-success fs--2" onclick="frmSweetAlert(5)"> {{ $Orden->TipoCarga->Descripcion }}</div>
                             </div>
                           </div>
                         </div>
@@ -100,28 +101,28 @@
                   <div class="mx-ncard">
                   <div class="px-3">
                     <ul class="list-unstyled mt-3 scrollbar management-calendar-events" id="management-calendar-events">
-                        <li class="border-topmb-3 pb-1 cursor-pointer" data-calendar-events="">
+                        <li class="border-topmb-3 pb-1 cursor-pointer"  onclick="frmSweetAlert02(0)">
                             <div class="border-start border-3 border-primary ps-3 mt-1">
                             <h6 class="mb-1 fw-semi-bold text-700"> Fecha Despacho </h6>
-                            <p class="fs--2 text-600 mb-0">07 Jul, 2022</p>
+                            <p class="fs--2 text-600 mb-0">{{ $Orden->fecha_despacho }}</p>
                             </div>
                         </li> 
-                        <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" data-calendar-events="">
+                        <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" onclick="frmSweetAlert02(1)">
                             <div class="border-start border-3 border-success ps-3 mt-1">
                             <h6 class="mb-1 fw-semi-bold text-700"> Fecha Estimada </h6>
-                            <p class="fs--2 text-600 mb-0">16 Jul, 2022  </p>
+                            <p class="fs--2 text-600 mb-0">{{ $Orden->fecha_estimada }} </p>
                             </div>
                         </li> 
-                        <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" data-calendar-events="">
+                        <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" onclick="frmSweetAlert02(2)">
                             <div class="border-start border-3 border-warning ps-3 mt-1">
                             <h6 class="mb-1 fw-semi-bold text-700">Fecha Factura</h6>
-                            <p class="fs--2 text-600 mb-0">07 Jul, 2022 - 10 Jul, 2022</p>
+                            <p class="fs--2 text-600 mb-0">{{ $Orden->fecha_factura }}</p>
                             </div>
                         </li> 
-                        <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" data-calendar-events="">
+                        <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" onclick="frmSweetAlert02(3)">
                             <div class="border-start border-3 border-danger ps-3 mt-1">
                             <h6 class="mb-1 fw-semi-bold text-700"> Fecha Orden de Compra:  </h6>
-                            <p class="fs--2 text-600 mb-0">07 Jul, 2022  </p>
+                            <p class="fs--2 text-600 mb-0">{{ $Orden->fecha_orden_compra }}  </p>
                             </div>
                         </li> 
                     </ul>
@@ -150,7 +151,7 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                           <h6 class="fs--2 text-600 mb-1">MIFIC</h6>
                           <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2">3</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 20.2%</span>
+                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_mific"> 0 </h5><span class="badge rounded-pill badge-soft-primary"><span id="id_count_tbl_mific_procent"></span> %</span>
                           </div>
                         </div>
                       </div>
@@ -158,7 +159,7 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                           <h6 class="fs--2 text-600 mb-1">REGENCIA</h6>
                           <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2">4</h5><span class="badge rounded-pill badge-soft-success"><span class="fas fa-caret-up"></span> 20%</span>
+                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_regencia">0</h5><span class="badge rounded-pill badge-soft-success"> <span id="id_count_tbl_regencia_procent"></span> %</span>
                           </div>
                         </div>
                       </div>
@@ -166,7 +167,7 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                           <h6 class="fs--2 text-600 mb-1">MINSA</h6>
                           <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2">5</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 18%</span>
+                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_minsa" >0</h5><span class="badge rounded-pill badge-soft-primary"> <span id="id_count_tbl_minsa_procent"></span> %</span>
                           </div>
                         </div>
                       </div>
@@ -238,23 +239,23 @@
                           <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_institucion,2)}}</td>
                           <td class="align-middle text-end">
                             @if($lstProducto->mific =='0')
-                            <span class="badge badge rounded-pill badge-soft-success">SI<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                            <span class="badge badge rounded-pill badge-soft-success"><span class="fs-3 fas fa-check" data-fa-transform="shrink-2"></span></span>
                             @else
-                            <span class="badge badge rounded-pill badge-soft-danger">NO<span class="ms-1 fas fa-close" data-fa-transform="shrink-2"></span></span>
+                            <span class="badge badge rounded-pill badge-soft-danger"><span class="fs-3 fas fa-times" data-fa-transform="shrink-2"></span></span>
                             @endif
                           </td>
                           <td class="align-middle text-end">
                             @if($lstProducto->regencia =='0')
-                            <span class="badge badge rounded-pill badge-soft-success">SI<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                            <span class="badge badge rounded-pill badge-soft-success"><span class="fs-3 fas fa-check" data-fa-transform="shrink-2"></span></span>
                             @else
-                            <span class="badge badge rounded-pill badge-soft-danger">NO<span class="ms-1 fas fa-close" data-fa-transform="shrink-2"></span></span>
+                            <span class="badge badge rounded-pill badge-soft-danger"><span class="fs-3 fas fa-times" data-fa-transform="shrink-2"></span></span>
                             @endif
                           </td>
                           <td class="align-middle text-end">
                             @if($lstProducto->minsa =='0')
-                            <span class="badge badge rounded-pill badge-soft-success">SI<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
+                            <span class="badge badge rounded-pill badge-soft-success"><span class="fs-3 fas fa-check" data-fa-transform="shrink-2"></span></span>
                             @else
-                            <span class="badge badge rounded-pill badge-soft-danger">NO<span class="ms-1 fas fa-close" data-fa-transform="shrink-2"></span></span>
+                            <span class="badge badge rounded-pill badge-soft-danger"><span class="fs-3 fas fa-times" data-fa-transform="shrink-2"></span></span>
                             @endif
                           </td>
                           

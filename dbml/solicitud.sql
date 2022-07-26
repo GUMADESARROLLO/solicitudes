@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 25-07-2022 a las 23:18:52
+-- Tiempo de generación: 26-07-2022 a las 23:05:13
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 7.4.26
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `solicitud`
 --
-CREATE DATABASE IF NOT EXISTS `solicitud` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `solicitud`;
 
 -- --------------------------------------------------------
 
@@ -305,7 +303,41 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_estados_pagos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_imp_estados_pagos`
+--
+
+INSERT INTO `tbl_imp_estados_pagos` (`id`, `Descripcion`, `activo`, `created_at`, `updated_at`) VALUES
+(1, 'Pagado', 'S', '2022-07-26 21:00:08', '2022-07-26 21:00:08'),
+(2, 'Pendiente', 'S', '2022-07-26 21:00:08', '2022-07-26 21:00:08');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_imp_estado_orden`
+--
+
+DROP TABLE IF EXISTS `tbl_imp_estado_orden`;
+CREATE TABLE IF NOT EXISTS `tbl_imp_estado_orden` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(250) DEFAULT NULL,
+  `activo` varchar(5) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_imp_estado_orden`
+--
+
+INSERT INTO `tbl_imp_estado_orden` (`id`, `descripcion`, `activo`, `created_at`, `updated_at`) VALUES
+(1, 'ESTADO 01', 'S', '2022-07-26 22:06:55', '2022-07-26 22:06:55'),
+(2, 'ESTADO 02', 'S', '2022-07-26 22:06:55', '2022-07-26 22:06:55'),
+(3, 'ESTADO 03', 'S', '2022-07-26 22:06:55', '2022-07-26 22:06:55'),
+(4, 'ESTADO 04', 'S', '2022-07-26 22:06:55', '2022-07-26 22:06:55');
 
 -- --------------------------------------------------------
 
@@ -321,13 +353,14 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion` (
   `id_shipto` int(10) DEFAULT NULL,
   `id_via` int(10) DEFAULT NULL,
   `id_estados_pagos` int(10) DEFAULT NULL,
-  `estados_pagos` int(5) DEFAULT NULL,
   `tipo_carga` int(5) DEFAULT NULL,
   `factura` varchar(10) DEFAULT NULL,
   `recibo` varchar(10) DEFAULT NULL,
   `fecha_despacho` date DEFAULT NULL,
   `fecha_orden_compra` date DEFAULT NULL,
-  `estado_importacion` int(5) DEFAULT NULL,
+  `fecha_factura` date DEFAULT NULL,
+  `fecha_estimada` date DEFAULT NULL,
+  `id_estado_orden` int(5) DEFAULT NULL,
   `activo` varchar(5) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -336,23 +369,24 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion` (
   KEY `id_shipto` (`id_shipto`),
   KEY `id_via` (`id_via`),
   KEY `id_estados_pagos` (`id_estados_pagos`),
-  KEY `tipo_carga` (`tipo_carga`)
+  KEY `tipo_carga` (`tipo_carga`),
+  KEY `id_estado_orden` (`id_estado_orden`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_importacion`
 --
 
-INSERT INTO `tbl_imp_importacion` (`id`, `num_po`, `id_vendor`, `id_shipto`, `id_via`, `id_estados_pagos`, `estados_pagos`, `tipo_carga`, `factura`, `recibo`, `fecha_despacho`, `fecha_orden_compra`, `estado_importacion`, `activo`, `created_at`, `updated_at`) VALUES
-(1, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2022-07-12 22:51:39', '2022-07-13 16:13:21'),
-(2, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2022-07-12 22:58:40', '2022-07-13 16:13:16'),
-(3, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2022-07-12 22:59:30', '2022-07-13 16:13:11'),
-(4, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2022-07-12 23:00:05', '2022-07-13 16:13:05'),
-(5, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2022-07-12 23:00:21', '2022-07-13 16:12:59'),
-(6, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'N', '2022-07-12 23:00:40', '2022-07-13 16:12:13'),
-(7, '1670', 11, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'S', '2022-07-13 16:16:11', '2022-07-13 16:16:11'),
-(8, '78912', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'S', '2022-07-14 20:34:06', '2022-07-14 20:34:06'),
-(9, '78451', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'S', '2022-07-25 14:40:02', '2022-07-25 14:40:02');
+INSERT INTO `tbl_imp_importacion` (`id`, `num_po`, `id_vendor`, `id_shipto`, `id_via`, `id_estados_pagos`, `tipo_carga`, `factura`, `recibo`, `fecha_despacho`, `fecha_orden_compra`, `fecha_factura`, `fecha_estimada`, `id_estado_orden`, `activo`, `created_at`, `updated_at`) VALUES
+(1, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 22:51:39', '2022-07-13 16:13:21'),
+(2, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 22:58:40', '2022-07-13 16:13:16'),
+(3, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 22:59:30', '2022-07-13 16:13:11'),
+(4, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 23:00:05', '2022-07-13 16:13:05'),
+(5, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 23:00:21', '2022-07-13 16:12:59'),
+(6, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 23:00:40', '2022-07-13 16:12:13'),
+(7, '1670', 11, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-07-13 16:16:11', '2022-07-13 16:16:11'),
+(8, '78912', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-07-14 20:34:06', '2022-07-14 20:34:06'),
+(9, '78451', 8, 2, 3, 2, 1, '4000', '66565', '2022-07-26', '2022-07-26', '2022-07-26', '2022-07-26', 1, 'S', '2022-07-25 14:40:02', '2022-07-26 22:21:46');
 
 -- --------------------------------------------------------
 
@@ -490,7 +524,15 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_tipo_carga` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_imp_tipo_carga`
+--
+
+INSERT INTO `tbl_imp_tipo_carga` (`id`, `Descripcion`, `activo`, `created_at`, `updated_at`) VALUES
+(1, 'Consolidada', 'S', '2022-07-26 21:02:48', '2022-07-26 21:02:52'),
+(2, 'Otros', 'S', '2022-07-26 21:02:50', '2022-07-26 21:02:54');
 
 -- --------------------------------------------------------
 
@@ -567,7 +609,16 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_vias` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tbl_imp_vias`
+--
+
+INSERT INTO `tbl_imp_vias` (`id`, `Descripcion`, `activo`, `created_at`, `updated_at`) VALUES
+(1, 'Tierra', 'S', '2022-07-26 20:47:44', '2022-07-26 20:47:44'),
+(2, 'Mar', 'S', '2022-07-26 20:47:44', '2022-07-26 20:47:44'),
+(3, 'Aire', 'S', '2022-07-26 20:47:44', '2022-07-26 20:47:44');
 
 -- --------------------------------------------------------
 
