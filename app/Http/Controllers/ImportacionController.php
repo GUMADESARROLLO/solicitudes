@@ -89,7 +89,6 @@ class ImportacionController extends Controller {
         $Vendors = Vendor::where('activo', 'S')->orderBy('id', 'asc')->get();
         $ShipTo = ShipTo::where('activo', 'S')->orderBy('id', 'asc')->get();
         $Ordenes = OrdendesCompras::where('activo', 'S')->get();
-
         return view('Importacion.Home', compact('Vendors','ShipTo','Ordenes'));
         
     }

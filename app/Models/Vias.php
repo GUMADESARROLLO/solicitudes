@@ -10,7 +10,11 @@ use Exception;
 class Vias extends Model {
     protected $table = "tbl_imp_vias";
     protected $fillable = ['id','Descripcion','activo','created_at','updated_at'];
-
+    
+    public function Ordenes(){
+        return $this->hasMany('App\Models\OrdendesCompras');
+    }
+    
    
 
 }

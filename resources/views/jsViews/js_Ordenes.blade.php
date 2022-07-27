@@ -9,6 +9,62 @@
             RangeStat(Fechas[0],Fechas[1]);
         } 
     });
+
+    var vTableOrdenesCompra = $('#tbl_ordenes_compra').DataTable({
+                            "fnDrawCallback": function ( row, data, start, end, display ) {
+
+                                
+                            /*var api         = this.api(), data;  
+                            var cMific      = 0
+                            var cRegencia   = 0
+                            var cMinsa      = 0
+                            var tt_prod     = api.data().length
+
+                            
+
+            
+                            api.column( 5 ).data().reduce( function (a, b) {                                
+                                if(b.search("fa-check") != -1){
+                                    cMific++;
+                                }
+                            }, 0 );
+
+                            api.column( 6 ).data().reduce( function (a, b) {                                
+                                if(b.search("fa-check") != -1){
+                                    cRegencia++;
+                                }
+                            }, 0 );
+
+                            api.column( 7 ).data().reduce( function (a, b) {                                
+                                if(b.search("fa-check") != -1){
+                                    cMinsa++;
+                                }
+                            }, 0 );
+
+                            cMific_procent = numeral((cMific / tt_prod ) * 100).format('0,00');
+                            cRegencia_procent = numeral((cRegencia / tt_prod ) * 100).format('0,00');
+                            cMinsa_procent = numeral((cMinsa / tt_prod ) * 100).format('0,00');
+
+                            $("#id_count_tbl_mific").text(cMific)
+                            $("#id_count_tbl_mific_procent").text(cMific_procent)
+
+                            $("#id_count_tbl_regencia").text(cRegencia)
+                            $("#id_count_tbl_regencia_procent").text(cRegencia_procent)
+
+                            $("#id_count_tbl_minsa").text(cMinsa)
+                            $("#id_count_tbl_minsa_procent").text(cMinsa_procent)*/
+                            
+  
+            
+        }
+    });
+    $('#id_txt_buscar').on('keyup', function() {        
+        vTableOrdenesCompra.search(this.value).draw();
+    });
+    $("#tbl_ordenes_compra_length").hide();
+    $("#tbl_ordenes_compra_filter").hide();
+
+
     function RangeStat(Start,Ends){
         Start = $.trim(Start)
         Ends = $.trim(Ends)

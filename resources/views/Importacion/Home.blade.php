@@ -210,75 +210,103 @@
                   
             </div>
 
-          <div class="card mb-3" id="ordersTable" data-list='{"valueNames":["order","date","address","status","amount"],"page":10,"pagination":true}'>
+          <div class="card mb-3" >
           
             <div class="card-body p-0 ">
             <div class="card-header">
-              <div class="row flex-between-center">
-              <div class="w-100">
-                    <div class="row fs--1 fw-semi-bold text-500 g-0">
-                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-danger"></span><span>Rojo</span><span class="d-none d-md-inline-block d-xxl-inline-block">(50)</span></div>
-                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-warning"></span><span>Naranja</span><span class="d-none d-md-inline-block d-xxl-inline-block">(40)</span></div>
-                      <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-success"></span><span>Verde</span><span class="d-none d-md-inline-block d-xxl-inline-block">(10)</span></div>
-                      <div class="col-auto d-flex align-items-center"><span class="dot bg-200"></span><span>Total </span><span class="d-none d-md-inline-block d-xxl-inline-block">(100)</span></div>
+              <div class="card-header">
+                <div class="row flex-between-center">
+                  <div class="col-auto col-sm-6 col-lg-7">
+
+                    <div class="row g-sm-4">
+                    <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200">
+                          <h6 class="fs--2 text-600 mb-1">TOTAL</h6>
+                          <div class="d-flex align-items-center">
+                            <h5 class="fs-0 text-900 mb-0 me-2"> {{count($Ordenes)}} </h5>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200">
+                          <h6 class="fs--2 text-600 mb-1">ROJO</h6>
+                          <div class="d-flex align-items-center">
+                            <span class="badge rounded-pill bg-danger"><span id=""></span> 20</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200">
+                          <h6 class="fs--2 text-600 mb-1">NARANJA</h6>
+                          <div class="d-flex align-items-center">
+                            <span class="badge rounded-pill bg-warning"> <span id=""></span> 30</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200">
+                          <h6 class="fs--2 text-600 mb-1">VERDE</h6>
+                          <div class="d-flex align-items-center">
+                            <span class="badge rounded-pill bg-success"> <span id=""></span> 50</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                  </div>
+                  <div class="col-auto col-sm-6 col-lg-5">
+                    <div class="input-group" >
+                      <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Buscar..." aria-label="search" id="id_txt_buscar" />
+                      <div class="input-group-text bg-transparent">
+                        <span class="fa fa-search fs--1 text-600"></span>
+                      </div>                     
                     </div>
                   </div>
+                </div>
               </div>
-            </div>
-              <div class="table-responsive scrollbar">
-                <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
+              <div class="table table-striped border-bottom">
+                <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden" id="tbl_ordenes_compra">
                   <thead class="bg-200 text-900">
                     <tr>
-                      <th class="sort pe-1 align-middle white-space-nowrap" data-sort="order">P.O. NO</th>
-                      <th class="sort pe-1 align-middle white-space-nowrap pe-7" data-sort="date">Fecha</th>
-                      <th class="sort pe-1 align-middle white-space-nowrap pe-7" data-sort="date">Via</th>
-                      <th class="sort pe-1 align-middle white-space-nowrap pe-7" data-sort="date">Carga</th>
-                      <th class="sort pe-1 align-middle white-space-nowrap pe-7" data-sort="date">Vendedor / Fabricante</th>
-                      <th class="sort pe-1 align-middle white-space-nowrap" data-sort="address" style="min-width: 12.5rem;">Ship To</th>
-                      <th class="sort pe-1 align-middle white-space-nowrap text-center" data-sort="status">Status</th>
-                      <th class="sort pe-1 align-middle white-space-nowrap text-end" data-sort="amount">Monto</th>
-                      <th class="no-sort"></th>
+                      <th class="" >P.O. NO</th>
+                      <th class="" >Fecha</th>
+                      <th class="" >Via</th>
+                      <th class="" >Carga</th>
+                      <th class="">Status</th>
+                     
                     </tr>
                   </thead>
-                  <tbody class="list" id="table-orders-body">
+                  <tbody class="list" >
                     @foreach ($Ordenes as $orden)
-                    <tr class="btn-reveal-trigger ">
-                      <td class="py-2 align-middle white-space-nowrap">
-                        <div class="d-flex align-items-center position-relative">
-                          <div class="avatar avatar-xl">
-                            <div class="avatar-name rounded-circle text-primary bg-success fs-0"><span></span></div>
-                          </div>
+                    <tr class="btn-reveal-trigger bg-soft-danger">                
+                      <td class="align-middle">
+                        <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
                           <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900" href="ImportacionDetalles/{{$orden->id}}"># {{$orden->num_po}}</a></h6>
-                            <p class="text-500 fs--2 mb-0">Falcon</p>
+                            <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/{{$orden->id}}"> P.O <strong>{{$orden->num_po}}</strong></a> : {{ $orden->Vendor->nombre_vendor}}</h6>
+                            <p class="fw-semi-bold mb-0 text-500">{{ $orden->proveedor->nombre_shipto }}</p>                            
+                            <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
+                            <div class="col-auto">
+                                      <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" > 
+                                      <span class="ms-1">Fact. {{$orden->factura}}</span>
+                                    </a>
+                                    </div>
+                                <div class="col-auto d-flex align-items-center">
+                                  <span class="ms-1">Rec. {{$orden->recibo}}</span>
+                                </div>
+                            </div> 
                           </div>
                         </div>
-                      </td>
+                      </td>    
                       <td class="date py-2 align-middle">20/04/2019</td>
-                      <td class="date py-2 align-middle">AQUI VA LA VIA</td>
-                      <td class="date py-2 align-middle">AQUI VA LA CARGA</td>
-                      <td class="date py-2 align-middle">AQUI VA LA VENDEDOR FABRICANTE</td>
-                      <td class="address py-2 align-middle white-space-nowrap">{{strtoupper($orden->proveedor->nombre_shipto)}}
-                        <p class="mb-0 text-500">{{ strtoupper($orden->proveedor->Descripcion) }}</p>
+                      <td class="date py-2 align-middle">{{ $orden->Vias->Descripcion }}</td>
+                      <td class="date py-2 align-middle">{{ $orden->TipoCarga->Descripcion }}</td>
+                      <td class="status py-2 align-middle text-center fs-0 white-space-nowrap">
+                        <span class="badge badge rounded-pill d-block badge-soft-success">{{ $orden->Estado->descripcion }}<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
                       </td>
-                      <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-soft-success">Depachado<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
-                      </td>
-                      <td class="amount py-2 align-middle text-end fs-0 fw-medium">$99</td>
-                      <td class="py-2 align-middle white-space-nowrap text-end">
-                        <div class="dropdown font-sans-serif position-static">
-                          <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
-                            <div class="bg-white py-2">
-                              <a class="dropdown-item" href="#!">Completed</a>
-                              <a class="dropdown-item" href="#!">Processing</a>
-                              <a class="dropdown-item" href="#!">On Hold</a>
-                              <a class="dropdown-item" href="#!">Pending</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item text-danger" href="#!" onClick="RemoveOrden({{ $orden->id }})">Borrrar</a>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
+                      
+                     
                     </tr>
                     
                     @endforeach
