@@ -1,6 +1,117 @@
 @extends('layouts.lyt_gumadesk')
 @section('metodosjs')
 @include('jsViews.js_Ordenes');
+<style>
+.dataTables_paginate {
+        display: flex;
+        align-items: center;
+        padding-top: 20px;
+
+    }
+    .notification-body {
+      width: 100% !important;
+    }
+    .dataTables_paginate a {
+        padding: 0 10px;
+        margin-inline: 5px;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+      font-size: .8rem;      
+    }
+
+    .dt-center {
+      text-align: center;
+    }
+
+    .dt-right {
+      text-align: right;
+    }
+
+    .dt-left {
+      text-align: left;
+    }
+    .custom {
+        min-width: 70%;
+        min-height: 100%;
+    }
+
+    .custom_detail {
+        min-width: 80%;
+        min-height: 100%;
+    }
+
+    u.dotted {
+        border-bottom: 1px dashed red;
+        text-decoration: none;
+    }
+
+    .dBorder {
+        border: 1px solid #ccc !important;
+    }
+
+    .text-primary {
+        color: #4e73df !important;
+    }
+
+    .text-success {
+        color: #1cc88a !important;
+    }
+
+    .text-info {
+        color: #36b9cc !important;
+    }
+
+    .text-warning {
+        color: #f6c23e !important;
+    }
+
+    .border-left-primary {
+        border-left: .25rem solid #4e73df !important;
+    }
+
+    .border-left-success {
+        border-left: .25rem solid #1cc88a !important;
+    }
+
+    .border-left-info {
+        border-left: .25rem solid #36b9cc !important;
+    }
+
+    .border-left-warning {
+        border-left: .25rem solid #f6c23e !important;
+    }
+
+    .color-focus {
+        color: #0894ff !important;
+    }
+
+    .nav-tabs>.nav-item {
+        padding-left: 3.25rem;
+    }
+
+    @media (min-width: 768px) {
+        .nav-tabs .nav-item {
+            padding-left: 1.5rem;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .nav-tabs .nav-item {
+            padding-left: 1.75rem;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .nav-tabs .nav-item {
+            padding-left: 2.25rem;
+        }
+    }
+
+    .swal2-shown {
+        padding-right: 0px !important;
+    }
+</style>
 @endsection
 @section('content')
 
@@ -68,7 +179,7 @@
                               <div class="mb-3 pe-4 border-sm-end border-200">
                                 <h6 class="fs--2 text-600 mb-1">Total de Ordenes</h6>
                                 <div class="d-flex align-items-center">
-                                  <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 20.2%</span>
+                                  <h5 class="fs-0 text-900 mb-0 me-2" id="id_ttMiffc">00</h5><span class="badge rounded-pill badge-soft-primary invisible"><span class="fas fa-caret-up"></span> 20.2 %</span>
                                 </div>
                               </div>
                             </div>
@@ -76,7 +187,7 @@
                               <div class="mb-3 pe-4 border-sm-end border-200">
                                 <h6 class="fs--2 text-600 mb-1">Con si</h6>
                                 <div class="d-flex align-items-center">
-                                  <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-success"><span class="fas fa-caret-up"></span> 20%</span>
+                                  <h5 class="fs-0 text-900 mb-0 me-2" id="id_sMiffc">00</h5><span class="badge rounded-pill badge-soft-success"><span class="fas fa-caret-up"></span> <span id="id_sMiffc_procent_si"></span>0 %</span>
                                 </div>
                               </div>
                             </div>
@@ -84,7 +195,7 @@
                               <div class="mb-3 pe-0">
                                 <h6 class="fs--2 text-600 mb-1">Con no</h6>
                                 <div class="d-flex align-items-center">
-                                  <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 18%</span>
+                                  <h5 class="fs-0 text-900 mb-0 me-2" id="id_ntMiffc">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> <span id="id_ntMiffc_procent_no"></span>0 %</span>
                                 </div>
                               </div>
                             </div>
@@ -107,7 +218,7 @@
                             <div class="mb-3 pe-4 border-sm-end border-200">
                               <h6 class="fs--2 text-600 mb-1">Total de Ordenes </h6>
                               <div class="d-flex align-items-center">
-                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 20.2%</span>
+                                <h5 class="fs-0 text-900 mb-0 me-2" id="id_ttRegencia" >00</h5><span class="badge rounded-pill badge-soft-primary invisible"><span class="fas fa-caret-up"></span> 20.2%</span>
                               </div>
                             </div>
                           </div>
@@ -115,7 +226,7 @@
                             <div class="mb-3 pe-4 border-sm-end border-200">
                               <h6 class="fs--2 text-600 mb-1">con no</h6>
                               <div class="d-flex align-items-center">
-                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-success"><span class="fas fa-caret-up"></span> 20%</span>
+                                <h5 class="fs-0 text-900 mb-0 me-2" id="id_sRegencia">00</h5><span class="badge rounded-pill badge-soft-success"><span class="fas fa-caret-up"></span> <span id="id_sRengencia_procent_si"></span>0 %</span>
                               </div>
                             </div>
                           </div>
@@ -123,7 +234,7 @@
                             <div class="mb-3 pe-0">
                               <h6 class="fs--2 text-600 mb-1">con si</h6>
                               <div class="d-flex align-items-center">
-                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 18%</span>
+                                <h5 class="fs-0 text-900 mb-0 me-2" id="id_nRegencia">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> <span id="id_nRegencia_procent_no"></span>0 %</span>
                               </div>
                             </div>
                           </div>
@@ -146,7 +257,7 @@
                             <div class="mb-3 pe-4 border-sm-end border-200">
                               <h6 class="fs--2 text-600 mb-1">Total Ordenes</h6>
                               <div class="d-flex align-items-center">
-                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 20.2%</span>
+                                <h5 class="fs-0 text-900 mb-0 me-2" id="id_ttMinsa">00</h5><span class="badge rounded-pill badge-soft-primary invisible"><span class="fas fa-caret-up"></span> 20.2%</span>
                               </div>
                             </div>
                           </div>
@@ -154,7 +265,7 @@
                             <div class="mb-3 pe-4 border-sm-end border-200">
                               <h6 class="fs--2 text-600 mb-1">Con Si</h6>
                               <div class="d-flex align-items-center">
-                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-success"><span class="fas fa-caret-up"></span> 20%</span>
+                                <h5 class="fs-0 text-900 mb-0 me-2" id="id_sMinsa">00</h5><span class="badge rounded-pill badge-soft-success"><span class="fas fa-caret-up"></span> <span id="id_sMinsa_procent_si"></span>0 %</span>
                               </div>
                             </div>
                           </div>
@@ -162,7 +273,7 @@
                             <div class="mb-3 pe-0">
                               <h6 class="fs--2 text-600 mb-1">Con no</h6>
                               <div class="d-flex align-items-center">
-                                <h5 class="fs-0 text-900 mb-0 me-2">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> 18%</span>
+                                <h5 class="fs-0 text-900 mb-0 me-2" id="id_nMinsa">00</h5><span class="badge rounded-pill badge-soft-primary"><span class="fas fa-caret-up"></span> <span id="id_ntMinsa_procent_no"></span>0 %</span>
                               </div>
                             </div>
                           </div>
@@ -217,13 +328,13 @@
               <div class="card-header">
                 <div class="row flex-between-center">
                   <div class="col-auto col-sm-6 col-lg-7">
-
-                    <div class="row g-sm-4">
+ 
+                    <div class="row g-sm-4 ">
                     <div class="col-12 col-sm-auto">
                         <div class="mb-3 pe-4 border-sm-end border-200">
                           <h6 class="fs--2 text-600 mb-1">TOTAL</h6>
                           <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2"> {{count($Ordenes)}} </h5>
+                            <h5 class="fs-0 text-900 mb-0 me-2"> 0 </h5>
                           </div>
                         </div>
                       </div>
@@ -266,8 +377,8 @@
                   </div>
                 </div>
               </div>
-              <div class="table table-striped border-bottom">
-                <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden" id="tbl_ordenes_compra">
+              <div class="">
+                <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_ordenes_compra">
                   <thead class="bg-200 text-900">
                     <tr>
                       <th class="" >P.O. NO</th>
@@ -279,195 +390,12 @@
                     </tr>
                   </thead>
                   <tbody class="list" >
-                    @foreach ($Ordenes as $orden)
-                    <tr class="btn-reveal-trigger bg-soft-danger">                
-                      <td class="align-middle">
-                        <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
-                          <div class="flex-1 ms-3">
-                            <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/{{$orden->id}}"> P.O <strong>{{$orden->num_po}}</strong></a> : {{ $orden->Vendor->nombre_vendor}}</h6>
-                            <p class="fw-semi-bold mb-0 text-500">{{ $orden->proveedor->nombre_shipto }}</p>                            
-                            <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
-                            <div class="col-auto">
-                                      <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" > 
-                                      <span class="ms-1">Fact. {{$orden->factura}}</span>
-                                    </a>
-                                    </div>
-                                <div class="col-auto d-flex align-items-center">
-                                  <span class="ms-1">Rec. {{$orden->recibo}}</span>
-                                </div>
-                            </div> 
-                          </div>
-                        </div>
-                      </td>    
-                      <td class="date py-2 align-middle">20/04/2019</td>
-                      <td class="date py-2 align-middle">{{ $orden->Vias->Descripcion }}</td>
-                      <td class="date py-2 align-middle">{{ $orden->TipoCarga->Descripcion }}</td>
-                      <td class="status py-2 align-middle text-center fs-0 white-space-nowrap">
-                        <span class="badge badge rounded-pill d-block badge-soft-success">{{ $orden->Estado->descripcion }}<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
-                      </td>
-                      
-                     
-                    </tr>
-                    
-                    @endforeach
-
-                  <?php
-
-
                   
-
-                   /*for($i=0;$i<=1;$i++){
-                   echo '
-                    <tr class="btn-reveal-trigger ">
-                      <td class="py-2 align-middle white-space-nowrap">
-                        <div class="d-flex align-items-center position-relative">
-                          <div class="avatar avatar-xl">
-                            <div class="avatar-name rounded-circle text-primary bg-success fs-0"><span></span></div>
-                          </div>
-                          <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900" href="ImportacionDetalles"># 181</a></h6>
-                            <p class="text-500 fs--2 mb-0">Falcon</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="date py-2 align-middle">20/04/2019</td>
-                      <td class="date py-2 align-middle">AQUI VA LA VIA</td>
-                      <td class="date py-2 align-middle">AQUI VA LA CARGA</td>
-                      <td class="date py-2 align-middle">AQUI VA LA VENDEDOR FABRICANTE</td>
-                      <td class="address py-2 align-middle white-space-nowrap">Ricky Antony, 2392 Main Avenue, Penasauka, New Jersey 02149
-                        <p class="mb-0 text-500">Via Flat Rate</p>
-                      </td>
-                      <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-soft-success">Depachado<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
-                      </td>
-                      <td class="amount py-2 align-middle text-end fs-0 fw-medium">$99</td>
-                      <td class="py-2 align-middle white-space-nowrap text-end">
-                        <div class="dropdown font-sans-serif position-static">
-                          <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
-                            <div class="bg-white py-2"><a class="dropdown-item" href="#!">Completed</a><a class="dropdown-item" href="#!">Processing</a><a class="dropdown-item" href="#!">On Hold</a><a class="dropdown-item" href="#!">Pending</a>
-                              <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Delete</a>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="btn-reveal-trigger">
-                      
-                      <td class="py-2 align-middle white-space-nowrap">
-                        <div class="d-flex align-items-center position-relative">
-                          <div class="avatar avatar-xl">
-                            <div class="avatar-name rounded-circle text-primary bg-success fs-0"><span></span></div>
-                          </div>
-                          <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900" href="ImportacionesDetalles"># 181</a></h6>
-                            <p class="text-500 fs--2 mb-0">Falcon</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="date py-2 align-middle">20/04/2019</td>
-                      <td class="date py-2 align-middle">AQUI VA LA VIA</td>
-                      <td class="date py-2 align-middle">AQUI VA LA CARGA</td>
-                      <td class="date py-2 align-middle">AQUI VA LA VENDEDOR FABRICANTE</td>
-                      <td class="address py-2 align-middle white-space-nowrap">Kin Rossow, 1 Hollywood Blvd,Beverly Hills, California 90210
-                        <p class="mb-0 text-500">Via Free Shipping</p>
-                      </td>
-                      <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-soft-primary">Transito<span class="ms-1 fas fa-redo" data-fa-transform="shrink-2"></span></span>
-                      </td>
-                      <td class="amount py-2 align-middle text-end fs-0 fw-medium">$120</td>
-                      <td class="py-2 align-middle white-space-nowrap text-end">
-                        <div class="dropdown font-sans-serif position-static">
-                          <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-1" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-1">
-                            <div class="bg-white py-2"><a class="dropdown-item" href="#!">Completed</a><a class="dropdown-item" href="#!">Processing</a><a class="dropdown-item" href="#!">On Hold</a><a class="dropdown-item" href="#!">Pending</a>
-                              <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Delete</a>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="btn-reveal-trigger">
-                      <td class="py-2 align-middle white-space-nowrap">
-                        <div class="d-flex align-items-center position-relative">
-                          <div class="avatar avatar-xl">
-                            <div class="avatar-name rounded-circle text-primary bg-warning fs-0"><span></span></div>
-                          </div>
-                          <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900" href="ImportacionesDetalles"># 181</a></h6>
-                            <p class="text-500 fs--2 mb-0">Falcon</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="date py-2 align-middle">30/04/2019</td>
-                      <td class="date py-2 align-middle">AQUI VA LA VIA</td>
-                      <td class="date py-2 align-middle">AQUI VA LA CARGA</td>
-                      <td class="date py-2 align-middle">AQUI VA LA VENDEDOR FABRICANTE</td>
-                      <td class="address py-2 align-middle white-space-nowrap">Merry Diana, 1 Infinite Loop, Cupertino, California 90210
-                        <p class="mb-0 text-500">Via Link Road</p>
-                      </td>
-                      <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-soft-secondary">Llegado<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span></span>
-                      </td>
-                      <td class="amount py-2 align-middle text-end fs-0 fw-medium">$70</td>
-                      <td class="py-2 align-middle white-space-nowrap text-end">
-                        <div class="dropdown font-sans-serif position-static">
-                          <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-2" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-2">
-                            <div class="bg-white py-2"><a class="dropdown-item" href="#!">Completed</a><a class="dropdown-item" href="#!">Processing</a><a class="dropdown-item" href="#!">On Hold</a><a class="dropdown-item" href="#!">Pending</a>
-                              <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Delete</a>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="btn-reveal-trigger">
-                      
-                      <td class="py-2 align-middle white-space-nowrap">
-                        <div class="d-flex align-items-center position-relative">
-                          <div class="avatar avatar-xl">
-                            <div class="avatar-name rounded-circle text-primary bg-danger fs-0"><span></span></div>
-                          </div>
-                          <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fw-semi-bold"><a class="stretched-link text-900" href="ImportacionesDetalles"># 181</a></h6>
-                            <p class="text-500 fs--2 mb-0">Falcon</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="date py-2 align-middle">30/04/2019</td>
-                      <td class="date py-2 align-middle">AQUI VA LA VIA</td>
-                      <td class="date py-2 align-middle">AQUI VA LA CARGA</td>
-                      <td class="date py-2 align-middle">AQUI VA LA VENDEDOR FABRICANTE</td>
-                      <td class="address py-2 align-middle white-space-nowrap">Bucky Robert, 1 Infinite Loop, Cupertino, California 90210</td>
-                      <td class="status py-2 align-middle text-center fs-0 white-space-nowrap"><span class="badge badge rounded-pill d-block badge-soft-warning">Pendiente<span class="ms-1 fas fa-stream" data-fa-transform="shrink-2"></span></span>
-                      </td>
-                      <td class="amount py-2 align-middle text-end fs-0 fw-medium">$92</td>
-                      <td class="py-2 align-middle white-space-nowrap text-end">
-                        <div class="dropdown font-sans-serif position-static">
-                          <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="order-dropdown-3" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                          <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-3">
-                            <div class="bg-white py-2"><a class="dropdown-item" href="#!">Completed</a><a class="dropdown-item" href="#!">Processing</a><a class="dropdown-item" href="#!">On Hold</a><a class="dropdown-item" href="#!">Pending</a>
-                              <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="#!">Delete</a>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    
-                    ';
-                  }*/
-                  ?>
-                    
                   </tbody>
                 </table>
               </div>
             </div>
-            <div class="card-footer">
-              <div class="d-flex align-items-center justify-content-center">
-                <button class="btn btn-sm btn-falcon-default me-1" type="button" title="Previous" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
-                <ul class="pagination mb-0"></ul>
-                <button class="btn btn-sm btn-falcon-default ms-1" type="button" title="Next" data-list-pagination="next"><span class="fas fa-chevron-right">             </span></button>
-              </div>
-            </div>
           </div>
-            @include('layouts.footer_gumadesk')
         </div>
 
 
@@ -477,7 +405,7 @@
             <div class="modal-content border-0">
               <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
                 <div class="position-relative z-index-1 light">
-                  <h4 class="mb-0 text-white" id="authentication-modal-label">Nueva P.O. NO</h4>
+                  <h4 class="mb-0 text-white" id="authentication-modal-label">Nº P.O. </h4>
                   <p class="fs--1 mb-0 text-white">Aperturar nueva orden de pedido</p>
                 </div>
                 <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>

@@ -68,6 +68,12 @@
         var mdl_product = new window.bootstrap.Modal(mdl_add_product);
         mdl_product.show();
         $("#id_modal_state").text("Agregar");  
+        
+        var Id = $("#id_lbl_po").text(); 
+
+        $("#id_mdl_po").text(Id);  
+
+        
 
     });
 
@@ -122,6 +128,9 @@
         mdl_product.show();
         $("#id_modal_state").text("Editar");  
 
+        
+        $("#id_mdl_po").text(Id);  
+
         $.ajax({
                 url: "../getInfoLinea",
                 type: 'post',
@@ -139,9 +148,9 @@
                     $("#id_frm_precio_public").val(isValue(obj_producto[0].precio_publico,0,true)); 
                     $("#id_frm_precio_insti").val(isValue(obj_producto[0].precio_institucion,0,true)); 
 
-                    $("#id_frm_precio_insti").val((obj_producto[0].mific==='1')? true : false); 
-                    $("#id_frm_precio_insti").val((obj_producto[0].regencia==='1')? true : false); 
-                    $("#id_frm_precio_insti").val((obj_producto[0].minsa==='1')? true : false); 
+                    $("#id_chk_mific").attr('checked',(obj_producto[0].mific==='1')? true : false);
+                    $("#id_chk_regencia").attr('checked',(obj_producto[0].regencia==='1')? true : false);
+                    $("#id_chk_minsa").attr('checked',(obj_producto[0].minsa==='1')? true : false);
                     
                 },
                 error: function(response) {
@@ -317,7 +326,8 @@
         var isChkRegen          = $("#id_chk_regencia").prop('checked')
         var isChkMinsa          = $("#id_chk_minsa").prop('checked')
 
-        var modl_states         = $("#id_modal_state").text();  
+        var modl_states         = $("#id_modal_state").text();
+
         var id_po               = $("#id_mdl_po").text();  
 
         var ttModal             = (modl_states=='0')? 'Add' : 'Edit'
@@ -329,11 +339,12 @@
         frm_precio_public       = isValue(frm_precio_public,0,true)
         frm_precio_insti        = isValue(frm_precio_insti,0,true)
         frm_Cantidad            = isValue(frm_Cantidad,0,true)
-        id_po                   = isValue(id_po,0,true)
 
         isChkMific              = (isChkMific)? 1 : 0;
         isChkRegen              = (isChkRegen )? 1 : 0;
         isChkMinsa              = (isChkMinsa)? 1 : 0;
+
+        console.log(modl_states)
 
 
         
@@ -348,6 +359,7 @@
                 type: 'post',
                 data: {
                     id_po           : id_po,
+                    modl_states     : modl_states,
                     id_producto     : id_code,
                     Cantidad        : frm_Cantidad,                    
                     precio_farma    : frm_precio_farma,
@@ -360,6 +372,7 @@
                 },
                 async: true,
                 success: function(response) {
+
                     if(response.original){
                         Swal.fire({
                         title: 'Se agrego el producto',

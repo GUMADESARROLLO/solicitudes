@@ -16,7 +16,7 @@
                 <div class="card-header">
                   <div class="row flex-between-center">
                     <div class="col-auto">
-                      <h5 class="mb-2">P.O. NO. : # {{ $Orden->num_po }} </h5>
+                      <h5 class="mb-2">P.O. NO. : # {{ $Orden->num_po  }}  </h5>
                       <span style="display:none" id="id_lbl_po">{{ $Orden->id }}</span>
                     </div>
                     <div class="col-auto mt-2">
@@ -41,7 +41,7 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                             <h6 class="fs--2 text-600 mb-1 ">Via</h6>
                             <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert(2)">{{ $Orden->Vias->Descripcion }}</h5>
+                            <h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert(2)"> {{ !empty($Orden->Vias->Descripcion) ? $Orden->Vias->Descripcion :'N/D'  }}  </h5>
                             </div>
                           </div>
                         </div>
@@ -49,7 +49,8 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                             <h6 class="fs--2 text-600 mb-1">Status</h6>
                             <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2" >{{ $Orden->Estado->descripcion }}</div>
+                            <div class="badge rounded-pill badge-soft-success fs--2" > {{ !empty($Orden->Estado->descripcion) ? $Orden->Estado->descripcion :'N/D'  }} </div>
+                            
                             </div>
                           </div>
                         </div>
@@ -57,15 +58,15 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                             <h6 class="fs--2 text-600 mb-1">Estado de pago</h6>
                             <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2" onclick="frmSweetAlert(4)">{{ $Orden->EstadoPago->Descripcion }}</div>
+                            <div class="badge rounded-pill badge-soft-success fs--2"  onclick="frmSweetAlert(4)" > {{ !empty($Orden->EstadoPago->Descripcion) ? $Orden->EstadoPago->Descripcion :'N/D'  }} </div>
                             </div>
                           </div>
                         </div>
                         <div class="col-12 col-sm-auto">
                           <div class="mb-3 pe-0">
                             <h6 class="fs--2 text-600 mb-1">Carga</h6>
-                            <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2" onclick="frmSweetAlert(5)"> {{ $Orden->TipoCarga->Descripcion }}</div>
+                            <div class="d-flex align-items-center">                            
+                            <div class="badge rounded-pill badge-soft-success fs--2" onclick="frmSweetAlert(5)" > {{ !empty($Orden->TipoCarga->Descripcion) ? $Orden->TipoCarga->Descripcion :'N/D'  }} </div>
                             </div>
                           </div>
                         </div>
@@ -104,25 +105,25 @@
                         <li class="border-topmb-3 pb-1 cursor-pointer"  onclick="frmSweetAlert02(0)">
                             <div class="border-start border-3 border-primary ps-3 mt-1">
                             <h6 class="mb-1 fw-semi-bold text-700"> Fecha Despacho </h6>
-                            <p class="fs--2 text-600 mb-0">{{ $Orden->fecha_despacho }}</p>
+                            <p class="fs--2 text-600 mb-0">{{ !empty($Orden->fecha_despacho ) ? $Orden->fecha_despacho  :'N/D'  }} </p>
                             </div>
                         </li> 
                         <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" onclick="frmSweetAlert02(1)">
                             <div class="border-start border-3 border-success ps-3 mt-1">
                             <h6 class="mb-1 fw-semi-bold text-700"> Fecha Estimada </h6>
-                            <p class="fs--2 text-600 mb-0">{{ $Orden->fecha_estimada }} </p>
+                            <p class="fs--2 text-600 mb-0">{{ !empty($Orden->fecha_estimada ) ? $Orden->fecha_estimada  :'N/D'  }} </p>
                             </div>
                         </li> 
                         <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" onclick="frmSweetAlert02(2)">
                             <div class="border-start border-3 border-warning ps-3 mt-1">
                             <h6 class="mb-1 fw-semi-bold text-700">Fecha Factura</h6>
-                            <p class="fs--2 text-600 mb-0">{{ $Orden->fecha_factura }}</p>
+                            <p class="fs--2 text-600 mb-0">{{ !empty($Orden->fecha_factura ) ? $Orden->fecha_factura  :'N/D'  }} </p>
                             </div>
                         </li> 
                         <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" onclick="frmSweetAlert02(3)">
                             <div class="border-start border-3 border-danger ps-3 mt-1">
                             <h6 class="mb-1 fw-semi-bold text-700"> Fecha Orden de Compra:  </h6>
-                            <p class="fs--2 text-600 mb-0">{{ $Orden->fecha_orden_compra }}  </p>
+                            <p class="fs--2 text-600 mb-0">{{ !empty($Orden->fecha_orden_compra ) ? $Orden->fecha_orden_compra  :'N/D'  }} </p>
                             </div>
                         </li> 
                     </ul>
@@ -238,21 +239,21 @@
                           <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_publico,2)}}</td>
                           <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_institucion,2)}}</td>
                           <td class="align-middle text-end">
-                            @if($lstProducto->mific =='0')
+                            @if($lstProducto->mific !='0')
                             <span class="badge badge rounded-pill badge-soft-success"><span class="fs-3 fas fa-check" data-fa-transform="shrink-2"></span></span>
                             @else
                             <span class="badge badge rounded-pill badge-soft-danger"><span class="fs-3 fas fa-times" data-fa-transform="shrink-2"></span></span>
                             @endif
                           </td>
                           <td class="align-middle text-end">
-                            @if($lstProducto->regencia =='0')
+                            @if($lstProducto->regencia !='0')
                             <span class="badge badge rounded-pill badge-soft-success"><span class="fs-3 fas fa-check" data-fa-transform="shrink-2"></span></span>
                             @else
                             <span class="badge badge rounded-pill badge-soft-danger"><span class="fs-3 fas fa-times" data-fa-transform="shrink-2"></span></span>
                             @endif
                           </td>
                           <td class="align-middle text-end">
-                            @if($lstProducto->minsa =='0')
+                            @if($lstProducto->minsa !='0')
                             <span class="badge badge rounded-pill badge-soft-success"><span class="fs-3 fas fa-check" data-fa-transform="shrink-2"></span></span>
                             @else
                             <span class="badge badge rounded-pill badge-soft-danger"><span class="fs-3 fas fa-times" data-fa-transform="shrink-2"></span></span>
@@ -305,8 +306,8 @@
               <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
                 <div class="position-relative z-index-1 light">
                   <h4 class="mb-0 text-white" id="authentication-modal-label"><span id="id_modal_state"></span> producto P.O.</h4>
-                  <p class="fs--1 mb-0 text-white">Aperturar nueva orden de pedido</p>                  
-                  <p class="fs--1 mb-0 text-white" id="id_mdl_po">  {{ $Orden->id   }}  </p>
+                  <p class="fs--1 mb-0 text-white">Ingresar articulos a la PO</p>                  
+                  <span id="id_mdl_po" ></span>
                 </div>
                 <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
@@ -362,7 +363,7 @@
                     <div class="mt-3">
                       <div class="form-check form-switch">
                         <label class="form-check-label" for="id_chk_mific">MIFIC</label>
-                        <input class="form-check-input" id="id_chk_mific" type="checkbox"  />
+                        <input class="form-check-input" id="id_chk_mific" type="checkbox" />
                       </div>
                     </div>
                   </div>

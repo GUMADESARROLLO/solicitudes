@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 26-07-2022 a las 23:05:13
+-- Tiempo de generación: 28-07-2022 a las 23:21:23
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 7.4.26
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `solicitud`
 --
+CREATE DATABASE IF NOT EXISTS `solicitud` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `solicitud`;
 
 -- --------------------------------------------------------
 
@@ -371,22 +373,16 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion` (
   KEY `id_estados_pagos` (`id_estados_pagos`),
   KEY `tipo_carga` (`tipo_carga`),
   KEY `id_estado_orden` (`id_estado_orden`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_importacion`
 --
 
 INSERT INTO `tbl_imp_importacion` (`id`, `num_po`, `id_vendor`, `id_shipto`, `id_via`, `id_estados_pagos`, `tipo_carga`, `factura`, `recibo`, `fecha_despacho`, `fecha_orden_compra`, `fecha_factura`, `fecha_estimada`, `id_estado_orden`, `activo`, `created_at`, `updated_at`) VALUES
-(1, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 22:51:39', '2022-07-13 16:13:21'),
-(2, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 22:58:40', '2022-07-13 16:13:16'),
-(3, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 22:59:30', '2022-07-13 16:13:11'),
-(4, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 23:00:05', '2022-07-13 16:13:05'),
-(5, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 23:00:21', '2022-07-13 16:12:59'),
-(6, '333', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-07-12 23:00:40', '2022-07-13 16:12:13'),
-(7, '1670', 11, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-07-13 16:16:11', '2022-07-13 16:16:11'),
-(8, '78912', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-07-14 20:34:06', '2022-07-14 20:34:06'),
-(9, '78451', 8, 2, 3, 2, 1, '4000', '66565', '2022-07-26', '2022-07-26', '2022-07-26', '2022-07-26', 1, 'S', '2022-07-25 14:40:02', '2022-07-26 22:21:46');
+(17, '10066', 8, 2, 1, 2, 2, '123123', '12456', '2022-07-28', NULL, NULL, NULL, 1, 'S', '2022-07-28 21:00:15', '2022-07-28 23:11:08'),
+(18, 'PO7894', 8, 2, NULL, 2, 1, NULL, NULL, '2022-07-28', '2022-07-28', '2022-07-28', '2022-07-28', 1, 'S', '2022-07-28 21:52:40', '2022-07-28 23:14:51'),
+(19, 'PO631231', 8, 2, 2, 2, 2, '123568', '78911', '2022-07-28', '2022-07-28', '2022-07-28', '2022-07-28', 1, 'S', '2022-07-28 23:07:59', '2022-07-28 23:12:38');
 
 -- --------------------------------------------------------
 
@@ -415,18 +411,25 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion_detalle` (
   KEY `id_importacion` (`id_importacion`),
   KEY `id_laboratorio` (`id_laboratorio`),
   KEY `id_product` (`id_product`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_importacion_detalle`
 --
 
 INSERT INTO `tbl_imp_importacion_detalle` (`id`, `id_importacion`, `id_laboratorio`, `id_product`, `articulo`, `descripcion`, `cantidad`, `precio_farmacia`, `precio_publico`, `precio_institucion`, `mific`, `regencia`, `minsa`, `created_at`, `updated_at`) VALUES
-(14, 9, NULL, 14, NULL, NULL, '1500.00', NULL, NULL, NULL, '0', '0', '0', '2022-07-25 22:37:50', '2022-07-25 22:37:50'),
-(15, 9, NULL, 14, NULL, NULL, '1500.00', NULL, NULL, NULL, '0', '0', '0', '2022-07-25 22:52:32', '2022-07-25 22:52:32'),
-(16, 9, NULL, 14, NULL, NULL, '1500.00', NULL, NULL, NULL, '0', '0', '0', '2022-07-25 22:52:36', '2022-07-25 22:52:36'),
-(17, 9, NULL, 14, NULL, NULL, '1500.00', NULL, NULL, NULL, '0', '1', '0', '2022-07-25 22:52:41', '2022-07-25 22:52:41'),
-(18, 9, NULL, 14, NULL, NULL, '1500.00', NULL, NULL, NULL, '1', '1', '0', '2022-07-25 22:52:46', '2022-07-25 22:52:46');
+(45, 17, NULL, 9, NULL, NULL, '8.00', '0.00', '0.00', '0.00', '1', '0', '0', '2022-07-28 21:48:45', '2022-07-28 23:13:25'),
+(44, 17, NULL, 9, NULL, NULL, '8.00', '0.00', '0.00', '0.00', '0', '1', '0', '2022-07-28 21:48:41', '2022-07-28 23:13:30'),
+(43, 17, NULL, 9, NULL, NULL, '444.00', '1.00', '1.00', '1.00', '0', '0', '1', '2022-07-28 21:34:48', '2022-07-28 23:13:35'),
+(46, 18, NULL, 9, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '1', '0', '0', '2022-07-28 21:53:26', '2022-07-28 23:14:20'),
+(47, 17, NULL, 14, NULL, NULL, '222.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-07-28 21:56:50', '2022-07-28 23:14:09'),
+(48, 17, NULL, 10, NULL, NULL, '222.00', '0.00', '0.00', '0.00', '1', '0', '0', '2022-07-28 21:56:58', '2022-07-28 21:56:58'),
+(49, 18, NULL, 10, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '0', '1', '0', '2022-07-28 22:41:43', '2022-07-28 23:14:31'),
+(50, 19, NULL, 9, NULL, NULL, '100.00', '0.00', '0.00', '0.00', '1', '0', '0', '2022-07-28 23:08:30', '2022-07-28 23:13:00'),
+(51, 19, NULL, 9, NULL, NULL, '100.00', '0.00', '0.00', '0.00', '0', '1', '0', '2022-07-28 23:08:55', '2022-07-28 23:12:46'),
+(52, 19, NULL, 9, NULL, NULL, '100.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-07-28 23:08:59', '2022-07-28 23:12:53'),
+(53, 17, NULL, 12, NULL, NULL, '222.00', '0.00', '0.00', '0.00', '0', '1', '0', '2022-07-28 23:13:51', '2022-07-28 23:14:04'),
+(54, 18, NULL, 10, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-07-28 23:14:59', '2022-07-28 23:15:04');
 
 -- --------------------------------------------------------
 
