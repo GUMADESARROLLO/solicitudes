@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 28-07-2022 a las 23:21:23
+-- Tiempo de generación: 02-08-2022 a las 18:08:48
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 7.4.26
 
@@ -351,6 +351,7 @@ DROP TABLE IF EXISTS `tbl_imp_importacion`;
 CREATE TABLE IF NOT EXISTS `tbl_imp_importacion` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `num_po` varchar(20) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
   `id_vendor` int(10) DEFAULT NULL,
   `id_shipto` int(10) DEFAULT NULL,
   `id_via` int(10) DEFAULT NULL,
@@ -373,16 +374,18 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion` (
   KEY `id_estados_pagos` (`id_estados_pagos`),
   KEY `tipo_carga` (`tipo_carga`),
   KEY `id_estado_orden` (`id_estado_orden`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_importacion`
 --
 
-INSERT INTO `tbl_imp_importacion` (`id`, `num_po`, `id_vendor`, `id_shipto`, `id_via`, `id_estados_pagos`, `tipo_carga`, `factura`, `recibo`, `fecha_despacho`, `fecha_orden_compra`, `fecha_factura`, `fecha_estimada`, `id_estado_orden`, `activo`, `created_at`, `updated_at`) VALUES
-(17, '10066', 8, 2, 1, 2, 2, '123123', '12456', '2022-07-28', NULL, NULL, NULL, 1, 'S', '2022-07-28 21:00:15', '2022-07-28 23:11:08'),
-(18, 'PO7894', 8, 2, NULL, 2, 1, NULL, NULL, '2022-07-28', '2022-07-28', '2022-07-28', '2022-07-28', 1, 'S', '2022-07-28 21:52:40', '2022-07-28 23:14:51'),
-(19, 'PO631231', 8, 2, 2, 2, 2, '123568', '78911', '2022-07-28', '2022-07-28', '2022-07-28', '2022-07-28', 1, 'S', '2022-07-28 23:07:59', '2022-07-28 23:12:38');
+INSERT INTO `tbl_imp_importacion` (`id`, `num_po`, `fecha`, `id_vendor`, `id_shipto`, `id_via`, `id_estados_pagos`, `tipo_carga`, `factura`, `recibo`, `fecha_despacho`, `fecha_orden_compra`, `fecha_factura`, `fecha_estimada`, `id_estado_orden`, `activo`, `created_at`, `updated_at`) VALUES
+(32, '1675', NULL, 12, 3, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-08-02 16:41:32', '2022-08-02 17:12:08'),
+(31, '1670', NULL, 11, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-08-02 16:38:06', '2022-08-02 16:38:06'),
+(30, '1067', '2021-12-30', 10, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-08-02 16:26:04', '2022-08-02 16:26:04'),
+(29, '1065', '2021-12-30', 15, 2, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-08-02 16:25:18', '2022-08-02 16:59:28'),
+(20, '1063', '2021-12-30', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-08-02 16:08:48', '2022-08-02 16:08:48');
 
 -- --------------------------------------------------------
 
@@ -396,6 +399,7 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion_detalle` (
   `id_importacion` int(10) DEFAULT NULL,
   `id_laboratorio` int(10) DEFAULT NULL,
   `id_product` int(10) DEFAULT NULL,
+  `linea` int(5) DEFAULT NULL,
   `articulo` varchar(10) DEFAULT NULL,
   `descripcion` varchar(100) DEFAULT NULL,
   `cantidad` decimal(10,2) DEFAULT NULL,
@@ -411,25 +415,50 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion_detalle` (
   KEY `id_importacion` (`id_importacion`),
   KEY `id_laboratorio` (`id_laboratorio`),
   KEY `id_product` (`id_product`)
-) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_importacion_detalle`
 --
 
-INSERT INTO `tbl_imp_importacion_detalle` (`id`, `id_importacion`, `id_laboratorio`, `id_product`, `articulo`, `descripcion`, `cantidad`, `precio_farmacia`, `precio_publico`, `precio_institucion`, `mific`, `regencia`, `minsa`, `created_at`, `updated_at`) VALUES
-(45, 17, NULL, 9, NULL, NULL, '8.00', '0.00', '0.00', '0.00', '1', '0', '0', '2022-07-28 21:48:45', '2022-07-28 23:13:25'),
-(44, 17, NULL, 9, NULL, NULL, '8.00', '0.00', '0.00', '0.00', '0', '1', '0', '2022-07-28 21:48:41', '2022-07-28 23:13:30'),
-(43, 17, NULL, 9, NULL, NULL, '444.00', '1.00', '1.00', '1.00', '0', '0', '1', '2022-07-28 21:34:48', '2022-07-28 23:13:35'),
-(46, 18, NULL, 9, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '1', '0', '0', '2022-07-28 21:53:26', '2022-07-28 23:14:20'),
-(47, 17, NULL, 14, NULL, NULL, '222.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-07-28 21:56:50', '2022-07-28 23:14:09'),
-(48, 17, NULL, 10, NULL, NULL, '222.00', '0.00', '0.00', '0.00', '1', '0', '0', '2022-07-28 21:56:58', '2022-07-28 21:56:58'),
-(49, 18, NULL, 10, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '0', '1', '0', '2022-07-28 22:41:43', '2022-07-28 23:14:31'),
-(50, 19, NULL, 9, NULL, NULL, '100.00', '0.00', '0.00', '0.00', '1', '0', '0', '2022-07-28 23:08:30', '2022-07-28 23:13:00'),
-(51, 19, NULL, 9, NULL, NULL, '100.00', '0.00', '0.00', '0.00', '0', '1', '0', '2022-07-28 23:08:55', '2022-07-28 23:12:46'),
-(52, 19, NULL, 9, NULL, NULL, '100.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-07-28 23:08:59', '2022-07-28 23:12:53'),
-(53, 17, NULL, 12, NULL, NULL, '222.00', '0.00', '0.00', '0.00', '0', '1', '0', '2022-07-28 23:13:51', '2022-07-28 23:14:04'),
-(54, 18, NULL, 10, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-07-28 23:14:59', '2022-07-28 23:15:04');
+INSERT INTO `tbl_imp_importacion_detalle` (`id`, `id_importacion`, `id_laboratorio`, `id_product`, `linea`, `articulo`, `descripcion`, `cantidad`, `precio_farmacia`, `precio_publico`, `precio_institucion`, `mific`, `regencia`, `minsa`, `created_at`, `updated_at`) VALUES
+(73, 30, NULL, 10, 3, NULL, NULL, '84800.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:03:30', '2022-08-02 17:03:30'),
+(72, 30, NULL, 9, 2, NULL, NULL, '3570.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:03:05', '2022-08-02 17:03:05'),
+(71, 30, NULL, 9, 1, NULL, NULL, '3430.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:02:21', '2022-08-02 17:02:21'),
+(70, 29, NULL, 27, 4, NULL, NULL, '18445.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:01:16', '2022-08-02 17:01:16'),
+(69, 29, NULL, 25, 3, NULL, NULL, '990.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:01:04', '2022-08-02 17:01:04'),
+(67, 29, NULL, 24, 1, NULL, NULL, '86400.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 16:59:57', '2022-08-02 16:59:57'),
+(68, 29, NULL, 25, 2, NULL, NULL, '4010.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:00:51', '2022-08-02 17:00:51'),
+(55, 20, NULL, 15, 1, NULL, NULL, '18900.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 15:02:17', '2022-08-02 15:02:17'),
+(56, 20, NULL, 16, 2, NULL, NULL, '16650.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 15:02:44', '2022-08-02 15:02:44'),
+(57, 20, NULL, 17, 3, NULL, NULL, '17870.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 15:03:02', '2022-08-02 15:03:30'),
+(58, 20, NULL, 18, 4, NULL, NULL, '7100.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 15:03:17', '2022-08-02 15:03:17'),
+(62, 20, NULL, 19, 6, NULL, NULL, '11400.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 15:12:50', '2022-08-02 15:27:35'),
+(61, 20, NULL, 19, 5, NULL, NULL, '44600.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 15:12:23', '2022-08-02 15:12:23'),
+(63, 20, NULL, 20, 7, NULL, NULL, '10000.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 15:13:25', '2022-08-02 15:13:25'),
+(64, 20, NULL, 21, 8, NULL, NULL, '15340.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 15:13:45', '2022-08-02 15:13:45'),
+(74, 30, NULL, 10, 4, NULL, NULL, '15200.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:03:56', '2022-08-02 17:03:56'),
+(75, 31, NULL, 28, 1, NULL, NULL, '900.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:08:32', '2022-08-02 17:08:32'),
+(76, 31, NULL, 28, 2, NULL, NULL, '4100.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:08:47', '2022-08-02 17:08:47'),
+(77, 31, NULL, 29, 3, NULL, NULL, '380.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:09:03', '2022-08-02 17:09:03'),
+(78, 31, NULL, 29, 4, NULL, NULL, '1220.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:09:20', '2022-08-02 17:09:20'),
+(79, 31, NULL, 30, 5, NULL, NULL, '100.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:09:44', '2022-08-02 17:09:44'),
+(80, 31, NULL, 31, 6, NULL, NULL, '2850.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:10:19', '2022-08-02 17:10:19'),
+(81, 31, NULL, 32, 7, NULL, NULL, '1200.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:10:37', '2022-08-02 17:10:37'),
+(82, 31, NULL, 33, 8, NULL, NULL, '50.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:10:52', '2022-08-02 17:10:52'),
+(83, 32, NULL, 34, 1, NULL, NULL, '1442.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:25:23', '2022-08-02 17:25:23'),
+(84, 32, NULL, 35, 2, NULL, NULL, '78940.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:25:38', '2022-08-02 17:25:38'),
+(85, 32, NULL, 35, 3, NULL, NULL, '21060.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:26:02', '2022-08-02 17:26:02'),
+(86, 32, NULL, 36, 4, NULL, NULL, '15000.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:27:14', '2022-08-02 17:27:14'),
+(87, 32, NULL, 37, 5, NULL, NULL, '3050.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:28:23', '2022-08-02 17:28:23'),
+(88, 32, NULL, 38, 6, NULL, NULL, '439.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:29:51', '2022-08-02 17:29:51'),
+(89, 32, NULL, 38, 7, NULL, NULL, '261.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:30:28', '2022-08-02 17:30:28'),
+(90, 32, NULL, 39, 8, NULL, NULL, '198000.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:32:07', '2022-08-02 17:32:07'),
+(91, 32, NULL, 39, 9, NULL, NULL, '32000.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:32:25', '2022-08-02 17:32:25'),
+(92, 32, NULL, 40, 10, NULL, NULL, '42350.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:33:29', '2022-08-02 17:33:29'),
+(93, 32, NULL, 40, 11, NULL, NULL, '17650.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:33:43', '2022-08-02 17:33:43'),
+(94, 32, NULL, 41, 12, NULL, NULL, '60860.00', '0.00', '0.00', '0.00', '0', '0', '1', '2022-08-02 17:39:59', '2022-08-02 17:39:59'),
+(95, 32, NULL, 41, 13, NULL, NULL, '14140.00', '0.00', '0.00', '0.00', '0', '0', '0', '2022-08-02 17:40:20', '2022-08-02 17:40:20');
 
 -- --------------------------------------------------------
 
@@ -465,7 +494,7 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_product` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_type_product` (`id_type_product`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_product`
@@ -480,12 +509,39 @@ INSERT INTO `tbl_imp_product` (`id`, `id_type_product`, `Articulo_exactus`, `des
 (6, 1, '10523013', 's', 's', 'N', '2022-07-14 17:42:30', '2022-07-14 18:29:14'),
 (7, 1, '10523013', 's', 's', 'N', '2022-07-14 17:43:03', '2022-07-14 18:29:18'),
 (8, 1, NULL, 'nombre corto', 'nombre largo', 'N', '2022-07-14 17:43:41', '2022-07-14 18:29:00'),
-(9, 1, NULL, 'BISOLOW® 5 mg Tablets', 'BISOLOW® 5 mg Tablets (Bisoprolol Hemifumarate) 42 Tabs/Pack. (Propiedad MINSA)', 's', '2022-07-14 18:36:02', '2022-07-14 20:16:42'),
+(9, 1, NULL, 'BISOLOW® 5 mg Tablets', 'BISOLOW® 5 mg Tablets (Bisoprolol Hemifumarate) 42 Tabs/Pack.', 's', '2022-07-14 18:36:02', '2022-08-02 17:02:39'),
 (10, 1, NULL, 'GUMAVAL® S 250 mg/5 ml 120 ml/Bottle', 'GUMAVAL® S 250 mg/5 ml Syrup (Sodium Valproate) 120 ml/Bottle', 's', '2022-07-14 18:36:33', '2022-07-14 18:36:33'),
 (11, 2, '10305173', 'PRO01', 'PRO01', 'N', '2022-07-14 20:18:27', '2022-07-14 20:18:44'),
-(12, 1, '40951076', 'nombre corto', 'nombre largo', 's', '2022-07-14 20:32:28', '2022-07-14 20:32:28'),
+(12, 1, '40951076', 'nombre corto', 'nombre largo', 'N', '2022-07-14 20:32:28', '2022-08-02 14:57:41'),
 (13, 1, NULL, 'Nuevo Producto', 'Nombre del nuevo producto largo', 'N', '2022-07-25 16:27:46', '2022-07-25 16:27:54'),
-(14, 2, NULL, 'ARTICULOS DE PRUEBA', 'ARTICULO DE PRUEBA LARGO', 's', '2022-07-25 22:29:58', '2022-07-25 22:29:58');
+(14, 2, NULL, 'ARTICULOS DE PRUEBA', 'ARTICULO DE PRUEBA LARGO', 'N', '2022-07-25 22:29:58', '2022-08-02 14:57:36'),
+(15, 1, NULL, 'GUMAFENIT® 100 BP 100 Tabs', 'Phenytoin Sodium 100 BP Tablets 100 Tabs/Box', 's', '2022-08-02 14:57:17', '2022-08-02 14:57:17'),
+(16, 1, NULL, 'GUMA ZINC® 50 mg 100 Tabs', 'Zinc Gluconate USP 50 mg Tablets 100 Tabs/Box', 's', '2022-08-02 14:58:08', '2022-08-02 14:58:08'),
+(17, 1, NULL, 'LABELOW® 200 mg 100 Tabs', 'Labetalol Tablets USP 200 mg 100 Tabs/Box', 's', '2022-08-02 14:58:53', '2022-08-02 14:58:53'),
+(18, 1, NULL, 'LABELOW® 200 mg 30 Tabs', 'Labetalol Tablets USP 200 mg 30 Tabs/Box', 's', '2022-08-02 14:59:34', '2022-08-02 14:59:34'),
+(19, 1, NULL, 'ELETIX® 100 mcg 50 Tabs', 'Levothyroxine 100 mcg 50 Tablets/Box', 's', '2022-08-02 15:00:04', '2022-08-02 15:00:04'),
+(20, 1, NULL, 'ELETIX® 50 mcg 50 Tabs', 'Levothyroxine 50 mcg 50 Tablets/Box', 's', '2022-08-02 15:00:39', '2022-08-02 15:00:39'),
+(21, 1, NULL, 'GUMAZEPAM® 2 MG 100 Tabs', 'GUMAZEPAM (Lorazepam) 2 mg Tablets 100 Tabs/Box', 's', '2022-08-02 15:01:41', '2022-08-02 15:01:41'),
+(22, 1, '10523013', 'Producto Test Nombre Corto', 'PRoducto test nombre largo', 'N', '2022-08-02 15:46:41', '2022-08-02 17:07:07'),
+(23, 1, '10323053', 'a', 'a', 'N', '2022-08-02 16:55:37', '2022-08-02 16:55:42'),
+(24, 1, NULL, 'GETNISOL 500 mg 1 Vial', 'GETNISOL 500. Methylprednisolone Sodium Succinate for Injection USP 500 mg 1 Vial 10 ml + WFI /Box', 's', '2022-08-02 16:57:21', '2022-08-02 16:57:21'),
+(25, 1, NULL, 'Fentanyl citrate 0.1 mg/2 ml Ampules', 'Fentanyl citrate 0.1 mg/2 ml Amp 100/Box', 's', '2022-08-02 16:57:42', '2022-08-02 16:57:42'),
+(26, 1, NULL, 'Fentanyl citrate 0.1 mg/2 ml Ampules', 'Fentanyl citrate 0.1 mg/2 ml Amp 100/Box', 'N', '2022-08-02 16:58:35', '2022-08-02 17:00:14'),
+(27, 1, NULL, 'Ferrous Sulfate + Folic Acid 1000 Tabs', 'Ferrous Sulfate 60 mg + Folic Acid 400 mcg Oral Tablet 1000 Tabs/Box', 's', '2022-08-02 16:59:08', '2022-08-02 16:59:08'),
+(28, 2, NULL, 'CYTARABINE inyeccion BP 100 mg/5ml 1 Vial', 'Cytarabine injection BP 100 mg/5ml 1 Vial 5 ml/Box', 's', '2022-08-02 17:04:50', '2022-08-02 17:04:50'),
+(29, 2, NULL, 'DACARBAZINE 200 mg 1 Vial', 'Dacarbazine for Injection USP 200 mg 1 Vial/Box', 's', '2022-08-02 17:05:37', '2022-08-02 17:05:37'),
+(30, 2, NULL, 'GEFITINIB 250 mg 30 Tabs', 'Gefitinib 250 mg 30 Tabs/Bottle', 's', '2022-08-02 17:06:16', '2022-08-02 17:06:16'),
+(31, 2, NULL, 'METHOTREXATE BP 50 mg/2 ml 1', 'Methotrexate Injection BP 50 mg/2 ml 1 Vial 2 ml/Box', 's', '2022-08-02 17:06:43', '2022-08-02 17:06:43'),
+(32, 2, NULL, 'PACLITAXEL Injection USP 150 mg/25 ml 1 Vial', 'Paclitaxel Injection USP 150 mg/25 ml.1 Vial 30 ml/Box', 's', '2022-08-02 17:07:46', '2022-08-02 17:07:46'),
+(33, 2, NULL, 'PEMETREXED Disodium for Injection 500 mg FAM 1 Vial', 'Pemetrexed Disodium for Injection 500 mg FAM 1 Vial/Box', 's', '2022-08-02 17:08:07', '2022-08-02 17:08:07'),
+(34, 1, '10305173', 'ALLOPURINOL 300 mg 1000 Tabs', 'Allopurinol 300 mg 1000 Tabs/Box', 's', '2022-08-02 17:19:35', '2022-08-02 17:44:25'),
+(35, 1, NULL, 'AMOXICILLIN 500 mg 100 Caps', 'Amoxicillin 500 mg 100 Caps/Bo', 's', '2022-08-02 17:25:02', '2022-08-02 17:26:18'),
+(36, 1, NULL, 'AMOXICILLIN/CLAVULANIC ACID', '875 mg/125 mg 14 Tab Amoxicillin/Clavulanic Acid 875 mg/125 mg 14 Tab/Box', 's', '2022-08-02 17:26:57', '2022-08-02 17:26:57'),
+(37, 1, NULL, 'AMPICILLIN 1g Powder for Sol. Inj. 50 Vials', 'Ampicillin 1g Powder for Sol. Inj. 50 Vial/Box', 's', '2022-08-02 17:27:52', '2022-08-02 17:27:52'),
+(38, 1, NULL, 'Azitromicina 500 mg Tabs 1000 Tabs/Pack', 'Azithromycin 500 mg Tablets 1000 Tabs/Pack', 's', '2022-08-02 17:29:33', '2022-08-02 17:29:33'),
+(39, 1, NULL, 'BECLOMETHASONE Dipropionate 250 mcg/Dose 1 Inhaler', 'Beclomethasone Dipropionate Aerosol 250 mcg/Dose 1 Inhaler/Box', 's', '2022-08-02 17:31:33', '2022-08-02 17:31:33'),
+(40, 1, NULL, 'BECLOMETHASONE Dipropionate 50 mcg/Dose 1 Inhaler', 'Beclomethasone Dipropionate Aerosol 50 mcg/Dose 1 Inhaler/Box', 's', '2022-08-02 17:33:13', '2022-08-02 17:33:13'),
+(41, 1, NULL, 'IPRATROPIUM Bromide 20 mcg/Inhaler 1 Inhaler', 'Ipratropium Bromide 20 mcg/Inhaler 1 Inhaler/Box', 's', '2022-08-02 17:39:38', '2022-08-02 17:39:38');
 
 -- --------------------------------------------------------
 
@@ -577,7 +633,7 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_vendor` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_vendor`
@@ -596,7 +652,9 @@ INSERT INTO `tbl_imp_vendor` (`id`, `nombre_vendor`, `Descripcion`, `time_despac
 (11, 'Ajit Mehta', 'MEDORBIS TRADE LLP	\n304, Town Centre, 3rd Floor,	\nAndheri Kurla Road, Andheri	\nEast,  Mumbai City,	\nMaharashtra 400059 India	\nTax ID: ABIFM8473A', 0, 'S', '2022-07-12 21:45:01', '2022-07-12 21:45:01'),
 (12, 'Andy Duan SINOCHEM PHARMACEUTICAL CO. LTD', 'Floor 21, JIN CHENG TOWER,	\nNO.216 MIDDLE LONGPAN	\nRD. NANJING CHINA	\nTax ID: 913200001347623777', 0, 'S', '2022-07-12 21:45:25', '2022-07-12 21:45:25'),
 (13, 'c', 'c', 0, 'N', '2022-07-12 22:11:08', '2022-07-12 22:11:12'),
-(14, 'nuevo', 'nuevo', 0, 'S', '2022-07-13 14:52:52', '2022-07-13 14:52:52');
+(14, 'nuevo', 'nuevo', 0, 'N', '2022-07-13 14:52:52', '2022-08-02 16:24:46'),
+(15, 'Bharat Parenterals Limited', 'Village: Haripura, Ta.Savli, Dist. Vadodara, Gujarat 391520 India', 0, 'S', '2022-08-02 16:25:03', '2022-08-02 16:25:03'),
+(16, 'Andy Duan SINOCHEM PHARMACEUTICAL CO. LTD', 'Floor 21, JIN CHENG TOWER,	\nNO.216 MIDDLE LONGPAN	\nRD. NANJING CHINA	\nTax ID: 913200001347623777', 0, 'S', '2022-08-02 16:41:19', '2022-08-02 16:41:19');
 
 -- --------------------------------------------------------
 

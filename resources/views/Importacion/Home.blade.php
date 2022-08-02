@@ -174,8 +174,8 @@
                         <h6 class="mb-2">ORDENES MIFIC</h6>
                       </div>                      
                         <div class="col-auto mt-2">
-                          <div class="row g-sm-4">
-                            <div class="col-12 col-sm-auto">
+                          <div class="row g-sm-4" >
+                            <div class="col-12 col-sm-auto" >
                               <div class="mb-3 pe-4 border-sm-end border-200">
                                 <h6 class="fs--2 text-600 mb-1">Total de Ordenes</h6>
                                 <div class="d-flex align-items-center">
@@ -390,7 +390,6 @@
                     </tr>
                   </thead>
                   <tbody class="list" >
-                  
                   </tbody>
                 </table>
               </div>
@@ -411,30 +410,29 @@
                 <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body py-4 px-5">
-              <div class="mb-3">
-                <label class="col-form-label" for="id_num_po">P.O. NO:</label>
-                <input class="form-control" id="id_num_po" type="text" />
-              </div>
+                <div class="mb-3">
+                  <label class="col-form-label" for="id_num_po">P.O. NO:</label>
+                  <input class="form-control" id="id_num_po" type="text" />
+                </div>
+                <div class="mb-3" >
+                  <label class="fs-0" for="eDate">Fecha</label>
+                  <input class="form-control datetimepicker" id="poDate" type="text" required="required" name="startDate" placeholder="yyyy/mm/dd" data-options='{"static":"true","enableTime":"false","dateFormat":"Y-m-d"}' />
+                </div>
                 <div class="mb-3">
                   <label for="">VENDOR</label>
-                  <select class="form-select" id="id_select_vendor">
-                      
-                      @foreach ($Vendors as $vnd)
-                      <option value="{{ strtoupper($vnd['id']) }}">{{ strtoupper($vnd['nombre_vendor']) }}</option>
-                      @endforeach
-                        
-                    </select>
+                  <select class="form-select" id="id_select_vendor">                      
+                    @foreach ($Vendors as $vnd)
+                    <option value="{{ strtoupper($vnd['id']) }}">{{ strtoupper($vnd['nombre_vendor']) }}</option>
+                    @endforeach                        
+                  </select>
                 </div>
-                
                 <div class="row gx-2">
                   <div class="mb-3 col-sm-12">
                   <label for="">Ship To</label>
                   <select class="form-select" id="id_select_shipto">
-
                       @foreach ($ShipTo as $sht)
                       <option value="{{ strtoupper($sht['id']) }}">{{ strtoupper($sht['nombre_shipto']) }}</option>
                       @endforeach
-
                   </select>
                   </div>
                 </div>                

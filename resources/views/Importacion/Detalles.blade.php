@@ -16,8 +16,12 @@
                 <div class="card-header">
                   <div class="row flex-between-center">
                     <div class="col-auto">
-                      <h5 class="mb-2">P.O. NO. : # {{ $Orden->num_po  }}  </h5>
                       <span style="display:none" id="id_lbl_po">{{ $Orden->id }}</span>
+                      <h5>P.O. NO. : # {{ $Orden->num_po  }} </h5>
+                      <p class="fs--1">{{ date('F d, Y', strtotime($Orden->fecha))   }}</p>
+                      <div><strong class="me-2">Status: </strong>
+                        <div class="badge rounded-pill badge-soft-success fs--2">{{ !empty($Orden->Estado->descripcion) ? $Orden->Estado->descripcion :'N/D'  }}<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                      </div>
                     </div>
                     <div class="col-auto mt-2">
                       <div class="row g-sm-4">
@@ -45,15 +49,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                            <h6 class="fs--2 text-600 mb-1">Status</h6>
-                            <div class="d-flex align-items-center">
-                            <div class="badge rounded-pill badge-soft-success fs--2" > {{ !empty($Orden->Estado->descripcion) ? $Orden->Estado->descripcion :'N/D'  }} </div>
-                            
-                            </div>
-                          </div>
-                        </div>
+                        
                         <div class="col-12 col-sm-auto">
                         <div class="mb-3 pe-4 border-sm-end border-200">
                             <h6 class="fs--2 text-600 mb-1">Estado de pago</h6>
@@ -140,11 +136,11 @@
                   <div class="col-auto col-sm-6 col-lg-7">
 
                     <div class="row g-sm-4">
-                    <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
+                    <div class="col-12 col-sm-auto ">
+                        <div class="mb-3 pe-4 border-sm-end border-200 ">
                           <h6 class="fs--2 text-600 mb-1">TOTAL</h6>
-                          <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2"> {{count($Orden->Detalles)}} </h5>
+                          <div class="d-flex align-items-center ">
+                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_tt_list_product"> {{count($Orden->Detalles)}} </h5>
                           </div>
                         </div>
                       </div>
@@ -152,7 +148,7 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                           <h6 class="fs--2 text-600 mb-1">MIFIC</h6>
                           <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_mific"> 0 </h5><span class="badge rounded-pill badge-soft-primary"><span id="id_count_tbl_mific_procent"></span> %</span>
+                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_mific"> 0 </h5><span class="badge rounded-pill bg-primary"><span id="id_count_tbl_mific_procent"></span> %</span>
                           </div>
                         </div>
                       </div>
@@ -160,7 +156,7 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                           <h6 class="fs--2 text-600 mb-1">REGENCIA</h6>
                           <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_regencia">0</h5><span class="badge rounded-pill badge-soft-success"> <span id="id_count_tbl_regencia_procent"></span> %</span>
+                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_regencia">0</h5><span class="badge rounded-pill bg-success"> <span id="id_count_tbl_regencia_procent"></span> %</span>
                           </div>
                         </div>
                       </div>
@@ -168,12 +164,12 @@
                         <div class="mb-3 pe-4 border-sm-end border-200">
                           <h6 class="fs--2 text-600 mb-1">MINSA</h6>
                           <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_minsa" >0</h5><span class="badge rounded-pill badge-soft-primary"> <span id="id_count_tbl_minsa_procent"></span> %</span>
+                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_minsa" >0</h5><span class="badge rounded-pill bg-info"> <span id="id_count_tbl_minsa_procent"></span> %</span>
                           </div>
                         </div>
                       </div>
                       
-                      <div class="col-12 col-sm-auto">
+                      <div class="col-12 col-sm-auto invisible">
                         <div class="mb-3 pe-0">
                           <h6 class="fs--2 text-600 mb-1">Vendedor / Fabricante </h6>
                           <div class="d-flex align-items-center">
@@ -203,6 +199,7 @@
                     <table class="table table-striped border-bottom" id="tbl_detalles_articulos_po">
                     <thead class="bg-200 text-900">
                         <tr>
+                          <th class="border-0">Nº </th>
                           <th class="border-0">Productos </th>
                           <th class="border-0 text-center">Cantidad</th>
                           <th class="border-0 text-end">Precio. Farmacia</th>
@@ -219,6 +216,7 @@
                         @foreach ($Orden->Detalles as $lstProducto)
 
                         <tr class="border-200">
+                        <td class="align-middle text-center">{{$lstProducto->linea}}</td>
                           <td class="align-middle">
                             <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
                               <div class="flex-1 ms-3">
@@ -229,12 +227,27 @@
                                       <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Editar({{$lstProducto->id}})"> <span class="ms-1 fas fa-pencil-alt text-primary " data-fa-transform="shrink-2" ></span> 
                                       <span class="ms-1">Editar</span></a>
                                     </div>
-                                    <div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="Remover({{$lstProducto->id}})" ><span class="ms-1 fas fa-trash-alt text-danger" data-fa-transform="shrink-2" ></span><span class="ms-1">Borrar</span></a></div>
+                                    <div class="col-auto d-flex align-items-center">
+                                      <a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="Remover({{$lstProducto->id}})" >
+                                        <span class="ms-1 fas fa-trash-alt text-danger" data-fa-transform="shrink-2" ></span><span class="ms-1">Borrar</span>
+                                      </a>
+                                    </div>
+                                    <div class="col-auto d-flex align-items-center">
+                                        @if($lstProducto->mific !='0')
+                                          <span class="ms-3 badge rounded-pill bg-primary"> MIFIC <span class="fas fa-check"></span></span>  
+                                        @endif
+                                        @if($lstProducto->regencia !='0')
+                                          <span class="ms-3 badge rounded-pill bg-success"> REGENCIA  <span class="fas fa-check"></span></span>
+                                        @endif
+                                        @if($lstProducto->minsa !='0')
+                                          <span class="ms-3 badge rounded-pill bg-info"> MINSA <span class="fas fa-check"></span></span>
+                                        @endif
+                                    </div>
                                 </div> 
                               </div>
                             </div>
                           </td>
-                          <td class="align-middle text-center">{{$lstProducto->cantidad}}</td>
+                          <td class="align-middle text-center">{{number_format($lstProducto->cantidad,2)}}</td>
                           <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_farmacia,2)}}</td>
                           <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_publico,2)}}</td>
                           <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_institucion,2)}}</td>
@@ -269,7 +282,7 @@
                     </tbody>
                     </table>
                 </div>
-                <div class="row g-0 justify-content-end mt-3">
+                <div class="row g-0 justify-content-end mt-3 invisible">
                     <div class="col-auto">
                     <table class="table table-sm table-borderless fs--1 text-end">
                         

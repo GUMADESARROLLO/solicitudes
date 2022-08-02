@@ -12,15 +12,27 @@
         <div class="content">
             @include('layouts.nav_gumadesk')
             <div class="card mb-3" id="customersTable" data-list='{"valueNames":["name","email","phone","address","joined"],"page":10,"pagination":true}'>
-                <div class="card-header">
+            <div class="card-header">
                 <div class="row flex-between-center">
                     <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Proveedor</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0"></h5>
                     </div>
-                    <div class="col-8 col-sm-auto text-end ps-2">                        
+                    <div class="col-8 col-sm-auto text-end ps-2">
+                   
+                    <div class="col-8 col-sm-auto text-end ps-2">
                         <div id="table-customers-replace-element">
-                            <button class="btn btn-falcon-default btn-sm" type="button" id="id_btn_new"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Nuevo</span></button>
+                            <div class="input-group" >
+                                <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Buscar..." aria-label="search" id="id_txt_buscar" />
+                                <div class="input-group-text bg-transparent">
+                                    <span class="fa fa-search fs--1 text-600"></span>
+                                </div>
+                                <div class="input-group-text bg-transparent" id="id_btn_new">
+                                    <span class="fa fa-plus fs--1 text-600"></span>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    
                     </div>
                 </div>
                 </div>
@@ -30,36 +42,35 @@
                     <thead class="bg-200 text-900">
                         <tr>
                             <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Nombre</th>
-                            <th class="sort pe-1 align-middle white-space-nowrap ps-5" data-sort="address" style="min-width: 200px;">Descripcion</th>
                             <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">Creado.</th>
-                            <th class="align-middle no-sort"></th>
+                            
                         </tr>
                     </thead>
                     <tbody class="list" id="table-customers-body">
 
-                        @foreach ($Vendors as $vnd)                        
-                        <td class="name align-middle white-space-nowrap py-2"><a href="#!">
-                            <div class="d-flex d-flex align-items-center">
-                                <div class="avatar avatar-xl me-2">
-                                <div class="avatar-name rounded-circle"><span>{{ strtoupper($vnd['id']) }}</span></div>
+                        @foreach ($Vendors as $vnd)      
+                        <td class="align-middle">
+                        <div class="address d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
+                            <div class="flex-1 ms-3">
+                            <h6 class="mb-1 fw-semi-bold text-nowrap"><strong>{{ strtoupper($vnd->nombre_vendor) }} </strong></h6>
+                            <p class="fw-semi-bold mb-0 text-500">{{ strtoupper($vnd->Descripcion) }}</p>                            
+                            <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
+                                <div class="col-auto">
+                                    <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="OpenModal({{$vnd->id}})"> <span class="ms-1 fas fa-pencil-alt text-primary " data-fa-transform="shrink-2" ></span> 
+                                    <span class="ms-1">Editar</span></a>
                                 </div>
-                                <div class="flex-1">
-                                <h5 class="mb-0 fs--1">{{ strtoupper($vnd['nombre_vendor']) }}</h5>
+                                <div class="col-auto d-flex align-items-center">
+                                    <a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="RemoveVendor({{$vnd->id}})" >
+                                    <span class="ms-1 fas fa-trash-alt text-danger" data-fa-transform="shrink-2" ></span><span class="ms-1">Borrar</span>
+                                    </a>
                                 </div>
+                                
+                            </div> 
                             </div>
-                            </a>
-                        </td>
-                        <td class="address align-middle white-space-nowrap ps-5 py-2">{{ strtoupper($vnd['Descripcion']) }}</td>
-                        <td class="joined align-middle py-2">{{ strtoupper($vnd['created_at']) }}</td>
-                        <td class="align-middle white-space-nowrap py-2 text-end">
-                            <div class="dropdown font-sans-serif position-static">
-                            <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-0">
-                                <div class="bg-white py-2"><a class="dropdown-item" href="#!" onClick="OpenModal({{ strtoupper($vnd['id']) }})">Editar</a>
-                                <a class="dropdown-item text-danger" href="#!"onClick="RemoveVendor({{ strtoupper($vnd['id']) }})">Borrar</a></div>
-                            </div>
-                            </div>
-                        </td>
+                        </div>
+                        </td> 
+                        <td class="address joined align-middle py-2">{{ date('F d, Y, h:m A', strtotime($vnd->created_at))  }}</td>
+                    
                         </tr>
                         @endforeach
                     </tbody>

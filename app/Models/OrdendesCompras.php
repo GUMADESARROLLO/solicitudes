@@ -9,7 +9,7 @@ use Exception;
 
 class OrdendesCompras extends Model {
     protected $table = "tbl_imp_importacion";
-    protected $fillable = ['id','num_po','id_shipto','id_vendor','id_shipto','activo','created_at'];
+    protected $fillable = ['id','num_po','Fecha','id_shipto','id_vendor','id_shipto','activo','created_at'];
 
     public function proveedor(){
         return $this->belongsTo('App\Models\ShipTo','id_shipto');
@@ -52,17 +52,21 @@ class OrdendesCompras extends Model {
                 $num_new_po             = $request->input('num_new_po');
                 $slc_vendor             = $request->input('slc_vendor');
                 $slc_shipto             = $request->input('slc_shipto');
+                $dtaFecha               = $request->input('dtaFecha');
+
+
 
                 $obj_new_po             = new OrdendesCompras();   
                 $obj_new_po->num_po     = $num_new_po;                 
                 $obj_new_po->id_vendor  = $slc_vendor;                    
                 $obj_new_po->id_shipto  = $slc_shipto;
-                
-                
-                $obj_new_po->activo     = 'S';
-                $obj_new_po->id_estado_orden     = '1';
-                $obj_new_po->save();
 
+                if($dtaFecha !='N/D') $obj_new_po->Fecha  = $dtaFecha;                
+                
+                $obj_new_po->activo              = 'S';
+                $obj_new_po->id_estado_orden     = '1';
+
+                $obj_new_po->save();
                 $id_insert = $obj_new_po->id;
 
                 return response()->json($id_insert);
@@ -134,29 +138,25 @@ class OrdendesCompras extends Model {
                 $end     = $end.' 23:59:59';
 
                 $Ordenes = OrdendesCompras::where('activo', 'S')->whereBetween('created_at', [$start, $end])->get();
-
-
-           
-
                 foreach($Ordenes as $o){
                     $response[$i]['id'] =  $o->id;
-                    $response[$i]['num_po'] =  (!empty($o->num_po))? $o->num_po : 'N/D';
-                    $response[$i]['factura'] =  (!empty($o->factura))? $o->factura : 'N/D';
-                    $response[$i]['recibo'] =  (!empty($o->recibo))? $o->recibo: 'N/D';
+                    $response[$i]['num_po']     =  (!empty($o->num_po))? $o->num_po : 'N/D';
+                    $response[$i]['factura']    =  (!empty($o->factura))? $o->factura : 'N/D';
+                    $response[$i]['recibo']     =  (!empty($o->recibo))? $o->recibo: 'N/D';
 
-                    $response[$i]['Vendor'] =  (!empty($o->Vendor->nombre_vendor))? $o->Vendor->nombre_vendor : 'N/D';
-                    $response[$i]['proveedor'] =  (!empty($o->proveedor->nombre_shipto))? $o->proveedor->nombre_shipto : 'N/D';
+                    $response[$i]['Vendor']     =  (!empty($o->Vendor->nombre_vendor))? $o->Vendor->nombre_vendor : 'N/D';
+                    $response[$i]['proveedor']  =  (!empty($o->proveedor->nombre_shipto))? $o->proveedor->nombre_shipto : 'N/D';
 
-                    $response[$i]['Vias'] =  (!empty($o->Vias->Descripcion))? $o->Vias->Descripcion : 'N/D';
+                    $response[$i]['Vias']       =  (!empty($o->Vias->Descripcion))? $o->Vias->Descripcion : 'N/D';
 
-                    $response[$i]['ttMific'] =  (!empty($o->ttMific))? $o->ttMific : 'N/D';
+                    $response[$i]['ttMific']    =  (!empty($o->ttMific))? $o->ttMific : 'N/D';
                     $response[$i]['ttRegencia'] =  (!empty($o->ttRegencia))? $o->ttRegencia : 'N/D';
-                    $response[$i]['ttMinsa'] =  (!empty($o->ttMinsa))? $o->ttMinsa : 'N/D';
+                    $response[$i]['ttMinsa']    =  (!empty($o->ttMinsa))? $o->ttMinsa : 'N/D';
 
-                    $response[$i]['TipoCarga'] =  (!empty($o->TipoCarga->Descripcion))? $o->TipoCarga->Descripcion : 'N/D';
-                    $response[$i]['Estado'] =  (!empty($o->Estado->descripcion))? $o->Estado->descripcion : 'N/D'; 
+                    $response[$i]['TipoCarga']  =  (!empty($o->TipoCarga->Descripcion))? $o->TipoCarga->Descripcion : 'N/D';
+                    $response[$i]['Estado']     =  (!empty($o->Estado->descripcion))? $o->Estado->descripcion : 'N/D'; 
 
-                    $response[$i]['Fecha'] =  '0000/00/00';
+                    $response[$i]['Fecha']      =  (!empty($o->fecha))? date('F d, Y', strtotime($o->fecha)) : 'N/D';
 
                     $i++;
                 }

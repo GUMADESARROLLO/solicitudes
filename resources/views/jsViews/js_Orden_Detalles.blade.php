@@ -1,6 +1,14 @@
 <script type="text/javascript">
     
     var vTableArticulos = $('#tbl_detalles_articulos_po').DataTable({
+                        
+                        "columnDefs": [
+                                {
+                                    "visible": false,
+                                    "searchable": false,
+                                    "targets": [0,6,7,8]
+                                },
+                            ],
                             "fnDrawCallback": function ( row, data, start, end, display ) {
                             var api         = this.api(), data;  
                             var cMific      = 0
@@ -11,19 +19,19 @@
                             
 
             
-                            api.column( 5 ).data().reduce( function (a, b) {                                
+                            api.column( 6 ).data().reduce( function (a, b) {                                
                                 if(b.search("fa-check") != -1){
                                     cMific++;
                                 }
                             }, 0 );
 
-                            api.column( 6 ).data().reduce( function (a, b) {                                
+                            api.column( 7 ).data().reduce( function (a, b) {                                
                                 if(b.search("fa-check") != -1){
                                     cRegencia++;
                                 }
                             }, 0 );
 
-                            api.column( 7 ).data().reduce( function (a, b) {                                
+                            api.column( 8 ).data().reduce( function (a, b) {                                
                                 if(b.search("fa-check") != -1){
                                     cMinsa++;
                                 }
@@ -67,11 +75,14 @@
         var mdl_add_product = document.querySelector(Selectors.ADD_PRODUCT);
         var mdl_product = new window.bootstrap.Modal(mdl_add_product);
         mdl_product.show();
+
         $("#id_modal_state").text("Agregar");  
         
         var Id = $("#id_lbl_po").text(); 
 
         $("#id_mdl_po").text(Id);  
+
+
 
         
 
@@ -344,8 +355,7 @@
         isChkRegen              = (isChkRegen )? 1 : 0;
         isChkMinsa              = (isChkMinsa)? 1 : 0;
 
-        console.log(modl_states)
-
+        var number_linea        = parseInt($("#id_tt_list_product").text()) + 1;
 
         
 
@@ -368,6 +378,7 @@
                     isChkMific      : isChkMific,
                     isChkRegen      : isChkRegen,
                     isChkMinsa      : isChkMinsa,
+                    number_linea    : number_linea,
                     _token  : "{{ csrf_token() }}" 
                 },
                 async: true,

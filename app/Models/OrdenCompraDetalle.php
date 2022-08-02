@@ -13,6 +13,7 @@ class OrdenCompraDetalle extends Model {
         'id',
         'id_importacion',
         'id_product',
+        'linea',
         'cantidad',
         'precio_farmacia',
         'precio_publico',
@@ -44,6 +45,10 @@ class OrdenCompraDetalle extends Model {
                 $Regencia           = $request->input('isChkRegen');
                 $Minsa              = $request->input('isChkMinsa');
 
+                $Minsa              = $request->input('isChkMinsa');
+
+                $number_linea       = $request->input('number_linea');
+
                 
 
 
@@ -52,6 +57,7 @@ class OrdenCompraDetalle extends Model {
                     $obj_Productos->id_importacion      = $idPo;                
                     $obj_Productos->id_product          = $idProducto;                
                     $obj_Productos->cantidad            = $Cantidad;
+                    $obj_Productos->linea        = $number_linea;
                     
                     $obj_Productos->precio_farmacia     = $precioFarmacia;
                     $obj_Productos->precio_publico      = $precioPublico;                 

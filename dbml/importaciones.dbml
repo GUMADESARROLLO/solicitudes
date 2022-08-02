@@ -15,13 +15,13 @@ Table tbl_imp_importacion {
   id int(10) [pk, increment] 
   
   num_po varchar(20)
+  fecha date
   id_vendor int(10)
   id_shipto int(10) 
   id_via int(10)
   id_estados_pagos int (10)
   
   tipo_carga int (5)
-  
   
   factura varchar(10)
   recibo varchar(10)
@@ -98,7 +98,7 @@ Table tbl_imp_importacion_detalle{
   id_importacion int(10)
   id_laboratorio int(10)
   id_product int(10) 
-  
+  linea int (5)
   articulo varchar(10)
   descripcion varchar(250)
   cantidad decimal(10,2)

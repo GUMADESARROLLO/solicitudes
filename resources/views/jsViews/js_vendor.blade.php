@@ -3,7 +3,7 @@
         TABLE_SETTING: '#modal_new_vendor',
     };
 
-    $('#tbl_vendors').DataTable({
+    var vTableArticulos =  $('#tbl_vendors').DataTable({
         "destroy": true,
         "info": false,
         "bPaginate": true,
@@ -30,6 +30,10 @@
     
     $("#tbl_vendors_length").hide();
     $("#tbl_vendors_filter").hide();
+
+    $('#id_txt_buscar').on('keyup', function() {        
+        vTableArticulos.search(this.value).draw();
+    });
 
     $("#id_btn_new").click(function(){
     

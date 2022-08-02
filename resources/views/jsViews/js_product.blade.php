@@ -9,11 +9,13 @@
 
     });
 
+    
+
     var SELECT_ITEM_PRODUCT = document.querySelector(Selectors.LIST_PRODUCT);
     if(SELECT_ITEM_PRODUCT) {
         const choices = new Choices(SELECT_ITEM_PRODUCT); 
     }
-    $('#tbl_productos').DataTable({
+    var vTableArticulos= $('#tbl_productos').DataTable({
         "destroy": true,
         "info": false,
         "bPaginate": true,
@@ -40,6 +42,9 @@
     
     $("#tbl_productos_length").hide();
     $("#tbl_productos_filter").hide();
+    $('#id_txt_buscar').on('keyup', function() {        
+        vTableArticulos.search(this.value).draw();
+    });
 
     $("#id_send_frm_produc").click(function(){
 

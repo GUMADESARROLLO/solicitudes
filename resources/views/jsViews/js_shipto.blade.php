@@ -2,7 +2,7 @@
     var Selectors = {
         TABLE_SETTING: '#modal_new_ship_to',
     };
-    $('#tbl_shipto').DataTable({
+    var vTableArticulos = $('#tbl_shipto').DataTable({
         "destroy": true,
         "info": false,
         "bPaginate": true,
@@ -29,7 +29,9 @@
     
     $("#tbl_shipto_length").hide();
     $("#tbl_shipto_filter").hide();
-
+    $('#id_txt_buscar').on('keyup', function() {        
+        vTableArticulos.search(this.value).draw();
+    });
     $("#id_btn_new").click(function(){
     
         OpenModal(0);

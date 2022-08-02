@@ -16,25 +16,24 @@
                 <div class="card-header">
                 <div class="row flex-between-center">
                     <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Ship to</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0"></h5>
                     </div>
                     <div class="col-8 col-sm-auto text-end ps-2">
-                    <div class="d-none" id="table-customers-actions">
-                        <div class="d-flex">
-                        <select class="form-select form-select-sm" aria-label="Bulk actions">
-                            <option selected="">Bulk actions</option>
-                            <option value="Refund">Refund</option>
-                            <option value="Delete">Delete</option>
-                            <option value="Archive">Archive</option>
-                        </select>
-                        <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
-                        </div>
-                    </div>
-                    <div class="col-8 col-sm-auto text-end ps-2">                        
+                   
+                    <div class="col-8 col-sm-auto text-end ps-2">
                         <div id="table-customers-replace-element">
-                            <button class="btn btn-falcon-default btn-sm" type="button" id="id_btn_new"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span class="d-none d-sm-inline-block ms-1">Nuevo</span></button>
+                            <div class="input-group" >
+                                <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Buscar..." aria-label="search" id="id_txt_buscar" />
+                                <div class="input-group-text bg-transparent">
+                                    <span class="fa fa-search fs--1 text-600"></span>
+                                </div>
+                                <div class="input-group-text bg-transparent" id="id_btn_new">
+                                    <span class="fa fa-plus fs--1 text-600"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
                     </div>
                 </div>
                 </div>
@@ -45,35 +44,34 @@
                         <tr>
                         
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Nombre</th>
-                        <th class="sort pe-1 align-middle white-space-nowrap ps-5" data-sort="address" style="min-width: 200px;">Descripcion</th>
                         <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">Creado</th>
-                        <th class="align-middle no-sort"></th>
+                        
                         </tr>
                     </thead>
                     <tbody class="list" id="table-customers-body">
-                        @foreach ($ShipTo as $sht)                        
-                        <td class="name align-middle white-space-nowrap py-2"><a href="#!">
-                            <div class="d-flex d-flex align-items-center">
-                                <div class="avatar avatar-xl me-2">
-                                <div class="avatar-name rounded-circle"><span>{{ strtoupper($sht['id']) }}</span></div>
+                        @foreach ($ShipTo as $sht)
+                        <td class="align-middle">
+                        <div class="address d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
+                            <div class="flex-1 ms-3">
+                            <h6 class="mb-1 fw-semi-bold text-nowrap"><strong>{{ strtoupper($sht->nombre_shipto) }} </strong></h6>
+                            <p class="fw-semi-bold mb-0 text-500">{{ strtoupper($sht->Descripcion) }}</p>                            
+                            <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
+                                <div class="col-auto">
+                                    <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="OpenModal({{$sht->id}})"> <span class="ms-1 fas fa-pencil-alt text-primary " data-fa-transform="shrink-2" ></span> 
+                                    <span class="ms-1">Editar</span></a>
                                 </div>
-                                <div class="flex-1">
-                                <h5 class="mb-0 fs--1">{{ strtoupper($sht['nombre_shipto']) }}</h5>
+                                <div class="col-auto d-flex align-items-center">
+                                    <a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="RemoveShipTo({{$sht->id}})" >
+                                    <span class="ms-1 fas fa-trash-alt text-danger" data-fa-transform="shrink-2" ></span><span class="ms-1">Borrar</span>
+                                    </a>
                                 </div>
+                                
+                            </div> 
                             </div>
-                            </a>
+                        </div>
                         </td>
-                        <td class="address align-middle white-space-nowrap ps-5 py-2">{{ strtoupper($sht['Descripcion']) }}</td>
-                        <td class="joined align-middle py-2">{{ strtoupper($sht['created_at']) }}</td>
-                        <td class="align-middle white-space-nowrap py-2 text-end">
-                            <div class="dropdown font-sans-serif position-static">
-                            <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal" type="button" id="customer-dropdown-0" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--1"></span></button>
-                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="customer-dropdown-0">
-                                <div class="bg-white py-2"><a class="dropdown-item" href="#!" onClick="OpenModal({{ strtoupper($sht['id']) }})">Editar</a>
-                                <a class="dropdown-item text-danger" href="#!"onClick="RemoveShipTo({{ strtoupper($sht['id']) }})">Borrar</a></div>
-                            </div>
-                            </div>
-                        </td>
+                        
+                        <td class="address align-middle white-space-nowrap ps-5 py-2">{{ date('F d, Y, h:m A', strtotime($sht->created_at))  }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -83,7 +81,6 @@
                 <div class="card-footer d-flex align-items-center justify-content-center"></br></div>
             </div>
 
-            @include('layouts.footer_gumadesk')
         </div>
 
         <!--OPEN MODALS -->

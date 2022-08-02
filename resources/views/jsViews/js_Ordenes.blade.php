@@ -219,15 +219,17 @@ $('#id_range_select').val(labelRange);
     $("#id_send_frm_new_po").click(function(){
 
         var num_new_po      = $("#id_num_po").val();   
-        var slc_vendor   = $("#id_select_vendor option:selected").val();           
-        var slc_shipto  = $("#id_select_shipto option:selected").val()
+        var slc_vendor      = $("#id_select_vendor option:selected").val();           
+        var slc_shipto      = $("#id_select_shipto option:selected").val()
+        var dtaFecha        = $("#poDate").val()
 
 
-        num_new_po  = isValue(num_new_po,'N/D',true)
-        slc_vendor  = isValue(slc_vendor,'N/D',true)
-        slc_shipto  = isValue(slc_shipto,'N/D',true)
+        num_new_po          = isValue(num_new_po,'N/D',true)
+        slc_vendor          = isValue(slc_vendor,'N/D',true)
+        slc_shipto          = isValue(slc_shipto,'N/D',true)
+        dtaFecha            = isValue(dtaFecha,'N/D',true)
 
-        if(num_new_po === 'N/D'|| slc_vendor ==='N/D' || slc_shipto ==='N/D'){
+        if(num_new_po === 'N/D'|| slc_vendor ==='N/D' || slc_shipto ==='N/D' ){
             Swal.fire("Oops", "Datos no Completos", "error");
         }else{
 
@@ -238,12 +240,14 @@ $('#id_range_select').val(labelRange);
                     num_new_po   : num_new_po,
                     slc_vendor   : slc_vendor,
                     slc_shipto   : slc_shipto,
+                    dtaFecha     : dtaFecha,
                     _token  : "{{ csrf_token() }}" 
                 },
                 async: true,
                 success: function(response) {
 
-                    window.location.href ='ImportacionDetalles/' + response.original
+                    location.reload();
+                    //window.location.href ='ImportacionDetalles/' + response.original
                 },
                 error: function(response) {
                     Swal.fire("Oops", "No se ha podido guardar!", "error");
