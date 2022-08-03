@@ -33,6 +33,11 @@
             async: true,
             success: function(Ordenes) {
                 dta_table  = []
+                dta_table_uPrivador  = []
+                dt_table_uMinsa =[]
+                dt_table_uPrivado =[]
+                dt_table_guma_privado=[]
+                dt_table_guma_minsa=[]
 
                 var ttMific = 0;
                 var sMific  = 0;
@@ -46,7 +51,237 @@
                 var sMinsa  = 0;
                 var nMinsa  = 0;
 
-                $.each(Ordenes.original,function(key, Orden) {
+
+                $.each(Ordenes.original.UMK_PRIVADO,function(key, uPrivado) {
+
+                    dt_table_uPrivado.push({ 
+                        id                      :  uPrivado.id,
+                        num_po                      :  uPrivado.num_po,
+                        Via                      :  uPrivado.Via,
+                        Articulo_exactus        :  uPrivado.Articulo_exactus,
+                        descripcion_corta       :  uPrivado.descripcion_corta,
+                        descripcion_larga       :  uPrivado.descripcion_larga,
+                        cantidad                :  uPrivado.cantidad,
+                        Estado                  :  uPrivado.Estado,
+                        factura                  :  uPrivado.factura,
+                        recibo                  :  uPrivado.recibo,
+                        fecha_orden_compra:uPrivado.fecha_orden_compra,
+                        fecha_despacho:uPrivado.fecha_despacho,
+                        fecha_estimada:uPrivado.fecha_estimada,
+                        DiasAcumulados:uPrivado.DiasAcumulados
+                        
+                        
+                    })
+
+                })
+                tbl_Header_uPrivado =  [                
+                {"title": "C003","data": "PO", "render": function(data, type, row, meta) {
+                return  ` <td class="align-middle">
+                        <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
+                            <div class="flex-1 ms-3">
+                            
+                            <div class="d-flex align-items-center">
+                            
+                                <h6 class="mb-1 fw-semi-bold text-nowrap"> <strong>`+ row.descripcion_corta +`</strong> </h6>
+                                
+                                <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> `+ row.Estado +`</span>
+                                
+                            </div>
+                            <p class="fw-semi-bold mb-0 text-500">`+ row.descripcion_larga +`</p>   
+                            
+                            <div class="row g-0 fw-semi-bold text-center py-2 fs--1"> 
+                                <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!"><span class="ms-1 fas fa-comment text-primary" ></span><span class="ms-1">Factura.  `+ row.factura +`</span></a></div>
+                                <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" ><span class="ms-1 fas fa-comment text-primary"  ></span><span class="ms-1">Comentarios (1)</span></a></div>
+                                <div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" ><span class="ms-1 fas fa-trash text-primary" data-fa-transform="shrink-2" ></span><span class="ms-1">Recibo. `+ row.recibo +`</span></a></div>
+                                <span class="ms-1 fas fa-file-invoice-dollar text-success fs-1 ms-3 " ></span> 
+                            </div>
+                            </div>
+                        </div>
+                        </td> `
+                }},
+                {"title": "Nº PO","data": "Fecha" , "render":function(data, type, row, meta) {
+                return '<td class="date py-2 align-middle">'+ row.num_po +'</td>'
+                }},    
+                {"title": "CANTIDAD","data": "Fecha" , "render":function(data, type, row, meta) {
+                return '<td class="date py-2 align-middle">'+ row.cantidad +'</td>'
+                }},                                    
+                {"title": "FECHA ORDEN COMPRA","data": "VIA" , "render":function(data, type, row, meta) {
+                return '<td class="date py-2 align-middle">'+ row.fecha_orden_compra +'</td>'
+                }},
+                {"title": "FECHA DE DESPACHO (CONFIRMADO)","data": "fecha_orden_compra" , "render":function(data, type, row, meta) {
+                return '<td class="date py-2 align-middle">'+ row.fecha_despacho +'</td>'
+                }},
+                {"title": "FECHA ESTIMADA EN PUERTO","data": "fecha_orden_compra" , "render":function(data, type, row, meta) {
+                return '<td class="date py-2 align-middle">'+ row.fecha_estimada +'</td>'
+                }},
+                {"title": "DIAS TRANSCURRIDOS DESDE DESPACHO","data": "Tipo de Carga", "render": function(data, type, row, meta) {
+                return '<td class="date py-2 align-middle">'+ row.DiasAcumulados +'</td>'
+                }},
+                {"title": "VIA DE TRANSITO","data": "Tipo de Carga", "render": function(data, type, row, meta) {
+                return '<td class="date py-2 align-middle">'+ row.Via +'</td>'
+                }},
+                ]
+                table_render('#tbl_unimark_privado',dt_table_uPrivado,tbl_Header_uPrivado,false )
+
+                $.each(Ordenes.original.UMK_MINSA,function(key, uMinsa) {
+
+                    dt_table_uMinsa.push({ 
+                        id                      :  uMinsa.id,
+                        Articulo_exactus        :  uMinsa.Articulo_exactus,
+                        descripcion_corta       :  uMinsa.descripcion_corta,
+                        descripcion_larga       :  uMinsa.descripcion_larga,
+                        cantidad                :  uMinsa.cantidad,
+                    })
+
+                })
+                tbl_Header_uMinsa =  [                
+                    {"title": "C003","data": "PO", "render": function(data, type, row, meta) {
+                        return  ` <td class="align-middle">
+                                    <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
+                                        <div class="flex-1 ms-3">
+                                        
+                                        <div class="d-flex align-items-center">
+                                            <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.id +`"> P.O <strong>`+ row.id +`</strong></a> : `+ row.id +`</h6>
+                                            <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> `+ row.id +`</span>
+                                        </div>
+                                        <p class="fw-semi-bold mb-0 text-500">`+ row.id +`</p>                            
+                                        <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
+                                        <div class="col-auto">
+                                            <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" > 
+                                                <span class="ms-1">Fact. `+ row.id +`</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="ms-1">Rec. `+ row.id +` </span>
+                                        </div>
+                                        </div> 
+                                        </div>
+                                    </div>
+                                    </td> `
+                    }},
+                    {"title": "C001","data": "Fecha" , "render":function(data, type, row, meta) {
+                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
+                    }},                                        
+                    {"title": "C002","data": "VIA" , "render":function(data, type, row, meta) {
+                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
+                    }},
+                    {"title": "C003","data": "Tipo de Carga", "render": function(data, type, row, meta) {
+                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
+                    }},
+                ]
+                table_render('#tbl_unimark_minsa',dt_table_uMinsa,tbl_Header_uMinsa,false )
+
+
+                
+
+
+
+
+
+
+
+
+                $.each(Ordenes.original.GUMA_PRIVADO,function(key, uPrivado) {
+
+                        dt_table_guma_privado.push({ 
+                            id                      :  uPrivado.id,
+                            Articulo_exactus        :  uPrivado.Articulo_exactus,
+                            descripcion_corta       :  uPrivado.descripcion_corta,
+                            descripcion_larga       :  uPrivado.descripcion_larga,
+                            cantidad                :  uPrivado.cantidad,
+                        })
+
+                })
+                tbl_Header_guma_Privado =  [                
+                {"title": "C003","data": "PO", "render": function(data, type, row, meta) {
+                    return  ` <td class="align-middle">
+                                <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
+                                    <div class="flex-1 ms-3">
+                                    
+                                    <div class="d-flex align-items-center">
+                                        <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.id +`"> P.O <strong>`+ row.id +`</strong></a> : `+ row.id +`</h6>
+                                        <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> `+ row.id +`</span>
+                                    </div>
+                                    <p class="fw-semi-bold mb-0 text-500">`+ row.id +`</p>                            
+                                    <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
+                                    <div class="col-auto">
+                                        <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" > 
+                                            <span class="ms-1">Fact. `+ row.id +`</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-auto d-flex align-items-center">
+                                        <span class="ms-1">Rec. `+ row.id +` </span>
+                                    </div>
+                                    </div> 
+                                    </div>
+                                </div>
+                                </td> `
+                    }},
+                    {"title": "C001","data": "Fecha" , "render":function(data, type, row, meta) {
+                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
+                    }},                                        
+                    {"title": "C002","data": "VIA" , "render":function(data, type, row, meta) {
+                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
+                    }},
+                    {"title": "C003","data": "Tipo de Carga", "render": function(data, type, row, meta) {
+                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
+                    }},
+                    ]
+                    table_render('#tbl_guma_privado',dt_table_guma_privado,tbl_Header_guma_Privado,false )
+
+
+
+                    $.each(Ordenes.original.GUMA_MINSA,function(key, uPrivado) {
+
+                        dt_table_guma_minsa.push({ 
+                            id                      :  uPrivado.id,
+                            Articulo_exactus        :  uPrivado.Articulo_exactus,
+                            descripcion_corta       :  uPrivado.descripcion_corta,
+                            descripcion_larga       :  uPrivado.descripcion_larga,
+                            cantidad                :  uPrivado.cantidad,
+                        })
+                    })
+                    tbl_Header_guma_minsa =  [                
+                    {"title": "C003","data": "PO", "render": function(data, type, row, meta) {
+                    return  ` <td class="align-middle">
+                            <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
+                                <div class="flex-1 ms-3">
+                                
+                                <div class="d-flex align-items-center">
+                                    <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.id +`"> P.O <strong>`+ row.id +`</strong></a> : `+ row.id +`</h6>
+                                    <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> `+ row.id +`</span>
+                                </div>
+                                <p class="fw-semi-bold mb-0 text-500">`+ row.id +`</p>                            
+                                <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
+                                <div class="col-auto">
+                                    <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" > 
+                                        <span class="ms-1">Fact. `+ row.id +`</span>
+                                    </a>
+                                </div>
+                                <div class="col-auto d-flex align-items-center">
+                                    <span class="ms-1">Rec. `+ row.id +` </span>
+                                </div>
+                                </div> 
+                                </div>
+                            </div>
+                            </td> `
+                    }},
+                    {"title": "C001","data": "Fecha" , "render":function(data, type, row, meta) {
+                    return '<td class="date py-2 align-middle">'+ row.id +'</td>'
+                    }},                                        
+                    {"title": "C002","data": "VIA" , "render":function(data, type, row, meta) {
+                    return '<td class="date py-2 align-middle">'+ row.id +'</td>'
+                    }},
+                    {"title": "C003","data": "Tipo de Carga", "render": function(data, type, row, meta) {
+                    return '<td class="date py-2 align-middle">'+ row.id +'</td>'
+                    }},
+                    ]
+                    table_render('#tbl_guma_minsa',dt_table_guma_minsa,tbl_Header_guma_minsa,false )    
+
+
+
+
+                $.each(Ordenes.original.RESUMEN,function(key, Orden) {
 
                     dta_table.push({ 
                         id       : Orden.id,
@@ -107,42 +342,39 @@
                 $("#id_ntMinsa_procent_no").text(cMinsa_procent_no)
 
 
-               
-
                 tbl_Header =  [                
                     {"title": "Nº P.O","data": "PO", "render": function(data, type, row, meta) {
                         return  ` <td class="align-middle">
                                     <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
                                         <div class="flex-1 ms-3">
-                                        <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.id +`"> P.O <strong>`+ row.PO +`</strong></a> : `+ row.Vendor +`</h6>
+                                        
+                                        <div class="d-flex align-items-center">
+                                            <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.id +`"> P.O <strong>`+ row.PO +`</strong></a> : `+ row.Vendor +`</h6>
+                                            <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> `+ row.Estado +`</span>
+                                        </div>
                                         <p class="fw-semi-bold mb-0 text-500">`+ row.proveedor +`</p>                            
                                         <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
                                         <div class="col-auto">
-                                                    <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" > 
-                                                    <span class="ms-1">Fact.`+ row.factura +`</span>
-                                                </a>
-                                                </div>
-                                            <div class="col-auto d-flex align-items-center">
-                                                <span class="ms-1">Rec. `+ row.recibo +` </span>
-                                            </div>
+                                            <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" > 
+                                                <span class="ms-1">Fact. `+ row.factura +`</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="ms-1">Rec. `+ row.recibo +` </span>
+                                        </div>
                                         </div> 
                                         </div>
                                     </div>
                                     </td> `
                     }},
-                    {"title": "Fecha","data": "Fecha" , "render":function(data, type, row, meta) {
+                    {"title": "FECHA ORDEN COMPRA","data": "Fecha" , "render":function(data, type, row, meta) {
                         return '<td class="date py-2 align-middle">'+ row.Fecha +'</td>'
                     }},                                        
-                    {"title": "Vias","data": "Vias" , "render":function(data, type, row, meta) {
+                    {"title": "VIA","data": "VIA" , "render":function(data, type, row, meta) {
                         return '<td class="date py-2 align-middle">'+ row.Vias +'</td>'
                     }},
-                    {"title": "TipoCarga","data": "TipoCarga", "render": function(data, type, row, meta) {
+                    {"title": "TIPO CARGA","data": "Tipo de Carga", "render": function(data, type, row, meta) {
                         return '<td class="date py-2 align-middle">'+ row.TipoCarga +'</td>'
-                    }},
-                    {"title": "Estado","data": "Estado" , "render":function(data, type, row, meta) {
-                        return `<td class="status py-2 align-middle text-center fs-0 white-space-nowrap">
-                                <span class="badge badge rounded-pill d-block badge-soft-success">`+ row.Estado +`<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>
-                            </td>`
                     }},
                 ]
 

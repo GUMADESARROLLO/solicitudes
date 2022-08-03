@@ -8,8 +8,11 @@ ref: tbl_imp_vias.id < tbl_imp_importacion.id_via
 ref: tbl_imp_estados_pagos.id < tbl_imp_importacion.id_estados_pagos
 ref: tbl_imp_tipo_carga.id < tbl_imp_importacion.tipo_carga
 ref: tbl_imp_Type_Product.id < tbl_imp_Product.id_type_product
-
+ref: tbl_imp_estado_orden.id < tbl_imp_importacion_detalle.Estado
 ref: tbl_imp_estado_orden.id < tbl_imp_importacion.id_estado_orden
+ref: tbl_imp_Comentario.id_linea > tbl_imp_importacion_detalle.id
+
+ref: tbl_imp_Mercado.id < tbl_imp_importacion_detalle.id_tipo_mecado
 
 Table tbl_imp_importacion {
   id int(10) [pk, increment] 
@@ -99,6 +102,7 @@ Table tbl_imp_importacion_detalle{
   id_laboratorio int(10)
   id_product int(10) 
   linea int (5)
+  Estado int (5)
   articulo varchar(10)
   descripcion varchar(250)
   cantidad decimal(10,2)
@@ -110,6 +114,8 @@ Table tbl_imp_importacion_detalle{
   mific varchar(5)
   regencia varchar(5)
   minsa varchar(10)
+  TieneVenta int(10)
+  id_tipo_mecado int(10)
   
   created_at timestamp
   updated_at timestamp
@@ -151,7 +157,25 @@ Table tbl_imp_estado_orden{
   id int(10) [pk, increment] 
   
   descripcion varchar(250)
+  belongs varchar(10)
   
+  activo varchar(5)
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table tbl_imp_Comentario{
+  id int(10) [pk, increment] 
+  id_linea int(10)
+  descripcion varchar(250)
+  activo varchar(5)
+  id_user int(10)
+  created_at timestamp
+  updated_at timestamp
+}
+Table tbl_imp_Mercado{
+  id int(10) [pk, increment] 
+  descripcion varchar(250)
   activo varchar(5)
   created_at timestamp
   updated_at timestamp

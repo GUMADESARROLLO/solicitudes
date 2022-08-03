@@ -6,7 +6,7 @@
                                 {
                                     "visible": false,
                                     "searchable": false,
-                                    "targets": [0,6,7,8]
+                                    "targets": [0,7,8,9]
                                 },
                             ],
                             "fnDrawCallback": function ( row, data, start, end, display ) {
@@ -19,19 +19,19 @@
                             
 
             
-                            api.column( 6 ).data().reduce( function (a, b) {                                
+                            api.column( 7 ).data().reduce( function (a, b) {                                
                                 if(b.search("fa-check") != -1){
                                     cMific++;
                                 }
                             }, 0 );
 
-                            api.column( 7 ).data().reduce( function (a, b) {                                
+                            api.column( 8 ).data().reduce( function (a, b) {                                
                                 if(b.search("fa-check") != -1){
                                     cRegencia++;
                                 }
                             }, 0 );
 
-                            api.column( 8 ).data().reduce( function (a, b) {                                
+                            api.column( 9 ).data().reduce( function (a, b) {                                
                                 if(b.search("fa-check") != -1){
                                     cMinsa++;
                                 }
@@ -152,6 +152,7 @@
                 async: true,
                 success: function(obj_producto) {
 
+                    $("#id_select_estado").val(obj_producto[0].Estado).change();
                     $("#id_select_producto").val(obj_producto[0].id_product).change();
                     $("#id_frm_cantidad").val(obj_producto[0].cantidad); 
 
@@ -326,6 +327,7 @@
     $("#id_frm_add_articulo_po").click(function(){
 
         var id_code             = $("#id_select_producto option:selected").val();   
+        var id_este             = $("#id_select_estado option:selected").val();   
         var descrip             = $("#id_select_producto option:selected").text();  
         var frm_Cantidad        = $("#id_frm_cantidad").val();  
         
@@ -369,6 +371,7 @@
                 type: 'post',
                 data: {
                     id_po           : id_po,
+                    id_este         : id_este,
                     modl_states     : modl_states,
                     id_producto     : id_code,
                     Cantidad        : frm_Cantidad,                    

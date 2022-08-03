@@ -13,6 +13,7 @@ use App\Models\OrdenCompraDetalle;
 use App\Models\Vias;
 use App\Models\EstadosPagos;
 use App\Models\TipoCarga;
+use App\Models\EstadoOrden;
 
 
 class ImportacionController extends Controller {
@@ -97,9 +98,10 @@ class ImportacionController extends Controller {
     //MUESTRA LA INFORMACION SOBRE LOS DETALLS DE LA ORDEN
     public function getDetalles($IdOrden)
     {   
-        $Productos      = Productos::where('activo', 'S')->get();
-        $Orden          = OrdendesCompras::find($IdOrden);
-        return view('Importacion.Detalles', compact('Orden','Productos'));
+        $Productos          = Productos::where('activo', 'S')->get();
+        $Orden              = OrdendesCompras::find($IdOrden);
+        $EstadosProducto    = EstadoOrden::where('activo', 'S')->where('belongs', 'PD')->get();
+        return view('Importacion.Detalles', compact('Orden','Productos','EstadosProducto'));
     }
     //GUARDA LA INFORMACION DE LA NUEVA PO
     public function SaveNewPO(Request $request)

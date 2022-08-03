@@ -21,10 +21,16 @@ class OrdenCompraDetalle extends Model {
         'mific',
         'regencia',
         'minsa',
+        'Estado',
         'created_at'
     ];
+
     public function isProduct(){
         return $this->hasOne('App\Models\Productos','id','id_product');
+    }
+
+    public function getEstado(){
+        return $this->hasOne('App\Models\EstadoOrden','id','Estado');
     }
 
     public static function AddProductPO(Request $request) {
@@ -48,6 +54,7 @@ class OrdenCompraDetalle extends Model {
                 $Minsa              = $request->input('isChkMinsa');
 
                 $number_linea       = $request->input('number_linea');
+                $id_este            = $request->input('id_este');
 
                 
 
@@ -57,7 +64,8 @@ class OrdenCompraDetalle extends Model {
                     $obj_Productos->id_importacion      = $idPo;                
                     $obj_Productos->id_product          = $idProducto;                
                     $obj_Productos->cantidad            = $Cantidad;
-                    $obj_Productos->linea        = $number_linea;
+                    $obj_Productos->linea               = $number_linea;
+                    $obj_Productos->Estado              = $id_este;
                     
                     $obj_Productos->precio_farmacia     = $precioFarmacia;
                     $obj_Productos->precio_publico      = $precioPublico;                 
@@ -71,6 +79,7 @@ class OrdenCompraDetalle extends Model {
                 } else {
                     $response =   OrdenCompraDetalle::where('id',  $idPo)->update([
                         "cantidad"              => $Cantidad,
+                        "Estado"                => $id_este,
                         "precio_farmacia"       => $precioFarmacia,
                         "precio_publico"        => $precioPublico,
                         "precio_institucion"    => $precioInsti,

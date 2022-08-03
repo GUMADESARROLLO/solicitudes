@@ -320,82 +320,164 @@
                   </div>
                   
             </div>
-
-          <div class="card mb-3" >
+            <div class="card">
+                <div class="card-header d-flex flex-between-center ps-0 py-0 border-bottom">
+                  <ul class="nav nav-tabs border-0 flex-nowrap tab-active-caret" id="crm-revenue-chart-tab" role="tablist" data-tab-has-echarts="data-tab-has-echarts">
+                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0 active" id="po-resumen-tab" data-bs-toggle="tab" href="#po-resumen" role="tab" aria-controls="po-resumen-tab" aria-selected="true">Ordenes Compra</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_umk_privado_tab" data-bs-toggle="tab" href="#tns_umk_privado" role="tab" aria-controls="tns_umk_privado" aria-selected="false">Transito UNIMARK (PRIVADO)</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_umk_minsa_tab" data-bs-toggle="tab" href="#tns_umk_minsa" role="tab" aria-controls="tns_umk_minsa" aria-selected="false">Transito UNIMARK (MINSA)</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_guma_tab" data-bs-toggle="tab" href="#tns_guma" role="tab" aria-controls="tns_guma" aria-selected="false">Transito GUMA (PRIVANDO) </a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_guma_privado_tab" data-bs-toggle="tab" href="#tns_guma_privado" role="tab" aria-controls="tns_guma_privado" aria-selected="false">Transito GUMA (MINSA)</a></li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <div class="row g-1">
+                   
+                    <div class="col-xxl-12">
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="po-resumen" role="tabpanel" aria-labelledby="po-resumen-tab">
+                          <div class="row flex-between-center">
+                            <div class="col-auto col-sm-6 col-lg-7">
           
-            <div class="card-body p-0 ">
-            <div class="card-header">
-              <div class="card-header">
-                <div class="row flex-between-center">
-                  <div class="col-auto col-sm-6 col-lg-7">
- 
-                    <div class="row g-sm-4 ">
-                    <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                          <h6 class="fs--2 text-600 mb-1">TOTAL</h6>
-                          <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2"> 0 </h5>
+                              <div class="row g-sm-4 ">
+                              <div class="col-12 col-sm-auto">
+                                  <div class="mb-3 pe-4 border-sm-end border-200">
+                                    <h6 class="fs--2 text-600 mb-1">TOTAL</h6>
+                                    <div class="d-flex align-items-center">
+                                      <h5 class="fs-0 text-900 mb-0 me-2"> 0 </h5>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-auto">
+                                  <div class="mb-3 pe-4 border-sm-end border-200">
+                                    <h6 class="fs--2 text-600 mb-1">ROJO</h6>
+                                    <div class="d-flex align-items-center">
+                                      <span class="badge rounded-pill bg-danger"><span id=""></span> 20</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <div class="col-12 col-sm-auto">
+                                  <div class="mb-3 pe-4 border-sm-end border-200">
+                                    <h6 class="fs--2 text-600 mb-1">NARANJA</h6>
+                                    <div class="d-flex align-items-center">
+                                      <span class="badge rounded-pill bg-warning"> <span id=""></span> 30</span>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-sm-auto">
+                                  <div class="mb-3 pe-4 border-sm-end border-200">
+                                    <h6 class="fs--2 text-600 mb-1">VERDE</h6>
+                                    <div class="d-flex align-items-center">
+                                      <span class="badge rounded-pill bg-success"> <span id=""></span> 50</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              
+                            </div>
+                            <div class="col-auto col-sm-6 col-lg-5">
+                              <div class="input-group" >
+                                <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Buscar..." aria-label="search" id="id_txt_buscar" />
+                                <div class="input-group-text bg-transparent">
+                                  <span class="fa fa-search fs--1 text-600"></span>
+                                </div>                     
+                              </div>
+                            </div>
+                          </div>
+                          <div class="">
+                            <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_ordenes_compra">
+                              <thead class="bg-200 text-900">
+                                <tr>
+                                  <th class="" ></th>
+                                  <th class="" ></th>
+                                  <th class="" ></th>
+                                  <th class="" ></th>
+                                
+                                </tr>
+                              </thead>
+                              <tbody class="list" >
+                              </tbody>
+                            </table>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                          <h6 class="fs--2 text-600 mb-1">ROJO</h6>
-                          <div class="d-flex align-items-center">
-                            <span class="badge rounded-pill bg-danger"><span id=""></span> 20</span>
+                        <div class="tab-pane" id="tns_umk_privado" role="tabpanel" aria-labelledby="tns_umk_privado_tab">
+                        <div class="">
+                            <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_unimark_privado" style="width:100%">
+                              <thead class="bg-200 text-900">
+                                <tr>
+                                  <th class="" ></th>
+                                  <th class="" ></th>
+                                  <th class="" ></th>
+                                  <th class="" ></th>
+                                  <th class="" ></th>
+                                  <th class="" ></th>
+                                  <th class="" ></th>
+                                  <th class="" ></th>
+                                </tr>
+                              </thead>
+                              <tbody class="list" >
+                              </tbody>
+                            </table>
                           </div>
                         </div>
-                      </div>
-                      
-                      <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                          <h6 class="fs--2 text-600 mb-1">NARANJA</h6>
-                          <div class="d-flex align-items-center">
-                            <span class="badge rounded-pill bg-warning"> <span id=""></span> 30</span>
-                          </div>
+                        <div class="tab-pane" id="tns_umk_minsa" role="tabpanel" aria-labelledby="tns_umk_minsa_tab">
+                          <div class="">
+                              <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_unimark_minsa" style="width:100%">
+                                <thead class="bg-200 text-900">
+                                  <tr>
+                                    <th class="" ></th>
+                                    <th class="" ></th>
+                                    <th class="" ></th>
+                                    <th class="" ></th>
+                                  
+                                  </tr>
+                                </thead>
+                                <tbody class="list" >
+                                </tbody>
+                              </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tns_guma" role="tabpanel" aria-labelledby="tns_guma_tab">
+                          <div class="">
+                              <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_guma_privado" style="width:100%">
+                                <thead class="bg-200 text-900">
+                                  <tr>
+                                    <th class="" ></th>
+                                    <th class="" ></th>
+                                    <th class="" ></th>
+                                    <th class="" ></th>
+                                  
+                                  </tr>
+                                </thead>
+                                <tbody class="list" >
+                                </tbody>
+                              </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tns_guma_privado" role="tabpanel" aria-labelledby="tns_guma_privado_tab">
+                        <div class="">
+                              <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_guma_minsa" style="width:100%">
+                                <thead class="bg-200 text-900">
+                                  <tr>
+                                    <th class="" ></th>
+                                    <th class="" ></th>
+                                    <th class="" ></th>
+                                    <th class="" ></th>
+                                  
+                                  </tr>
+                                </thead>
+                                <tbody class="list" >
+                                </tbody>
+                              </table>
+                            </div>
                         </div>
                       </div>
-                      <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                          <h6 class="fs--2 text-600 mb-1">VERDE</h6>
-                          <div class="d-flex align-items-center">
-                            <span class="badge rounded-pill bg-success"> <span id=""></span> 50</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    
-                  </div>
-                  <div class="col-auto col-sm-6 col-lg-5">
-                    <div class="input-group" >
-                      <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Buscar..." aria-label="search" id="id_txt_buscar" />
-                      <div class="input-group-text bg-transparent">
-                        <span class="fa fa-search fs--1 text-600"></span>
-                      </div>                     
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="">
-                <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_ordenes_compra">
-                  <thead class="bg-200 text-900">
-                    <tr>
-                      <th class="" >P.O. NO</th>
-                      <th class="" >Fecha</th>
-                      <th class="" >Via</th>
-                      <th class="" >Carga</th>
-                      <th class="">Status</th>
-                     
-                    </tr>
-                  </thead>
-                  <tbody class="list" >
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+        
 
 
         <!--OPEN MODALS -->

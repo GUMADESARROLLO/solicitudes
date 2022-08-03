@@ -10,6 +10,4 @@ use Exception;
 class EstadoOrden extends Model {
     protected $table = "tbl_imp_estado_orden";
     protected $fillable = ['id','Descripcion','activo','created_at','updated_at'];
-
-   
 }

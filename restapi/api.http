@@ -1,0 +1,9 @@
+POST http://localhost:8448/importacion/getOrdenesRangeDates HTTP/1.1
+content-type: application/json
+
+{
+    "DateStart" : "sample",
+    "DateEnds"  : "Wed, 21 Oct 2015 18:27:50 GMT",
+    "_token"    : "hWFxGWhNZ3ib7RsiVz8q81IKvuvxbnWwL7yiAaPv"
+    
+}

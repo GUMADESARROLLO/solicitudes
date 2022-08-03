@@ -45,7 +45,8 @@ class OrdendesCompras extends Model {
     public function ttMinsa() {
         return $this->Detalles()->selectRaw('minsa,count(minsa) hit')->groupBy('id_importacion','minsa');
     }
-    public static function SaveNewPO(Request $request) {
+    public static function SaveNewPO(Request $request) 
+    {
         if ($request->ajax()) {
             try {
 
@@ -126,11 +127,11 @@ class OrdendesCompras extends Model {
     }
     public static function getOrdenesRangeDates(Request $request)
     {
-        //DB::enableQueryLog();
         if ($request->ajax()) {
             try {
                 $response = array();
-                $i = 0;
+                
+                
                 $start   = $request->input('DateStart');
                 $end     = $request->input('DateEnds');
 
@@ -138,25 +139,144 @@ class OrdendesCompras extends Model {
                 $end     = $end.' 23:59:59';
 
                 $Ordenes = OrdendesCompras::where('activo', 'S')->whereBetween('created_at', [$start, $end])->get();
+
+                $Detalle = OrdenesCompraRpt::all();
+
+                $i = 0;
                 foreach($Ordenes as $o){
-                    $response[$i]['id'] =  $o->id;
-                    $response[$i]['num_po']     =  (!empty($o->num_po))? $o->num_po : 'N/D';
-                    $response[$i]['factura']    =  (!empty($o->factura))? $o->factura : 'N/D';
-                    $response[$i]['recibo']     =  (!empty($o->recibo))? $o->recibo: 'N/D';
+                    
+                    $response['RESUMEN'][$i]['id']         =  $o->id;
+                    $response['RESUMEN'][$i]['num_po']     =  (!empty($o->num_po))? $o->num_po : 'N/D';
+                    $response['RESUMEN'][$i]['factura']    =  (!empty($o->factura))? $o->factura : 'N/D';
+                    $response['RESUMEN'][$i]['recibo']     =  (!empty($o->recibo))? $o->recibo: 'N/D';
 
-                    $response[$i]['Vendor']     =  (!empty($o->Vendor->nombre_vendor))? $o->Vendor->nombre_vendor : 'N/D';
-                    $response[$i]['proveedor']  =  (!empty($o->proveedor->nombre_shipto))? $o->proveedor->nombre_shipto : 'N/D';
+                    $response['RESUMEN'][$i]['Vendor']     =  (!empty($o->Vendor->nombre_vendor))? $o->Vendor->nombre_vendor : 'N/D';
+                    $response['RESUMEN'][$i]['proveedor']  =  (!empty($o->proveedor->nombre_shipto))? $o->proveedor->nombre_shipto : 'N/D';
 
-                    $response[$i]['Vias']       =  (!empty($o->Vias->Descripcion))? $o->Vias->Descripcion : 'N/D';
+                    $response['RESUMEN'][$i]['Vias']       =  (!empty($o->Vias->Descripcion))? $o->Vias->Descripcion : 'N/D';
 
-                    $response[$i]['ttMific']    =  (!empty($o->ttMific))? $o->ttMific : 'N/D';
-                    $response[$i]['ttRegencia'] =  (!empty($o->ttRegencia))? $o->ttRegencia : 'N/D';
-                    $response[$i]['ttMinsa']    =  (!empty($o->ttMinsa))? $o->ttMinsa : 'N/D';
+                    $response['RESUMEN'][$i]['ttMific']    =  (!empty($o->ttMific))? $o->ttMific : 'N/D';
+                    $response['RESUMEN'][$i]['ttRegencia'] =  (!empty($o->ttRegencia))? $o->ttRegencia : 'N/D';
+                    $response['RESUMEN'][$i]['ttMinsa']    =  (!empty($o->ttMinsa))? $o->ttMinsa : 'N/D';
 
-                    $response[$i]['TipoCarga']  =  (!empty($o->TipoCarga->Descripcion))? $o->TipoCarga->Descripcion : 'N/D';
-                    $response[$i]['Estado']     =  (!empty($o->Estado->descripcion))? $o->Estado->descripcion : 'N/D'; 
+                    $response['RESUMEN'][$i]['TipoCarga']  =  (!empty($o->TipoCarga->Descripcion))? $o->TipoCarga->Descripcion : 'N/D';
+                    $response['RESUMEN'][$i]['Estado']     =  (!empty($o->Estado->descripcion))? $o->Estado->descripcion : 'N/D'; 
 
-                    $response[$i]['Fecha']      =  (!empty($o->fecha))? date('F d, Y', strtotime($o->fecha)) : 'N/D';
+                    $response['RESUMEN'][$i]['Fecha']      =  (!empty($o->fecha_orden_compra))? date('F d, Y', strtotime($o->fecha)) : 'N/D';
+
+                    $i++;
+                }
+
+                $i = 0;
+                foreach($Detalle as $d){
+
+                    //TRANSITO UNIMARK (PRIVADO)
+                    if($d->id_shipto ==3 && $d->id_mercado ==2)
+                    {
+                        $response['UMK_PRIVADO'][$i]['id']                     =  $d->id;
+                        $response['UMK_PRIVADO'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
+                        $response['UMK_PRIVADO'][$i]['descripcion_corta']      =  $d->descripcion_corta;
+                        $response['UMK_PRIVADO'][$i]['descripcion_larga']      =  $d->descripcion_larga;
+                        $response['UMK_PRIVADO'][$i]['cantidad']               =  $d->cantidad;
+                        $response['UMK_PRIVADO'][$i]['Estado']                 =  $d->Estado;
+                        $response['UMK_PRIVADO'][$i]['fecha_orden_compra']     =  $d->fecha_orden_compra;
+                        $response['UMK_PRIVADO'][$i]['DiasAcumulados']         =  $d->DiasAcumulados;
+                        $response['UMK_PRIVADO'][$i]['fecha_despacho']         =  $d->fecha_despacho;
+                        $response['UMK_PRIVADO'][$i]['fecha_estimada']         =  $d->fecha_estimada;
+                        $response['UMK_PRIVADO'][$i]['Via']                    =  $d->Via;
+                        $response['UMK_PRIVADO'][$i]['num_po']                 =  $d->num_po;
+                        $response['UMK_PRIVADO'][$i]['factura']                =  $d->factura;
+                        $response['UMK_PRIVADO'][$i]['recibo']                 =  $d->recibo;
+                        $response['UMK_PRIVADO'][$i]['id_mercado']             =  $d->id_mercado;
+                        $response['UMK_PRIVADO'][$i]['id_shipto']              =  $d->id_shipto;
+                        $response['UMK_PRIVADO'][$i]['descripcion']            =  $d->descripcion;
+                        $response['UMK_PRIVADO'][$i]['minsa']                  =  $d->minsa;
+                        $response['UMK_PRIVADO'][$i]['Commentario']            =  $d->Commentario;
+                        $response['UMK_PRIVADO'][$i]['TieneVenta']             =  $d->TieneVenta;
+
+                    }
+
+                     //TRANSITO UNIMARK (MINSA)
+                    if($d->id_shipto ==3 && $d->id_mercado ==1)
+                    {
+
+                        $response['UMK_MINSA'][$i]['id']                     =  $d->id;
+                        $response['UMK_MINSA'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
+                        $response['UMK_MINSA'][$i]['descripcion_corta']      =  $d->descripcion_corta;
+                        $response['UMK_MINSA'][$i]['descripcion_larga']      =  $d->descripcion_larga;
+                        $response['UMK_MINSA'][$i]['cantidad']               =  $d->cantidad;
+                        $response['UMK_MINSA'][$i]['Estado']                 =  $d->Estado;
+                        $response['UMK_MINSA'][$i]['fecha_orden_compra']     =  $d->fecha_orden_compra;
+                        $response['UMK_MINSA'][$i]['DiasAcumulados']         =  $d->DiasAcumulados;
+                        $response['UMK_MINSA'][$i]['fecha_despacho']         =  $d->fecha_despacho;
+                        $response['UMK_MINSA'][$i]['fecha_estimada']         =  $d->fecha_estimada;
+                        $response['UMK_MINSA'][$i]['Via']                    =  $d->Via;
+                        $response['UMK_MINSA'][$i]['num_po']                 =  $d->num_po;
+                        $response['UMK_MINSA'][$i]['factura']                =  $d->factura;
+                        $response['UMK_MINSA'][$i]['recibo']                 =  $d->recibo;
+                        $response['UMK_MINSA'][$i]['id_mercado']             =  $d->id_mercado;
+                        $response['UMK_MINSA'][$i]['id_shipto']              =  $d->id_shipto;
+                        $response['UMK_MINSA'][$i]['descripcion']            =  $d->descripcion;
+                        $response['UMK_MINSA'][$i]['minsa']                  =  $d->minsa;
+                        $response['UMK_MINSA'][$i]['Commentario']            =  $d->Commentario;
+                        $response['UMK_MINSA'][$i]['TieneVenta']             =  $d->TieneVenta;
+
+                    }
+
+                     //TRANSITO GUMA (PRIVADO)
+                    if($d->id_shipto ==2 && $d->id_mercado ==2)
+                    {
+
+                        $response['GUMA_PRIVADO'][$i]['id']                     =  $d->id;
+                        $response['GUMA_PRIVADO'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
+                        $response['GUMA_PRIVADO'][$i]['descripcion_corta']      =  $d->descripcion_corta;
+                        $response['GUMA_PRIVADO'][$i]['descripcion_larga']      =  $d->descripcion_larga;
+                        $response['GUMA_PRIVADO'][$i]['cantidad']               =  $d->cantidad;
+                        $response['GUMA_PRIVADO'][$i]['Estado']                 =  $d->Estado;
+                        $response['GUMA_PRIVADO'][$i]['fecha_orden_compra']     =  $d->fecha_orden_compra;
+                        $response['GUMA_PRIVADO'][$i]['DiasAcumulados']         =  $d->DiasAcumulados;
+                        $response['GUMA_PRIVADO'][$i]['fecha_despacho']         =  $d->fecha_despacho;
+                        $response['GUMA_PRIVADO'][$i]['fecha_estimada']         =  $d->fecha_estimada;
+                        $response['GUMA_PRIVADO'][$i]['Via']                    =  $d->Via;
+                        $response['GUMA_PRIVADO'][$i]['num_po']                 =  $d->num_po;
+                        $response['GUMA_PRIVADO'][$i]['factura']                =  $d->factura;
+                        $response['GUMA_PRIVADO'][$i]['recibo']                 =  $d->recibo;
+                        $response['GUMA_PRIVADO'][$i]['id_mercado']             =  $d->id_mercado;
+                        $response['GUMA_PRIVADO'][$i]['id_shipto']              =  $d->id_shipto;
+                        $response['GUMA_PRIVADO'][$i]['descripcion']            =  $d->descripcion;
+                        $response['GUMA_PRIVADO'][$i]['minsa']                  =  $d->minsa;
+                        $response['GUMA_PRIVADO'][$i]['Commentario']            =  $d->Commentario;
+                        $response['GUMA_PRIVADO'][$i]['TieneVenta']             =  $d->TieneVenta;
+
+                    }
+
+                     //TRANSITO GUMA (MINSA)
+                    if($d->id_shipto ==2 && $d->id_mercado ==1)
+                    {
+
+                        $response['GUMA_MINSA'][$i]['id']                     =  $d->id;
+                        $response['GUMA_MINSA'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
+                        $response['GUMA_MINSA'][$i]['descripcion_corta']      =  $d->descripcion_corta;
+                        $response['GUMA_MINSA'][$i]['descripcion_larga']      =  $d->descripcion_larga;
+                        $response['GUMA_MINSA'][$i]['cantidad']               =  $d->cantidad;
+                        $response['GUMA_MINSA'][$i]['Estado']                 =  $d->Estado;
+                        $response['GUMA_MINSA'][$i]['fecha_orden_compra']     =  $d->fecha_orden_compra;
+                        $response['GUMA_MINSA'][$i]['DiasAcumulados']         =  $d->DiasAcumulados;
+                        $response['GUMA_MINSA'][$i]['fecha_despacho']         =  $d->fecha_despacho;
+                        $response['GUMA_MINSA'][$i]['fecha_estimada']         =  $d->fecha_estimada;
+                        $response['GUMA_MINSA'][$i]['Via']                    =  $d->Via;
+                        $response['GUMA_MINSA'][$i]['num_po']                 =  $d->num_po;
+                        $response['GUMA_MINSA'][$i]['factura']                =  $d->factura;
+                        $response['GUMA_MINSA'][$i]['recibo']                 =  $d->recibo;
+                        $response['GUMA_MINSA'][$i]['id_mercado']             =  $d->id_mercado;
+                        $response['GUMA_MINSA'][$i]['id_shipto']              =  $d->id_shipto;
+                        $response['GUMA_MINSA'][$i]['descripcion']            =  $d->descripcion;
+                        $response['GUMA_MINSA'][$i]['minsa']                  =  $d->minsa;
+                        $response['GUMA_MINSA'][$i]['Commentario']            =  $d->Commentario;
+                        $response['GUMA_MINSA'][$i]['TieneVenta']             =  $d->TieneVenta;
+
+                    }
+                    
 
                     $i++;
                 }

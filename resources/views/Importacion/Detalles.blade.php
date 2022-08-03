@@ -6,6 +6,15 @@
 <!-- ===============================================-->
 <!--    Main Content-->
 <!-- ===============================================-->
+
+<style>
+  u.dotted 
+  {
+    border-bottom: 1px dashed red;
+    text-decoration: none;
+  }
+</style>
+
 <main class="main" id="top">
     <div class="container-fluid" data-layout="container">
         <div class="content">
@@ -18,7 +27,9 @@
                     <div class="col-auto">
                       <span style="display:none" id="id_lbl_po">{{ $Orden->id }}</span>
                       <h5>P.O. NO. : # {{ $Orden->num_po  }} </h5>
-                      <p class="fs--1">{{ date('F d, Y', strtotime($Orden->fecha))   }}</p>
+                      <p class="fs--1" onclick="frmSweetAlert02(3)" ><u class="dotted"> {{ !empty($Orden->fecha_orden_compra ) ? date('F d, Y', strtotime($Orden->fecha_orden_compra))  :'N/D'  }}</u></p>
+
+                      
                       <div><strong class="me-2">Status: </strong>
                         <div class="badge rounded-pill badge-soft-success fs--2">{{ !empty($Orden->Estado->descripcion) ? $Orden->Estado->descripcion :'N/D'  }}<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
                       </div>
@@ -116,7 +127,7 @@
                             <p class="fs--2 text-600 mb-0">{{ !empty($Orden->fecha_factura ) ? $Orden->fecha_factura  :'N/D'  }} </p>
                             </div>
                         </li> 
-                        <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" onclick="frmSweetAlert02(3)">
+                        <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" style="display:none">
                             <div class="border-start border-3 border-danger ps-3 mt-1">
                             <h6 class="mb-1 fw-semi-bold text-700"> Fecha Orden de Compra:  </h6>
                             <p class="fs--2 text-600 mb-0">{{ !empty($Orden->fecha_orden_compra ) ? $Orden->fecha_orden_compra  :'N/D'  }} </p>
@@ -201,6 +212,7 @@
                         <tr>
                           <th class="border-0">Nº </th>
                           <th class="border-0">Productos </th>
+                          <th class="border-0 text-center">Estado</th>
                           <th class="border-0 text-center">Cantidad</th>
                           <th class="border-0 text-end">Precio. Farmacia</th>
                           <th class="border-0 text-end">Precio. Público</th>
@@ -223,30 +235,29 @@
                                 <h6 class="mb-1 fw-semi-bold text-nowrap"><a href=""> <strong>{{$lstProducto->isProduct->Tipo->descripcion}} </strong></a> : {{$lstProducto->isProduct->descripcion_corta}}</h6>
                                 <p class="fw-semi-bold mb-0 text-500">{{$lstProducto->isProduct->descripcion_larga}}</p>                            
                                 <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
-                                    <div class="col-auto">
-                                      <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Editar({{$lstProducto->id}})"> <span class="ms-1 fas fa-pencil-alt text-primary " data-fa-transform="shrink-2" ></span> 
-                                      <span class="ms-1">Editar</span></a>
-                                    </div>
-                                    <div class="col-auto d-flex align-items-center">
-                                      <a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="Remover({{$lstProducto->id}})" >
-                                        <span class="ms-1 fas fa-trash-alt text-danger" data-fa-transform="shrink-2" ></span><span class="ms-1">Borrar</span>
-                                      </a>
-                                    </div>
-                                    <div class="col-auto d-flex align-items-center">
-                                        @if($lstProducto->mific !='0')
-                                          <span class="ms-3 badge rounded-pill bg-primary"> MIFIC <span class="fas fa-check"></span></span>  
-                                        @endif
-                                        @if($lstProducto->regencia !='0')
-                                          <span class="ms-3 badge rounded-pill bg-success"> REGENCIA  <span class="fas fa-check"></span></span>
-                                        @endif
-                                        @if($lstProducto->minsa !='0')
-                                          <span class="ms-3 badge rounded-pill bg-info"> MINSA <span class="fas fa-check"></span></span>
-                                        @endif
+              
+                                    
+                                    <div class="row g-0 fw-semi-bold text-center py-2 fs--1"> 
+                                        <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Editar({{$lstProducto->id}})"><span class="ms-1 fas fa-pencil-alt text-primary"></span><span class="ms-1">Editar</span></a></div>
+                                        <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" ><span class="ms-1 fas fa-comment text-primary"></span><span class="ms-1">Comentarios (1)</span></a></div>
+                                        <div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="Remover({{$lstProducto->id}})"><span class="ms-1 fas fa-trash-alt text-danger" ></span><span class="ms-1">Borrar</span></a></div>                                    
+                                        <div class="col-auto d-flex align-items-center">
+                                            @if($lstProducto->mific !='0')
+                                              <span class="ms-3 badge rounded-pill bg-primary"> MIFIC <span class="fas fa-check"></span></span>  
+                                            @endif
+                                            @if($lstProducto->regencia !='0')
+                                              <span class="ms-3 badge rounded-pill bg-success"> REGENCIA  <span class="fas fa-check"></span></span>
+                                            @endif
+                                            @if($lstProducto->minsa !='0')
+                                              <span class="ms-3 badge rounded-pill bg-info"> MINSA <span class="fas fa-check"></span></span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div> 
                               </div>
                             </div>
                           </td>
+                          <td class="align-middle text-center"><span class="badge fs--1 w-100 badge-soft-success"> {{$lstProducto->getEstado->descripcion}}</span></td>
                           <td class="align-middle text-center">{{number_format($lstProducto->cantidad,2)}}</td>
                           <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_farmacia,2)}}</td>
                           <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_publico,2)}}</td>
@@ -330,7 +341,18 @@
 
                 
                 <div class="row g-2">
-                  <div class="col-8">
+                  <div class="col-4">
+                    <div class="mb-3">
+                      <label for="">Estado</label>
+                      <select class="form-select" id="id_select_estado">                  
+                          @foreach ($EstadosProducto as $est)
+                          <option value="{{ strtoupper($est->id) }}">{{ strtoupper($est->descripcion) }}</option>
+                          @endforeach
+                            
+                        </select>
+                    </div>
+                  </div>                  
+                  <div class="col-4">
                     <div class="mb-3">
                       <label for="">Producto</label>
                       <select class="form-select" id="id_select_producto">                  
