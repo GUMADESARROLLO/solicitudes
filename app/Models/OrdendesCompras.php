@@ -177,7 +177,7 @@ class OrdendesCompras extends Model {
                         $response['UMK_PRIVADO'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
                         $response['UMK_PRIVADO'][$i]['descripcion_corta']      =  $d->descripcion_corta;
                         $response['UMK_PRIVADO'][$i]['descripcion_larga']      =  $d->descripcion_larga;
-                        $response['UMK_PRIVADO'][$i]['cantidad']               =  $d->cantidad;
+                        $response['UMK_PRIVADO'][$i]['cantidad']               =  number_format($d->cantidad,0);
                         $response['UMK_PRIVADO'][$i]['Estado']                 =  $d->Estado;
                         $response['UMK_PRIVADO'][$i]['fecha_orden_compra']     =  $d->fecha_orden_compra;
                         $response['UMK_PRIVADO'][$i]['DiasAcumulados']         =  $d->DiasAcumulados;
@@ -204,7 +204,7 @@ class OrdendesCompras extends Model {
                         $response['UMK_MINSA'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
                         $response['UMK_MINSA'][$i]['descripcion_corta']      =  $d->descripcion_corta;
                         $response['UMK_MINSA'][$i]['descripcion_larga']      =  $d->descripcion_larga;
-                        $response['UMK_MINSA'][$i]['cantidad']               =  $d->cantidad;
+                        $response['UMK_MINSA'][$i]['cantidad']               =  number_format($d->cantidad,0);
                         $response['UMK_MINSA'][$i]['Estado']                 =  $d->Estado;
                         $response['UMK_MINSA'][$i]['fecha_orden_compra']     =  $d->fecha_orden_compra;
                         $response['UMK_MINSA'][$i]['DiasAcumulados']         =  $d->DiasAcumulados;
@@ -231,7 +231,7 @@ class OrdendesCompras extends Model {
                         $response['GUMA_PRIVADO'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
                         $response['GUMA_PRIVADO'][$i]['descripcion_corta']      =  $d->descripcion_corta;
                         $response['GUMA_PRIVADO'][$i]['descripcion_larga']      =  $d->descripcion_larga;
-                        $response['GUMA_PRIVADO'][$i]['cantidad']               =  $d->cantidad;
+                        $response['GUMA_PRIVADO'][$i]['cantidad']               =  number_format($d->cantidad,0);
                         $response['GUMA_PRIVADO'][$i]['Estado']                 =  $d->Estado;
                         $response['GUMA_PRIVADO'][$i]['fecha_orden_compra']     =  $d->fecha_orden_compra;
                         $response['GUMA_PRIVADO'][$i]['DiasAcumulados']         =  $d->DiasAcumulados;
@@ -257,8 +257,8 @@ class OrdendesCompras extends Model {
                         $response['GUMA_MINSA'][$i]['id']                     =  $d->id;
                         $response['GUMA_MINSA'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
                         $response['GUMA_MINSA'][$i]['descripcion_corta']      =  $d->descripcion_corta;
-                        $response['GUMA_MINSA'][$i]['descripcion_larga']      =  $d->descripcion_larga;
-                        $response['GUMA_MINSA'][$i]['cantidad']               =  $d->cantidad;
+                        $response['GUMA_MINSA'][$i]['descripcion_larga']      =  $d->descripcion_larga;                        
+                        $response['GUMA_MINSA'][$i]['cantidad']               =  number_format($d->cantidad,0);
                         $response['GUMA_MINSA'][$i]['Estado']                 =  $d->Estado;
                         $response['GUMA_MINSA'][$i]['fecha_orden_compra']     =  $d->fecha_orden_compra;
                         $response['GUMA_MINSA'][$i]['DiasAcumulados']         =  $d->DiasAcumulados;

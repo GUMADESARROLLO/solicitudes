@@ -14,6 +14,7 @@ use App\Models\Vias;
 use App\Models\EstadosPagos;
 use App\Models\TipoCarga;
 use App\Models\EstadoOrden;
+use App\Models\Mercados;
 
 
 class ImportacionController extends Controller {
@@ -101,7 +102,8 @@ class ImportacionController extends Controller {
         $Productos          = Productos::where('activo', 'S')->get();
         $Orden              = OrdendesCompras::find($IdOrden);
         $EstadosProducto    = EstadoOrden::where('activo', 'S')->where('belongs', 'PD')->get();
-        return view('Importacion.Detalles', compact('Orden','Productos','EstadosProducto'));
+        $Mercados           = Mercados::where('activo', 'S')->get();
+        return view('Importacion.Detalles', compact('Orden','Productos','EstadosProducto','Mercados'));
     }
     //GUARDA LA INFORMACION DE LA NUEVA PO
     public function SaveNewPO(Request $request)
@@ -123,6 +125,7 @@ class ImportacionController extends Controller {
             'Vias'          => Vias::where('activo','S')->get(),
             'EstadosPagos'  => EstadosPagos::where('activo','S')->get(),
             'TipoCarga'     => TipoCarga::where('activo','S')->get(),
+            'stdArticu'     => EstadoOrden::where('activo', 'S')->where('belongs', 'PD')->get(),
         );
         return response()->json($DataSelects);
     }
@@ -131,6 +134,12 @@ class ImportacionController extends Controller {
     public function UpdateImportacion(Request $request)
     {
         $response = OrdendesCompras::UpdateImportacion($request);
+        return response()->json($response);
+    }
+     // CAMBIA EL ESTADO DEL VENDODOR EN LA A INACTIVO
+    public function UpdateEstado(Request $request)
+    {
+        $response = OrdenCompraDetalle::UpdateEstado($request);
         return response()->json($response);
     }
     // RECIBE LAS PETICIONES DEL HOME POR RANGOS DE FECHAS
@@ -153,6 +162,21 @@ class ImportacionController extends Controller {
         return response()->json($response);
     }
 
+    public function getCommentImportacion(Request $request)
+    {
+        $response = OrdenCompraDetalle::getCommentImportacion($request);
+        return response()->json($response);
+    }
+    public function AddComment(Request $request)
+    {
+        $response = OrdenCompraDetalle::AddComment($request);
+        return response()->json($response);
+    }
+    public function DeleteCommentDetalle(Request $request)
+    {
+        $response = OrdenCompraDetalle::DeleteCommentDetalle($request);
+        return response()->json($response);
+    }
     /**
      * Toda Las Rutas para los productos de UNIMARK
      */
@@ -188,6 +212,10 @@ class ImportacionController extends Controller {
         $Vendors = Productos::where('ID', $ID)->orderBy('id', 'asc')->get();
         return response()->json($Vendors);
     }
+
+
+
+    
 
 
 

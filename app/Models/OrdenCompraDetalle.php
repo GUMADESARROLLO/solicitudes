@@ -28,11 +28,45 @@ class OrdenCompraDetalle extends Model {
     public function isProduct(){
         return $this->hasOne('App\Models\Productos','id','id_product');
     }
+    public function getMercados(){
+        return $this->hasOne('App\Models\Mercados','id','id_tipo_mecado');
+    }
+    public function Comments(){
+        return $this->hasMany('App\Models\CommentDetalle','id_linea','id')->where('activo','S')->count();    
+    }
 
     public function getEstado(){
         return $this->hasOne('App\Models\EstadoOrden','id','Estado');
     }
+    public function ttMific() {
+        return $this->Detalles()->selectRaw('mific,count(mific) hit')->groupBy('id_importacion','mific');
+    }
+    public static function getCommentImportacion(Request $request){
+        $Id     = $request->input('id_item');
+        return ViewCommentDetalleArticulo::where('activo', 'S')->where('id_linea', $Id)->orderBy('id_comment', 'DESC')->get();
+    }
+    public static function UpdateEstado(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
 
+                $id         = $request->input('Id');
+                $valor      = $request->input('valor');
+
+                $response =   OrdenCompraDetalle::where('id',  $id)->update([
+                    "Estado" => $valor,
+                ]);
+
+                return response()->json($response);
+
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+
+    }
     public static function AddProductPO(Request $request) {
         if ($request->ajax()) {
             try {
@@ -55,6 +89,9 @@ class OrdenCompraDetalle extends Model {
 
                 $number_linea       = $request->input('number_linea');
                 $id_este            = $request->input('id_este');
+                
+                $id_mercado         = $request->input('id_mercado');
+                $id_tiene_venta     = $request->input('id_tiene_venta');
 
                 
 
@@ -75,6 +112,9 @@ class OrdenCompraDetalle extends Model {
                     $obj_Productos->regencia            = $Regencia;                 
                     $obj_Productos->minsa               = $Minsa;  
 
+                    $obj_Productos->id_tipo_mecado      = $id_mercado;  
+                    $obj_Productos->TieneVenta          = $id_tiene_venta;  
+
                     $response = $obj_Productos->save();
                 } else {
                     $response =   OrdenCompraDetalle::where('id',  $idPo)->update([
@@ -86,6 +126,8 @@ class OrdenCompraDetalle extends Model {
                         "mific"                 => $Mific,
                         "regencia"              => $Regencia,
                         "minsa"                 => $Minsa,
+                        "id_tipo_mecado"        => $id_mercado,
+                        "TieneVenta"            => $id_tiene_venta,
                     ]);
                 }
 
@@ -108,6 +150,54 @@ class OrdenCompraDetalle extends Model {
 
                 return response()->json($response);
 
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+
+    }
+    public static function DeleteCommentDetalle(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+
+                $id     = $request->input('id');
+                
+                $response =   CommentDetalle::where('id',  $id)->update([
+                    "Activo" => 'N',
+                ]);
+
+                return response()->json($response);
+
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+
+    }
+    public static function AddComment(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+
+                $id         = $request->input('id_item');
+                $Comment    = $request->input('comment');
+                $id_user    = $request->user()->id;
+
+                
+
+                $ObjComment = new CommentDetalle();
+                $ObjComment->id_linea       = $id; 
+                $ObjComment->descripcion       = $Comment; 
+                $ObjComment->Activo        = 'S';      
+                $ObjComment->id_user    = $id_user;           
+                $ObjComment->save();                
+
+                return response()->json($ObjComment);
 
             } catch (Exception $e) {
                 $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";

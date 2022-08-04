@@ -14,7 +14,6 @@
     text-decoration: none;
   }
 </style>
-
 <main class="main" id="top">
     <div class="container-fluid" data-layout="container">
         <div class="content">
@@ -25,6 +24,8 @@
                 <div class="card-header">
                   <div class="row flex-between-center">
                     <div class="col-auto">
+                      <span id="id_rol" style="display:none">{{Session::get('rol')}}</span>
+                      <span id="id_login_user" style="display:none">{{auth()->user()->id}}</span>
                       <span style="display:none" id="id_lbl_po">{{ $Orden->id }}</span>
                       <h5>P.O. NO. : # {{ $Orden->num_po  }} </h5>
                       <p class="fs--1" onclick="frmSweetAlert02(3)" ><u class="dotted"> {{ !empty($Orden->fecha_orden_compra ) ? date('F d, Y', strtotime($Orden->fecha_orden_compra))  :'N/D'  }}</u></p>
@@ -226,21 +227,33 @@
 
                   
                         @foreach ($Orden->Detalles as $lstProducto)
-
                         <tr class="border-200">
                         <td class="align-middle text-center">{{$lstProducto->linea}}</td>
                           <td class="align-middle">
                             <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
                               <div class="flex-1 ms-3">
-                                <h6 class="mb-1 fw-semi-bold text-nowrap"><a href=""> <strong>{{$lstProducto->isProduct->Tipo->descripcion}} </strong></a> : {{$lstProducto->isProduct->descripcion_corta}}</h6>
+                                
+                                <div class="d-flex align-items-center">
+                                    <h6 class="mb-1 fw-semi-bold text-nowrap"><a href=""> <strong>{{$lstProducto->isProduct->Tipo->descripcion}} </strong></a> : {{$lstProducto->isProduct->descripcion_corta}}</h6>                                    
+                                    <span class="badge rounded-pill ms-3 badge-soft-info"><span class="fas fa-check"></span> Prop. {{$lstProducto->getMercados->descripcion}}</span>
+                                    @if($lstProducto->TieneVenta == 1)
+                                      <span class="badge rounded-pill ms-3 badge-soft-success "><span class="fas fas fa-dollar-sign"></span> Tiene Venta</span>
+                                    @endif
+                                    
+                                    
+                                  </div>
                                 <p class="fw-semi-bold mb-0 text-500">{{$lstProducto->isProduct->descripcion_larga}}</p>                            
                                 <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
-              
-                                    
                                     <div class="row g-0 fw-semi-bold text-center py-2 fs--1"> 
-                                        <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Editar({{$lstProducto->id}})"><span class="ms-1 fas fa-pencil-alt text-primary"></span><span class="ms-1">Editar</span></a></div>
-                                        <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" ><span class="ms-1 fas fa-comment text-primary"></span><span class="ms-1">Comentarios (1)</span></a></div>
-                                        <div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="Remover({{$lstProducto->id}})"><span class="ms-1 fas fa-trash-alt text-danger" ></span><span class="ms-1">Borrar</span></a></div>                                    
+                                      
+                                        <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Editar({{$lstProducto->id}})"><span class="ms-1 fas fa-pencil-alt text-primary"></span><span class="ms-1">Editar</span></a></div>                                        
+                                        <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Remover({{$lstProducto->id}})"><span class="ms-1 fas fa-trash-alt text-danger" ></span><span class="ms-1">Borrar</span></a></div>                                    
+                                        <div class="col-auto  d-flex align-items-center">
+                                          <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="AddComment({{$lstProducto}})">
+                                            <span class="ms-1 fas fa-comment text-primary"></span>
+                                            <span class="ms-1"> {{$lstProducto->Comments()}}</span>
+                                          </a>
+                                        </div>
                                         <div class="col-auto d-flex align-items-center">
                                             @if($lstProducto->mific !='0')
                                               <span class="ms-3 badge rounded-pill bg-primary"> MIFIC <span class="fas fa-check"></span></span>  
@@ -257,7 +270,7 @@
                               </div>
                             </div>
                           </td>
-                          <td class="align-middle text-center"><span class="badge fs--1 w-100 badge-soft-success"> {{$lstProducto->getEstado->descripcion}}</span></td>
+                          <td class="align-middle text-center" onclick="frmCambioDeEstado({{$lstProducto->id}})"><span class="badge fs--1 w-100 badge-soft-success"> {{$lstProducto->getEstado->descripcion}}</span></td>
                           <td class="align-middle text-center">{{number_format($lstProducto->cantidad,2)}}</td>
                           <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_farmacia,2)}}</td>
                           <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_publico,2)}}</td>
@@ -321,7 +334,43 @@
             </div>
             @include('layouts.footer_gumadesk')
         </div>
+        <div class="modal fade" id="IdmdlComment" data-keyboard="false" tabindex="-1" aria-labelledby="scrollinglongcontentLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+            <div class="card-header bg-light">
+                  <div class="row justify-content-between">
+                    <div class="col">
+                      <div class="d-flex">
+                        <div class="avatar avatar-2xl">
+                          <img class="rounded-circle" src="{{ asset('images/item.png') }}" alt="" />
 
+                        </div>
+                        <div class="flex-1 align-self-center ms-2">
+                          <p class="mb-1 lh-1"><a class="fw-semi-bold" href="!#" id="id_modal_name_item" >Nombre Item</a></p>
+                          <p class="mb-0 fs--1"><span id="id_modal_articulo"></span> </p>
+                          <p class="mb-0 fs--1">#<span id="id_modal_nSoli"></span> &bull; <span id="id_modal_Fecha"></span> <span class="fas fa-calendar"></span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div class="modal-body">
+                
+                <div class="d-flex align-items-center border-top border-200 pt-3">
+                  <div class="avatar avatar-xl">
+                    <img class="rounded-circle" src="{{ asset('images/user/avatar-4.jpg') }}" alt="" />
+                  </div>
+                  <input class="form-control rounded-pill ms-2 fs--1" type="text" placeholder="Escribe un Comentario..." id="id_textarea_comment" />
+                </div>
+
+                
+                <div id="id_comment_item"></div>
+                
+              </div>
+
+            </div>
+          </div>
+        </div>
 
         <!--OPEN MODALS -->
         <div class="modal fade" id="mdl_add_product" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
@@ -341,17 +390,7 @@
 
                 
                 <div class="row g-2">
-                  <div class="col-4">
-                    <div class="mb-3">
-                      <label for="">Estado</label>
-                      <select class="form-select" id="id_select_estado">                  
-                          @foreach ($EstadosProducto as $est)
-                          <option value="{{ strtoupper($est->id) }}">{{ strtoupper($est->descripcion) }}</option>
-                          @endforeach
-                            
-                        </select>
-                    </div>
-                  </div>                  
+                                  
                   <div class="col-4">
                     <div class="mb-3">
                       <label for="">Producto</label>
@@ -363,12 +402,42 @@
                         </select>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-2">
                     <div class="mb-3">
-                      <label class="form-label" for="">Cantidad:</label>
-                      <input class="form-control" type="text" name="" placeholder="0.00" required="required" id="id_frm_cantidad"/>                      
+                    <label class="form-label" for="">Cantidad:</label>
+                      <input class="form-control" type="text" name="" placeholder="0.00" required="required" id="id_frm_cantidad"/>                        
                     </div>
                   </div>
+                  <div class="col-2">
+                    <div class="mb-3">
+                    <label for="">Mercados</label>
+                      <select class="form-select" id="id_mercado">                  
+                        @foreach ($Mercados as $mercado)
+                          <option value="{{ strtoupper($mercado->id) }}">{{ strtoupper($mercado->descripcion) }}</option>
+                        @endforeach
+                      </select>  
+                    </div>
+                  </div>  
+                  <div class="col-2">
+                    <div class="mb-3">
+                      <label for="">Tiene Venta</label>
+                      <select class="form-select" id="id_tiene_venta">                  
+                        <option value="0">NO</option>
+                        <option value="1">SI</option>
+                      </select>    
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="mb-3">
+                      <label for="">Estado</label>
+                      <select class="form-select" id="id_select_estado">                  
+                          @foreach ($EstadosProducto as $est)
+                          <option value="{{ strtoupper($est->id) }}">{{ strtoupper($est->descripcion) }}</option>
+                          @endforeach
+                            
+                        </select>
+                    </div>
+                  </div>  
                 </div>
 
                 <div class="row g-2">
@@ -430,7 +499,7 @@
           </div>
         </div>
         <!--CLOSE MODALS -->
-
+        
 
 
 

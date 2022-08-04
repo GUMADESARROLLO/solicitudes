@@ -17,7 +17,7 @@ SELECT
 	t0.factura,
 	t0.recibo,	
 	t1.minsa,
-	(SELECT  t6.descripcion FROM tbl_imp_comentario t6 WHERE t6.id_linea= t1.id ORDER BY T6.ID desc LIMIT 1 ) Commentario,
+	(SELECT  count(*) FROM tbl_imp_comentario t6 WHERE t6.id_linea= t1.id ORDER BY T6.ID desc LIMIT 1 ) Commentario,
 	t1.TieneVenta
 FROM
 	tbl_imp_importacion T0

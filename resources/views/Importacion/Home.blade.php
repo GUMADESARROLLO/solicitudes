@@ -386,8 +386,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="">
-                            <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_ordenes_compra">
+                          <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_ordenes_compra" style="width:100%">
                               <thead class="bg-200 text-900">
                                 <tr>
                                   <th class="" ></th>
@@ -400,78 +399,19 @@
                               <tbody class="list" >
                               </tbody>
                             </table>
-                          </div>
                         </div>
                         <div class="tab-pane" id="tns_umk_privado" role="tabpanel" aria-labelledby="tns_umk_privado_tab">
-                        <div class="">
-                            <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_unimark_privado" style="width:100%">
-                              <thead class="bg-200 text-900">
-                                <tr>
-                                  <th class="" ></th>
-                                  <th class="" ></th>
-                                  <th class="" ></th>
-                                  <th class="" ></th>
-                                  <th class="" ></th>
-                                  <th class="" ></th>
-                                  <th class="" ></th>
-                                  <th class="" ></th>
-                                </tr>
-                              </thead>
-                              <tbody class="list" >
-                              </tbody>
-                            </table>
-                          </div>
+                          <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_unimark_privado" style="width:100%"></table>
+                        
                         </div>
                         <div class="tab-pane" id="tns_umk_minsa" role="tabpanel" aria-labelledby="tns_umk_minsa_tab">
-                          <div class="">
-                              <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_unimark_minsa" style="width:100%">
-                                <thead class="bg-200 text-900">
-                                  <tr>
-                                    <th class="" ></th>
-                                    <th class="" ></th>
-                                    <th class="" ></th>
-                                    <th class="" ></th>
-                                  
-                                  </tr>
-                                </thead>
-                                <tbody class="list" >
-                                </tbody>
-                              </table>
-                            </div>
+                          <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_unimark_minsa" style="width:100%"></table>
                         </div>
                         <div class="tab-pane" id="tns_guma" role="tabpanel" aria-labelledby="tns_guma_tab">
-                          <div class="">
-                              <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_guma_privado" style="width:100%">
-                                <thead class="bg-200 text-900">
-                                  <tr>
-                                    <th class="" ></th>
-                                    <th class="" ></th>
-                                    <th class="" ></th>
-                                    <th class="" ></th>
-                                  
-                                  </tr>
-                                </thead>
-                                <tbody class="list" >
-                                </tbody>
-                              </table>
-                            </div>
+                          <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_guma_privado" style="width:100%"></table>
                         </div>
                         <div class="tab-pane" id="tns_guma_privado" role="tabpanel" aria-labelledby="tns_guma_privado_tab">
-                        <div class="">
-                              <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_guma_minsa" style="width:100%">
-                                <thead class="bg-200 text-900">
-                                  <tr>
-                                    <th class="" ></th>
-                                    <th class="" ></th>
-                                    <th class="" ></th>
-                                    <th class="" ></th>
-                                  
-                                  </tr>
-                                </thead>
-                                <tbody class="list" >
-                                </tbody>
-                              </table>
-                            </div>
+                          <table class="table table-sm table-striped fs--1 overflow-hidden" id="tbl_guma_minsa" style="width:100%"></table>
                         </div>
                       </div>
                     </div>
@@ -481,6 +421,38 @@
 
 
         <!--OPEN MODALS -->
+
+
+        <div class="modal fade" id="IdmdlComment" data-keyboard="false" tabindex="-1" aria-labelledby="scrollinglongcontentLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+            <div class="card-header bg-light">
+                  <div class="row justify-content-between">
+                    <div class="col">
+                      <div class="d-flex">
+                        <div class="avatar avatar-2xl">
+                          <img class="rounded-circle" src="{{ asset('images/item.png') }}" alt="" />
+
+                        </div>
+                        <div class="flex-1 align-self-center ms-2">
+                          <p class="mb-1 lh-1"><a class="fw-semi-bold" href="!#" id="id_modal_name_item" >Nombre Item</a></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div class="modal-body">
+                
+                
+                
+                <div id="id_comment_item"></div>
+                
+              </div>
+
+            </div>
+          </div>
+        </div>
+
         <div class="modal fade" id="tbl_setting" tabindex="-1" role="dialog" aria-labelledby="authentication-modal-label" aria-hidden="true">
           <div class="modal-dialog modal-xl mt-6" role="document">
             <div class="modal-content border-0">

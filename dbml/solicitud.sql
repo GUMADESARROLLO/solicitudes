@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 03-08-2022 a las 23:20:08
+-- Tiempo de generación: 04-08-2022 a las 23:20:40
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 7.4.26
 
@@ -307,18 +307,28 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_comentario` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_comentario`
 --
 
 INSERT INTO `tbl_imp_comentario` (`id`, `id_linea`, `descripcion`, `activo`, `id_user`, `created_at`, `updated_at`) VALUES
-(1, 55, 'COMENTARIO DE RUEBA PARA LA PRIMERA LINEA', 'S', 1, '2022-08-03 19:10:49', '2022-08-03 19:10:51'),
-(2, 55, 'COMENTARIO DE RUEBA PARA LA PRIMERA LINEA', 'S', 1, '2022-08-03 19:10:49', '2022-08-03 19:10:51'),
+(1, 55, 'COMENTARIO DE RUEBA PARA LA PRIMERA LINEA', 'N', 1, '2022-08-03 19:10:49', '2022-08-04 23:14:01'),
+(2, 55, 'COMENTARIO DE RUEBA PARA LA PRIMERA LINEA', 'N', 1, '2022-08-03 19:10:49', '2022-08-04 23:14:08'),
 (3, 55, 'COMENTARIO DE RUEBA PARA LA PRIMERA LINEA', 'S', 1, '2022-08-03 19:10:49', '2022-08-03 19:10:51'),
 (4, 55, 'COMENTARIO DE RUEBA PARA LA PRIMERA LINEA', 'S', 1, '2022-08-03 19:10:49', '2022-08-03 19:10:51'),
-(5, 55, 'COMENTARIO DE RUEBA PARA LA PRIMERA LINEA', 'S', 1, '2022-08-03 19:10:49', '2022-08-03 19:10:51');
+(5, 55, 'COMENTARIO DE RUEBA PARA LA PRIMERA LINEA', 'S', 1, '2022-08-03 19:10:49', '2022-08-03 19:10:51'),
+(6, 55, 'cf', 'N', 1, '2022-08-04 20:14:57', '2022-08-04 20:20:48'),
+(7, 55, 'ADD', 'N', 1, '2022-08-04 20:21:21', '2022-08-04 20:21:25'),
+(8, 55, 'Addd', 'N', 1, '2022-08-04 20:22:02', '2022-08-04 20:22:21'),
+(9, 55, 'a', 'N', 1, '2022-08-04 20:23:48', '2022-08-04 20:23:53'),
+(10, 56, 'PRIMER COMMENT', 'S', 1, '2022-08-04 21:03:20', '2022-08-04 21:03:20'),
+(11, 56, 'COMENTARIO NUEVO', 'S', 1, '2022-08-04 23:14:19', '2022-08-04 23:14:19'),
+(12, 83, 'MI PRIMER COMENTARIO', 'S', 1, '2022-08-04 23:15:02', '2022-08-04 23:15:02'),
+(13, 83, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 'S', 1, '2022-08-04 23:19:09', '2022-08-04 23:19:09'),
+(14, 84, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 'N', 1, '2022-08-04 23:19:20', '2022-08-04 23:19:24'),
+(15, 85, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 'S', 1, '2022-08-04 23:19:31', '2022-08-04 23:19:31');
 
 -- --------------------------------------------------------
 
@@ -415,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion` (
 
 INSERT INTO `tbl_imp_importacion` (`id`, `num_po`, `fecha`, `id_vendor`, `id_shipto`, `id_via`, `id_estados_pagos`, `tipo_carga`, `factura`, `recibo`, `fecha_despacho`, `fecha_orden_compra`, `fecha_factura`, `fecha_estimada`, `id_estado_orden`, `activo`, `created_at`, `updated_at`) VALUES
 (33, 'PO0001', '2022-08-17', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-03 14:54:08', '2022-08-03 14:54:08'),
-(32, '1675', NULL, 12, 3, 2, NULL, NULL, '7845', '89133', '2022-08-03', '2022-08-03', '2022-08-03', '2022-08-03', 1, 'S', '2022-08-02 16:41:32', '2022-08-03 22:34:41'),
+(32, '1675', NULL, 12, 3, 2, 2, NULL, '7845', '89133', '2022-08-03', '2022-08-03', '2022-08-03', '2022-08-03', 1, 'S', '2022-08-02 16:41:32', '2022-08-04 23:18:33'),
 (31, '1670', NULL, 11, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-08-02 16:38:06', '2022-08-02 16:38:06'),
 (30, '1067', '2021-12-30', 10, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-08-02 16:26:04', '2022-08-02 16:26:04'),
 (29, '1065', '2021-12-30', 15, 2, 2, NULL, NULL, '23', '43', NULL, '2022-08-03', NULL, NULL, 1, 'S', '2022-08-02 16:25:18', '2022-08-03 22:29:43'),
@@ -454,50 +464,50 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion_detalle` (
   KEY `id_product` (`id_product`),
   KEY `Estado` (`Estado`),
   KEY `id_tipo_mecado` (`id_tipo_mecado`)
-) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_importacion_detalle`
 --
 
 INSERT INTO `tbl_imp_importacion_detalle` (`id`, `id_importacion`, `id_laboratorio`, `id_product`, `linea`, `Estado`, `articulo`, `descripcion`, `cantidad`, `precio_farmacia`, `precio_publico`, `precio_institucion`, `mific`, `regencia`, `minsa`, `TieneVenta`, `id_tipo_mecado`, `created_at`, `updated_at`) VALUES
-(73, 30, NULL, 10, 3, 1, NULL, NULL, '84800.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:03:30', '2022-08-02 17:03:30'),
-(72, 30, NULL, 9, 2, 1, NULL, NULL, '3570.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:03:05', '2022-08-02 17:03:05'),
-(71, 30, NULL, 9, 1, 1, NULL, NULL, '3430.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 17:02:21', '2022-08-02 17:02:21'),
-(70, 29, NULL, 27, 4, 1, NULL, NULL, '18445.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:01:16', '2022-08-02 17:01:16'),
-(69, 29, NULL, 25, 3, 1, NULL, NULL, '990.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 2, '2022-08-02 17:01:04', '2022-08-02 17:01:04'),
-(67, 29, NULL, 24, 1, 1, NULL, NULL, '86400.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 16:59:57', '2022-08-02 16:59:57'),
-(68, 29, NULL, 25, 2, 1, NULL, NULL, '4010.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 17:00:51', '2022-08-02 17:00:51'),
-(55, 20, NULL, 15, 1, 4, NULL, NULL, '18900.00', '1000.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 15:02:17', '2022-08-03 16:02:24'),
-(56, 20, NULL, 16, 2, 4, NULL, NULL, '16650.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 15:02:44', '2022-08-03 16:02:34'),
-(57, 20, NULL, 17, 3, 3, NULL, NULL, '17870.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 15:03:02', '2022-08-03 16:02:40'),
-(58, 20, NULL, 18, 4, 5, NULL, NULL, '7100.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 15:03:17', '2022-08-03 16:03:18'),
-(62, 20, NULL, 19, 6, 3, NULL, NULL, '11400.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 15:12:50', '2022-08-03 16:03:41'),
-(61, 20, NULL, 19, 5, 3, NULL, NULL, '44600.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 15:12:23', '2022-08-03 16:03:50'),
-(63, 20, NULL, 20, 7, 4, NULL, NULL, '10000.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 15:13:25', '2022-08-03 16:03:34'),
-(64, 20, NULL, 21, 8, 3, NULL, NULL, '15340.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 15:13:45', '2022-08-03 16:03:27'),
-(74, 30, NULL, 10, 4, 1, NULL, NULL, '15200.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:03:56', '2022-08-02 17:03:56'),
-(75, 31, NULL, 28, 1, 1, NULL, NULL, '900.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:08:32', '2022-08-02 17:08:32'),
-(76, 31, NULL, 28, 2, 1, NULL, NULL, '4100.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 17:08:47', '2022-08-02 17:08:47'),
-(77, 31, NULL, 29, 3, 1, NULL, NULL, '380.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:09:03', '2022-08-02 17:09:03'),
-(78, 31, NULL, 29, 4, 1, NULL, NULL, '1220.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 17:09:20', '2022-08-02 17:09:20'),
-(79, 31, NULL, 30, 5, 1, NULL, NULL, '100.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:09:44', '2022-08-02 17:09:44'),
-(80, 31, NULL, 31, 6, 1, NULL, NULL, '2850.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 17:10:19', '2022-08-02 17:10:19'),
-(81, 31, NULL, 32, 7, 1, NULL, NULL, '1200.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:10:37', '2022-08-02 17:10:37'),
-(82, 31, NULL, 33, 8, 1, NULL, NULL, '50.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:10:52', '2022-08-02 17:10:52'),
-(83, 32, NULL, 34, 1, 3, NULL, NULL, '1442.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 2, '2022-08-02 17:25:23', '2022-08-03 22:58:06'),
-(84, 32, NULL, 35, 2, 1, NULL, NULL, '78940.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 2, '2022-08-02 17:25:38', '2022-08-02 17:25:38'),
-(85, 32, NULL, 35, 3, 1, NULL, NULL, '21060.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 2, '2022-08-02 17:26:02', '2022-08-02 17:26:02'),
-(86, 32, NULL, 36, 4, 1, NULL, NULL, '15000.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 2, '2022-08-02 17:27:14', '2022-08-02 17:27:14'),
-(87, 32, NULL, 37, 5, 1, NULL, NULL, '3050.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 2, '2022-08-02 17:28:23', '2022-08-02 17:28:23'),
-(88, 32, NULL, 38, 6, 1, NULL, NULL, '439.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 2, '2022-08-02 17:29:51', '2022-08-02 17:29:51'),
-(89, 32, NULL, 38, 7, 1, NULL, NULL, '261.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:30:28', '2022-08-02 17:30:28'),
-(90, 32, NULL, 39, 8, 1, NULL, NULL, '198000.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 17:32:07', '2022-08-02 17:32:07'),
-(91, 32, NULL, 39, 9, 1, NULL, NULL, '32000.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 17:32:25', '2022-08-02 17:32:25'),
-(92, 32, NULL, 40, 10, 1, NULL, NULL, '42350.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 17:33:29', '2022-08-02 17:33:29'),
-(93, 32, NULL, 40, 11, 1, NULL, NULL, '17650.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:33:43', '2022-08-02 17:33:43'),
-(94, 32, NULL, 41, 12, 1, NULL, NULL, '60860.00', '0.00', '0.00', '0.00', '0', '0', '1', 1, 1, '2022-08-02 17:39:59', '2022-08-02 17:39:59'),
-(95, 32, NULL, 41, 13, 1, NULL, NULL, '14140.00', '0.00', '0.00', '0.00', '0', '0', '0', 1, 1, '2022-08-02 17:40:20', '2022-08-02 17:40:20');
+(73, 30, NULL, 10, 3, 1, NULL, NULL, '84800.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:03:30', '2022-08-02 17:03:30'),
+(72, 30, NULL, 9, 2, 1, NULL, NULL, '3570.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:03:05', '2022-08-02 17:03:05'),
+(71, 30, NULL, 9, 1, 1, NULL, NULL, '3430.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:02:21', '2022-08-02 17:02:21'),
+(70, 29, NULL, 27, 4, 1, NULL, NULL, '18445.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:01:16', '2022-08-02 17:01:16'),
+(69, 29, NULL, 25, 3, 1, NULL, NULL, '990.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 17:01:04', '2022-08-02 17:01:04'),
+(67, 29, NULL, 24, 1, 1, NULL, NULL, '86400.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 16:59:57', '2022-08-02 16:59:57'),
+(68, 29, NULL, 25, 2, 1, NULL, NULL, '4010.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:00:51', '2022-08-02 17:00:51'),
+(55, 20, NULL, 15, 1, 5, NULL, NULL, '18900.00', '1000.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 15:02:17', '2022-08-04 22:17:19'),
+(56, 20, NULL, 16, 2, 4, NULL, NULL, '16650.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 2, '2022-08-02 15:02:44', '2022-08-04 22:19:18'),
+(57, 20, NULL, 17, 3, 3, NULL, NULL, '17870.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 15:03:02', '2022-08-04 22:19:12'),
+(58, 20, NULL, 18, 4, 5, NULL, NULL, '7100.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 15:03:17', '2022-08-04 22:19:52'),
+(62, 20, NULL, 19, 6, 3, NULL, NULL, '11400.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 15:12:50', '2022-08-03 16:03:41'),
+(61, 20, NULL, 19, 5, 3, NULL, NULL, '44600.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 15:12:23', '2022-08-03 16:03:50'),
+(63, 20, NULL, 20, 7, 4, NULL, NULL, '10000.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 15:13:25', '2022-08-03 16:03:34'),
+(64, 20, NULL, 21, 8, 3, NULL, NULL, '15340.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 15:13:45', '2022-08-03 16:03:27'),
+(74, 30, NULL, 10, 4, 1, NULL, NULL, '15200.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:03:56', '2022-08-02 17:03:56'),
+(75, 31, NULL, 28, 1, 1, NULL, NULL, '900.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:08:32', '2022-08-02 17:08:32'),
+(76, 31, NULL, 28, 2, 1, NULL, NULL, '4100.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:08:47', '2022-08-02 17:08:47'),
+(77, 31, NULL, 29, 3, 1, NULL, NULL, '380.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:09:03', '2022-08-02 17:09:03'),
+(78, 31, NULL, 29, 4, 1, NULL, NULL, '1220.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:09:20', '2022-08-02 17:09:20'),
+(79, 31, NULL, 30, 5, 1, NULL, NULL, '100.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:09:44', '2022-08-02 17:09:44'),
+(80, 31, NULL, 31, 6, 1, NULL, NULL, '2850.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:10:19', '2022-08-02 17:10:19'),
+(81, 31, NULL, 32, 7, 1, NULL, NULL, '1200.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:10:37', '2022-08-02 17:10:37'),
+(82, 31, NULL, 33, 8, 1, NULL, NULL, '50.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:10:52', '2022-08-02 17:10:52'),
+(83, 32, NULL, 34, 1, 3, NULL, NULL, '1442.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 2, '2022-08-02 17:25:23', '2022-08-04 23:18:21'),
+(84, 32, NULL, 35, 2, 1, NULL, NULL, '78940.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 2, '2022-08-02 17:25:38', '2022-08-02 17:25:38'),
+(85, 32, NULL, 35, 3, 1, NULL, NULL, '21060.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 17:26:02', '2022-08-02 17:26:02'),
+(86, 32, NULL, 36, 4, 1, NULL, NULL, '15000.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 17:27:14', '2022-08-02 17:27:14'),
+(87, 32, NULL, 37, 5, 1, NULL, NULL, '3050.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 2, '2022-08-02 17:28:23', '2022-08-02 17:28:23'),
+(88, 32, NULL, 38, 6, 4, NULL, NULL, '439.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 2, '2022-08-02 17:29:51', '2022-08-04 23:19:39'),
+(89, 32, NULL, 38, 7, 1, NULL, NULL, '261.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:30:28', '2022-08-02 17:30:28'),
+(90, 32, NULL, 39, 8, 1, NULL, NULL, '198000.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:32:07', '2022-08-02 17:32:07'),
+(91, 32, NULL, 39, 9, 1, NULL, NULL, '32000.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:32:25', '2022-08-02 17:32:25'),
+(92, 32, NULL, 40, 10, 1, NULL, NULL, '42350.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:33:29', '2022-08-02 17:33:29'),
+(93, 32, NULL, 40, 11, 1, NULL, NULL, '17650.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:33:43', '2022-08-02 17:33:43'),
+(94, 32, NULL, 41, 12, 1, NULL, NULL, '60860.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:39:59', '2022-08-02 17:39:59'),
+(95, 32, NULL, 41, 13, 1, NULL, NULL, '14140.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:40:20', '2022-08-02 17:40:20');
 
 -- --------------------------------------------------------
 
@@ -1124,6 +1134,42 @@ CREATE TABLE IF NOT EXISTS `view_comment` (
 -- --------------------------------------------------------
 
 --
+-- Estructura Stand-in para la vista `view_comment_detalle_importacion`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `view_comment_detalle_importacion`;
+CREATE TABLE IF NOT EXISTS `view_comment_detalle_importacion` (
+`id_comment` int(10)
+,`id_solicitud` int(10)
+,`comment` varchar(500)
+,`Activo` varchar(5)
+,`id_usuario` int(10)
+,`updated_at` datetime
+,`created_at` datetime
+,`username` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `view_comment_detalle_orden`
+-- (Véase abajo para la vista actual)
+--
+DROP VIEW IF EXISTS `view_comment_detalle_orden`;
+CREATE TABLE IF NOT EXISTS `view_comment_detalle_orden` (
+`id_comment` int(10)
+,`id_linea` int(100)
+,`comment` varchar(250)
+,`Activo` varchar(5)
+,`id_usuario` int(10)
+,`updated_at` timestamp
+,`created_at` timestamp
+,`username` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura Stand-in para la vista `view_data_calendar`
 -- (Véase abajo para la vista actual)
 --
@@ -1179,7 +1225,7 @@ CREATE TABLE IF NOT EXISTS `view_master_importacion` (
 ,`factura` varchar(10)
 ,`recibo` varchar(10)
 ,`minsa` varchar(10)
-,`Commentario` varchar(250)
+,`Commentario` bigint(21)
 ,`TieneVenta` int(10)
 );
 
@@ -1267,6 +1313,26 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Estructura para la vista `view_comment_detalle_importacion`
+--
+DROP TABLE IF EXISTS `view_comment_detalle_importacion`;
+
+DROP VIEW IF EXISTS `view_comment_detalle_importacion`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_comment_detalle_importacion`  AS SELECT `t0`.`id_comment` AS `id_comment`, `t0`.`id_solicitud` AS `id_solicitud`, `t0`.`comment` AS `comment`, `t0`.`Activo` AS `Activo`, `t0`.`id_usuario` AS `id_usuario`, `t0`.`updated_at` AS `updated_at`, `t0`.`created_at` AS `created_at`, `t1`.`username` AS `username` FROM (`tbl_comment` `t0` join `users` `t1` on((`t0`.`id_usuario` = `t1`.`id`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `view_comment_detalle_orden`
+--
+DROP TABLE IF EXISTS `view_comment_detalle_orden`;
+
+DROP VIEW IF EXISTS `view_comment_detalle_orden`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_comment_detalle_orden`  AS SELECT `t0`.`id` AS `id_comment`, `t0`.`id_linea` AS `id_linea`, `t0`.`descripcion` AS `comment`, `t0`.`activo` AS `Activo`, `t0`.`id_user` AS `id_usuario`, `t0`.`updated_at` AS `updated_at`, `t0`.`created_at` AS `created_at`, `t1`.`username` AS `username` FROM (`tbl_imp_comentario` `t0` join `users` `t1` on((`t0`.`id_user` = `t1`.`id`))) ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `view_data_calendar`
 --
 DROP TABLE IF EXISTS `view_data_calendar`;
@@ -1292,7 +1358,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `view_master_importacion`;
 
 DROP VIEW IF EXISTS `view_master_importacion`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_master_importacion`  AS SELECT `t1`.`id` AS `id`, `t5`.`descripcion` AS `descripcion`, `t5`.`id` AS `id_mercado`, `t0`.`id_shipto` AS `id_shipto`, `t2`.`Articulo_exactus` AS `Articulo_exactus`, `t2`.`descripcion_corta` AS `descripcion_corta`, `t2`.`descripcion_larga` AS `descripcion_larga`, `t1`.`cantidad` AS `cantidad`, `t3`.`descripcion` AS `Estado`, `t0`.`fecha_orden_compra` AS `fecha_orden_compra`, '0' AS `DiasAcumulados`, `t0`.`fecha_despacho` AS `fecha_despacho`, `t0`.`fecha_estimada` AS `fecha_estimada`, `t4`.`Descripcion` AS `Via`, `t0`.`num_po` AS `num_po`, `t0`.`factura` AS `factura`, `t0`.`recibo` AS `recibo`, `t1`.`minsa` AS `minsa`, (select `t6`.`descripcion` from `tbl_imp_comentario` `t6` where (`t6`.`id_linea` = `t1`.`id`) order by `t6`.`id` desc limit 1) AS `Commentario`, `t1`.`TieneVenta` AS `TieneVenta` FROM (((((`tbl_imp_importacion` `t0` join `tbl_imp_importacion_detalle` `t1` on((`t0`.`id` = `t1`.`id_importacion`))) join `tbl_imp_product` `t2` on((`t1`.`id_product` = `t2`.`id`))) join `tbl_imp_estado_orden` `t3` on((`t1`.`Estado` = `t3`.`id`))) join `tbl_imp_vias` `t4` on((`t0`.`id_via` = `t4`.`id`))) join `tbl_imp_mercado` `t5` on((`t1`.`id_tipo_mecado` = `t5`.`id`))) WHERE (`t0`.`activo` = 'S') ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_master_importacion`  AS SELECT `t1`.`id` AS `id`, `t5`.`descripcion` AS `descripcion`, `t5`.`id` AS `id_mercado`, `t0`.`id_shipto` AS `id_shipto`, `t2`.`Articulo_exactus` AS `Articulo_exactus`, `t2`.`descripcion_corta` AS `descripcion_corta`, `t2`.`descripcion_larga` AS `descripcion_larga`, `t1`.`cantidad` AS `cantidad`, `t3`.`descripcion` AS `Estado`, `t0`.`fecha_orden_compra` AS `fecha_orden_compra`, '0' AS `DiasAcumulados`, `t0`.`fecha_despacho` AS `fecha_despacho`, `t0`.`fecha_estimada` AS `fecha_estimada`, `t4`.`Descripcion` AS `Via`, `t0`.`num_po` AS `num_po`, `t0`.`factura` AS `factura`, `t0`.`recibo` AS `recibo`, `t1`.`minsa` AS `minsa`, (select count(0) from `tbl_imp_comentario` `t6` where ((`t6`.`id_linea` = `t1`.`id`) and (`t6`.`activo` = 'S')) limit 1) AS `Commentario`, `t1`.`TieneVenta` AS `TieneVenta` FROM (((((`tbl_imp_importacion` `t0` join `tbl_imp_importacion_detalle` `t1` on((`t0`.`id` = `t1`.`id_importacion`))) join `tbl_imp_product` `t2` on((`t1`.`id_product` = `t2`.`id`))) join `tbl_imp_estado_orden` `t3` on((`t1`.`Estado` = `t3`.`id`))) join `tbl_imp_vias` `t4` on((`t0`.`id_via` = `t4`.`id`))) join `tbl_imp_mercado` `t5` on((`t1`.`id_tipo_mecado` = `t5`.`id`))) WHERE (`t0`.`activo` = 'S') ;
 
 -- --------------------------------------------------------
 

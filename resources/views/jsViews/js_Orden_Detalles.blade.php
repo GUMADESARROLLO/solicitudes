@@ -1,5 +1,4 @@
 <script type="text/javascript">
-    
     var vTableArticulos = $('#tbl_detalles_articulos_po').DataTable({
                         
                         "columnDefs": [
@@ -68,8 +67,9 @@
 
     var Selectors = {
         ADD_PRODUCT: '#mdl_add_product',
+        MODAL_COMMENT: '#IdmdlComment',
     };
-
+   
     $("#id_btn_add_product").click(function(){
     
         var mdl_add_product = document.querySelector(Selectors.ADD_PRODUCT);
@@ -133,6 +133,144 @@
             allowOutsideClick: () => !Swal.isLoading()
         });
     }
+
+    function AddComment(obj){
+        var addcomment_ = document.querySelector(Selectors.MODAL_COMMENT);
+        var mdl_comment = new window.bootstrap.Modal(addcomment_);
+        
+        var fecha_humana = moment(obj.created_at).format("D MMM, YYYY")
+        
+        $("#id_modal_name_item").text(obj.is_product.tipo.descripcion + ' : ' + obj.is_product.descripcion_corta)
+        $("#id_modal_articulo").text(obj.is_product.descripcion_larga)
+        $("#id_modal_nSoli").text(obj.id)
+        $("#id_modal_Fecha").text(fecha_humana)
+        
+        mdl_comment.show();
+        getComment(obj.id)
+
+    }
+
+    var intVal = function ( i ) {
+        return typeof i === 'string' ?
+        i.replace(/[^0-9.]/g, '')*1 :
+        typeof i === 'number' ?
+        i : 0;
+    };
+
+    $('#id_textarea_comment').keydown(function(event){
+        if (event.which == 13){
+
+            var id_Item = $("#id_modal_nSoli").text()
+            var value = $(this).val();
+
+            $.ajax({
+                url: "../AddCommentDetalles",
+                type: 'post',
+                data: {
+                    id_item     : id_Item,
+                    comment     : value,                    
+                    _token      : "{{ csrf_token() }}" 
+                },
+                async: true,
+                success: function(response) {
+                    getComment(id_Item)
+                },
+                error: function(response) {
+                   // Swal.fire("Oops", "No se ha podido guardar!", "error");
+                }
+            }).done(function(data) {
+                location.reload();
+            });
+        }
+    });
+    function DeleteComment(id_comment,id_Solicitud){
+        console.log(id_Solicitud)
+        Swal.fire({
+            title: '¿Estas Seguro de borrar el Comentario?',
+            text: "¡Esta acción no podrá ser revertida!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si!',
+            target:"",
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: "../DeleteCommentDetalle",
+                    type: 'post',
+                    data: {
+                        id      : id_comment,
+                        _token  : "{{ csrf_token() }}" 
+                    },
+                    async: true,
+                    success: function(response) {
+                        //Swal.fire("Exito!", "Guardado exitosamente", "success");
+                    },
+                    error: function(response) {
+                        //Swal.fire("Oops", "No se ha podido guardar!", "error");
+                    }
+                }).done(function(data) {
+                    getComment(id_Solicitud)
+                });
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        });
+    }
+    function getComment(Id){
+
+        var var_rol         = intVal($("#id_rol").text());      
+        var var_login_user  = intVal($("#id_login_user").text());      
+    
+        var items_comment = '';
+        $("#id_textarea_comment").val(items_comment)
+        $.ajax({
+            url: '../getCommentImportacion',
+            type: 'post',
+            data: {
+                id_item     : Id,                  
+                _token      : "{{ csrf_token() }}" 
+            }, 
+            async: false,
+            dataType: "json",
+            success: function(data){
+                $.each(data,function(key, c) {
+                    var var_borrar = ''
+
+                    if(var_rol==1){
+                        var_borrar = '<a href="#!" onClick="DeleteComment('+c.id_comment+' , '+c.id_linea+' )">Borrar</a> &bull; ' 
+                    }else{
+                        var_borrar = (c.id_usuario ===  var_login_user)? '<a href="#!" onClick="DeleteComment('+c.id_comment+' , '+c.id_linea+' )">Borrar</a> &bull; ' : ''
+
+                    }
+
+
+                    
+                    
+
+                    var date_comment = moment(c.created_at).format("D MMM, YYYY")
+                    items_comment += ' <div class="d-flex mt-3">'+
+                                            '<div class="avatar avatar-xl">'+
+                                                '<img class="rounded-circle" src="{{ asset("images/user/avatar-4.jpg") }}" alt="" />'+
+                                            '</div>'+
+                                            '<div class="flex-1 ms-2 fs--1">'+
+                                                '<p class="mb-1 bg-200 rounded-3 p-2">'+
+                                                '<a class="fw-semi-bold" href="!#">'+c.username+'</a> '+
+                                                ' '+c.comment+'  </p>'+
+                                                '<div class="px-2">'+
+                                                var_borrar+
+                                                date_comment+'</div>'+
+                                            '</div>'+
+                                        '</div>'
+                }); 	 
+            },
+            error: function(data) {
+                //alert('error');
+            }
+        }); 
+
+        $("#id_comment_item").html(items_comment)
+    }
     function Editar(Id){
         var mdl_add_product = document.querySelector(Selectors.ADD_PRODUCT);
         var mdl_product = new window.bootstrap.Modal(mdl_add_product);
@@ -152,9 +290,12 @@
                 async: true,
                 success: function(obj_producto) {
 
-                    $("#id_select_estado").val(obj_producto[0].Estado).change();
+                    $("#id_mercado").val(obj_producto[0].id_tipo_mecado).change();
+                    $("#id_tiene_venta").val(obj_producto[0].TieneVenta).change();
                     $("#id_select_producto").val(obj_producto[0].id_product).change();
                     $("#id_frm_cantidad").val(obj_producto[0].cantidad); 
+
+                    $("#id_select_estado").val(obj_producto[0].Estado).change();
 
                     $("#id_frm_precio_farma").val(isValue(obj_producto[0].precio_farmacia,0,true)); 
                     $("#id_frm_precio_public").val(isValue(obj_producto[0].precio_publico,0,true)); 
@@ -190,11 +331,79 @@
             }
         }
     }
+
+    function frmCambioDeEstado(nTitulo){
+
+        var SelectData      = [];
+        $.get( "../dtaSelect", function( data ) {
+            $.map(data[0].stdArticu,function(o) {
+                SelectData[o.id] = o.descripcion;
+            });
+
+            Swal.fire({
+                title: "Cambio de Estado",          
+                input: "select",
+                inputOptions: SelectData,
+                inputPlaceholder: 'N/D',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar',
+                target:"",
+                inputAttributes: {
+                    onkeypress: 'soloNumeros(event.keyCode, event, $(this).val())'
+                },
+                showLoaderOnConfirm: true,
+                preConfirm: (value) => {
+                    if (!value) {
+                        Swal.showValidationMessage("Debe Ingresar algo")
+                    } else {
+                        $.ajax({
+                            url: "../UpdateEstado",
+                            type: 'post',
+                            data:  {
+                                valor   : value,
+                                Id      : nTitulo,
+                                _token  : "{{ csrf_token() }}" 
+                            },
+                            async: true,
+                            success: function(response) {
+                                if(response.original){
+                                    Swal.fire({
+                                        title: 'Se agrego el producto',
+                                        icon: 'success',
+                                        showCancelButton: false,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'OK'
+                                        }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.reload();
+                                            }
+                                        })
+
+                                }
+                                
+                            },
+                            error: function(response) {
+                                Swal.fire("Oops", "No se ha podido guardar!", "error");
+                            }
+                        }).done(function(data) {
+                            //CargarDatos(nMes,annio);
+                        });
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            });
+        });        
+    }
+
     function frmSweetAlert(nTitulo){
+
 
         let idPO            = $("#id_lbl_po").text()
 
-        let lblTitulos      = ["Nº de Factura", "Nº de Recibo","Via","Status","Estado de pago",'Carga','Fecha Despacho','Fecha Estimada','Fecha Factura', 'Fecha Orden Compra']
+        let lblTitulos      = ["Nº de Factura", "Nº de Recibo","Via","Status","Estado de pago",'Carga','Fecha Despacho','Fecha Estimada','Fecha Factura', 'Fecha Orden Compra','Cambio de Estado']
         let lblVia          = ['Tierra', 'Mar' , 'Aire']
 
         var sData           = {}
@@ -203,7 +412,7 @@
 
         
 
-        var SelectData      = [[],[],[],['Estatus01','Estatus02','Estatus03'],[],[]];
+        var SelectData      = [[],[],[],['Estatus01','Estatus02','Estatus03'],[],[],[]];
         $.get( "../dtaSelect", function( data ) {
             
     
@@ -215,6 +424,9 @@
             });
             $.map(data[0].TipoCarga,function(o) {
                 SelectData[5][o.id] = o.Descripcion;
+            });
+            $.map(data[0].stdArticu,function(o) {
+                SelectData[6][o.id] = o.descripcion;
             });
 
             Swal.fire({
@@ -248,12 +460,7 @@
                 allowOutsideClick: () => !Swal.isLoading()
             });
         
-        });
-
-        console.log(SelectData)
-
-        
-        
+        });        
 
     }
 
@@ -345,6 +552,9 @@
 
         var ttModal             = (modl_states=='0')? 'Add' : 'Edit'
 
+        var id_mercado          = $("#id_mercado option:selected").val();   
+        var id_tiene_venta      = $("#id_tiene_venta option:selected").val();   
+
         descrip_corta           = isValue(id_code,'N/D',true)
         frm_Cantidad            = isValue(frm_Cantidad,0,true)
 
@@ -382,6 +592,8 @@
                     isChkRegen      : isChkRegen,
                     isChkMinsa      : isChkMinsa,
                     number_linea    : number_linea,
+                    id_mercado      : id_mercado,
+                    id_tiene_venta  : id_tiene_venta,
                     _token  : "{{ csrf_token() }}" 
                 },
                 async: true,

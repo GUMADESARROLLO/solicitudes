@@ -68,43 +68,49 @@
                         fecha_orden_compra:uPrivado.fecha_orden_compra,
                         fecha_despacho:uPrivado.fecha_despacho,
                         fecha_estimada:uPrivado.fecha_estimada,
-                        DiasAcumulados:uPrivado.DiasAcumulados
+                        DiasAcumulados:uPrivado.DiasAcumulados,
+                        Commentario:uPrivado.Commentario,
+                        TieneVenta:uPrivado.TieneVenta,
+                        descripcion:uPrivado.descripcion,
                         
                         
                     })
 
                 })
                 tbl_Header_uPrivado =  [                
-                {"title": "C003","data": "PO", "render": function(data, type, row, meta) {
+                {"title": "INFO. PRODUCTO","data": "PO", "render": function(data, type, row, meta) {
+
+                    console.log(row.TieneVenta)
+                    var tnVenta = (row.TieneVenta!=0)? '<span class="badge rounded-pill ms-3 badge-soft-success "><span class="fas fas fa-dollar-sign"></span> Tiene Venta</span>' : ''
+                
+
                 return  ` <td class="align-middle">
-                        <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
-                            <div class="flex-1 ms-3">
+                    <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
+                        <div class="flex-1 ms-3">
+                        
+                        <div class="d-flex align-items-center">
+                            <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.num_po +`"> P.O <strong>`+ row.num_po +`</strong></a> : `+ row.descripcion_corta +`</h6>
+                            <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> Status. `+ row.Estado +`</span>
+                            `+ tnVenta +`
                             
-                            <div class="d-flex align-items-center">
                             
-                                <h6 class="mb-1 fw-semi-bold text-nowrap"> <strong>`+ row.descripcion_corta +`</strong> </h6>
-                                
-                                <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> `+ row.Estado +`</span>
-                                
-                            </div>
-                            <p class="fw-semi-bold mb-0 text-500">`+ row.descripcion_larga +`</p>   
-                            
-                            <div class="row g-0 fw-semi-bold text-center py-2 fs--1"> 
-                                <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!"><span class="ms-1 fas fa-comment text-primary" ></span><span class="ms-1">Factura.  `+ row.factura +`</span></a></div>
-                                <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" ><span class="ms-1 fas fa-comment text-primary"  ></span><span class="ms-1">Comentarios (1)</span></a></div>
-                                <div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" ><span class="ms-1 fas fa-trash text-primary" data-fa-transform="shrink-2" ></span><span class="ms-1">Recibo. `+ row.recibo +`</span></a></div>
-                                <span class="ms-1 fas fa-file-invoice-dollar text-success fs-1 ms-3 " ></span> 
-                            </div>
-                            </div>
                         </div>
-                        </td> `
-                }},
-                {"title": "Nº PO","data": "Fecha" , "render":function(data, type, row, meta) {
-                return '<td class="date py-2 align-middle">'+ row.num_po +'</td>'
-                }},    
-                {"title": "CANTIDAD","data": "Fecha" , "render":function(data, type, row, meta) {
-                return '<td class="date py-2 align-middle">'+ row.cantidad +'</td>'
-                }},                                    
+                        <p class="fw-semi-bold mb-0 text-500">[ `+ row.Articulo_exactus +` ] `+ row.descripcion_larga +`</p>   
+                        
+                        <div class="row g-0 fw-semi-bold text-center py-2 fs--1"> 
+                                <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!"><span class="ms-1 fas fa-boxes text-primary" ></span><span class="ms-1"> `+ row.cantidad +` CJA</span></a></div>
+                                <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" ><span class="ms-1 fas fas fa-building text-primary"  ></span><span class="ms-1">LB. N/D</span></a></div>
+                                <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" ><span class="ms-1 far fas fa-address-card text-primary"  ></span><span class="ms-1">PROVE. N/D</span></a></div>
+                                <div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="AddComment(`+ row.id +`)"><span class="ms-1 fas fa-comment text-primary" data-fa-transform="shrink-2" ></span><span class="ms-1"> `+ row.Commentario +` </span></a></div>
+                                
+                        </div>
+                        </div>
+                    </div>
+                </td> `
+                }},  
+                {"title": "VIA DE TRANSITO","data": "Tipo de Carga", "render": function(data, type, row, meta) {
+                return '<td class="date py-2 align-middle"><span class="badge rounded-pill badge-soft-info"><span class="fas fa-check"></span> '+ row.Via +'</span></td>'
+                }},                                  
                 {"title": "FECHA ORDEN COMPRA","data": "VIA" , "render":function(data, type, row, meta) {
                 return '<td class="date py-2 align-middle">'+ row.fecha_orden_compra +'</td>'
                 }},
@@ -117,9 +123,6 @@
                 {"title": "DIAS TRANSCURRIDOS DESDE DESPACHO","data": "Tipo de Carga", "render": function(data, type, row, meta) {
                 return '<td class="date py-2 align-middle">'+ row.DiasAcumulados +'</td>'
                 }},
-                {"title": "VIA DE TRANSITO","data": "Tipo de Carga", "render": function(data, type, row, meta) {
-                return '<td class="date py-2 align-middle">'+ row.Via +'</td>'
-                }},
                 ]
                 table_render('#tbl_unimark_privado',dt_table_uPrivado,tbl_Header_uPrivado,false )
 
@@ -127,156 +130,80 @@
 
                     dt_table_uMinsa.push({ 
                         id                      :  uMinsa.id,
+                        num_po                      :  uMinsa.num_po,
+                        Via                      :  uMinsa.Via,
                         Articulo_exactus        :  uMinsa.Articulo_exactus,
                         descripcion_corta       :  uMinsa.descripcion_corta,
                         descripcion_larga       :  uMinsa.descripcion_larga,
                         cantidad                :  uMinsa.cantidad,
+                        Estado                  :  uMinsa.Estado,
+                        factura                  :  uMinsa.factura,
+                        recibo                  :  uMinsa.recibo,
+                        fecha_orden_compra:uMinsa.fecha_orden_compra,
+                        fecha_despacho:uMinsa.fecha_despacho,
+                        fecha_estimada:uMinsa.fecha_estimada,
+                        DiasAcumulados:uMinsa.DiasAcumulados,
+                        Commentario:uMinsa.Commentario,
+                        TieneVenta:uMinsa.TieneVenta,                        
+                        descripcion:uMinsa.descripcion,
                     })
 
                 })
-                tbl_Header_uMinsa =  [                
-                    {"title": "C003","data": "PO", "render": function(data, type, row, meta) {
-                        return  ` <td class="align-middle">
-                                    <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
-                                        <div class="flex-1 ms-3">
-                                        
-                                        <div class="d-flex align-items-center">
-                                            <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.id +`"> P.O <strong>`+ row.id +`</strong></a> : `+ row.id +`</h6>
-                                            <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> `+ row.id +`</span>
-                                        </div>
-                                        <p class="fw-semi-bold mb-0 text-500">`+ row.id +`</p>                            
-                                        <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
-                                        <div class="col-auto">
-                                            <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" > 
-                                                <span class="ms-1">Fact. `+ row.id +`</span>
-                                            </a>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center">
-                                            <span class="ms-1">Rec. `+ row.id +` </span>
-                                        </div>
-                                        </div> 
-                                        </div>
-                                    </div>
-                                    </td> `
-                    }},
-                    {"title": "C001","data": "Fecha" , "render":function(data, type, row, meta) {
-                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
-                    }},                                        
-                    {"title": "C002","data": "VIA" , "render":function(data, type, row, meta) {
-                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
-                    }},
-                    {"title": "C003","data": "Tipo de Carga", "render": function(data, type, row, meta) {
-                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
-                    }},
-                ]
-                table_render('#tbl_unimark_minsa',dt_table_uMinsa,tbl_Header_uMinsa,false )
-
-
-                
-
-
-
-
-
-
+                table_render('#tbl_unimark_minsa',dt_table_uMinsa,tbl_Header_uPrivado,false )
 
 
                 $.each(Ordenes.original.GUMA_PRIVADO,function(key, uPrivado) {
 
                         dt_table_guma_privado.push({ 
                             id                      :  uPrivado.id,
+                            num_po                      :  uPrivado.num_po,
+                            Via                      :  uPrivado.Via,
                             Articulo_exactus        :  uPrivado.Articulo_exactus,
                             descripcion_corta       :  uPrivado.descripcion_corta,
                             descripcion_larga       :  uPrivado.descripcion_larga,
                             cantidad                :  uPrivado.cantidad,
+                            Estado                  :  uPrivado.Estado,
+                            factura                  :  uPrivado.factura,
+                            recibo                  :  uPrivado.recibo,
+                            fecha_orden_compra:uPrivado.fecha_orden_compra,
+                            fecha_despacho:uPrivado.fecha_despacho,
+                            fecha_estimada:uPrivado.fecha_estimada,
+                            DiasAcumulados:uPrivado.DiasAcumulados,
+                            Commentario:uPrivado.Commentario,
+                            TieneVenta:uPrivado.TieneVenta,
+                            descripcion:uPrivado.descripcion,
                         })
 
                 })
-                tbl_Header_guma_Privado =  [                
-                {"title": "C003","data": "PO", "render": function(data, type, row, meta) {
-                    return  ` <td class="align-middle">
-                                <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
-                                    <div class="flex-1 ms-3">
-                                    
-                                    <div class="d-flex align-items-center">
-                                        <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.id +`"> P.O <strong>`+ row.id +`</strong></a> : `+ row.id +`</h6>
-                                        <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> `+ row.id +`</span>
-                                    </div>
-                                    <p class="fw-semi-bold mb-0 text-500">`+ row.id +`</p>                            
-                                    <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
-                                    <div class="col-auto">
-                                        <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" > 
-                                            <span class="ms-1">Fact. `+ row.id +`</span>
-                                        </a>
-                                    </div>
-                                    <div class="col-auto d-flex align-items-center">
-                                        <span class="ms-1">Rec. `+ row.id +` </span>
-                                    </div>
-                                    </div> 
-                                    </div>
-                                </div>
-                                </td> `
-                    }},
-                    {"title": "C001","data": "Fecha" , "render":function(data, type, row, meta) {
-                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
-                    }},                                        
-                    {"title": "C002","data": "VIA" , "render":function(data, type, row, meta) {
-                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
-                    }},
-                    {"title": "C003","data": "Tipo de Carga", "render": function(data, type, row, meta) {
-                        return '<td class="date py-2 align-middle">'+ row.id +'</td>'
-                    }},
-                    ]
-                    table_render('#tbl_guma_privado',dt_table_guma_privado,tbl_Header_guma_Privado,false )
+                
+                table_render('#tbl_guma_privado',dt_table_guma_privado,tbl_Header_uPrivado,false )
 
 
 
-                    $.each(Ordenes.original.GUMA_MINSA,function(key, uPrivado) {
+                $.each(Ordenes.original.GUMA_MINSA,function(key, uPrivado) {
 
-                        dt_table_guma_minsa.push({ 
-                            id                      :  uPrivado.id,
-                            Articulo_exactus        :  uPrivado.Articulo_exactus,
-                            descripcion_corta       :  uPrivado.descripcion_corta,
-                            descripcion_larga       :  uPrivado.descripcion_larga,
-                            cantidad                :  uPrivado.cantidad,
-                        })
+                    dt_table_guma_minsa.push({ 
+                        id                      :  uPrivado.id,
+                        num_po                      :  uPrivado.num_po,
+                        Via                      :  uPrivado.Via,
+                        Articulo_exactus        :  uPrivado.Articulo_exactus,
+                        descripcion_corta       :  uPrivado.descripcion_corta,
+                        descripcion_larga       :  uPrivado.descripcion_larga,
+                        cantidad                :  uPrivado.cantidad,
+                        Estado                  :  uPrivado.Estado,
+                        factura                  :  uPrivado.factura,
+                        recibo                  :  uPrivado.recibo,
+                        fecha_orden_compra:uPrivado.fecha_orden_compra,
+                        fecha_despacho:uPrivado.fecha_despacho,
+                        fecha_estimada:uPrivado.fecha_estimada,
+                        DiasAcumulados:uPrivado.DiasAcumulados,
+                        Commentario:uPrivado.Commentario,
+                        TieneVenta:uPrivado.TieneVenta,
+                        descripcion:uPrivado.descripcion,
                     })
-                    tbl_Header_guma_minsa =  [                
-                    {"title": "C003","data": "PO", "render": function(data, type, row, meta) {
-                    return  ` <td class="align-middle">
-                            <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
-                                <div class="flex-1 ms-3">
-                                
-                                <div class="d-flex align-items-center">
-                                    <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.id +`"> P.O <strong>`+ row.id +`</strong></a> : `+ row.id +`</h6>
-                                    <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> `+ row.id +`</span>
-                                </div>
-                                <p class="fw-semi-bold mb-0 text-500">`+ row.id +`</p>                            
-                                <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
-                                <div class="col-auto">
-                                    <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" > 
-                                        <span class="ms-1">Fact. `+ row.id +`</span>
-                                    </a>
-                                </div>
-                                <div class="col-auto d-flex align-items-center">
-                                    <span class="ms-1">Rec. `+ row.id +` </span>
-                                </div>
-                                </div> 
-                                </div>
-                            </div>
-                            </td> `
-                    }},
-                    {"title": "C001","data": "Fecha" , "render":function(data, type, row, meta) {
-                    return '<td class="date py-2 align-middle">'+ row.id +'</td>'
-                    }},                                        
-                    {"title": "C002","data": "VIA" , "render":function(data, type, row, meta) {
-                    return '<td class="date py-2 align-middle">'+ row.id +'</td>'
-                    }},
-                    {"title": "C003","data": "Tipo de Carga", "render": function(data, type, row, meta) {
-                    return '<td class="date py-2 align-middle">'+ row.id +'</td>'
-                    }},
-                    ]
-                    table_render('#tbl_guma_minsa',dt_table_guma_minsa,tbl_Header_guma_minsa,false )    
+                })
+                    
+                table_render('#tbl_guma_minsa',dt_table_guma_minsa,tbl_Header_uPrivado,false )    
 
 
 
@@ -389,7 +316,51 @@
         });
 
     }
+    function AddComment(id){
+        var addcomment_ = document.querySelector(Selectors.MODAL_COMMENT);
+        var mdl_comment = new window.bootstrap.Modal(addcomment_);
 
+        $("#id_modal_name_item").text("Comentarios del Producto")
+        getComment(id)
+        mdl_comment.show();
+
+    }
+    function getComment(Id){
+        var items_comment = '';
+        $("#id_textarea_comment").val(items_comment)
+        $.ajax({
+            url: 'getCommentImportacion',
+            type: 'post',
+            data: {
+                id_item     : Id,                  
+                _token      : "{{ csrf_token() }}" 
+            }, 
+            async: false,
+            dataType: "json",
+            success: function(data){
+                $.each(data,function(key, c) {
+                    var date_comment = moment(c.created_at).format("D MMM, YYYY")
+                    items_comment += ' <div class="d-flex">'+
+                                            '<div class="avatar avatar-xl">'+
+                                                '<img class="rounded-circle" src="{{ asset("images/user/avatar-4.jpg") }}" alt="" />'+
+                                            '</div>'+
+                                            '<div class="flex-1 ms-2 fs--1">'+
+                                                '<p class="mb-1 bg-200 rounded-3 p-2">'+
+                                                '<a class="fw-semi-bold" href="!#">'+c.username+'</a> '+
+                                                ' '+c.comment+'  </p>'+
+                                                '<div class="px-2">'+
+                                                date_comment+'</div>'+
+                                            '</div>'+
+                                        '</div>'
+                }); 	 
+            },
+            error: function(data) {
+                //alert('error');
+            }
+        }); 
+
+        $("#id_comment_item").html(items_comment)
+    }
     function table_render(Table,datos,Header,Filter){
 
         $(Table).DataTable({
@@ -439,6 +410,7 @@
 $('#id_range_select').val(labelRange);
     var Selectors = {
         TABLE_SETTING: '#tbl_setting',
+        MODAL_COMMENT: '#IdmdlComment',
     };
     $("#id_btn_new_po").click(function(){
     

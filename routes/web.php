@@ -146,7 +146,7 @@ Route::post('getInfoLinea', 'ImportacionController@getInfoLinea')->name('getInfo
 Route::post('delInfoLinea', 'ImportacionController@delInfoLinea')->name('delInfoLinea');
 Route::post('/UpdateImportacion', 'ImportacionController@UpdateImportacion')->name('UpdateImportacion');
 Route::get('/dtaSelect', 'ImportacionController@dtaSelect')->name('dtaSelect');
-
-Route::get('/token', function () {
-    return csrf_token(); 
-});
+Route::post('getCommentImportacion', 'ImportacionController@getCommentImportacion')->name('getCommentImportacion');
+Route::post('AddCommentDetalles', 'ImportacionController@AddComment')->name('AddCommentDetalles');
+Route::post('DeleteCommentDetalle', 'ImportacionController@DeleteCommentDetalle')->name('DeleteCommentDetalle');
+Route::post('/UpdateEstado', 'ImportacionController@UpdateEstado')->name('UpdateEstado');
