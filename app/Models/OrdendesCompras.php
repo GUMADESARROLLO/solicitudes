@@ -140,7 +140,15 @@ class OrdendesCompras extends Model {
 
                 $Ordenes = OrdendesCompras::where('activo', 'S')->whereBetween('created_at', [$start, $end])->get();
 
-                $Detalle = OrdenesCompraRpt::all();
+                $Detalle = OrdenesCompraRpt::whereBetween('created_at', [$start, $end])->get();
+                
+
+
+                $UnidadDeMedida = UNIDAD_DE_MEDIDA::getUnidadDeMedida()->toArray();
+                $Proveedor      = PROVEEDOR::getProveedor()->toArray();
+                $Laboratorio    = LABORATORIO::getLaboratorio()->toArray();
+                //$MasterArtic    = Articulos_master::getArticulos()->toArray();
+                
 
                 $i = 0;
                 foreach($Ordenes as $o){
@@ -170,10 +178,34 @@ class OrdendesCompras extends Model {
                 $i = 0;
                 foreach($Detalle as $d){
 
+                    $und ='N/D';
+                    $Lab ='N/D';
+                    $pro ='N/D';
+                    
+                    if (!is_null($d->Clasificacion_1)) {
+                        $und = array_search($d->Clasificacion_1, array_column($UnidadDeMedida, 'UNIDAD_MEDIDA'));                        
+                        $und = $UnidadDeMedida[$und]['UNIDAD_MEDIDA'];
+                    }
+
+                    if (!is_null($d->Clasificacion_2)) {                        
+                        $Lab = array_search($d->Clasificacion_2, array_column($Laboratorio, 'CLASIFICACION'));                        
+                        $Lab = $Laboratorio[$Lab]['DESCRIPCION'];
+                    }
+                    if (!is_null($d->Clasificacion_3)) {
+                        $pro = array_search($d->Clasificacion_3, array_column($Proveedor, 'PROVEEDOR'));                        
+                        $pro = $Proveedor[$pro]['NOMBRE'];
+                    }
+                    
+                    //TODO: RECUPERAR LA INFORMACION AHORA DESDE EL MASTER DE ARTICULO
+
+                    
+
+
                     //TRANSITO UNIMARK (PRIVADO)
                     if($d->id_shipto ==3 && $d->id_mercado ==2)
                     {
                         $response['UMK_PRIVADO'][$i]['id']                     =  $d->id;
+                        $response['UMK_PRIVADO'][$i]['id_po']                  =  $d->id_po;
                         $response['UMK_PRIVADO'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
                         $response['UMK_PRIVADO'][$i]['descripcion_corta']      =  $d->descripcion_corta;
                         $response['UMK_PRIVADO'][$i]['descripcion_larga']      =  $d->descripcion_larga;
@@ -194,6 +226,12 @@ class OrdendesCompras extends Model {
                         $response['UMK_PRIVADO'][$i]['Commentario']            =  $d->Commentario;
                         $response['UMK_PRIVADO'][$i]['TieneVenta']             =  $d->TieneVenta;
 
+                        $response['UMK_PRIVADO'][$i]['UND']             =  $und;
+                        $response['UMK_PRIVADO'][$i]['LAB']             =  $Lab;
+                        $response['UMK_PRIVADO'][$i]['PRO']             =  $pro;
+
+
+
                     }
 
                      //TRANSITO UNIMARK (MINSA)
@@ -201,6 +239,7 @@ class OrdendesCompras extends Model {
                     {
 
                         $response['UMK_MINSA'][$i]['id']                     =  $d->id;
+                        $response['UMK_MINSA'][$i]['id_po']                  =  $d->id_po;
                         $response['UMK_MINSA'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
                         $response['UMK_MINSA'][$i]['descripcion_corta']      =  $d->descripcion_corta;
                         $response['UMK_MINSA'][$i]['descripcion_larga']      =  $d->descripcion_larga;
@@ -221,6 +260,10 @@ class OrdendesCompras extends Model {
                         $response['UMK_MINSA'][$i]['Commentario']            =  $d->Commentario;
                         $response['UMK_MINSA'][$i]['TieneVenta']             =  $d->TieneVenta;
 
+                        $response['UMK_MINSA'][$i]['UND']             =  $und;
+                        $response['UMK_MINSA'][$i]['LAB']             =  $Lab;
+                        $response['UMK_MINSA'][$i]['PRO']             =  $pro;
+
                     }
 
                      //TRANSITO GUMA (PRIVADO)
@@ -228,6 +271,7 @@ class OrdendesCompras extends Model {
                     {
 
                         $response['GUMA_PRIVADO'][$i]['id']                     =  $d->id;
+                        $response['GUMA_PRIVADO'][$i]['id_po']                  =  $d->id_po;
                         $response['GUMA_PRIVADO'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
                         $response['GUMA_PRIVADO'][$i]['descripcion_corta']      =  $d->descripcion_corta;
                         $response['GUMA_PRIVADO'][$i]['descripcion_larga']      =  $d->descripcion_larga;
@@ -248,6 +292,10 @@ class OrdendesCompras extends Model {
                         $response['GUMA_PRIVADO'][$i]['Commentario']            =  $d->Commentario;
                         $response['GUMA_PRIVADO'][$i]['TieneVenta']             =  $d->TieneVenta;
 
+                        $response['GUMA_PRIVADO'][$i]['UND']             =  $und;
+                        $response['GUMA_PRIVADO'][$i]['LAB']             =  $Lab;
+                        $response['GUMA_PRIVADO'][$i]['PRO']             =  $pro;
+
                     }
 
                      //TRANSITO GUMA (MINSA)
@@ -255,6 +303,7 @@ class OrdendesCompras extends Model {
                     {
 
                         $response['GUMA_MINSA'][$i]['id']                     =  $d->id;
+                        $response['GUMA_MINSA'][$i]['id_po']                  =  $d->id_po;
                         $response['GUMA_MINSA'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
                         $response['GUMA_MINSA'][$i]['descripcion_corta']      =  $d->descripcion_corta;
                         $response['GUMA_MINSA'][$i]['descripcion_larga']      =  $d->descripcion_larga;                        
@@ -274,6 +323,10 @@ class OrdendesCompras extends Model {
                         $response['GUMA_MINSA'][$i]['minsa']                  =  $d->minsa;
                         $response['GUMA_MINSA'][$i]['Commentario']            =  $d->Commentario;
                         $response['GUMA_MINSA'][$i]['TieneVenta']             =  $d->TieneVenta;
+
+                        $response['GUMA_MINSA'][$i]['UND']             =  $und;
+                        $response['GUMA_MINSA'][$i]['LAB']             =  $Lab;
+                        $response['GUMA_MINSA'][$i]['PRO']             =  $pro;
 
                     }
                     

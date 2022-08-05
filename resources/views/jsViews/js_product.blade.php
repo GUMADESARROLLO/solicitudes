@@ -54,6 +54,12 @@
         var produc_type     = $("#id_tipo option:selected").val();  
         var modl_states     = $("#id_modal_state").text();  
 
+
+        var cod_unidad      = $("#id_unidad_almacen option:selected").val();   
+        var cod_labora      = $("#id_laboratorio option:selected").val();   
+        var cod_provee      = $("#id_proveedor option:selected").val();   
+        
+
         var ttModal = (modl_states=='0')? 'Creado.' : 'Actualizado.'
 
         descrip_corta   = isValue(descrip_corta,'N/D',true)
@@ -73,6 +79,9 @@
                     descrip_larga   : descrip_larga,
                     produc_type     : produc_type,
                     idProducto      : modl_states,
+                    cod_unidad      : cod_unidad,
+                    cod_labora      : cod_labora,
+                    cod_provee      : cod_provee,
                     _token  : "{{ csrf_token() }}" 
                 },
                 async: true,
@@ -119,6 +128,10 @@
                     $("#id_nombre_largo").val(obj_producto[0].descripcion_larga);
                     $("#id_articulo").val(obj_producto[0].Articulo_exactus).change();;   
                     $("#id_tipo").val(obj_producto[0].id_type_product).change();
+
+                    $("#id_unidad_almacen").val(obj_producto[0].Clasificacion_1).change();
+                    $("#id_laboratorio").val(obj_producto[0].Clasificacion_2).change();
+                    $("#id_proveedor").val(obj_producto[0].Clasificacion_3).change();
                 },
                 error: function(response) {
                 }
