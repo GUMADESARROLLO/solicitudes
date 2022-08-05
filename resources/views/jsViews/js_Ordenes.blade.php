@@ -16,7 +16,13 @@
     });
     $("#tbl_ordenes_compra_length").hide();
     $("#tbl_ordenes_compra_filter").hide();
-
+    
+    $('#id_range_select').change(function () {
+    Fechas = $(this).val().split("to");
+    if(Object.keys(Fechas).length >= 2 ){
+        RangeStat(Fechas[0],Fechas[1]);
+    } 
+});
 
     function RangeStat(Start,Ends){
         Start = $.trim(Start)
@@ -56,6 +62,7 @@
 
                     dt_table_uPrivado.push({ 
                         id                      :  uPrivado.id,
+                        id_po                      :  uPrivado.id_po,
                         num_po                      :  uPrivado.num_po,
                         Via                      :  uPrivado.Via,
                         Articulo_exactus        :  uPrivado.Articulo_exactus,
@@ -72,6 +79,10 @@
                         Commentario:uPrivado.Commentario,
                         TieneVenta:uPrivado.TieneVenta,
                         descripcion:uPrivado.descripcion,
+
+                        UND:uPrivado.UND,
+                        LAB:uPrivado.LAB,
+                        PRO:uPrivado.PRO,
                         
                         
                     })
@@ -80,7 +91,6 @@
                 tbl_Header_uPrivado =  [                
                 {"title": "INFO. PRODUCTO","data": "PO", "render": function(data, type, row, meta) {
 
-                    console.log(row.TieneVenta)
                     var tnVenta = (row.TieneVenta!=0)? '<span class="badge rounded-pill ms-3 badge-soft-success "><span class="fas fas fa-dollar-sign"></span> Tiene Venta</span>' : ''
                 
 
@@ -89,7 +99,7 @@
                         <div class="flex-1 ms-3">
                         
                         <div class="d-flex align-items-center">
-                            <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.num_po +`"> P.O <strong>`+ row.num_po +`</strong></a> : `+ row.descripcion_corta +`</h6>
+                            <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.id_po +`"> P.O <strong>`+ row.num_po +`</strong></a> : `+ row.descripcion_corta +`</h6>
                             <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> Status. `+ row.Estado +`</span>
                             `+ tnVenta +`
                             
@@ -98,9 +108,7 @@
                         <p class="fw-semi-bold mb-0 text-500">[ `+ row.Articulo_exactus +` ] `+ row.descripcion_larga +`</p>   
                         
                         <div class="row g-0 fw-semi-bold text-center py-2 fs--1"> 
-                                <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!"><span class="ms-1 fas fa-boxes text-primary" ></span><span class="ms-1"> `+ row.cantidad +` CJA</span></a></div>
-                                <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" ><span class="ms-1 fas fas fa-building text-primary"  ></span><span class="ms-1">LB. N/D</span></a></div>
-                                <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" ><span class="ms-1 far fas fa-address-card text-primary"  ></span><span class="ms-1">PROVE. N/D</span></a></div>
+                                <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!"><span class="ms-1 fas fa-boxes text-primary" ></span><span class="ms-1"> `+ row.cantidad +` `+ row.UND +`</span></a></div>
                                 <div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="AddComment(`+ row.id +`)"><span class="ms-1 fas fa-comment text-primary" data-fa-transform="shrink-2" ></span><span class="ms-1"> `+ row.Commentario +` </span></a></div>
                                 
                         </div>
@@ -110,6 +118,12 @@
                 }},  
                 {"title": "VIA DE TRANSITO","data": "Tipo de Carga", "render": function(data, type, row, meta) {
                 return '<td class="date py-2 align-middle"><span class="badge rounded-pill badge-soft-info"><span class="fas fa-check"></span> '+ row.Via +'</span></td>'
+                }},
+                {"title": "LABORATORIO","data": "VIA" , "render":function(data, type, row, meta) {
+                return '<td class="date py-2 align-middle">'+ row.LAB +'</td>'
+                }},
+                {"title": "PROVEEDOR","data": "VIA" , "render":function(data, type, row, meta) {
+                return '<td class="date py-2 align-middle">'+ row.PRO +'</td>'
                 }},                                  
                 {"title": "FECHA ORDEN COMPRA","data": "VIA" , "render":function(data, type, row, meta) {
                 return '<td class="date py-2 align-middle">'+ row.fecha_orden_compra +'</td>'
@@ -124,12 +138,13 @@
                 return '<td class="date py-2 align-middle">'+ row.DiasAcumulados +'</td>'
                 }},
                 ]
-                table_render('#tbl_unimark_privado',dt_table_uPrivado,tbl_Header_uPrivado,false )
+                table_render('#tbl_unimark_privado',dt_table_uPrivado,tbl_Header_uPrivado,true )
 
                 $.each(Ordenes.original.UMK_MINSA,function(key, uMinsa) {
 
                     dt_table_uMinsa.push({ 
                         id                      :  uMinsa.id,
+                        id_po                      :  uMinsa.id_po,
                         num_po                      :  uMinsa.num_po,
                         Via                      :  uMinsa.Via,
                         Articulo_exactus        :  uMinsa.Articulo_exactus,
@@ -146,16 +161,23 @@
                         Commentario:uMinsa.Commentario,
                         TieneVenta:uMinsa.TieneVenta,                        
                         descripcion:uMinsa.descripcion,
+
+                        UND:uMinsa.UND,
+                        LAB:uMinsa.LAB,
+                        PRO:uMinsa.PRO,
+
+                        
                     })
 
                 })
-                table_render('#tbl_unimark_minsa',dt_table_uMinsa,tbl_Header_uPrivado,false )
+                table_render('#tbl_unimark_minsa',dt_table_uMinsa,tbl_Header_uPrivado,true )
 
 
                 $.each(Ordenes.original.GUMA_PRIVADO,function(key, uPrivado) {
 
                         dt_table_guma_privado.push({ 
                             id                      :  uPrivado.id,
+                            id_po                      :  uPrivado.id_po,
                             num_po                      :  uPrivado.num_po,
                             Via                      :  uPrivado.Via,
                             Articulo_exactus        :  uPrivado.Articulo_exactus,
@@ -172,11 +194,15 @@
                             Commentario:uPrivado.Commentario,
                             TieneVenta:uPrivado.TieneVenta,
                             descripcion:uPrivado.descripcion,
+
+                            UND:uPrivado.UND,
+                            LAB:uPrivado.LAB,
+                            PRO:uPrivado.PRO,
                         })
 
                 })
                 
-                table_render('#tbl_guma_privado',dt_table_guma_privado,tbl_Header_uPrivado,false )
+                table_render('#tbl_guma_privado',dt_table_guma_privado,tbl_Header_uPrivado,true )
 
 
 
@@ -184,6 +210,7 @@
 
                     dt_table_guma_minsa.push({ 
                         id                      :  uPrivado.id,
+                        id_po                      :  uPrivado.id_po,
                         num_po                      :  uPrivado.num_po,
                         Via                      :  uPrivado.Via,
                         Articulo_exactus        :  uPrivado.Articulo_exactus,
@@ -200,10 +227,13 @@
                         Commentario:uPrivado.Commentario,
                         TieneVenta:uPrivado.TieneVenta,
                         descripcion:uPrivado.descripcion,
+                        UND:uPrivado.UND,
+                        LAB:uPrivado.LAB,
+                        PRO:uPrivado.PRO,
                     })
                 })
                     
-                table_render('#tbl_guma_minsa',dt_table_guma_minsa,tbl_Header_uPrivado,false )    
+                table_render('#tbl_guma_minsa',dt_table_guma_minsa,tbl_Header_uPrivado,true )    
 
 
 
@@ -401,10 +431,10 @@
                 } 
             }
             });
-        if(!Filter){
-            $(Table+"_length").hide();
+        if(!Filter){            
             $(Table+"_filter").hide();
         }
+        $(Table+"_length").hide();
 
     }
 $('#id_range_select').val(labelRange);
@@ -419,6 +449,18 @@ $('#id_range_select').val(labelRange);
         modal.show();
 
     });
+
+    $("#id_btn_new").click(function(){
+    
+        var TABLE_SETTING = document.querySelector(Selectors.TABLE_SETTING);
+        var modal = new window.bootstrap.Modal(TABLE_SETTING);
+        modal.show();
+
+    });
+
+    
+
+    
 
     $("#id_send_frm_new_po").click(function(){
 

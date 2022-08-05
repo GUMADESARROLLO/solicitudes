@@ -10,7 +10,7 @@
 <main class="main" id="top">
     <div class="container-fluid" data-layout="container">
         <div class="content">
-            @include('layouts.nav_gumadesk')
+            @include('layouts.nav_importacion')
             <div class="card mb-3" id="customersTable" data-list='{"valueNames":["name","email","phone","address","joined"],"page":10,"pagination":true}'>
                 <div class="card-header">
                 <div class="row flex-between-center">
@@ -49,8 +49,8 @@
                         <td class="align-middle">
                         <div class="address d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
                             <div class="flex-1 ms-3">
-                            <h6 class="mb-1 fw-semi-bold text-nowrap"><strong>{{ strtoupper($producto->Tipo->descripcion) }} </strong> : {{ strtoupper($producto['descripcion_corta']) }}</h6>
-                            <p class="fw-semi-bold mb-0 text-500">{{ strtoupper($producto['descripcion_larga']) }}</p>                            
+                            <h6 class="mb-1 fw-semi-bold text-nowrap"><strong>{{ strtoupper($producto->Tipo->descripcion) }} </strong> : {{ strtoupper($producto->descripcion_corta) }} : {{ strtoupper($producto->Clasificacion_1) }}</h6>
+                            <p class="fw-semi-bold mb-0 text-500">{{ strtoupper($producto->descripcion_larga) }}</p>                            
                             <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
                                 <div class="col-auto">
                                     <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="OpenModal({{$producto->id}})"> <span class="ms-1 fas fa-pencil-alt text-primary " data-fa-transform="shrink-2" ></span> 
@@ -63,9 +63,14 @@
                                 </div>
                                 <div class="col-auto d-flex align-items-center">    
                                     @if(!empty($producto->Articulo_exactus))
-                                        <span class="ms-3 badge rounded-pill bg-info"> {{ strtoupper($producto->Articulo_exactus) }} <span class="fas fa-check"></span></span>
+                                        <span class="ms-3 badge rounded-pill bg-info"> {{ strtoupper($producto->Articulo_exactus) }}</span>
+                                    @endif 
+                                    @if(!empty($producto->Clasificacion_2))
+                                        <span class="ms-3 badge rounded-pill bg-info"> {{ strtoupper($producto->Laboratorio->DESCRIPCION) }}</span>
+                                    @endif 
+                                    @if(!empty($producto->Clasificacion_3))
+                                        <span class="ms-3 badge rounded-pill bg-info"> {{ strtoupper($producto->Proveedor->NOMBRE) }} </span>
                                     @endif                                    
-                                    
                                 </div>
                             </div> 
                             </div>
@@ -113,16 +118,55 @@
                     <label class="fs-0" for="id_nombre_largo">Nombre Largo</label>
                     <textarea class="form-control" rows="3" name="description" id="id_nombre_largo" required="required"></textarea>
                   </div>
-                  <div class="mb-3">
-                    <label class="fs-0" for="id_tipo">Tipo</label>
-                    <select class="form-select" id="id_tipo" name="label" required="required">
-                        <option value="" selected="selected">None</option>
-                        @foreach ($Tipos as $tipo)
-                        <option value="{{$tipo->id}}"> {{strtoupper($tipo->descripcion)}}</option>
-                        @endforeach
-                    
-                    </select>
+
+                  <div class="row g-2">
+                    <div class="col-md-3 col-sm-12 col-xxl-3">
+                        <div class="mb-3">
+                            <label class="fs-0" for="id_tipo">Unidad Almacen</label>
+                            <select class="form-select" id="id_unidad_almacen" name="label" required="required">
+                                <option value="" selected="selected">None</option>
+                                @foreach ($UnidadDeMedida as $und)
+                                <option value="{{$und->UNIDAD_MEDIDA}}"> {{strtoupper($und->DESCRIPCION)}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xxl-3">
+                        <div class="mb-3">
+                            <label class="fs-0" for="id_tipo">Laboratorio</label>
+                            <select class="form-select" id="id_laboratorio" name="label" required="required">
+                                <option value="" selected="selected">None</option>
+                                @foreach ($Laboratorio as $lab)
+                                <option value="{{$lab->CLASIFICACION}}"> {{strtoupper($lab->DESCRIPCION)}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xxl-3">
+                        <div class="mb-3">
+                            <label class="fs-0" for="id_tipo">Proveedor</label>
+                            <select class="form-select" id="id_proveedor" name="label" required="required">
+                                <option value="" selected="selected">None</option>
+                                @foreach ($Proveedor as $p)
+                                <option value="{{$p->PROVEEDOR}}"> {{strtoupper($p->NOMBRE)}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xxl-3">
+                        <div class="mb-3">
+                            <label class="fs-0" for="id_tipo">Tipo Producto</label>
+                            <select class="form-select" id="id_tipo" name="label" required="required">
+                                <option value="" selected="selected">None</option>
+                                @foreach ($Tipos as $tipo)
+                                <option value="{{$tipo->id}}"> {{strtoupper($tipo->descripcion)}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                   </div>
+
+                  
                 </div>
                 <div class="card-footer d-flex justify-content-end align-items-center bg-light">
                   <button class="btn btn-primary px-4" id="id_send_frm_produc" type="submit">Guardar</button>

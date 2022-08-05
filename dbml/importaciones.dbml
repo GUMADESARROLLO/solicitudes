@@ -1,6 +1,6 @@
 
 ref: tbl_imp_importacion.id < tbl_imp_importacion_detalle.id_importacion
-ref: tbl_imp_Laboratorio.id < tbl_imp_importacion_detalle.id_laboratorio
+
 ref: tbl_imp_vendor.id < tbl_imp_importacion.id_vendor
 ref: tbl_imp_shipto.id < tbl_imp_importacion.id_shipto
 ref: tbl_imp_Product.id < tbl_imp_importacion_detalle.id_product
@@ -99,8 +99,8 @@ Table tbl_imp_shipto {
 Table tbl_imp_importacion_detalle{
   id int(10) [pk, increment] 
   id_importacion int(10)
-  id_laboratorio int(10)
-  id_product int(10) 
+  
+  id_product int(10)
   linea int (5)
   Estado int (5)
   articulo varchar(10)
@@ -122,20 +122,13 @@ Table tbl_imp_importacion_detalle{
   
 }
 
-Table tbl_imp_Laboratorio{
-  id int(10) [pk, increment] 
-  descripcion varchar(250)
-  
-  activo varchar(5)
-  created_at timestamp
-  updated_at timestamp
-}
-
 
 Table tbl_imp_Product{
   id int(10) [pk, increment]
   id_type_product int (10)
-  
+  Clasificacion_1 varchar(20)
+  Clasificacion_2 varchar(20)
+  Clasificacion_3 varchar(20) 
   Articulo_exactus varchar(50)
   descripcion varchar(250)
   
@@ -180,3 +173,13 @@ Table tbl_imp_Mercado{
   created_at timestamp
   updated_at timestamp
 }
+
+Table tbl_imp_Clasificacion{
+  id int(10) [pk, increment] 
+  descripcion varchar(250)
+  
+  activo varchar(5)
+  created_at timestamp
+  updated_at timestamp
+}
+

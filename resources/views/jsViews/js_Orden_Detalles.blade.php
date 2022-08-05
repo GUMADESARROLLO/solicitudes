@@ -217,6 +217,42 @@
             allowOutsideClick: () => !Swal.isLoading()
         });
     }
+    $("#id_btn_delete_po").click(function(){
+
+        var id_orden = $("#id_lbl_po").text();
+
+        Swal.fire({
+            title: '¿Estas Seguro de borrar La Orden?' ,
+            text: "¡Esta acción no podrá ser revertida!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si!',
+            target:"",
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: "../DeletePO",
+                    type: 'post',
+                    data: {
+                        id      : id_orden,
+                        _token  : "{{ csrf_token() }}" 
+                    },
+                    async: true,
+                    success: function(response) {
+                        window.location.href = "../Importacion";
+                    },
+                    error: function(response) {
+                    }
+                }).done(function(data) {
+                    
+                });
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        });
+
+    });
     function getComment(Id){
 
         var var_rol         = intVal($("#id_rol").text());      

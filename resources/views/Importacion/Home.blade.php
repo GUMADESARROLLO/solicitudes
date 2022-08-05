@@ -123,48 +123,9 @@
 ?>
 <main class="main" id="top">
     <div class="container-fluid" data-layout="container">
-        <div class="content">
-            @include('layouts.nav_gumadesk')
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="card bg-100 shadow-none border">
-                        <div class="row gx-0 flex-between-center">
-                        <div class="col-sm-auto d-flex align-items-center"><img class="ms-n2" src="../assets/img/illustrations/crm-bar-chart.png" alt="" width="90" />
-                            <div>
-                            <h6 class="text-primary fs--1 mb-0">Bienvenido a </h6>
-                            <h4 class="text-primary fw-bold mb-0">Importaciones <span class="text-info fw-medium">GUMA</span></h4>
-                            </div><img class="ms-n4 d-md-none d-lg-block" src="../assets/img/illustrations/crm-line-chart.png" alt="" width="150" />
-                        </div>
-                        <div class="col-md-auto p-3">
-                            <form class="row align-items-center g-3">
-                            <div class="col-auto">
-                                <h6 class="text-700 mb-0">Mostrando datos para: </h6>
-                            </div>
-                            <div class="col-md-auto position-relative">
-                            <span class="fas fa-calendar-alt text-primary position-absolute translate-middle-y ms-2 mt-3"> </span>
-                            <input id="id_range_select" class="form-control form-control-sm datetimepicker ps-4" type="text" data-options='{"mode":"range","dateFormat":"Y-m-d","disableMobile":true}'/></div>
-                            <div class="col-auto">                              
-                              <div class="dropdown font-sans-serif btn-reveal-trigger">
-                                <button class="btn btn-link text-600 btn-sm dropdown-toggle dropdown-caret-none btn-reveal" type="button" id="dropdown-top-products" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h fs--2"></span></button>
-                                <div class="dropdown-menu dropdown-menu-end border py-2" aria-labelledby="dropdown-top-products">
-                                  <a class="dropdown-item"  href="#!" id="id_btn_new_po"><span class="fas fa-plus me-1"></span>P.O </a>
-                                  <a class="dropdown-item"  href="Vendor"><span class="fas fa-plus me-1"></span>VENDOR </a>
-                                  <a class="dropdown-item"  href="Shipto"><span class="fas fa-plus me-1"></span>SHIP TO </a>
-                                  <a class="dropdown-item"  href="Product"><span class="fas fa-plus me-1"></span>PRODUCT</a>
-                                  
-                                </div>
-                              </div>
-                            </div>
-
-                           
-                            
-                            </form>
-                        </div>
-                        
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="content ">
+        @include('layouts.nav_importacion')
+            
             <div class="row g-3">
               <div class="col-md-3 col-xxl-3">
                 <div class="card h-100">
@@ -285,39 +246,18 @@
             </div>
             <div class="col-md-3 col-xxl-3">
               <div class="card">
-              <div class="card-header">
-                    <div class="row flex-between-center">
-                      <div class="col-auto mt-2">
-                        <div class="row g-sm-4">
-                          <div class="col-12 col-sm-auto">
-                          <div class="mb-3 pe-4 border-sm-end border-200">
-                              <h6 class="fs-1 mb-1">Pedido</h6>
-                              <div class="d-flex align-items-center">
-                              <div class="badge rounded-pill badge-soft-success fs--2">Despachado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-12 col-sm-auto">
-                          <div class="mb-3 pe-4 border-sm-end border-200">
-                              <h6 class="fs-1 mb-1">Transito</h6>
-                              <div class="d-flex align-items-center">
-                              <div class="badge rounded-pill badge-soft-success fs--2">Pagado<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-12 col-sm-auto">
-                            <div class="mb-3 pe-0">
-                              <h6 class="fs-1 mb-1">Minsa</h6>
-                              <div class="d-flex align-items-center">
-                              <div class="badge rounded-pill badge-soft-success fs--2"> Consolidada<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="card-header">
+                  <div class="col-md-auto ">
+                    <form class="row align-items-center g-3">
+                      <div class="col-auto"><h6 class="text-700 mb-0">Mostrando datos para: </h6></div>
+                      <div class="col-md-auto position-relative">
+                        <span class="fas fa-calendar-alt text-primary position-absolute translate-middle-y ms-2 mt-3"> </span>
+                        <input id="id_range_select" class="form-control form-control-sm datetimepicker ps-4" type="text" data-options='{"mode":"range","dateFormat":"Y-m-d","disableMobile":true}'/>
                       </div>
-                    </div>
+                    </form>
                   </div>
-                  </div>
+                </div>
+              </div>
                   
             </div>
             <div class="card">
@@ -382,7 +322,10 @@
                                 <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Buscar..." aria-label="search" id="id_txt_buscar" />
                                 <div class="input-group-text bg-transparent">
                                   <span class="fa fa-search fs--1 text-600"></span>
-                                </div>                     
+                                </div>
+                                <div class="input-group-text bg-transparent" id="id_btn_new">
+                                    <span class="fa fa-plus fs--1 text-600"></span>
+                                </div>                    
                               </div>
                             </div>
                           </div>

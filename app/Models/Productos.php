@@ -9,10 +9,15 @@ use Exception;
 
 class Productos extends Model{
     protected $table = "tbl_imp_product";
-    protected $fillable = ['id','Articulo_exactus','descripcion_corta','descripcion_larga','activo'];
 
     public function Tipo(){
         return $this->belongsTo('App\Models\ProductoType','id_type_product');
+    }
+    public function Laboratorio(){
+        return $this->belongsTo('App\Models\LABORATORIO','Clasificacion_2','CLASIFICACION');
+    }
+    public function Proveedor(){
+        return $this->belongsTo('App\Models\PROVEEDOR','Clasificacion_3','PROVEEDOR');
     }
     public static function SaveProducto(Request $request) {
         if ($request->ajax()) {
@@ -24,14 +29,21 @@ class Productos extends Model{
                 $produc_type        = $request->input('produc_type');
                 $id_Pro             = $request->input('idProducto');
 
+                $Unidad_Almacen     = $request->input('cod_unidad');
+                $Laboratorio        = $request->input('cod_labora');
+                $Proveedor          = $request->input('cod_provee');
+
 
                 if ($id_Pro=="0") {
                     $obj_Productos = new Productos();   
                     $obj_Productos->Articulo_exactus        = $cod_sistema;                
                     $obj_Productos->descripcion_corta       = $descrip_corta;                    
                     $obj_Productos->descripcion_larga       = $descrip_larga;
-                    $obj_Productos->id_type_product         = $produc_type;                 
-                    $obj_Productos->activo                  = 's';                 
+                    $obj_Productos->id_type_product         = $produc_type;
+                    $obj_Productos->Clasificacion_1         = $Unidad_Almacen;
+                    $obj_Productos->Clasificacion_2         = $Laboratorio;
+                    $obj_Productos->Clasificacion_3         = $Proveedor;
+                    $obj_Productos->activo                  = 'S';                 
                     $response = $obj_Productos->save();
                 } else {
                     $response =   Productos::where('id',  $id_Pro)->update([
@@ -39,6 +51,10 @@ class Productos extends Model{
                         "descripcion_corta" => $descrip_corta,
                         "descripcion_larga" => $descrip_larga,
                         "id_type_product" => $produc_type,
+
+                        "Clasificacion_1" => $Unidad_Almacen,
+                        "Clasificacion_2" => $Laboratorio,
+                        "Clasificacion_3" => $Proveedor,
                     ]);
                 }
 

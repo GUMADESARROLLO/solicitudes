@@ -78,7 +78,6 @@ CREATE TABLE `tbl_imp_importacion_detalle` (
   `mific` varchar(5),
   `regencia` varchar(5),
   `minsa` varchar(10),
-  `id_comment` int(100),
   `TieneVenta` int(10),
   `id_tipo_mecado` int(10),
   `created_at` timestamp,
@@ -96,6 +95,8 @@ CREATE TABLE `tbl_imp_Laboratorio` (
 CREATE TABLE `tbl_imp_Product` (
   `id` int(10) PRIMARY KEY AUTO_INCREMENT,
   `id_type_product` int(10),
+  `Clasificacion_1` int(10),
+  `Clasificacion_2` int(10),
   `Articulo_exactus` varchar(50),
   `descripcion` varchar(250),
   `activo` varchar(5),
@@ -122,6 +123,7 @@ CREATE TABLE `tbl_imp_estado_orden` (
 
 CREATE TABLE `tbl_imp_Comentario` (
   `id` int(10) PRIMARY KEY AUTO_INCREMENT,
+  `id_linea` int(10),
   `descripcion` varchar(250),
   `activo` varchar(5),
   `id_user` int(10),
@@ -130,6 +132,14 @@ CREATE TABLE `tbl_imp_Comentario` (
 );
 
 CREATE TABLE `tbl_imp_Mercado` (
+  `id` int(10) PRIMARY KEY AUTO_INCREMENT,
+  `descripcion` varchar(250),
+  `activo` varchar(5),
+  `created_at` timestamp,
+  `updated_at` timestamp
+);
+
+CREATE TABLE `tbl_imp_Clasificacion` (
   `id` int(10) PRIMARY KEY AUTO_INCREMENT,
   `descripcion` varchar(250),
   `activo` varchar(5),
@@ -159,6 +169,6 @@ ALTER TABLE `tbl_imp_importacion_detalle` ADD FOREIGN KEY (`Estado`) REFERENCES 
 
 ALTER TABLE `tbl_imp_importacion` ADD FOREIGN KEY (`id_estado_orden`) REFERENCES `tbl_imp_estado_orden` (`id`);
 
-ALTER TABLE `tbl_imp_importacion_detalle` ADD FOREIGN KEY (`id_comment`) REFERENCES `tbl_imp_Comentario` (`id`);
+ALTER TABLE `tbl_imp_Comentario` ADD FOREIGN KEY (`id_linea`) REFERENCES `tbl_imp_importacion_detalle` (`id`);
 
 ALTER TABLE `tbl_imp_importacion_detalle` ADD FOREIGN KEY (`id_tipo_mecado`) REFERENCES `tbl_imp_Mercado` (`id`);

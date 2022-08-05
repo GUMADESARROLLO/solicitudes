@@ -10,7 +10,7 @@
 <main class="main" id="top">
     <div class="container-fluid" data-layout="container">
         <div class="content">
-            @include('layouts.nav_gumadesk')
+            @include('layouts.nav_importacion')
 
             <div class="card mb-3" id="customersTable" data-list='{"valueNames":["name","email","phone","address","joined"],"page":10,"pagination":true}'>
                 <div class="card-header">

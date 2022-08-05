@@ -1,22 +1,15 @@
 
 <nav class="navbar navbar-light navbar-glass navbar-top navbar-expand">
 
-<button class="btn navbar-toggler-humburger-icon navbar-toggler me-1 me-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-<a class="navbar-brand me-1 me-sm-3" href="{{ url('/Ordenes') }}">
-  <div class="d-flex align-items-center"><span class="font-sans-serif">Solicitudes</span>
+
+<a class="navbar-brand me-1 me-sm-3" href="{{ url('/Importacion') }}">
+  <div class="row gx-0 align-items-center">
+    <h6 class="text-primary fs--1 mb-0">Bienvenido a </h6>
+    <h4 class="text-primary fw-bold mb-0">Importaciones <span class="text-info fw-medium">GUMA</span></h4>
   </div>
 </a>
 
-<ul class="navbar-nav align-items-center d-none d-lg-block">
-  <li class="nav-item">
-    <div class="search-box">
-      <form class="position-relative">
-        <input class="form-control search-input fuzzy-search" type="search" placeholder="Buscar..."  id="tbl_search_solicitud"/>
-        <span class="fas fa-search search-box-icon"></span>
-      </form>
-    </div>
-  </li>
-</ul>
+<img class="ms-n4 d-md-none d-lg-block" src="../assets/img/illustrations/crm-line-chart.png" alt="" width="150" />
 <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center ">
   <li class="nav-item dropdown invisible">
     <a class="nav-link notification-indicator notification-indicator-primary px-0 fa-icon-wait" id="navbarDropdownNotification" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-bell" data-fa-transform="shrink-6" style="font-size: 33px;"></span></a>
@@ -60,31 +53,15 @@
       </div>
     </a>
     <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="navbarDropdownUser">
-      <div class="bg-white dark__bg-1000 rounded-2 py-2">
-      <!--<a class="dropdown-item fw-bold text-warning" href="#!"><span class="fas fa-crown me-1"></span><span>Nombre Usuario</span></a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="Ordenes">Pedidos</a>
-      <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="tickets">Vista Usuario</a>
-        <a class="dropdown-item" href="UnidadNegocio">Unidades de Negocio</a>
-        <a class="dropdown-item" href="Departamentos">Departamentos</a>
-        <a class="dropdown-item" href="categorias">Categorias</a>
-        <a class="dropdown-item" href="Usuarios">Usuarios</a>
-        -->
-        @if( Session::get('rol')[0] == '5' || Session::get('rol')[0] == '1')
-          <a class="dropdown-item" href="Calendario">Calendario</a>
-          <a class="dropdown-item" href="proyecciones">Proyecciones</a>
-          <a class="dropdown-item" href="{{ route('Importacion') }}">Importacion</a>
-          <div class="dropdown-divider"></div>
-        @endif
+      <div class="bg-white dark__bg-1000 rounded-2 py-2">      
+      <a class="dropdown-item fw-bold text-primary" href="#!" id="id_btn_new_po"><span class="fab fa-docker me-1"></span><span>Crear Nº P . O </span></a>
 
-        
-        <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
-            document.getElementById('logout-form').submit()">Salir
-                <span class="pcoded-micon ml-2">
-                    <i class="feather icon-log-out"></i>
-                </span>
-        </a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{{ route('Product') }}"><span class="fas fa-boxes me-1"></span>Producto</a>
+      <a class="dropdown-item" href="{{ route('Vendor') }}"> <span class="fas fa-user-tie me-1"></span>Vendedor </a>
+      <a class="dropdown-item" href="{{ route('Shipto') }}"><span class="fas fa-user-tie me-1"></span>Comprador</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()"><span class="fas fa-sign-out-alt me-1"></span> Cerrar sesión</a>
       </div>
     </div>
   </li>

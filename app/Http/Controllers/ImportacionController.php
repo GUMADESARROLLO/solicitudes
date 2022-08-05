@@ -15,6 +15,9 @@ use App\Models\EstadosPagos;
 use App\Models\TipoCarga;
 use App\Models\EstadoOrden;
 use App\Models\Mercados;
+use App\Models\UNIDAD_DE_MEDIDA;
+use App\Models\PROVEEDOR;
+USE App\Models\LABORATORIO;
 
 
 class ImportacionController extends Controller {
@@ -183,10 +186,14 @@ class ImportacionController extends Controller {
     // MUESTRA TODA LA LISTA DE ARTICULOS QUE CONTIENE UNIMAK
     public function getProduct()
     {  
-        $Tipos = ProductoType::where('activo', 'S')->get();
-        $Articulos = ArticulosUMK::getArticulos();
-        $Productos = Productos::where('activo', 'S')->get();
-        return view('Importacion.Product', compact('Articulos','Tipos','Productos'));         
+        $Tipos          = ProductoType::where('activo', 'S')->get();
+        $Articulos      = ArticulosUMK::getArticulos();
+        $Productos      = Productos::where('activo', 'S')->get();
+        $UnidadDeMedida = UNIDAD_DE_MEDIDA::getUnidadDeMedida();
+        $Proveedor      = PROVEEDOR::getProveedor();
+        $Laboratorio    = LABORATORIO::getLaboratorio();
+        
+        return view('Importacion.Product', compact('Articulos','Tipos','Productos','UnidadDeMedida','Proveedor','Laboratorio'));         
     }
     //GUARDA LA INFORMACION DE LA NUEVA PO
     public function SaveProducto(Request $request)

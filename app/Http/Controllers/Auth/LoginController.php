@@ -47,6 +47,10 @@ class LoginController extends Controller
             case '7':
                 return 'Calendario';
             break;
+
+            case '8':
+                return 'Importacion';
+            break;
             
             default:
                 return '/login';
@@ -96,6 +100,7 @@ class LoginController extends Controller
 
     public function showLoginForm()//para no afectar al metodo showLoginForm del trait AuthenticatesUsers, el metodo debe de sobre escribirse en el controlador
     {
-        return view('auth.login');// envia variable al MOD
+        return view('auth.loginSplit');// envia variable al MOD
+        //return view('auth.login');// envia variable al MOD
     }
 }
