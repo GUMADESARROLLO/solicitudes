@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 05-08-2022 a las 19:43:16
+-- Tiempo de generación: 05-08-2022 a las 22:44:54
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 7.4.26
 
@@ -350,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_comentario` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_comentario`
@@ -371,7 +371,11 @@ INSERT INTO `tbl_imp_comentario` (`id`, `id_linea`, `descripcion`, `activo`, `id
 (12, 83, 'MI PRIMER COMENTARIO', 'S', 1, '2022-08-04 23:15:02', '2022-08-04 23:15:02'),
 (13, 83, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 'S', 1, '2022-08-04 23:19:09', '2022-08-04 23:19:09'),
 (14, 84, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 'N', 1, '2022-08-04 23:19:20', '2022-08-04 23:19:24'),
-(15, 85, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 'S', 1, '2022-08-04 23:19:31', '2022-08-04 23:19:31');
+(15, 85, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 'S', 1, '2022-08-04 23:19:31', '2022-08-04 23:19:31'),
+(16, 100, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede', 'S', 1, '2022-08-05 22:14:49', '2022-08-05 22:14:49'),
+(17, 100, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede', 'S', 1, '2022-08-05 22:14:53', '2022-08-05 22:14:53'),
+(18, 99, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede', 'S', 1, '2022-08-05 22:15:00', '2022-08-05 22:15:00'),
+(19, 99, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede', 'S', 1, '2022-08-05 22:15:04', '2022-08-05 22:15:04');
 
 -- --------------------------------------------------------
 
@@ -460,19 +464,23 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion` (
   KEY `id_estados_pagos` (`id_estados_pagos`),
   KEY `tipo_carga` (`tipo_carga`),
   KEY `id_estado_orden` (`id_estado_orden`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_importacion`
 --
 
 INSERT INTO `tbl_imp_importacion` (`id`, `num_po`, `fecha`, `id_vendor`, `id_shipto`, `id_via`, `id_estados_pagos`, `tipo_carga`, `factura`, `recibo`, `fecha_despacho`, `fecha_orden_compra`, `fecha_factura`, `fecha_estimada`, `id_estado_orden`, `activo`, `created_at`, `updated_at`) VALUES
+(34, 'PO0036', '2022-08-05', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-05 21:53:22', '2022-08-05 21:53:22'),
 (33, 'PO0001', '2022-08-17', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-03 14:54:08', '2022-08-03 14:54:08'),
-(32, '1675', NULL, 12, 3, 2, 2, NULL, '7845', '89133', '2022-08-03', '2022-08-03', '2022-08-03', '2022-08-03', 1, 'S', '2022-08-02 16:41:32', '2022-08-04 23:18:33'),
-(31, '1670', NULL, 11, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-08-02 16:38:06', '2022-08-02 16:38:06'),
-(30, '1067', '2021-12-30', 10, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-08-02 16:26:04', '2022-08-02 16:26:04'),
-(29, '1065', '2021-12-30', 15, 2, 2, NULL, NULL, '23', '43', NULL, '2022-08-03', NULL, NULL, 1, 'S', '2022-08-02 16:25:18', '2022-08-03 22:29:43'),
-(20, '1063', '2021-12-30', 8, 2, 2, 1, 1, '668768', '5675', '2022-08-17', '2022-08-03', NULL, NULL, 1, 'S', '2022-08-02 16:08:48', '2022-08-03 15:58:07');
+(32, '1675', NULL, 12, 3, 2, 2, NULL, '7845', '89133', '2022-08-03', '2022-08-03', '2022-08-03', '2022-08-03', 1, 'N', '2022-08-02 16:41:32', '2022-08-04 23:18:33'),
+(31, '1670', NULL, 11, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-02 16:38:06', '2022-08-02 16:38:06'),
+(30, '1067', '2021-12-30', 10, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-02 16:26:04', '2022-08-02 16:26:04'),
+(29, '1065', '2021-12-30', 15, 2, 2, NULL, NULL, '23', '43', NULL, '2022-08-03', NULL, NULL, 1, 'N', '2022-08-02 16:25:18', '2022-08-03 22:29:43'),
+(20, '1063', '2021-12-30', 8, 2, 2, 1, 1, '668768', '5675', '2022-08-17', '2022-08-03', NULL, NULL, 1, 'N', '2022-08-02 16:08:48', '2022-08-03 15:58:07'),
+(36, 'PO03157', '2022-04-14', 8, 2, 2, 1, 2, '1231546', '7897', '2022-08-05', '2022-08-05', '2022-08-05', '2022-08-05', 1, 'N', '2022-08-05 21:55:22', '2022-08-05 22:33:18'),
+(37, 'PO03158', '2022-04-14', 8, 3, 1, 1, 1, '12', '36', '2022-08-05', '2022-08-05', '2022-08-05', '2022-08-05', 1, 'N', '2022-08-05 21:55:41', '2022-08-05 22:33:03'),
+(38, 'PO78972', '2022-08-05', 8, 2, 2, 1, 1, '878798', '456456', '2022-08-05', '2022-08-05', '2022-08-05', '2022-08-05', 1, 'N', '2022-08-05 22:33:53', '2022-08-05 22:36:43');
 
 -- --------------------------------------------------------
 
@@ -505,7 +513,7 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion_detalle` (
   KEY `id_product` (`id_product`),
   KEY `Estado` (`Estado`),
   KEY `id_tipo_mecado` (`id_tipo_mecado`)
-) ENGINE=MyISAM AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_importacion_detalle`
@@ -536,7 +544,7 @@ INSERT INTO `tbl_imp_importacion_detalle` (`id`, `id_importacion`, `id_product`,
 (80, 31, 31, 6, 1, NULL, NULL, '2850.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:10:19', '2022-08-02 17:10:19'),
 (81, 31, 32, 7, 1, NULL, NULL, '1200.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:10:37', '2022-08-02 17:10:37'),
 (82, 31, 33, 8, 1, NULL, NULL, '50.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:10:52', '2022-08-02 17:10:52'),
-(83, 32, 34, 1, 3, NULL, NULL, '1442.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 2, '2022-08-02 17:25:23', '2022-08-04 23:18:21'),
+(83, 32, 34, 1, 3, NULL, NULL, '1442.00', '0.00', '0.00', '0.00', '1', '1', '1', 0, 2, '2022-08-02 17:25:23', '2022-08-05 20:20:44'),
 (84, 32, 35, 2, 1, NULL, NULL, '78940.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 2, '2022-08-02 17:25:38', '2022-08-02 17:25:38'),
 (85, 32, 35, 3, 1, NULL, NULL, '21060.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 17:26:02', '2022-08-02 17:26:02'),
 (86, 32, 36, 4, 1, NULL, NULL, '15000.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 17:27:14', '2022-08-02 17:27:14'),
@@ -548,7 +556,11 @@ INSERT INTO `tbl_imp_importacion_detalle` (`id`, `id_importacion`, `id_product`,
 (92, 32, 40, 10, 1, NULL, NULL, '42350.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:33:29', '2022-08-02 17:33:29'),
 (93, 32, 40, 11, 1, NULL, NULL, '17650.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:33:43', '2022-08-02 17:33:43'),
 (94, 32, 41, 12, 1, NULL, NULL, '60860.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:39:59', '2022-08-02 17:39:59'),
-(95, 32, 41, 13, 1, NULL, NULL, '14140.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:40:20', '2022-08-02 17:40:20');
+(95, 32, 41, 13, 1, NULL, NULL, '14140.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:40:20', '2022-08-02 17:40:20'),
+(98, 36, 9, 1, 3, NULL, NULL, '1500.00', '200.00', '2.00', '1.00', '0', '0', '0', 0, 1, '2022-08-05 22:05:01', '2022-08-05 22:06:25'),
+(99, 36, 24, 2, 3, NULL, NULL, '1500.00', '200.00', '2.00', '1.00', '0', '1', '0', 1, 2, '2022-08-05 22:06:49', '2022-08-05 22:06:49'),
+(100, 37, 9, 1, 3, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 1, '2022-08-05 22:07:17', '2022-08-05 22:07:17'),
+(101, 37, 21, 2, 3, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 2, '2022-08-05 22:07:28', '2022-08-05 22:07:28');
 
 -- --------------------------------------------------------
 
@@ -635,7 +647,7 @@ INSERT INTO `tbl_imp_product` (`id`, `id_type_product`, `Clasificacion_1`, `Clas
 (31, 2, NULL, NULL, NULL, NULL, 'METHOTREXATE BP 50 mg/2 ml 1', 'Methotrexate Injection BP 50 mg/2 ml 1 Vial 2 ml/Box', 'S', '2022-08-02 17:06:43', '2022-08-02 17:06:43'),
 (32, 2, NULL, NULL, NULL, NULL, 'PACLITAXEL Injection USP 150 mg/25 ml 1 Vial', 'Paclitaxel Injection USP 150 mg/25 ml.1 Vial 30 ml/Box', 'S', '2022-08-02 17:07:46', '2022-08-02 17:07:46'),
 (33, 2, NULL, NULL, NULL, NULL, 'PEMETREXED Disodium for Injection 500 mg FAM 1 Vial', 'Pemetrexed Disodium for Injection 500 mg FAM 1 Vial/Box', 'S', '2022-08-02 17:08:07', '2022-08-02 17:08:07'),
-(34, 1, 'CJA', '74', 'PME0000005', '10605011', 'ALLOPURINOL 300 mg 1000 Tabs', 'Allopurinol 300 mg 1000 Tabs/Box', 'S', '2022-08-02 17:19:35', '2022-08-05 18:36:37'),
+(34, 1, 'CJA', '74', 'PME0000005', NULL, 'ALLOPURINOL 300 mg 1000 Tabs', 'Allopurinol 300 mg 1000 Tabs/Box', 'S', '2022-08-02 17:19:35', '2022-08-05 22:36:09'),
 (35, 1, 'CJA', '87', 'PME0000001', NULL, 'AMOXICILLIN 500 mg 100 Caps', 'Amoxicillin 500 mg 100 Caps/Bo', 'S', '2022-08-02 17:25:02', '2022-08-05 18:36:00'),
 (36, 1, NULL, NULL, NULL, NULL, 'AMOXICILLIN/CLAVULANIC ACID', '875 mg/125 mg 14 Tab Amoxicillin/Clavulanic Acid 875 mg/125 mg 14 Tab/Box', 'S', '2022-08-02 17:26:57', '2022-08-02 17:26:57'),
 (37, 1, NULL, NULL, NULL, NULL, 'AMPICILLIN 1g Powder for Sol. Inj. 50 Vials', 'Ampicillin 1g Powder for Sol. Inj. 50 Vial/Box', 'S', '2022-08-02 17:27:52', '2022-08-02 17:27:52'),
