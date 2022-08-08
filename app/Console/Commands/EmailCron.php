@@ -37,7 +37,9 @@ class EmailCron extends Command
      */
     public function handle()
     {
-        \Log::info("Testing Cron is Running ... !");
+
+        
+        \Log::info("Tarea Ejecutada ... !");
         $this->info('Email:cron Command Run Successfully !');
     }
 }
