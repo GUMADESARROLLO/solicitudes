@@ -150,3 +150,5 @@ Route::post('getCommentImportacion', 'ImportacionController@getCommentImportacio
 Route::post('AddCommentDetalles', 'ImportacionController@AddComment')->name('AddCommentDetalles');
 Route::post('DeleteCommentDetalle', 'ImportacionController@DeleteCommentDetalle')->name('DeleteCommentDetalle');
 Route::post('/UpdateEstado', 'ImportacionController@UpdateEstado')->name('UpdateEstado');
+
+Route::get('email','ImportacionController@SendEmailChangeStatus');

@@ -19,6 +19,8 @@ use App\Models\UNIDAD_DE_MEDIDA;
 use App\Models\PROVEEDOR;
 USE App\Models\LABORATORIO;
 
+use App\Mail\InfoEmail;
+use Mail;
 
 class ImportacionController extends Controller {
     public function __construct()
@@ -220,10 +222,15 @@ class ImportacionController extends Controller {
         return response()->json($Vendors);
     }
 
-
-
-    
-
-
-
+    public function SendEmailChangeStatus()
+    {
+        $eTO = 'analista.guma@gmail.com';
+        $eCC = ['analista.guma@gmail.com','analista2.guma@gmail.com','analista3.guma@gmail.com'];
+        $details = [
+            'title' => 'Ordenes de compras en estado',
+        ];
+        //Mail::to($eTO)->cc($eCC)->send(new InfoEmail($details));
+        $mail = new InfoEmail($details);
+        return $mail->render();
+    }
 }
