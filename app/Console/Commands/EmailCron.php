@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Http\Controllers\ImportacionController;
 
 class EmailCron extends Command
 {
@@ -38,7 +39,9 @@ class EmailCron extends Command
     public function handle()
     {
 
-        
+        $controller = new ImportacionController();
+        $controller->SendEmailChangeStatus();
+
         \Log::info("Tarea Ejecutada ... !");
         $this->info('Email:cron Command Run Successfully !');
     }

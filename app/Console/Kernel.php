@@ -25,8 +25,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('Email:cron')->hourly();
-        $schedule->call('App\Http\Controllers\ImportacionController@SendEmailChangeStatus')->hourly();
-        // $schedule->command('inspire')->hourly();
     }
 
     /**
