@@ -229,7 +229,7 @@ class ImportacionController extends Controller {
         $details = [
             'title' => 'Ordenes de compras en estado',
         ];
-        Mail::to($eTO)->cc($eCC)->send(new InfoEmail($details));
+        //Mail::to($eTO)->cc($eCC)->send(new InfoEmail($details));
         $mail = new InfoEmail($details);
         return $mail->render();
     }

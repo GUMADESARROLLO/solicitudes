@@ -306,10 +306,10 @@
                                         <div class="flex-1 ms-3">
                                         
                                         <div class="d-flex align-items-center">
-                                            <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.id +`"> P.O <strong>`+ row.PO +`</strong></a> : `+ row.Vendor +`</h6>
+                                            <h6 class="mb-1 fw-semi-bold text-nowrap"><a href="ImportacionDetalles/`+ row.id +`"> P.O <strong>`+ row.PO +`</strong></a></h6>
                                             <span class="badge rounded-pill ms-3 badge-soft-primary"><span class="fas fa-check"></span> `+ row.Estado +`</span>
                                         </div>
-                                        <p class="fw-semi-bold mb-0 text-500">`+ row.proveedor +`</p>                            
+                                        
                                         <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
                                         <div class="col-auto">
                                             <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" > 
@@ -324,6 +324,12 @@
                                     </div>
                                     </td> `
                     }},
+                    {"title": "PROVEEDOR","data": "Fecha" , "render":function(data, type, row, meta) {
+                        return '<td class="date py-2 align-middle"><h6 class="mb-1 fw-semi-bold text-nowrap"><strong>'+ row.Vendor +'</strong></h6></td>'
+                    }}, 
+                    {"title": "COMPRADOR","data": "Fecha" , "render":function(data, type, row, meta) {
+                        return '<td class="date py-2 align-middle"><h6 class="mb-1 fw-semi-bold text-nowrap"><strong>'+ row.proveedor +'</strong></h6></td>'
+                    }}, 
                     {"title": "FECHA ORDEN COMPRA","data": "Fecha" , "render":function(data, type, row, meta) {
                         return '<td class="date py-2 align-middle">'+ row.Fecha +'</td>'
                     }},                                        

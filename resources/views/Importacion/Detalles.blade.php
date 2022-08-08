@@ -19,7 +19,7 @@
         <div class="content">
             @include('layouts.nav_importacion')
             <div class="row g-3 mb-3">
-            <div class="col-md-10 col-xxl-10">
+            <div class="col-md-12 col-xxl-12">
               <div class="card">
                 <div class="card-header">
                   <div class="row flex-between-center">
@@ -28,7 +28,7 @@
                       <span id="id_login_user" style="display:none">{{auth()->user()->id}}</span>
                       <span style="display:none" id="id_lbl_po">{{ $Orden->id }}</span>
                       <h5>P.O. NO. : # {{ $Orden->num_po  }} </h5>
-                      <p class="fs--1" onclick="frmSweetAlert02(3)" ><u class="dotted"> {{ !empty($Orden->fecha_orden_compra ) ? date('F d, Y', strtotime($Orden->fecha_orden_compra))  :'N/D'  }}</u></p>
+                      <p class="fs--1 invisible" onclick="frmSweetAlert02(3)" ><u class="dotted"> {{ !empty($Orden->fecha_orden_compra ) ? date('F d, Y', strtotime($Orden->fecha_orden_compra))  :'N/D'  }}</u></p>
 
                       
                       <div><strong class="me-2">Status: </strong>
@@ -104,77 +104,44 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-2 col-xxl-2">
+            <div class="col-md-12 col-xxl-12">
               <div class="card h-100">
-                <div class="card-body pb-0">
-                  <div class="mx-ncard">
-                  <div class="px-3">
-                    <ul class="list-unstyled mt-3 scrollbar management-calendar-events" id="management-calendar-events">
-                        <li class="border-topmb-3 pb-1 cursor-pointer"  onclick="frmSweetAlert02(0)">
-                            <div class="border-start border-3 border-primary ps-3 mt-1">
-                            <h6 class="mb-1 fw-semi-bold text-700"> Fecha Despacho </h6>
-                            <p class="fs--2 text-600 mb-0"><u class="dotted">{{ !empty($Orden->fecha_despacho ) ? $Orden->fecha_despacho  :'N/D'  }}</u> </p>
-                            </div>
-                        </li> 
-                        <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" onclick="frmSweetAlert02(1)">
-                            <div class="border-start border-3 border-success ps-3 mt-1">
-                            <h6 class="mb-1 fw-semi-bold text-700"> Fecha Estimada </h6>
-                            <p class="fs--2 text-600 mb-0"><u class="dotted">{{ !empty($Orden->fecha_estimada ) ? $Orden->fecha_estimada  :'N/D'  }}</u> </p>
-                            </div>
-                        </li> 
-                        <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" onclick="frmSweetAlert02(2)">
-                            <div class="border-start border-3 border-warning ps-3 mt-1">
-                            <h6 class="mb-1 fw-semi-bold text-700">Fecha Factura</h6>
-                            <p class="fs--2 text-600 mb-0"><u class="dotted">{{ !empty($Orden->fecha_factura ) ? $Orden->fecha_factura  :'N/D'  }}</u> </p>
-                            </div>
-                        </li> 
-                        <li class="border-top pt-3 mb-3 pb-1 cursor-pointer" style="display:none">
-                            <div class="border-start border-3 border-danger ps-3 mt-1">
-                            <h6 class="mb-1 fw-semi-bold text-700"> Fecha Orden de Compra:  </h6>
-                            <p class="fs--2 text-600 mb-0"><u class="dotted">{{ !empty($Orden->fecha_orden_compra ) ? $Orden->fecha_orden_compra  :'N/D'  }}</u> </p>
-                            </div>
-                        </li> 
-                    </ul>
-                </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-            <div class="card mb-3">
               <div class="card-header">
-                <div class="row flex-between-center">
-                  <div class="col-auto col-sm-6 col-lg-7">
+                <div class="row flex-between-center ">
+                  <div class="col-auto col-sm-6 col-lg-6 border border-5">
 
-                    <div class="row g-sm-4">
-                    <div class="col-12 col-sm-auto ">
-                        <div class="mb-3 pe-4 border-sm-end border-200 ">
-                          <h6 class="fs--2 text-600 mb-1">TOTAL</h6>
+                    <div class="row g-sm-4 ">
+
+                     <div class="col-12 col-sm-auto ">
+                        <div class="mb-3 pe-4 border-sm-end border-200  ">
+                          <h6 class="fs--2 text-600 mb-1">TOTAL SKU'S</h6>
                           <div class="d-flex align-items-center ">
                             <h5 class="fs-0 text-900 mb-0 me-2" id="id_tt_list_product"> {{count($Orden->Detalles)}} </h5>
                           </div>
                         </div>
                       </div>
+
                       <div class="col-12 col-sm-auto">
                         <div class="mb-3 pe-4 border-sm-end border-200">
-                          <h6 class="fs--2 text-600 mb-1">MIFIC</h6>
+                          <h6 class="fs--2 text-600 mb-1">CON REGISTRO MIFIC</h6>
                           <div class="d-flex align-items-center">
                             <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_mific"> 0 </h5><span class="badge rounded-pill bg-primary"><span id="id_count_tbl_mific_procent"></span> %</span>
                           </div>
                         </div>
                       </div>
+
                       <div class="col-12 col-sm-auto">
                         <div class="mb-3 pe-4 border-sm-end border-200">
-                          <h6 class="fs--2 text-600 mb-1">REGENCIA</h6>
+                          <h6 class="fs--2 text-600 mb-1">CON REGISTRO  REGENCIA</h6>
                           <div class="d-flex align-items-center">
                             <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_regencia">0</h5><span class="badge rounded-pill bg-success"> <span id="id_count_tbl_regencia_procent"></span> %</span>
                           </div>
                         </div>
                       </div>
+
                       <div class="col-12 col-sm-auto">
                         <div class="mb-3 pe-4 border-sm-end border-200">
-                          <h6 class="fs--2 text-600 mb-1">MINSA</h6>
+                          <h6 class="fs--2 text-600 mb-1">CON REGISTRO  MINSA</h6>
                           <div class="d-flex align-items-center">
                             <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_minsa" >0</h5><span class="badge rounded-pill bg-info"> <span id="id_count_tbl_minsa_procent"></span> %</span>
                           </div>
@@ -193,7 +160,58 @@
                     
                     
                   </div>
-                  <div class="col-auto col-sm-6 col-lg-5">
+                  <div class="col-auto col-sm-6 col-lg-6 border border-5">
+                  <div class="row ">
+                  <div class="col-12 col-sm-auto ">
+                      <div class="mb-3 pe-4 border-sm-end border-200 ">
+                        <h6 class="fs--2 text-600 mb-1">FECHA DESPACHO</h6>
+                        <div class="d-flex align-items-center ">
+                        <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(0)">{{ !empty($Orden->fecha_despacho ) ? $Orden->fecha_despacho  :'N/D'  }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-sm-auto">
+                      <div class="mb-3 pe-4 border-sm-end border-200">
+                        <h6 class="fs--2 text-600 mb-1">FECHA ESTIMADA</h6>
+                        <div class="d-flex align-items-center">
+                        <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(1)">{{ !empty($Orden->fecha_estimada ) ? $Orden->fecha_estimada  :'N/D'  }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-sm-auto">
+                      <div class="mb-3 pe-4 border-sm-end border-200">
+                        <h6 class="fs--2 text-600 mb-1">FECHA FACTURA</h6>
+                        <div class="d-flex align-items-center">
+                        <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(2)">{{ !empty($Orden->fecha_factura ) ? $Orden->fecha_factura  :'N/D'  }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-sm-auto">
+                      <div class="mb-3 pe-4 border-sm-end border-200">
+                        <h6 class="fs--2 text-600 mb-1">FECHA ORDEN DE COMPRA</h6>
+                        <div class="d-flex align-items-center">
+                        <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(3)" >{{ !empty($Orden->fecha_orden_compra ) ? $Orden->fecha_orden_compra  :'N/D'  }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  
+                
+                  </div>
+                  </div>
+                </div>
+              </div>
+              
+              </div>
+            </div>
+          </div>
+
+            <div class="card mb-3">
+              <div class="card-header">
+                <div class="row flex-between-center">
+                  <div class="col-12 col-sm-12 col-lg-12">
                     <div class="input-group" >
                       <input class="form-control form-control-sm shadow-none search" type="search" placeholder="Buscar..." aria-label="search" id="id_txt_buscar" />
                       <div class="input-group-text bg-transparent">

@@ -336,6 +336,8 @@
                                   <th class="" ></th>
                                   <th class="" ></th>
                                   <th class="" ></th>
+                                  <th class="" ></th>
+                                  <th class="" ></th>
                                 
                                 </tr>
                               </thead>
