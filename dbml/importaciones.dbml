@@ -79,6 +79,9 @@ Table tbl_imp_vendor {
   nombre_vendor varchar(100)
   Descripcion varchar(250)
   time_despacho int (10)
+  time_transito int(10)
+  time_aduana int(10)
+  
   activo varchar(5)
   
   created_at timestamp
@@ -116,6 +119,10 @@ Table tbl_imp_importacion_detalle{
   minsa varchar(10)
   TieneVenta int(10)
   id_tipo_mecado int(10)
+  
+  fecha_real_despacho date
+  fecha_real_aduana date
+  fecha_real_bodega date
   
   created_at timestamp
   updated_at timestamp

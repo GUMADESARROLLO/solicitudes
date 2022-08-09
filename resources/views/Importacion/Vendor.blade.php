@@ -107,6 +107,30 @@
                     <label class="fs-0" for="id_description">Descripcion</label>
                     <textarea class="form-control" rows="3" name="descripcion" id="id_description"></textarea>
                 </div>
+
+                <div class="row g-2">
+                  <div class="col-md-4 col-sm-6 col-xxl-4">
+                    <div class="mb-3">
+                      <label class="form-label" for="">Tiempo de Despacho:</label>
+                      <input class="form-control" type="text" name="" placeholder="Dias 0.00" required="required" id="id_frm_time_despacho" onkeypress="soloNumeros(event.keyCode, event, $(this).val())"/>
+                      <div class="invalid-feedback">Please enter password</div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-6 col-xxl-4">
+                    <div class="mb-3">
+                      <label class="form-label" for="">Tiempo en Transito:</label>
+                      <input class="form-control" type="text" name="" placeholder="Dias 0.00" required="required"id="id_frm_time_transito" onkeypress="soloNumeros(event.keyCode, event, $(this).val())"/>                      
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-6 col-xxl-4">
+                    <div class="mb-3">
+                      <label class="form-label" for="">Tiempo de Aduana:</label>
+                      <input class="form-control" type="text" name="" placeholder="Dias 0.00" required="required" id="id_frm_time_aduana" onkeypress="soloNumeros(event.keyCode, event, $(this).val())"/>                      
+                    </div>
+                  </div>
+                </div>
+
+
                 <div class="mb-3">
                   <button class="btn btn-primary d-block w-100 mt-3" id="id_send_frm_vendor" type="submit">Guardar</button>
                 </div>

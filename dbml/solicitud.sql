@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 05-08-2022 a las 22:44:54
+-- Tiempo de generación: 09-08-2022 a las 23:04:15
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 7.4.26
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `solicitud`
 --
-CREATE DATABASE IF NOT EXISTS `solicitud` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `solicitud`;
 
 -- --------------------------------------------------------
 
@@ -350,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_comentario` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_comentario`
@@ -375,7 +373,9 @@ INSERT INTO `tbl_imp_comentario` (`id`, `id_linea`, `descripcion`, `activo`, `id
 (16, 100, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede', 'S', 1, '2022-08-05 22:14:49', '2022-08-05 22:14:49'),
 (17, 100, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede', 'S', 1, '2022-08-05 22:14:53', '2022-08-05 22:14:53'),
 (18, 99, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede', 'S', 1, '2022-08-05 22:15:00', '2022-08-05 22:15:00'),
-(19, 99, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede', 'S', 1, '2022-08-05 22:15:04', '2022-08-05 22:15:04');
+(19, 99, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede', 'S', 1, '2022-08-05 22:15:04', '2022-08-05 22:15:04'),
+(20, 83, 'x', 'N', 8, '2022-08-09 16:17:36', '2022-08-09 16:17:40'),
+(21, 83, 'g', 'N', 8, '2022-08-09 16:17:49', '2022-08-09 16:17:53');
 
 -- --------------------------------------------------------
 
@@ -416,20 +416,21 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_estado_orden` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_estado_orden`
 --
 
 INSERT INTO `tbl_imp_estado_orden` (`id`, `descripcion`, `belongs`, `activo`, `created_at`, `updated_at`) VALUES
-(1, 'Creado', 'PO', 'S', '2022-07-26 22:06:55', '2022-07-26 22:06:55'),
-(2, 'Pedido', 'PO', 'S', '2022-07-26 22:06:55', '2022-07-26 22:06:55'),
+(1, 'CREADO', 'PO', 'S', '2022-07-26 22:06:55', '2022-07-26 22:06:55'),
+(2, 'COMPLETO', 'PO', 'S', '2022-07-26 22:06:55', '2022-07-26 22:06:55'),
 (3, 'Transito', 'PD', 'S', '2022-07-26 22:06:55', '2022-07-26 22:06:55'),
 (4, 'OnHand', 'PD', 'S', '2022-07-26 22:06:55', '2022-07-26 22:06:55'),
 (5, 'Bodega', 'PD', 'S', '2022-08-03 15:22:52', '2022-08-03 15:22:55'),
-(6, 'Cerrada', 'PO', 'S', '2022-08-03 15:27:54', '2022-08-03 15:27:58'),
-(7, 'Creadi', 'PD', 'S', '2022-08-03 16:04:34', '2022-08-03 16:04:36');
+(6, 'CERRADO', 'PO', 'S', '2022-08-03 15:27:54', '2022-08-03 15:27:58'),
+(7, 'Creado', 'PD', 'S', '2022-08-03 16:04:34', '2022-08-03 16:04:36'),
+(8, 'PARCIAL', 'PO', 'S', '2022-08-09 22:08:03', '2022-08-09 22:08:06');
 
 -- --------------------------------------------------------
 
@@ -464,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion` (
   KEY `id_estados_pagos` (`id_estados_pagos`),
   KEY `tipo_carga` (`tipo_carga`),
   KEY `id_estado_orden` (`id_estado_orden`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_importacion`
@@ -473,14 +474,17 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion` (
 INSERT INTO `tbl_imp_importacion` (`id`, `num_po`, `fecha`, `id_vendor`, `id_shipto`, `id_via`, `id_estados_pagos`, `tipo_carga`, `factura`, `recibo`, `fecha_despacho`, `fecha_orden_compra`, `fecha_factura`, `fecha_estimada`, `id_estado_orden`, `activo`, `created_at`, `updated_at`) VALUES
 (34, 'PO0036', '2022-08-05', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-05 21:53:22', '2022-08-05 21:53:22'),
 (33, 'PO0001', '2022-08-17', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-03 14:54:08', '2022-08-03 14:54:08'),
-(32, '1675', NULL, 12, 3, 2, 2, NULL, '7845', '89133', '2022-08-03', '2022-08-03', '2022-08-03', '2022-08-03', 1, 'N', '2022-08-02 16:41:32', '2022-08-04 23:18:33'),
-(31, '1670', NULL, 11, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-02 16:38:06', '2022-08-02 16:38:06'),
-(30, '1067', '2021-12-30', 10, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-02 16:26:04', '2022-08-02 16:26:04'),
-(29, '1065', '2021-12-30', 15, 2, 2, NULL, NULL, '23', '43', NULL, '2022-08-03', NULL, NULL, 1, 'N', '2022-08-02 16:25:18', '2022-08-03 22:29:43'),
-(20, '1063', '2021-12-30', 8, 2, 2, 1, 1, '668768', '5675', '2022-08-17', '2022-08-03', NULL, NULL, 1, 'N', '2022-08-02 16:08:48', '2022-08-03 15:58:07'),
+(32, '1675', NULL, 12, 3, 2, 2, 2, '7845', '89133', '2022-08-03', '2022-07-01', '2022-08-03', '2022-08-03', 1, 'S', '2022-08-02 16:41:32', '2022-08-09 22:08:36'),
+(31, '1670', NULL, 11, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-08-02 16:38:06', '2022-08-02 16:38:06'),
+(30, '1067', '2021-12-30', 10, 2, NULL, NULL, NULL, NULL, NULL, '2022-08-08', '2022-08-08', '2022-08-08', '2022-08-08', 1, 'S', '2022-08-02 16:26:04', '2022-08-08 22:57:32'),
+(29, '1065', '2021-12-30', 15, 2, 2, NULL, NULL, '23', '43', NULL, '2022-08-03', NULL, NULL, 1, 'S', '2022-08-02 16:25:18', '2022-08-03 22:29:43'),
+(20, '1063', '2021-12-30', 8, 2, 2, 1, 1, '668768', '5675', '2022-08-09', '2022-07-01', '2022-08-09', '2022-08-09', 1, 'S', '2022-08-02 16:08:48', '2022-08-09 21:10:12'),
 (36, 'PO03157', '2022-04-14', 8, 2, 2, 1, 2, '1231546', '7897', '2022-08-05', '2022-08-05', '2022-08-05', '2022-08-05', 1, 'N', '2022-08-05 21:55:22', '2022-08-05 22:33:18'),
 (37, 'PO03158', '2022-04-14', 8, 3, 1, 1, 1, '12', '36', '2022-08-05', '2022-08-05', '2022-08-05', '2022-08-05', 1, 'N', '2022-08-05 21:55:41', '2022-08-05 22:33:03'),
-(38, 'PO78972', '2022-08-05', 8, 2, 2, 1, 1, '878798', '456456', '2022-08-05', '2022-08-05', '2022-08-05', '2022-08-05', 1, 'N', '2022-08-05 22:33:53', '2022-08-05 22:36:43');
+(38, 'PO78972', '2022-08-05', 8, 2, 2, 1, 1, '878798', '456456', '2022-08-05', '2022-08-05', '2022-08-05', '2022-08-05', 1, 'N', '2022-08-05 22:33:53', '2022-08-05 22:36:43'),
+(39, 'PO8448', '2022-08-09', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-09 21:23:44', '2022-08-09 21:25:36'),
+(40, 'PO8448', '2022-08-09', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-09 21:25:49', '2022-08-09 21:26:02'),
+(41, 'PO8448', '2022-08-01', 8, 2, NULL, NULL, NULL, '40000', '3000', NULL, '2022-07-29', NULL, NULL, 1, 'S', '2022-08-09 21:28:00', '2022-08-09 21:58:18');
 
 -- --------------------------------------------------------
 
@@ -506,6 +510,9 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion_detalle` (
   `minsa` varchar(10) DEFAULT NULL,
   `TieneVenta` int(10) DEFAULT NULL,
   `id_tipo_mecado` int(10) DEFAULT NULL,
+  `fecha_real_despacho` date DEFAULT NULL,
+  `fecha_real_aduana` date DEFAULT NULL,
+  `fecha_real_bodega` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -513,54 +520,56 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion_detalle` (
   KEY `id_product` (`id_product`),
   KEY `Estado` (`Estado`),
   KEY `id_tipo_mecado` (`id_tipo_mecado`)
-) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=105 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_imp_importacion_detalle`
 --
 
-INSERT INTO `tbl_imp_importacion_detalle` (`id`, `id_importacion`, `id_product`, `linea`, `Estado`, `articulo`, `descripcion`, `cantidad`, `precio_farmacia`, `precio_publico`, `precio_institucion`, `mific`, `regencia`, `minsa`, `TieneVenta`, `id_tipo_mecado`, `created_at`, `updated_at`) VALUES
-(73, 30, 10, 3, 1, NULL, NULL, '84800.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:03:30', '2022-08-02 17:03:30'),
-(72, 30, 9, 2, 1, NULL, NULL, '3570.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:03:05', '2022-08-02 17:03:05'),
-(71, 30, 9, 1, 1, NULL, NULL, '3430.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:02:21', '2022-08-02 17:02:21'),
-(70, 29, 27, 4, 1, NULL, NULL, '18445.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:01:16', '2022-08-02 17:01:16'),
-(69, 29, 25, 3, 1, NULL, NULL, '990.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 17:01:04', '2022-08-02 17:01:04'),
-(67, 29, 24, 1, 1, NULL, NULL, '86400.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 16:59:57', '2022-08-02 16:59:57'),
-(68, 29, 25, 2, 1, NULL, NULL, '4010.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:00:51', '2022-08-02 17:00:51'),
-(55, 20, 15, 1, 5, NULL, NULL, '18900.00', '1000.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 15:02:17', '2022-08-04 22:17:19'),
-(56, 20, 16, 2, 4, NULL, NULL, '16650.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 2, '2022-08-02 15:02:44', '2022-08-04 22:19:18'),
-(57, 20, 17, 3, 3, NULL, NULL, '17870.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 15:03:02', '2022-08-04 22:19:12'),
-(58, 20, 18, 4, 5, NULL, NULL, '7100.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 15:03:17', '2022-08-04 22:19:52'),
-(62, 20, 19, 6, 3, NULL, NULL, '11400.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 15:12:50', '2022-08-03 16:03:41'),
-(61, 20, 19, 5, 3, NULL, NULL, '44600.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 15:12:23', '2022-08-03 16:03:50'),
-(63, 20, 20, 7, 4, NULL, NULL, '10000.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 15:13:25', '2022-08-03 16:03:34'),
-(64, 20, 21, 8, 3, NULL, NULL, '15340.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 15:13:45', '2022-08-03 16:03:27'),
-(74, 30, 10, 4, 1, NULL, NULL, '15200.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:03:56', '2022-08-02 17:03:56'),
-(75, 31, 28, 1, 1, NULL, NULL, '900.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:08:32', '2022-08-02 17:08:32'),
-(76, 31, 28, 2, 1, NULL, NULL, '4100.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:08:47', '2022-08-02 17:08:47'),
-(77, 31, 29, 3, 1, NULL, NULL, '380.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:09:03', '2022-08-02 17:09:03'),
-(78, 31, 29, 4, 1, NULL, NULL, '1220.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:09:20', '2022-08-02 17:09:20'),
-(79, 31, 30, 5, 1, NULL, NULL, '100.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:09:44', '2022-08-02 17:09:44'),
-(80, 31, 31, 6, 1, NULL, NULL, '2850.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:10:19', '2022-08-02 17:10:19'),
-(81, 31, 32, 7, 1, NULL, NULL, '1200.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:10:37', '2022-08-02 17:10:37'),
-(82, 31, 33, 8, 1, NULL, NULL, '50.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:10:52', '2022-08-02 17:10:52'),
-(83, 32, 34, 1, 3, NULL, NULL, '1442.00', '0.00', '0.00', '0.00', '1', '1', '1', 0, 2, '2022-08-02 17:25:23', '2022-08-05 20:20:44'),
-(84, 32, 35, 2, 1, NULL, NULL, '78940.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 2, '2022-08-02 17:25:38', '2022-08-02 17:25:38'),
-(85, 32, 35, 3, 1, NULL, NULL, '21060.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 17:26:02', '2022-08-02 17:26:02'),
-(86, 32, 36, 4, 1, NULL, NULL, '15000.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, '2022-08-02 17:27:14', '2022-08-02 17:27:14'),
-(87, 32, 37, 5, 1, NULL, NULL, '3050.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 2, '2022-08-02 17:28:23', '2022-08-02 17:28:23'),
-(88, 32, 38, 6, 4, NULL, NULL, '439.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 2, '2022-08-02 17:29:51', '2022-08-04 23:19:39'),
-(89, 32, 38, 7, 1, NULL, NULL, '261.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:30:28', '2022-08-02 17:30:28'),
-(90, 32, 39, 8, 1, NULL, NULL, '198000.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:32:07', '2022-08-02 17:32:07'),
-(91, 32, 39, 9, 1, NULL, NULL, '32000.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:32:25', '2022-08-02 17:32:25'),
-(92, 32, 40, 10, 1, NULL, NULL, '42350.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:33:29', '2022-08-02 17:33:29'),
-(93, 32, 40, 11, 1, NULL, NULL, '17650.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:33:43', '2022-08-02 17:33:43'),
-(94, 32, 41, 12, 1, NULL, NULL, '60860.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, '2022-08-02 17:39:59', '2022-08-02 17:39:59'),
-(95, 32, 41, 13, 1, NULL, NULL, '14140.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, '2022-08-02 17:40:20', '2022-08-02 17:40:20'),
-(98, 36, 9, 1, 3, NULL, NULL, '1500.00', '200.00', '2.00', '1.00', '0', '0', '0', 0, 1, '2022-08-05 22:05:01', '2022-08-05 22:06:25'),
-(99, 36, 24, 2, 3, NULL, NULL, '1500.00', '200.00', '2.00', '1.00', '0', '1', '0', 1, 2, '2022-08-05 22:06:49', '2022-08-05 22:06:49'),
-(100, 37, 9, 1, 3, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 1, '2022-08-05 22:07:17', '2022-08-05 22:07:17'),
-(101, 37, 21, 2, 3, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 2, '2022-08-05 22:07:28', '2022-08-05 22:07:28');
+INSERT INTO `tbl_imp_importacion_detalle` (`id`, `id_importacion`, `id_product`, `linea`, `Estado`, `articulo`, `descripcion`, `cantidad`, `precio_farmacia`, `precio_publico`, `precio_institucion`, `mific`, `regencia`, `minsa`, `TieneVenta`, `id_tipo_mecado`, `fecha_real_despacho`, `fecha_real_aduana`, `fecha_real_bodega`, `created_at`, `updated_at`) VALUES
+(73, 30, 10, 3, 1, NULL, NULL, '84800.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:03:30', '2022-08-02 17:03:30'),
+(72, 30, 9, 2, 1, NULL, NULL, '3570.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:03:05', '2022-08-02 17:03:05'),
+(71, 30, 9, 1, 1, NULL, NULL, '3430.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 17:02:21', '2022-08-02 17:02:21'),
+(70, 29, 27, 4, 7, NULL, NULL, '18445.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:01:16', '2022-08-02 17:01:16'),
+(69, 29, 25, 3, 7, NULL, NULL, '990.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, NULL, NULL, NULL, '2022-08-02 17:01:04', '2022-08-02 17:01:04'),
+(67, 29, 24, 1, 7, NULL, NULL, '86400.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 1, NULL, NULL, NULL, '2022-08-02 16:59:57', '2022-08-09 17:31:11'),
+(68, 29, 25, 2, 7, NULL, NULL, '4010.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 17:00:51', '2022-08-02 17:00:51'),
+(55, 20, 15, 1, 3, NULL, NULL, '18900.00', '1000.00', '0.00', '0.00', '1', '1', '1', 1, 2, NULL, NULL, NULL, '2022-08-02 15:02:17', '2022-08-09 21:22:29'),
+(56, 20, 16, 2, 4, NULL, NULL, '16650.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, NULL, NULL, NULL, '2022-08-02 15:02:44', '2022-08-09 16:18:56'),
+(57, 20, 17, 3, 3, NULL, NULL, '17870.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, NULL, NULL, NULL, '2022-08-02 15:03:02', '2022-08-04 22:19:12'),
+(58, 20, 18, 4, 5, NULL, NULL, '7100.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, NULL, NULL, NULL, '2022-08-02 15:03:17', '2022-08-04 22:19:52'),
+(62, 20, 19, 6, 3, NULL, NULL, '11400.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 15:12:50', '2022-08-09 21:15:32'),
+(61, 20, 19, 5, 3, NULL, NULL, '44600.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 15:12:23', '2022-08-03 16:03:50'),
+(63, 20, 20, 7, 4, NULL, NULL, '10000.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 15:13:25', '2022-08-03 16:03:34'),
+(64, 20, 21, 8, 3, NULL, NULL, '15340.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 15:13:45', '2022-08-03 16:03:27'),
+(74, 30, 10, 4, 1, NULL, NULL, '15200.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:03:56', '2022-08-02 17:03:56'),
+(75, 31, 28, 1, 1, NULL, NULL, '900.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:08:32', '2022-08-02 17:08:32'),
+(76, 31, 28, 2, 1, NULL, NULL, '4100.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 17:08:47', '2022-08-02 17:08:47'),
+(77, 31, 29, 3, 1, NULL, NULL, '380.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:09:03', '2022-08-02 17:09:03'),
+(78, 31, 29, 4, 1, NULL, NULL, '1220.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 17:09:20', '2022-08-02 17:09:20'),
+(79, 31, 30, 5, 1, NULL, NULL, '100.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:09:44', '2022-08-02 17:09:44'),
+(80, 31, 31, 6, 1, NULL, NULL, '2850.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 17:10:19', '2022-08-02 17:10:19'),
+(81, 31, 32, 7, 1, NULL, NULL, '1200.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:10:37', '2022-08-02 17:10:37'),
+(82, 31, 33, 8, 1, NULL, NULL, '50.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:10:52', '2022-08-02 17:10:52'),
+(83, 32, 34, 1, 7, NULL, NULL, '10.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 1, NULL, NULL, NULL, '2022-08-02 17:25:23', '2022-08-09 17:18:36'),
+(84, 32, 35, 2, 7, NULL, NULL, '78940.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, NULL, NULL, NULL, '2022-08-02 17:25:38', '2022-08-09 16:21:11'),
+(85, 32, 35, 3, 7, NULL, NULL, '21060.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, NULL, NULL, NULL, '2022-08-02 17:26:02', '2022-08-09 16:22:05'),
+(86, 32, 36, 4, 7, NULL, NULL, '15000.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 2, NULL, NULL, NULL, '2022-08-02 17:27:14', '2022-08-02 17:27:14'),
+(87, 32, 37, 5, 7, NULL, NULL, '3050.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 2, NULL, NULL, NULL, '2022-08-02 17:28:23', '2022-08-02 17:28:23'),
+(88, 32, 38, 6, 7, NULL, NULL, '439.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 2, NULL, NULL, NULL, '2022-08-02 17:29:51', '2022-08-04 23:19:39'),
+(89, 32, 38, 7, 7, NULL, NULL, '261.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:30:28', '2022-08-02 17:30:28'),
+(90, 32, 39, 8, 7, NULL, NULL, '198000.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 17:32:07', '2022-08-02 17:32:07'),
+(91, 32, 39, 9, 7, NULL, NULL, '32000.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 17:32:25', '2022-08-02 17:32:25'),
+(92, 32, 40, 10, 7, NULL, NULL, '42350.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 17:33:29', '2022-08-02 17:33:29'),
+(93, 32, 40, 11, 7, NULL, NULL, '17650.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:33:43', '2022-08-02 17:33:43'),
+(94, 32, 41, 12, 7, NULL, NULL, '60860.00', '0.00', '0.00', '0.00', '0', '0', '1', 0, 1, NULL, NULL, NULL, '2022-08-02 17:39:59', '2022-08-02 17:39:59'),
+(95, 32, 41, 13, 7, NULL, NULL, '14140.00', '0.00', '0.00', '0.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-02 17:40:20', '2022-08-02 17:40:20'),
+(98, 36, 9, 1, 3, NULL, NULL, '1500.00', '200.00', '2.00', '1.00', '0', '0', '0', 0, 1, NULL, NULL, NULL, '2022-08-05 22:05:01', '2022-08-05 22:06:25'),
+(99, 36, 24, 2, 3, NULL, NULL, '1500.00', '200.00', '2.00', '1.00', '0', '1', '0', 1, 2, NULL, NULL, NULL, '2022-08-05 22:06:49', '2022-08-05 22:06:49'),
+(100, 37, 9, 1, 3, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 1, NULL, NULL, NULL, '2022-08-05 22:07:17', '2022-08-05 22:07:17'),
+(101, 37, 21, 2, 3, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 2, NULL, NULL, NULL, '2022-08-05 22:07:28', '2022-08-05 22:07:28'),
+(103, 39, 9, 1, 3, NULL, NULL, '39.00', '1.00', '1.00', '1.00', '1', '1', '1', 0, 1, NULL, NULL, NULL, '2022-08-09 21:24:21', '2022-08-09 21:24:21'),
+(104, 41, 9, 1, 3, NULL, NULL, '15000.00', '1.00', '1.00', '1.00', '1', '1', '1', 1, 1, NULL, NULL, NULL, '2022-08-09 21:28:27', '2022-08-09 22:04:21');
 
 -- --------------------------------------------------------
 
@@ -622,7 +631,7 @@ INSERT INTO `tbl_imp_product` (`id`, `id_type_product`, `Clasificacion_1`, `Clas
 (6, 1, NULL, NULL, NULL, '10523013', 's', 's', 'N', '2022-07-14 17:42:30', '2022-07-14 18:29:14'),
 (7, 1, NULL, NULL, NULL, '10523013', 's', 's', 'N', '2022-07-14 17:43:03', '2022-07-14 18:29:18'),
 (8, 1, NULL, NULL, NULL, NULL, 'nombre corto', 'nombre largo', 'N', '2022-07-14 17:43:41', '2022-07-14 18:29:00'),
-(9, 1, NULL, NULL, NULL, NULL, 'BISOLOW® 5 mg Tablets', 'BISOLOW® 5 mg Tablets (Bisoprolol Hemifumarate) 42 Tabs/Pack.', 'S', '2022-07-14 18:36:02', '2022-08-02 17:02:39'),
+(9, 1, 'CJA', NULL, NULL, NULL, 'BISOLOW® 5 mg Tablets', 'BISOLOW® 5 mg Tablets (Bisoprolol Hemifumarate) 42 Tabs/Pack.', 'S', '2022-07-14 18:36:02', '2022-08-09 21:34:01'),
 (10, 1, NULL, NULL, NULL, NULL, 'GUMAVAL® S 250 mg/5 ml 120 ml/Bottle', 'GUMAVAL® S 250 mg/5 ml Syrup (Sodium Valproate) 120 ml/Bottle', 'S', '2022-07-14 18:36:33', '2022-07-14 18:36:33'),
 (11, 2, NULL, NULL, NULL, '10305173', 'PRO01', 'PRO01', 'N', '2022-07-14 20:18:27', '2022-07-14 20:18:44'),
 (12, 1, NULL, NULL, NULL, '40951076', 'nombre corto', 'nombre largo', 'N', '2022-07-14 20:32:28', '2022-08-02 14:57:41'),
@@ -647,13 +656,13 @@ INSERT INTO `tbl_imp_product` (`id`, `id_type_product`, `Clasificacion_1`, `Clas
 (31, 2, NULL, NULL, NULL, NULL, 'METHOTREXATE BP 50 mg/2 ml 1', 'Methotrexate Injection BP 50 mg/2 ml 1 Vial 2 ml/Box', 'S', '2022-08-02 17:06:43', '2022-08-02 17:06:43'),
 (32, 2, NULL, NULL, NULL, NULL, 'PACLITAXEL Injection USP 150 mg/25 ml 1 Vial', 'Paclitaxel Injection USP 150 mg/25 ml.1 Vial 30 ml/Box', 'S', '2022-08-02 17:07:46', '2022-08-02 17:07:46'),
 (33, 2, NULL, NULL, NULL, NULL, 'PEMETREXED Disodium for Injection 500 mg FAM 1 Vial', 'Pemetrexed Disodium for Injection 500 mg FAM 1 Vial/Box', 'S', '2022-08-02 17:08:07', '2022-08-02 17:08:07'),
-(34, 1, 'CJA', '74', 'PME0000005', NULL, 'ALLOPURINOL 300 mg 1000 Tabs', 'Allopurinol 300 mg 1000 Tabs/Box', 'S', '2022-08-02 17:19:35', '2022-08-05 22:36:09'),
+(34, 1, 'CJA', '74', 'PME0000005', '12805061', 'ALLOPURINOL 300 mg 1000 Tabs', 'Allopurinol 300 mg 1000 Tabs/Box', 'S', '2022-08-02 17:19:35', '2022-08-08 21:52:28'),
 (35, 1, 'CJA', '87', 'PME0000001', NULL, 'AMOXICILLIN 500 mg 100 Caps', 'Amoxicillin 500 mg 100 Caps/Bo', 'S', '2022-08-02 17:25:02', '2022-08-05 18:36:00'),
 (36, 1, NULL, NULL, NULL, NULL, 'AMOXICILLIN/CLAVULANIC ACID', '875 mg/125 mg 14 Tab Amoxicillin/Clavulanic Acid 875 mg/125 mg 14 Tab/Box', 'S', '2022-08-02 17:26:57', '2022-08-02 17:26:57'),
 (37, 1, NULL, NULL, NULL, NULL, 'AMPICILLIN 1g Powder for Sol. Inj. 50 Vials', 'Ampicillin 1g Powder for Sol. Inj. 50 Vial/Box', 'S', '2022-08-02 17:27:52', '2022-08-02 17:27:52'),
 (38, 1, NULL, NULL, NULL, NULL, 'Azitromicina 500 mg Tabs 1000 Tabs/Pack', 'Azithromycin 500 mg Tablets 1000 Tabs/Pack', 'S', '2022-08-02 17:29:33', '2022-08-02 17:29:33'),
 (39, 1, NULL, NULL, NULL, NULL, 'BECLOMETHASONE Dipropionate 250 mcg/Dose 1 Inhaler', 'Beclomethasone Dipropionate Aerosol 250 mcg/Dose 1 Inhaler/Box', 'S', '2022-08-02 17:31:33', '2022-08-02 17:31:33'),
-(40, 1, NULL, NULL, NULL, NULL, 'BECLOMETHASONE Dipropionate 50 mcg/Dose 1 Inhaler', 'Beclomethasone Dipropionate Aerosol 50 mcg/Dose 1 Inhaler/Box', 'S', '2022-08-02 17:33:13', '2022-08-02 17:33:13'),
+(40, 1, 'CJA', '85', 'ACMN000012', NULL, 'BECLOMETHASONE Dipropionate 50 mcg/Dose 1 Inhaler', 'Beclomethasone Dipropionate Aerosol 50 mcg/Dose 1 Inhaler/Box', 'S', '2022-08-02 17:33:13', '2022-08-09 21:31:54'),
 (41, 1, NULL, NULL, NULL, NULL, 'IPRATROPIUM Bromide 20 mcg/Inhaler 1 Inhaler', 'Ipratropium Bromide 20 mcg/Inhaler 1 Inhaler/Box', 'S', '2022-08-02 17:39:38', '2022-08-02 17:39:38'),
 (42, 1, NULL, NULL, NULL, '40951007', 'Producto Nuevo sin COdigo', 'Pedrio no a creado el articulo', 'N', '2022-08-03 14:56:30', '2022-08-03 14:58:46'),
 (43, 2, NULL, NULL, NULL, '10323053', 'ElPRoducto de Prueba', 'El COntenido largo de prueba', 'S', '2022-08-03 22:58:54', '2022-08-03 22:58:54'),
@@ -706,8 +715,8 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_tipo_carga` (
 --
 
 INSERT INTO `tbl_imp_tipo_carga` (`id`, `Descripcion`, `activo`, `created_at`, `updated_at`) VALUES
-(1, 'Consolidada', 'S', '2022-07-26 21:02:48', '2022-07-26 21:02:52'),
-(2, 'Otros', 'S', '2022-07-26 21:02:50', '2022-07-26 21:02:54');
+(1, 'CONSOLIDADA', 'S', '2022-07-26 21:02:48', '2022-07-26 21:02:52'),
+(2, 'COMPLETA', 'S', '2022-07-26 21:02:50', '2022-07-26 21:02:54');
 
 -- --------------------------------------------------------
 
@@ -745,6 +754,8 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_vendor` (
   `nombre_vendor` varchar(100) DEFAULT NULL,
   `Descripcion` varchar(250) DEFAULT NULL,
   `time_despacho` int(10) DEFAULT NULL,
+  `time_transito` int(10) DEFAULT NULL,
+  `time_aduana` int(10) DEFAULT NULL,
   `activo` varchar(5) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -755,22 +766,22 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_vendor` (
 -- Volcado de datos para la tabla `tbl_imp_vendor`
 --
 
-INSERT INTO `tbl_imp_vendor` (`id`, `nombre_vendor`, `Descripcion`, `time_despacho`, `activo`, `created_at`, `updated_at`) VALUES
-(2, 'OMBRE', 'DESCRIPCION', 0, 'N', '2022-07-12 20:30:53', '2022-07-12 20:55:36'),
-(3, 'proveedor', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, ', 0, 'N', '2022-07-12 20:38:46', '2022-07-12 20:51:57'),
-(4, 'PROVEEDOR', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 0, 'N', '2022-07-12 20:39:17', '2022-07-12 20:51:54'),
-(5, 'nombre de proveedor', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio.', 0, 'N', '2022-07-12 20:55:48', '2022-07-12 21:42:30'),
-(6, 'PROVEEDOR', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 0, 'N', '2022-07-12 21:43:01', '2022-07-12 21:44:03'),
-(7, 'PROVEEDOR', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 0, 'N', '2022-07-12 21:43:07', '2022-07-12 21:43:59'),
-(8, 'Hiral Labs Limited', '265, SISONA, Nr. Bhagwanpur, Roorkee, Uttarakhand- 247661, India\nPhone number: +91\n9368235030\nTax ID: 05AAACH9991E1ZF\nIndia', 0, 'S', '2022-07-12 21:43:28', '2022-07-12 21:43:28'),
-(9, 'Bharat Parenterals Limited', 'Village: Haripura, Ta.Savli, Dist. Vadodara, Gujarat 391520 India', 0, 'N', '2022-07-12 21:43:49', '2022-07-13 14:52:59'),
-(10, 'Opsonin Pharma Limited', '30 New Eskaton Road Dhaka  1000 Bangladesh', 0, 'S', '2022-07-12 21:44:43', '2022-07-12 21:44:43'),
-(11, 'Ajit Mehta', 'MEDORBIS TRADE LLP	\n304, Town Centre, 3rd Floor,	\nAndheri Kurla Road, Andheri	\nEast,  Mumbai City,	\nMaharashtra 400059 India	\nTax ID: ABIFM8473A', 0, 'S', '2022-07-12 21:45:01', '2022-07-12 21:45:01'),
-(12, 'Andy Duan SINOCHEM PHARMACEUTICAL CO. LTD', 'Floor 21, JIN CHENG TOWER,	\nNO.216 MIDDLE LONGPAN	\nRD. NANJING CHINA	\nTax ID: 913200001347623777', 0, 'S', '2022-07-12 21:45:25', '2022-07-12 21:45:25'),
-(13, 'c', 'c', 0, 'N', '2022-07-12 22:11:08', '2022-07-12 22:11:12'),
-(14, 'nuevo', 'nuevo', 0, 'N', '2022-07-13 14:52:52', '2022-08-02 16:24:46'),
-(15, 'Bharat Parenterals Limited', 'Village: Haripura, Ta.Savli, Dist. Vadodara, Gujarat 391520 India', 0, 'S', '2022-08-02 16:25:03', '2022-08-02 16:25:03'),
-(16, 'Andy Duan SINOCHEM PHARMACEUTICAL CO. LTD', 'Floor 21, JIN CHENG TOWER,	\nNO.216 MIDDLE LONGPAN	\nRD. NANJING CHINA	\nTax ID: 913200001347623777', 0, 'S', '2022-08-02 16:41:19', '2022-08-02 16:41:19');
+INSERT INTO `tbl_imp_vendor` (`id`, `nombre_vendor`, `Descripcion`, `time_despacho`, `time_transito`, `time_aduana`, `activo`, `created_at`, `updated_at`) VALUES
+(2, 'OMBRE', 'DESCRIPCION', 30, 30, 30, 'N', '2022-07-12 20:30:53', '2022-07-12 20:55:36'),
+(3, 'proveedor', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, ', 30, 30, 30, 'N', '2022-07-12 20:38:46', '2022-07-12 20:51:57'),
+(4, 'PROVEEDOR', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 30, 30, 30, 'N', '2022-07-12 20:39:17', '2022-07-12 20:51:54'),
+(5, 'nombre de proveedor', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio.', 30, 30, 30, 'N', '2022-07-12 20:55:48', '2022-07-12 21:42:30'),
+(6, 'PROVEEDOR', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 30, 30, 30, 'N', '2022-07-12 21:43:01', '2022-07-12 21:44:03'),
+(7, 'PROVEEDOR', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 30, 30, 30, 'N', '2022-07-12 21:43:07', '2022-07-12 21:43:59'),
+(8, 'Hiral Labs Limited', '265, SISONA, Nr. Bhagwanpur, Roorkee, Uttarakhand- 247661, India\nPhone number: +91\n9368235030\nTax ID: 05AAACH9991E1ZF\nIndia', 10, 30, 30, 'S', '2022-07-12 21:43:28', '2022-08-09 21:09:58'),
+(9, 'Bharat Parenterals Limited', 'Village: Haripura, Ta.Savli, Dist. Vadodara, Gujarat 391520 India', 30, 30, 30, 'N', '2022-07-12 21:43:49', '2022-07-13 14:52:59'),
+(10, 'Opsonin Pharma Limited', '30 New Eskaton Road Dhaka  1000 Bangladesh', 30, 30, 30, 'S', '2022-07-12 21:44:43', '2022-07-12 21:44:43'),
+(11, 'Ajit Mehta', 'MEDORBIS TRADE LLP	\n304, Town Centre, 3rd Floor,	\nAndheri Kurla Road, Andheri	\nEast,  Mumbai City,	\nMaharashtra 400059 India	\nTax ID: ABIFM8473A', 10, 30, 30, 'S', '2022-07-12 21:45:01', '2022-08-09 21:09:42'),
+(12, 'Andy Duan SINOCHEM PHARMACEUTICAL CO. LTD', 'Floor 21, JIN CHENG TOWER,	\nNO.216 MIDDLE LONGPAN	\nRD. NANJING CHINA	\nTax ID: 913200001347623777', 30, 30, 30, 'S', '2022-07-12 21:45:25', '2022-07-12 21:45:25'),
+(13, 'c', 'c', 30, 30, 30, 'N', '2022-07-12 22:11:08', '2022-07-12 22:11:12'),
+(14, 'nuevo', 'nuevo', 30, 30, 30, 'N', '2022-07-13 14:52:52', '2022-08-02 16:24:46'),
+(15, 'Bharat Parenterals Limited', 'Village: Haripura, Ta.Savli, Dist. Vadodara, Gujarat 391520 India', 30, 30, 30, 'S', '2022-08-02 16:25:03', '2022-08-02 16:25:03'),
+(16, 'Andy Duan SINOCHEM PHARMACEUTICAL CO. LTD', 'Floor 21, JIN CHENG TOWER,	\nNO.216 MIDDLE LONGPAN	\nRD. NANJING CHINA	\nTax ID: 913200001347623777', 30, 30, 30, 'S', '2022-08-02 16:41:19', '2022-08-02 16:41:19');
 
 -- --------------------------------------------------------
 

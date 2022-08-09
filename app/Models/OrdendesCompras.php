@@ -62,7 +62,8 @@ class OrdendesCompras extends Model {
                 $obj_new_po->id_vendor  = $slc_vendor;                    
                 $obj_new_po->id_shipto  = $slc_shipto;
 
-                if($dtaFecha !='N/D') $obj_new_po->Fecha  = $dtaFecha;                
+                if($dtaFecha !='N/D') $obj_new_po->Fecha  = $dtaFecha;
+                if($dtaFecha !='N/D') $obj_new_po->fecha_orden_compra  = $dtaFecha;
                 
                 $obj_new_po->activo              = 'S';
                 $obj_new_po->id_estado_orden     = '1';
@@ -341,6 +342,33 @@ class OrdendesCompras extends Model {
                 return response()->json($mensaje);
             }
         }
+
+    }
+
+    public static function getInfoEmail()
+    { 
+            $response = array();
+            $i=0;
+            $Ordenes = OrdendesCompras::where('activo', 'S')->get();
+            foreach ($Ordenes as $orden){
+                foreach ($orden->Detalles as $lstProducto){
+
+                    if($orden->num_po=='1675'){
+                        $response[$i]['num_po']         =  $orden->num_po;
+                        $response[$i]['ARTICULO']         =  $lstProducto->isProduct->Tipo->descripcion . ' : ' . $lstProducto->isProduct->descripcion_corta;
+                        $response[$i]['PROVEEDOR']         =  $orden->Vendor->nombre_vendor;
+                        $response[$i]['INFORMACION']         =  'LA EVALUACION';
+                    }
+                    
+
+                    $i++;
+
+                }
+
+            }
+
+
+            return $response;
 
     }
 

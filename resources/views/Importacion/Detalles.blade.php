@@ -13,75 +13,151 @@
     border-bottom: 1px dashed red;
     text-decoration: none;
   }
+  .row {
+  --falcon-gutter-x: 0rem;
+  --falcon-gutter-y: 0;
+}
 </style>
 <main class="main" id="top">
     <div class="container-fluid" data-layout="container">
+      
         <div class="content">
+        <div class="row" style="display:none">
+          <span id="id_rol" >{{Session::get('rol')}}</span>
+          <span id="id_login_user">{{auth()->user()->id}}</span>
+          <span  id="id_lbl_po">{{ $Orden->id }}</span>
+        </div>
             @include('layouts.nav_importacion')
-            <div class="row g-3 mb-3">
-            <div class="col-md-12 col-xxl-12">
-              <div class="card">
-                <div class="card-header">
-                  <div class="row flex-between-center">
-                    <div class="col-auto">
-                      <span id="id_rol" style="display:none">{{Session::get('rol')}}</span>
-                      <span id="id_login_user" style="display:none">{{auth()->user()->id}}</span>
-                      <span style="display:none" id="id_lbl_po">{{ $Orden->id }}</span>
-                      <h5>P.O. NO. : # {{ $Orden->num_po  }} </h5>
-                      <p class="fs--1 invisible" onclick="frmSweetAlert02(3)" ><u class="dotted"> {{ !empty($Orden->fecha_orden_compra ) ? date('F d, Y', strtotime($Orden->fecha_orden_compra))  :'N/D'  }}</u></p>
+            
+            <div class="col-md-12 col-xxl-12 mb-3">
+              <div class="card h-100">
+              <div class="card-header">
+                <div class="row  ">
+                  <div class="col-auto col-sm-12 col-lg-12">
+                    <div class="row ">
 
-                      
-                      <div><strong class="me-2">Status: </strong>
-                        <div class="badge rounded-pill badge-soft-success fs--2">{{ !empty($Orden->Estado->descripcion) ? $Orden->Estado->descripcion :'N/D'  }}<span class="fas fa-check ms-1" data-fa-transform="shrink-2"></span></div>
+                    <div class="col-12 col-sm-auto ">                      
+                      <div class="mb-3 pe-4 border-sm-end border-200 ">
+                        <div class="d-flex align-items-center position-relative">
+                          <div class="flex-1 ms-3">
+                            
+                            <div class="d-flex align-items-center">
+                              <h5 class="mb-1 fw-semi-bold text-nowrap"><strong> P.O. NO. : # {{ $Orden->num_po  }} </strong></h5>
+                              <span class="badge rounded-pill ms-3 badge-soft-info" onclick="frmSweetAlert(2)"><span class="fas fa-pencil-alt"></span> Via: {{ !empty($Orden->Vias->Descripcion) ? $Orden->Vias->Descripcion :'N/D'  }}  </span>
+                            </div>
+                                <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
+
+                                    <div class="col-auto">
+                                      <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="frmSweetAlert(0)">
+                                        <span class="ms-1 fas fa-pencil-alt text-primary"></span>
+                                        <span class="ms-1 ">FACTURA Nº.: {{ number_format($Orden->factura,0,'.','') }}</span>
+                                      </a>
+                                    </div>          
+
+                                    <div class="col-auto">
+                                      <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="frmSweetAlert(1)">
+                                        <span class="ms-1  fas fa-pencil-alt text-primary" ></span>
+                                        <span class="ms-1">RECIBO Nº.: {{ number_format($Orden->recibo,0,'.','') }} </span>
+                                      </a>
+                                    </div>   
+
+                                
+                                </div> 
+                            
+                            <div class="col-auto">
+                                <span class="ms-1  badge rounded-pill bg-primary" onclick="frmSweetAlert(5)"> TIPO CARGA {{ !empty($Orden->TipoCarga->Descripcion) ? $Orden->TipoCarga->Descripcion :'N/D'  }} <span class="fas fa-pencil-alt"></span></span>  
+                                <span class="ms-1  badge rounded-pill bg-success"  onclick="frmSweetAlert(4)"> TIPO PAGO {{ !empty($Orden->EstadoPago->Descripcion) ? $Orden->EstadoPago->Descripcion :'N/D'  }}  <span class="fas fa-pencil-alt"></span></span>
+                                <span class="ms-1  badge rounded-pill bg-info"> ESTADO  {{ !empty($Orden->Estado->descripcion) ? $Orden->Estado->descripcion :'N/D'  }}  </span>
+                                
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-auto mt-2">
-                      <div class="row g-sm-4">
-                        <div class="col-12 col-sm-auto">
-                          <div class="mb-3 pe-4 border-sm-end border-200">
-                            <h6 class="fs--2 text-600 mb-1">Factura NO.: </h6>
-                            <div class="d-flex align-items-center">
-                              <u class="dotted"><h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert(0)">{{ number_format($Orden->factura,0) }}</h5></U>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-12 col-sm-auto">
-                          <div class="mb-3 pe-4 border-sm-end border-200">
-                            <h6 class="fs--2 text-600 mb-1">RECIBO NO.:</h6>
-                            <div class="d-flex align-items-center">
-                              <u class="dotted"><h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert(1)">{{ number_format($Orden->recibo,0) }}</h5></u>
-                            </div>
-                          </div>
-                        </div>                        
-                        <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                            <h6 class="fs--2 text-600 mb-1 ">Via</h6>
-                            <div class="d-flex align-items-center">
-                              <u class="dotted"><h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert(2)"> {{ !empty($Orden->Vias->Descripcion) ? $Orden->Vias->Descripcion :'N/D'  }}  </h5></u>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                            <h6 class="fs--2 text-600 mb-1">Estado de pago</h6>
-                            <div class="d-flex align-items-center">
-                              <u class="dotted"><h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert(4)" > {{ !empty($Orden->EstadoPago->Descripcion) ? $Orden->EstadoPago->Descripcion :'N/D'  }} </h5></u>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-12 col-sm-auto">
-                          <div class="mb-3 pe-0">
-                            <h6 class="fs--2 text-600 mb-1">Carga</h6>
-                            <div class="d-flex align-items-center">                            
-                              <u class="dotted"><h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert(5)" > {{ !empty($Orden->TipoCarga->Descripcion) ? $Orden->TipoCarga->Descripcion :'N/D'  }} </h5></u>
-                            </div>
+             
+                      <div class="col-12 col-sm-auto ">
+                        <div class="mb-3 pe-4 border-sm-end border-200 ms-2">
+                          <h6 class="fs--2 text-600 mb-1">FECHA DESPACHO</h6>
+                          <div class="d-flex align-items-center ">
+                          <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(0)">{{ !empty($Orden->fecha_despacho ) ? $Orden->fecha_despacho  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span> </span>
                           </div>
                         </div>
                       </div>
+
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200 ms-2">
+                          <h6 class="fs--2 text-600 mb-1">FECHA ESTIMADA</h6>
+                          <div class="d-flex align-items-center">
+                          <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(1)">{{ !empty($Orden->fecha_estimada ) ? $Orden->fecha_estimada  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span> </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200 ms-2">
+                          <h6 class="fs--2 text-600 mb-1">FECHA FACTURA</h6>
+                          <div class="d-flex align-items-center">
+                          <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(2)">{{ !empty($Orden->fecha_factura ) ? $Orden->fecha_factura  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200 ms-2">
+                          <h6 class="fs--2 text-600 mb-1">FECHA ORDEN DE COMPRA</h6>
+                          <div class="d-flex align-items-center">
+                          <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(3)" >{{ !empty($Orden->fecha_orden_compra ) ? $Orden->fecha_orden_compra  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200 ms-2">
+                          <h6 class="fs--2 text-600 mb-1">TOTAL SKU'S</h6>
+                          <div class="d-flex align-items-center">
+                          <h5 class="fs-0 text-900 mb-0 me-2" id="id_tt_list_product"> {{count($Orden->Detalles)}} </h5>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200 ms-2">
+                          <h6 class="fs--2 text-600 mb-1">CON REGISTRO MIFIC</h6>
+                          <div class="d-flex align-items-center">
+                          <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_mific"> 0 </h5><span class="badge rounded-pill bg-primary"><span id="id_count_tbl_mific_procent"></span> %</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200 ms-2">
+                          <h6 class="fs--2 text-600 mb-1">CON REGISTRO  REGENCIA</h6>
+                          <div class="d-flex align-items-center">
+                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_regencia">0</h5><span class="badge rounded-pill bg-success"> <span id="id_count_tbl_regencia_procent"></span> %</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-sm-auto">
+                        <div class="mb-3 pe-4 border-sm-end border-200 ms-2">
+                          <h6 class="fs--2 text-600 mb-1">CON REGISTRO  MINSA</h6>
+                          <div class="d-flex align-items-center">
+                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_minsa" >0</h5><span class="badge rounded-pill bg-info"> <span id="id_count_tbl_minsa_procent"></span> %</span>
+                          </div>
+                        </div>
+                      </div>
+
+                    
+                    
+                  
                     </div>
                   </div>
+                 
                 </div>
+              </div>
+              
+              </div>
+            </div>
+            <div class="card mb-3">
                 <div class="card-body py-5 py-sm-3">
                   <div class="row g-5 g-sm-0">
                     <div class="col-sm-6">
@@ -103,111 +179,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-12 col-xxl-12">
-              <div class="card h-100">
-              <div class="card-header">
-                <div class="row flex-between-center ">
-                  <div class="col-auto col-sm-6 col-lg-6 border border-5">
-
-                    <div class="row g-sm-4 ">
-
-                     <div class="col-12 col-sm-auto ">
-                        <div class="mb-3 pe-4 border-sm-end border-200  ">
-                          <h6 class="fs--2 text-600 mb-1">TOTAL SKU'S</h6>
-                          <div class="d-flex align-items-center ">
-                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_tt_list_product"> {{count($Orden->Detalles)}} </h5>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                          <h6 class="fs--2 text-600 mb-1">CON REGISTRO MIFIC</h6>
-                          <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_mific"> 0 </h5><span class="badge rounded-pill bg-primary"><span id="id_count_tbl_mific_procent"></span> %</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                          <h6 class="fs--2 text-600 mb-1">CON REGISTRO  REGENCIA</h6>
-                          <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_regencia">0</h5><span class="badge rounded-pill bg-success"> <span id="id_count_tbl_regencia_procent"></span> %</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-12 col-sm-auto">
-                        <div class="mb-3 pe-4 border-sm-end border-200">
-                          <h6 class="fs--2 text-600 mb-1">CON REGISTRO  MINSA</h6>
-                          <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2" id="id_count_tbl_minsa" >0</h5><span class="badge rounded-pill bg-info"> <span id="id_count_tbl_minsa_procent"></span> %</span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div class="col-12 col-sm-auto invisible">
-                        <div class="mb-3 pe-0">
-                          <h6 class="fs--2 text-600 mb-1">Vendedor / Fabricante </h6>
-                          <div class="d-flex align-items-center">
-                            <h5 class="fs-0 text-900 mb-0 me-2">5</h5>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    
-                  </div>
-                  <div class="col-auto col-sm-6 col-lg-6 border border-5">
-                  <div class="row ">
-                  <div class="col-12 col-sm-auto ">
-                      <div class="mb-3 pe-4 border-sm-end border-200 ">
-                        <h6 class="fs--2 text-600 mb-1">FECHA DESPACHO</h6>
-                        <div class="d-flex align-items-center ">
-                        <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(0)">{{ !empty($Orden->fecha_despacho ) ? $Orden->fecha_despacho  :'N/D'  }}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-12 col-sm-auto">
-                      <div class="mb-3 pe-4 border-sm-end border-200">
-                        <h6 class="fs--2 text-600 mb-1">FECHA ESTIMADA</h6>
-                        <div class="d-flex align-items-center">
-                        <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(1)">{{ !empty($Orden->fecha_estimada ) ? $Orden->fecha_estimada  :'N/D'  }}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-12 col-sm-auto">
-                      <div class="mb-3 pe-4 border-sm-end border-200">
-                        <h6 class="fs--2 text-600 mb-1">FECHA FACTURA</h6>
-                        <div class="d-flex align-items-center">
-                        <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(2)">{{ !empty($Orden->fecha_factura ) ? $Orden->fecha_factura  :'N/D'  }}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-12 col-sm-auto">
-                      <div class="mb-3 pe-4 border-sm-end border-200">
-                        <h6 class="fs--2 text-600 mb-1">FECHA ORDEN DE COMPRA</h6>
-                        <div class="d-flex align-items-center">
-                        <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(3)" >{{ !empty($Orden->fecha_orden_compra ) ? $Orden->fecha_orden_compra  :'N/D'  }}</span>
-                        </div>
-                      </div>
-                    </div>
-                  
-                
-                  </div>
-                  </div>
-                </div>
-              </div>
-              
-              </div>
-            </div>
-          </div>
-
             <div class="card mb-3">
               <div class="card-header">
                 <div class="row flex-between-center">
@@ -230,15 +201,11 @@
                     <thead class="bg-200 text-900">
                         <tr>
                           <th class="border-0">Nº </th>
-                          <th class="border-0">Productos </th>
-                          <th class="border-0 text-center">Estado</th>
-                          <th class="border-0 text-center">Cantidad</th>
-                          <th class="border-0 text-end">Precio. Farmacia</th>
-                          <th class="border-0 text-end">Precio. Público</th>
-                          <th class="border-0 text-end">Precio. Institución</th>
-                          <th class="border-0 text-end">MIFIC</th>
-                          <th class="border-0 text-end">REGENCIA</th>
-                          <th class="border-0 text-end">MINSA</th>
+                          <th class="border-0">Nº </th>
+                          <th class="border-0">Nº </th>
+                          <th class="border-0">Nº </th>
+                          <th class="border-0">TOTAL SKU'S ( {{count($Orden->Detalles)}} ) </th>
+                          <th class="border-0 text-center"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -247,53 +214,7 @@
                         @foreach ($Orden->Detalles as $lstProducto)
                         <tr class="border-200">
                         <td class="align-middle text-center">{{$lstProducto->linea}}</td>
-                          <td class="align-middle">
-                            <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
-                              <div class="flex-1 ms-3">
-                                
-                                <div class="d-flex align-items-center">
-                                    <h6 class="mb-1 fw-semi-bold text-nowrap"><a href=""> <strong>{{$lstProducto->isProduct->Tipo->descripcion}} </strong></a> : {{$lstProducto->isProduct->descripcion_corta}}</h6>                                    
-                                    <span class="badge rounded-pill ms-3 badge-soft-info"><span class="fas fa-check"></span> Prop. {{$lstProducto->getMercados->descripcion}}</span>
-                                    @if($lstProducto->TieneVenta == 1)
-                                      <span class="badge rounded-pill ms-3 badge-soft-success "><span class="fas fas fa-dollar-sign"></span> Tiene Venta</span>
-                                    @endif
-                                    
-                                    
-                                  </div>
-                                <p class="fw-semi-bold mb-0 text-500">{{$lstProducto->isProduct->descripcion_larga}}</p>                            
-                                <div class="row g-0 fw-semi-bold text-center py-2 fs--1">
-                                    <div class="row g-0 fw-semi-bold text-center py-2 fs--1"> 
-                                      
-                                        <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Editar({{$lstProducto->id}})"><span class="ms-1 fas fa-pencil-alt text-primary"></span><span class="ms-1">Editar</span></a></div>                                        
-                                        <div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Remover({{$lstProducto->id}})"><span class="ms-1 fas fa-trash-alt text-danger" ></span><span class="ms-1">Borrar</span></a></div>                                    
-                                        <div class="col-auto  d-flex align-items-center">
-                                          <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="AddComment({{$lstProducto}})">
-                                            <span class="ms-1 fas fa-comment text-primary"></span>
-                                            <span class="ms-1"> {{$lstProducto->Comments()}}</span>
-                                          </a>
-                                        </div>
-                                        <div class="col-auto d-flex align-items-center">
-                                            @if($lstProducto->mific !='0')
-                                              <span class="ms-3 badge rounded-pill bg-primary"> MIFIC <span class="fas fa-check"></span></span>  
-                                            @endif
-                                            @if($lstProducto->regencia !='0')
-                                              <span class="ms-3 badge rounded-pill bg-success"> REGENCIA  <span class="fas fa-check"></span></span>
-                                            @endif
-                                            @if($lstProducto->minsa !='0')
-                                              <span class="ms-3 badge rounded-pill bg-info"> MINSA <span class="fas fa-check"></span></span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div> 
-                              </div>
-                            </div>
-                          </td>
-                          <td class="align-middle text-center" onclick="frmCambioDeEstado({{$lstProducto->id}})"><span class="badge fs--1 w-100 badge-soft-success"> {{$lstProducto->getEstado->descripcion}}</span></td>
-                          <td class="align-middle text-center">{{number_format($lstProducto->cantidad,2)}}</td>
-                          <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_farmacia,2)}}</td>
-                          <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_publico,2)}}</td>
-                          <td class="align-middle text-end">C$ {{number_format($lstProducto->precio_institucion,2)}}</td>
-                          <td class="align-middle text-end">
+                        <td class="align-middle text-end">
                             @if($lstProducto->mific !='0')
                             <span class="badge badge rounded-pill badge-soft-success"><span class="fs-3 fas fa-check" data-fa-transform="shrink-2"></span></span>
                             @else
@@ -314,7 +235,198 @@
                             <span class="badge badge rounded-pill badge-soft-danger"><span class="fs-3 fas fa-times" data-fa-transform="shrink-2"></span></span>
                             @endif
                           </td>
+                          <td class="align-middle">
+                            <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset('images/item.png') }}"alt="" width="60">
+                              <div class="flex-1 ms-3">
+                                
+                                <div class="d-flex align-items-center">
+                                    <h6 class="mb-1 fw-semi-bold text-nowrap"><a href=""> <strong>{{$lstProducto->isProduct->Tipo->descripcion}} </strong></a> : {{$lstProducto->isProduct->descripcion_corta}}</h6>                                    
+                                    <span class="badge rounded-pill ms-3 badge-soft-info"><span class="fas fa-check"></span> Propiedad {{$lstProducto->getMercados->descripcion}}</span>
+                                    @if($lstProducto->TieneVenta == 1)
+                                      <span class="badge rounded-pill ms-3 badge-soft-success "><span class="fas fas fa-dollar-sign"></span> Tiene Venta</span>
+                                    @endif
+                                    
+                                    
+                                  </div>
+                                <p class="fw-semi-bold mb-0 text-500">{{$lstProducto->isProduct->descripcion_larga}}</p>                            
+                                
+                                    <div class="row g-0 fw-semi-bold text-center py-2 fs--1">                                      
+                                        <div class="col-auto">
+                                          <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Editar({{$lstProducto->id}},true)">
+                                            <span class="ms-1 fas fa-pencil-alt text-primary"></span>
+                                            <span class="ms-1">Editar</span>
+                                          </a>
+                                        </div>                                        
+                                        <div class="col-auto">
+                                            <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Remover({{$lstProducto->id}})">
+                                            <span class="ms-1 fas fa-trash-alt text-danger" ></span>
+                                            <span class="ms-1">Borrar</span>
+                                          </a>
+                                        </div>
+                                        
+                                        <div class="col-auto  d-flex align-items-center">
+                                          <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="AddComment({{$lstProducto}})">
+                                            <span class="ms-1 fas fa-comment text-primary"></span>
+                                            <span class="ms-1"> {{$lstProducto->Comments()}}</span>
+                                          </a>
+                                        </div>
+                                        <div class="col-auto  d-flex align-items-center">
+                                          <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="AddComment({{$lstProducto}})">
+                                            <span class="ms-1 fas fa-boxes  text-primary"></span>
+                                            <span class="ms-1"> {{number_format($lstProducto->cantidad,0)}}  {{$lstProducto->isProduct->Clasificacion_1}}</span>
+                                          </a>
+                                        </div>
+                                        <div class="col-auto">
+                                            <a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="Editar({{$lstProducto->id}},false)">
+                                            <span class="ms-1 fas fas fa-info-circle text-primary"></span>
+                                            <span class="ms-1">Mas Información</span>
+                                          </a>
+                                        </div>
+                                    </div>
+                                    <div class="row g-0 fw-semi-bold text-center py-2 fs--1 "> 
+                                    <div class="col-auto d-flex align-items-center">
+                                            @if($lstProducto->mific !='0')
+                                              <span class="ms-3 badge rounded-pill bg-primary"> CON REGISTRO MINFIC <span class="fas fa-check"></span></span>  
+                                            @endif
+                                            @if($lstProducto->regencia !='0')
+                                              <span class="ms-3 badge rounded-pill bg-success">CON REGISTRO REGENCIA  <span class="fas fa-check"></span></span>
+                                            @endif
+                                            @if($lstProducto->minsa !='0')
+                                              <span class="ms-3 badge rounded-pill bg-info">CON REGISTRO MINSA <span class="fas fa-check"></span></span>
+                                            @endif
+                                        </div>
+                                    </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="align-middle text-left">
+                          <div class="row">
+
+                            <div class="col-md-4 h-100">
+                              <div class="d-flex btn-reveal-trigger">                                
+                                <div class="flex-1 position-relative">
+                                  <div class="border border-1 border-300 rounded-2 p-3 ask-analytics-item position-relative mb-3">
+                                    <div class="d-flex align-items-center mb-3">
+                                      
+                                      
+                                      <span class="{{ !empty($lstProducto->fecha_real_despacho ) ? '' : 'fas fa-clock text-primary'  }}"></span>
+                                        <h5 class="fs--1 text-600 mb-0 ps-3">Tiempo en Despacho <span class="badge badge-soft-success rounded-pill">{{ $Orden->Vendor->time_despacho }} Dias</span>
+                                        <?php
+                                        if(!empty($Orden->fecha_orden_compra )){
+
+                                          $dtEstimado     = date('Y-m-d', strtotime($Orden->fecha_orden_compra. ' + '.$Orden->Vendor->time_despacho.' days'));
+                                          $dtHoy          = date('Y-m-d');
+
+                                          $DiasDiff = round((strtotime($dtEstimado) - strtotime($dtHoy))/86400);
+                                          if($DiasDiff < 0){
+                                            echo '<span class="badge badge-soft-danger rounded-pill">'.abs($DiasDiff).' Dias Excedidos</span>';
+                                          }
+                                        }
+
+                                        ?>
+
+                                      </h5>
+                                    </div> 
+                                    <div class="row g-0">
+                                      <div class="col-6 col-md-4 border-200 border-end ">
+                                        <h6 class="pb-1 text-700">Fecha Orde de Compra </h6>
+                                        <div class="d-flex align-items-center">
+                                        <h6 class="mb-1 fw-semi-bold text-nowrap">{{ !empty($Orden->fecha_orden_compra ) ? $Orden->fecha_orden_compra  :'N/D'  }} </h6>
+                                          
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-4 border-200 border-md-200 border-md-end pb-4 ps-3">
+                                        <h6 class="pb-1 text-700">Estimada de Despacho </h6>
+                                        <div class="d-flex align-items-center">
+                                          <h6 class="mb-1 fw-semi-bold text-nowrap">{{ !empty($Orden->fecha_orden_compra ) ? date('Y-m-d', strtotime($Orden->fecha_orden_compra. ' + '.$Orden->Vendor->time_despacho.' days')):'N/D'  }} </h6>
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-4 border-200  pb-4 pt-4 pt-md-0 ps-md-3">
+                                        <h6 class="pb-1 text-700">Fecha Real Despacho </h6>
+                                        <div class="d-flex align-items-center">
+                                          <h6 class=" fw-semi-bold text-nowrap text-primary" onclick="frmSweetAlert03(0,{{$lstProducto->id}})">{{ !empty($lstProducto->fecha_real_despacho ) ? $lstProducto->fecha_real_despacho  :'N/D'  }}<span class="ms-1 fas fa-calendar-alt"></span> </h6>
+                                          
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-4 h-100">
+                              <div class="d-flex btn-reveal-trigger">                                
+                                <div class="flex-1 position-relative ps-3 ">
+                                  <div class="border border-1 border-300 rounded-2 p-3 ask-analytics-item position-relative mb-3">
+                                    <div class="d-flex align-items-center mb-3">
+                                      <span class="{{ !empty($lstProducto->fecha_real_aduana ) ? '' : 'fas fa-clock text-primary'  }}"></span>
+                                        <h5 class="fs--1 text-600 mb-0 ps-3">Tiempo en Transito  <span class="badge badge-soft-success rounded-pill">{{ $Orden->Vendor->time_despacho }} Dias</span>
+                                      </h5>
+                                    </div> 
+                                    <div class="row g-0">
+                                      <div class="col-6 col-md-4 border-200 border-end pb-4">
+                                        <h6 class="pb-1 text-700">Fecha Real Despacho  </h6>
+                                        <div class="d-flex align-items-center">
+                                          <h6 class="mb-1 fw-semi-bold text-nowrap">{{ !empty($lstProducto->fecha_real_despacho ) ? $lstProducto->fecha_real_despacho  :'N/D'  }}</h6>
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-4 border-200 border-md-200 border-md-end pb-4 ps-3">
+                                        <h6 class="pb-1 text-700">Estimada en Aduana </h6>
+                                        <div class="d-flex align-items-center">
+                                          <h6 class="mb-1 fw-semi-bold text-nowrap">--- </h6>
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-4 border-200  pb-4 pt-4 pt-md-0 ps-md-3">
+                                        <h6 class="pb-1 text-700">Fecha Real en Aduana </h6>
+                                        <div class="d-flex align-items-center">
+                                          <h6 class=" fw-semi-bold text-nowrap text-primary" onclick="frmSweetAlert03(1,{{$lstProducto->id}})">{{ !empty($lstProducto->fecha_real_aduana ) ? $lstProducto->fecha_real_aduana  :'N/D'  }}<span class="ms-1 fas fa-calendar-alt"></span> </h6>
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-4 h-100">
+                              <div class="d-flex btn-reveal-trigger">                                
+                                <div class="flex-1 position-relative ps-3 ">
+                                  <div class="border border-1 border-300 rounded-2 p-3 ask-analytics-item position-relative mb-3">
+                                    <div class="d-flex align-items-center mb-3">
+                                      <span class="{{ !empty($lstProducto->fecha_real_bodega ) ? '' : 'fas fa-clock text-primary'  }}"></span>
+                                        <h5 class="fs--1 text-600 mb-0 ps-3">Tiempo de Aduana <span class="badge badge-soft-success rounded-pill">{{ $Orden->Vendor->time_despacho }} Dias</span>
+                                      </h5>
+                                    </div> 
+                                    <div class="row g-0">
+                                      <div class="col-6 col-md-4 border-200 border-end pb-4">
+                                        <h6 class="pb-1 text-700">Fecha Real en Aduana  </h6>
+                                        <div class="d-flex align-items-center">
+                                          <h6 class="mb-1 fw-semi-bold text-nowrap">{{ !empty($lstProducto->fecha_real_aduana ) ? $lstProducto->fecha_real_aduana  :'N/D'  }}</h6>
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-4 border-200 border-md-200 border-md-end pb-4 ps-3">
+                                        <h6 class="pb-1 text-700">Estimada en Bodega </h6>
+                                        <div class="d-flex align-items-center">
+                                          <h6 class="mb-1 fw-semi-bold text-nowrap">---</h6>
+                                        </div>
+                                      </div>
+                                      <div class="col-6 col-md-4 border-200  pb-4 pt-4 pt-md-0 ps-md-3">
+                                        <h6 class="pb-1 text-700">Fecha Real Bodega </h6>
+                                        <div class="d-flex align-items-center">
+                                          <h6 class=" fw-semi-bold text-nowrap text-primary" onclick="frmSweetAlert03(2,{{$lstProducto->id}})">{{ !empty($lstProducto->fecha_real_bodega ) ? $lstProducto->fecha_real_bodega  :'N/D'  }}<span class="ms-1 fas fa-calendar-alt"></span> </h6>
+                                        </div>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+             
+
+                          </div>
                           
+                          </td>                          
                         </tr>
                           
                         @endforeach
@@ -410,7 +522,7 @@
                   </div>
                   <div class="col-md-2 col-sm-6 col-xxl-2">
                     <div class="mb-3">
-                    <label for="">Mercados</label>
+                    <label for="">Propiedad</label>
                       <select class="form-select" id="id_mercado">                  
                         @foreach ($Mercados as $mercado)
                           <option value="{{ strtoupper($mercado->id) }}">{{ strtoupper($mercado->descripcion) }}</option>
@@ -491,7 +603,7 @@
 
                
                       
-                <div class="mb-3">
+                <div class="mb-3" id="id_div_btn_send">
                   <button class="btn btn-primary d-block w-100 mt-3" id="id_frm_add_articulo_po" type="submit" name="submit">Guardar</button>
                 </div>
               </div>

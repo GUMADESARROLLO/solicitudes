@@ -13,11 +13,15 @@ Estan son las ordenes de compran que han cambiado de estado
 ## Ordenes de Compras:
 
 @component('mail::table')
-| Nº P.O       | Proveedor         | C02  |
-| ------------- |:-------------:| --------:|
-| Col 2 is      | Centered      | $10      |
-| Col 3 is      | Right-Aligned | $20      |
+| ORDEN COMPRA  | ARTICULO       | PROVEEDOR    | INFORMACION    |
+| ------------- |:-------------:|:-------------:| :-------------:| 
+@foreach ($details['dtArticu'] as $lst)
+| {{$lst['num_po']}} | {{$lst['ARTICULO']}}| {{$lst['PROVEEDOR']}}  | {{$lst['INFORMACION']}} | 
+@endforeach
 @endcomponent
+
+
+
 
 
 @component('mail::subcopy')

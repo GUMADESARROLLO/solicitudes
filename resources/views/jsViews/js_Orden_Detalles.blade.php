@@ -5,7 +5,7 @@
                                 {
                                     "visible": false,
                                     "searchable": false,
-                                    "targets": [0,7,8,9]
+                                    "targets": [0,1,2,3]
                                 },
                             ],
                             "fnDrawCallback": function ( row, data, start, end, display ) {
@@ -18,19 +18,19 @@
                             
 
             
-                            api.column( 7 ).data().reduce( function (a, b) {                                
+                            api.column( 1 ).data().reduce( function (a, b) {                                
                                 if(b.search("fa-check") != -1){
                                     cMific++;
                                 }
                             }, 0 );
 
-                            api.column( 8 ).data().reduce( function (a, b) {                                
+                            api.column( 2 ).data().reduce( function (a, b) {                                
                                 if(b.search("fa-check") != -1){
                                     cRegencia++;
                                 }
                             }, 0 );
 
-                            api.column( 9 ).data().reduce( function (a, b) {                                
+                            api.column( 3 ).data().reduce( function (a, b) {                                
                                 if(b.search("fa-check") != -1){
                                     cMinsa++;
                                 }
@@ -307,7 +307,11 @@
 
         $("#id_comment_item").html(items_comment)
     }
-    function Editar(Id){
+    function Editar(Id, statusBtn){
+
+
+        $("#id_div_btn_send").hide();
+
         var mdl_add_product = document.querySelector(Selectors.ADD_PRODUCT);
         var mdl_product = new window.bootstrap.Modal(mdl_add_product);
         mdl_product.show();
@@ -348,6 +352,12 @@
             }).done(function(data) {
                 //location.reload();
             });
+
+            if(statusBtn){
+                $("#id_div_btn_send").show();
+            }
+
+
 
         
     }
@@ -533,6 +543,74 @@
     
         
 
+    }
+
+    function frmSweetAlert03(nTitulo,id){
+        let flatpickrInstance
+
+        let lblTitulos      = ['Fecha Real Despacho','Fecha Real en aduana','Fecha real en bodega']
+        let FormatDate      = 'YYYY-MM-DD'
+        var now             = moment().format(FormatDate);
+
+
+        
+        Swal.fire({
+            title: lblTitulos[nTitulo],
+            html: '<input class="form-control " id="id_frm" placeholder="0000/00/00" value="'+now+'" >',
+            
+            stopKeydownPropagation: false,
+                preConfirm: (value) => {
+
+                    var dtDate = moment(flatpickrInstance.selectedDates[0]).format(FormatDate);
+                    sData = {
+                        id      : id,
+                        valor   : dtDate,
+                        Campo   : nTitulo,
+                        _token  : "{{ csrf_token() }}" 
+                    }
+                    sendEstados(sData)
+
+
+                },
+                willOpen: () => {
+                    flatpickrInstance = flatpickr(Swal.getPopup().querySelector('#id_frm'))
+                }
+        })
+    
+        
+
+    }
+
+    function sendEstados(dtInfo){
+        $.ajax({
+            url: "../updtFechasArticulos",
+            type: 'post',
+            data: dtInfo,
+            async: true,
+            success: function(response) {
+                if(response.original){
+                    Swal.fire({
+                        title: 'Se agrego el producto',
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'OK'
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                            }
+                        })
+
+                }
+                
+            },
+            error: function(response) {
+                Swal.fire("Oops", "No se ha podido guardar!", "error");
+            }
+        }).done(function(data) {
+            //CargarDatos(nMes,annio);
+        });
     }
 
     function SendInfo(dtInfo){

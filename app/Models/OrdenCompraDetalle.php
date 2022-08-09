@@ -45,6 +45,7 @@ class OrdenCompraDetalle extends Model {
         $Id     = $request->input('id_item');
         return ViewCommentDetalleArticulo::where('activo', 'S')->where('id_linea', $Id)->orderBy('id_comment', 'DESC')->get();
     }
+
     public static function UpdateEstado(Request $request)
     {
         if ($request->ajax()) {
@@ -55,6 +56,32 @@ class OrdenCompraDetalle extends Model {
 
                 $response =   OrdenCompraDetalle::where('id',  $id)->update([
                     "Estado" => $valor,
+                ]);
+
+                return response()->json($response);
+
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+
+    }
+    public static function updtFechasArticulos(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+
+                $id         = $request->input('id');
+                $valor      = $request->input('valor');
+                $Campo      = $request->input('Campo');
+
+                $array_Campos =  array("fecha_real_despacho", "fecha_real_aduana", "fecha_real_bodega") ;
+                
+
+                $response =   OrdenCompraDetalle::where('id',  $id)->update([
+                    $array_Campos[$Campo] => $valor,
                 ]);
 
                 return response()->json($response);

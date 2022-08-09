@@ -141,6 +141,11 @@ class ImportacionController extends Controller {
         $response = OrdendesCompras::UpdateImportacion($request);
         return response()->json($response);
     }
+    public function updtFechasArticulos(Request $request)
+    {
+        $response = OrdenCompraDetalle::updtFechasArticulos($request);
+        return response()->json($response);
+    }
      // CAMBIA EL ESTADO DEL VENDODOR EN LA A INACTIVO
     public function UpdateEstado(Request $request)
     {
@@ -227,9 +232,10 @@ class ImportacionController extends Controller {
         $eTO = 'analista.guma@gmail.com';
         $eCC = ['analista.guma@gmail.com','analista2.guma@gmail.com','analista3.guma@gmail.com'];
         $details = [
-            'title' => 'Ordenes de compras en estado',
+            'title'     => 'Ordenes de compras en estado',
+            'dtArticu'  => OrdendesCompras::getInfoEmail()
         ];
-        //Mail::to($eTO)->cc($eCC)->send(new InfoEmail($details));
+        Mail::to($eTO)->cc($eCC)->send(new InfoEmail($details));
         $mail = new InfoEmail($details);
         return $mail->render();
     }

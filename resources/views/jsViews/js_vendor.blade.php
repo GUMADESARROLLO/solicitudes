@@ -48,6 +48,10 @@
 
         var modl_states     = $("#id_modal_state").text();  
 
+        var txt_despacho    = $("#id_frm_time_despacho").val();   
+        var txt_transito    = $("#id_frm_time_transito").val();   
+        var txt_aduana      = $("#id_frm_time_aduana").val();  
+
         
         txt_nombre  = isValue(txt_nombre,'N/D',true)
         txt_description  = isValue(txt_description,'N/D',true)
@@ -63,6 +67,9 @@
                     name_vendor   : txt_nombre,
                     description   : txt_description,
                     idVendor      : modl_states,
+                    despacho      : txt_despacho,
+                    transito      : txt_transito,
+                    aduana        : txt_aduana,
                     _token  : "{{ csrf_token() }}" 
                 },
                 async: true,
@@ -84,6 +91,10 @@
 
         $("#id_name_vendor").val("");   
         $("#id_description").val("");   
+
+        $("#id_frm_time_despacho").val("");   
+        $("#id_frm_time_transito").val("");   
+        $("#id_frm_time_aduana").val("");   
         var id_vendor = Id
 
         if(Id!=0){
@@ -95,6 +106,11 @@
                 success: function(obj_vendor) {                    
                     $("#id_name_vendor").val(obj_vendor[0].nombre_vendor);   
                     $("#id_description").val(obj_vendor[0].Descripcion);   
+
+                    $("#id_frm_time_despacho").val(obj_vendor[0].time_despacho);   
+                    $("#id_frm_time_transito").val(obj_vendor[0].time_transito);   
+                    $("#id_frm_time_aduana").val(obj_vendor[0].time_aduana);  
+
                 },
                 error: function(response) {
                 }

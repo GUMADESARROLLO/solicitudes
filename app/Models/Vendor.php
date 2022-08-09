@@ -23,18 +23,27 @@ class Vendor extends Model {
                 $description    = $request->input('description');
                 $id             = $request->input('idVendor');
 
+                $despacho       = $request->input('despacho');
+                $transito       = $request->input('transito');
+                $aduana         = $request->input('aduana');
+
 
                 if ($id=="0") {
                     $obj_vendor = new Vendor();
                     $obj_vendor->nombre_vendor      = $name_vendor;
                     $obj_vendor->Descripcion        = $description;
-                    $obj_vendor->time_despacho      = 0;     
+                    $obj_vendor->time_despacho      = $despacho;
+                    $obj_vendor->time_transito      = $transito;
+                    $obj_vendor->time_aduana        = $aduana;                    
                     $obj_vendor->activo             = 'S';
                     $obj_vendor->save();
                 } else {
                     $response =   Vendor::where('id',  $id)->update([
                         "nombre_vendor" => $name_vendor,
                         "Descripcion" => $description,
+                        "time_despacho" => $despacho,
+                        "time_transito" => $transito,
+                        "time_aduana" => $aduana,
                     ]);
                 }
 
