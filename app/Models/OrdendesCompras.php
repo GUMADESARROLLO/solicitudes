@@ -349,27 +349,56 @@ class OrdendesCompras extends Model {
     { 
             $response = array();
             $i=0;
+            $dtHoy          = date('Y-m-d');
             $Ordenes = OrdendesCompras::where('activo', 'S')->get();
             foreach ($Ordenes as $orden){
                 foreach ($orden->Detalles as $lstProducto){
-
-                    if($orden->num_po=='1675'){
-                        $response[$i]['num_po']         =  $orden->num_po;
-                        $response[$i]['ARTICULO']         =  $lstProducto->isProduct->Tipo->descripcion . ' : ' . $lstProducto->isProduct->descripcion_corta;
-                        $response[$i]['PROVEEDOR']         =  $orden->Vendor->nombre_vendor;
-                        $response[$i]['INFORMACION']         =  'LA EVALUACION';
+                    //CUANDO EXCEDE EL TIEMPO DE ESTIMADO DE DESPACHO
+                    if(!empty($orden->fecha_orden_compra )){   
+                        if(empty($lstProducto->fecha_real_despacho)){
+                            $dtEstimado     = date('Y-m-d', strtotime($orden->fecha_orden_compra. ' + '.$orden->Vendor->time_transito.' days'));
+                            $DiasDiff       = round((strtotime($dtEstimado) - strtotime($dtHoy))/86400);
+                            if($DiasDiff < 0){                      
+                                $response[$i]['num_po']         =  $orden->num_po;
+                                $response[$i]['ARTICULO']       =  $lstProducto->isProduct->Tipo->descripcion . ' : ' . $lstProducto->isProduct->descripcion_corta;
+                                $response[$i]['PROVEEDOR']      =  $orden->Vendor->nombre_vendor;
+                                $response[$i]['INFORMACION']    =  abs($DiasDiff).' Dias Excedidos en despacho';
+                            }
+                        }
+                        $i++;
                     }
-                    
 
-                    $i++;
-
+                    //CUANDO EXCEDE EL TIEMPO DE ESTIMADO ARRIBO A DUANA
+                    if(!empty($lstProducto->fecha_real_despacho )){
+                        if(empty($lstProducto->fecha_real_aduana)){
+                            $dtEstimado     = date('Y-m-d', strtotime($lstProducto->fecha_real_despacho. ' + '.$orden->Vendor->time_aduana.' days'));
+                            $DiasDiff       = round((strtotime($dtEstimado) - strtotime($dtHoy))/86400);
+                            if($DiasDiff < 0){                      
+                                $response[$i]['num_po']         =  $orden->num_po;
+                                $response[$i]['ARTICULO']       =  $lstProducto->isProduct->Tipo->descripcion . ' : ' . $lstProducto->isProduct->descripcion_corta;
+                                $response[$i]['PROVEEDOR']      =  $orden->Vendor->nombre_vendor;
+                                $response[$i]['INFORMACION']    =  abs($DiasDiff).' Dias Excedidos en arribo aduana';
+                            }
+                            $i++;
+                        }
+                    }
+                    //CUANDO EXCEDE EL TIEMPO DE ESTIMADO ARRIBO A BODEGA
+                    if(!empty($lstProducto->fecha_real_aduana )){
+                        if(empty($lstProducto->fecha_real_bodega)){
+                            $dtEstimado     = date('Y-m-d', strtotime($lstProducto->fecha_real_aduana. ' + '.$orden->Vendor->time_aduana.' days'));
+                            $DiasDiff       = round((strtotime($dtEstimado) - strtotime($dtHoy))/86400);
+                            if($DiasDiff < 0){                      
+                                $response[$i]['num_po']         =  $orden->num_po;
+                                $response[$i]['ARTICULO']       =  $lstProducto->isProduct->Tipo->descripcion . ' : ' . $lstProducto->isProduct->descripcion_corta;
+                                $response[$i]['PROVEEDOR']      =  $orden->Vendor->nombre_vendor;
+                                $response[$i]['INFORMACION']    =  abs($DiasDiff).' Dias Excedidos en arribo bodega';
+                            }
+                            $i++;
+                        }        
+                    }
                 }
-
             }
-
-
             return $response;
-
     }
 
 }

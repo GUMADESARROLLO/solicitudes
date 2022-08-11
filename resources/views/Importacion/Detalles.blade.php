@@ -359,8 +359,27 @@
                                 <div class="flex-1 position-relative ps-3 ">
                                   <div class="border border-1 border-300 rounded-2 p-3 ask-analytics-item position-relative mb-3">
                                     <div class="d-flex align-items-center mb-3">
-                                      <span class="{{ !empty($lstProducto->fecha_real_aduana ) ? '' : 'fas fa-clock text-primary'  }}"></span>
+                                      <?php
+                                        if (!empty($lstProducto->fecha_real_despacho)) {
+                                          if (empty($lstProducto->fecha_real_aduana)) {
+                                            echo '<span class="fas fa-clock text-primary"></span>';
+                                          }
+                                        }
+                                      ?>
                                         <h5 class="fs--1 text-600 mb-0 ps-3">Tiempo en Transito  <span class="badge badge-soft-success rounded-pill">{{ $Orden->Vendor->time_despacho }} Dias</span>
+                                        <?php
+                                        if(!empty($lstProducto->fecha_real_despacho )){
+
+                                          $dtEstimado     = date('Y-m-d', strtotime($lstProducto->fecha_real_despacho. ' + '.$Orden->Vendor->time_transito.' days'));
+                                          $dtHoy          = date('Y-m-d');
+
+                                          $DiasDiff = round((strtotime($dtEstimado) - strtotime($dtHoy))/86400);
+                                          if($DiasDiff < 0){
+                                            echo '<span class="badge badge-soft-danger rounded-pill">'.abs($DiasDiff).' Dias Excedidos</span>';
+                                          }
+                                        }
+
+                                        ?>
                                       </h5>
                                     </div> 
                                     <div class="row g-0">
@@ -373,7 +392,7 @@
                                       <div class="col-6 col-md-4 border-200 border-md-200 border-md-end pb-4 ps-3">
                                         <h6 class="pb-1 text-700">Estimada en Aduana </h6>
                                         <div class="d-flex align-items-center">
-                                          <h6 class="mb-1 fw-semi-bold text-nowrap">--- </h6>
+                                          <h6 class="mb-1 fw-semi-bold text-nowrap">{{ !empty($lstProducto->fecha_real_despacho ) ? date('Y-m-d', strtotime($lstProducto->fecha_real_despacho. ' + '.$Orden->Vendor->time_transito.' days')):'N/D'  }} </h6>
                                         </div>
                                       </div>
                                       <div class="col-6 col-md-4 border-200  pb-4 pt-4 pt-md-0 ps-md-3">
@@ -393,8 +412,29 @@
                                 <div class="flex-1 position-relative ps-3 ">
                                   <div class="border border-1 border-300 rounded-2 p-3 ask-analytics-item position-relative mb-3">
                                     <div class="d-flex align-items-center mb-3">
-                                      <span class="{{ !empty($lstProducto->fecha_real_bodega ) ? '' : 'fas fa-clock text-primary'  }}"></span>
-                                        <h5 class="fs--1 text-600 mb-0 ps-3">Tiempo de Aduana <span class="badge badge-soft-success rounded-pill">{{ $Orden->Vendor->time_despacho }} Dias</span>
+                                      <?php
+                                        if (!empty($lstProducto->fecha_real_aduana)) {
+                                          if (empty($lstProducto->fecha_real_bodega)) {
+                                            echo '<span class="fas fa-clock text-primary"></span>';
+                                          }
+                                        }
+                                      ?>
+                                        <h5 class="fs--1 text-600 mb-0 ps-3">Tiempo de Aduana <span class="badge badge-soft-success rounded-pill">{{ $Orden->Vendor->time_aduana }} Dias</span>
+                                        <?php
+                                        if(!empty($lstProducto->fecha_real_aduana )){
+
+                                          $dtEstimado     = date('Y-m-d', strtotime($lstProducto->fecha_real_aduana. ' + '.$Orden->Vendor->time_aduana.' days'));
+                                          $dtHoy          = date('Y-m-d');
+                                          
+
+                                          $DiasDiff = round((strtotime($dtEstimado) - strtotime($dtHoy))/86400);
+                                          
+                                          if($DiasDiff < 0){
+                                            echo '<span class="badge badge-soft-danger rounded-pill">'.abs($DiasDiff).' Dias Excedidos</span>';
+                                          }
+                                        }
+
+                                        ?>
                                       </h5>
                                     </div> 
                                     <div class="row g-0">
@@ -407,7 +447,7 @@
                                       <div class="col-6 col-md-4 border-200 border-md-200 border-md-end pb-4 ps-3">
                                         <h6 class="pb-1 text-700">Estimada en Bodega </h6>
                                         <div class="d-flex align-items-center">
-                                          <h6 class="mb-1 fw-semi-bold text-nowrap">---</h6>
+                                          <h6 class="mb-1 fw-semi-bold text-nowrap">{{ !empty($lstProducto->fecha_real_aduana ) ? date('Y-m-d', strtotime($lstProducto->fecha_real_aduana. ' + '.$Orden->Vendor->time_aduana.' days')):'N/D'  }}</h6>
                                         </div>
                                       </div>
                                       <div class="col-6 col-md-4 border-200  pb-4 pt-4 pt-md-0 ps-md-3">
