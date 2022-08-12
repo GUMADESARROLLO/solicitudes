@@ -90,8 +90,8 @@
               <div class="modal-header px-5 position-relative modal-shape-header bg-shape">
                 <div class="position-relative z-index-1 light">
                     <h4 class="mb-0 text-white" id="authentication-modal-label">Ship to</h4>
-                    <p class="fs--1 mb-0 text-white"> --- </p>
-                    <p class="fs--1 mb-0 text-white" id="id_modal_state"> - </p>
+                    <p class="fs--1 mb-0 text-white invisible"> --- </p>
+                    <p class="fs--1 mb-0 text-white invisible" id="id_modal_state"> - </p>
                 </div>
                 <button class="btn-close btn-close-white position-absolute top-0 end-0 mt-2 me-2" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>

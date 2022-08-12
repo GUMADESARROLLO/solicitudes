@@ -69,22 +69,22 @@
                   <div class="row mb-2">
                     <div class="col-3 border-end border-200">
                     <p class="fs--1 text-600 mb-0">FECHA DESPACHO</p>
-                    <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(0)">{{ !empty($Orden->fecha_despacho ) ? $Orden->fecha_despacho  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span> </span>
+                    <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(0)">{{ !empty($Orden->fecha_despacho ) ? date('D, M d, Y', strtotime($Orden->fecha_despacho))  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span> </span>
                       
                     </div>
                     <div class="col-3 border-end text-center border-200">
                       <p class="fs--1 text-600 mb-0">FECHA ESTIMADA</p>
-                      <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(1)">{{ !empty($Orden->fecha_estimada ) ? $Orden->fecha_estimada  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span> </span>
+                      <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(1)">{{ !empty($Orden->fecha_estimada ) ? date('D, M d, Y', strtotime($Orden->fecha_estimada))  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span> </span>
                       
                     </div>
                     <div class="col-3 text-center">
                       <p class="fs--1 text-600 mb-0">FECHA FACTURA</p>
-                      <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(2)">{{ !empty($Orden->fecha_factura ) ? $Orden->fecha_factura  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span></span>
+                      <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(2)">{{ !empty($Orden->fecha_factura ) ? date('D, M d, Y', strtotime($Orden->fecha_factura))  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span></span>
                       
                     </div>
                     <div class="col-3 text-center">
                       <p class="fs--1 text-600 mb-0">FECHA PO</p>
-                      <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(3)" >{{ !empty($Orden->fecha_orden_compra ) ? $Orden->fecha_orden_compra  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span></span>                      
+                      <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(3)" >{{ !empty($Orden->fecha_orden_compra ) ? date('D, M d, Y', strtotime($Orden->fecha_orden_compra))  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span></span>                      
                     </div>
                   </div>
                 </div>
@@ -316,7 +316,7 @@
                                           <div class="mb-3 pe-4">
                                             <h6 class="fs--2 text-600 mb-1">Fecha de Orden Compra</h6>
                                             <div class="d-flex align-items-center">
-                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($Orden->fecha_orden_compra ) ? date('M d, Y', strtotime($Orden->fecha_orden_compra))  :'N/D'  }}</h5>
+                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($Orden->fecha_orden_compra ) ? date('D, M d, Y', strtotime($Orden->fecha_orden_compra))  :'N/D'  }}</h5>
                                             </div>
                                           </div>
                                         </div>
@@ -324,7 +324,7 @@
                                           <div class="mb-3 pe-4 ">
                                             <h6 class="fs--2 text-600 mb-1">Estimada de Despacho </h6>
                                             <div class="d-flex align-items-center">
-                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($Orden->fecha_orden_compra ) ? date('M d, Y', strtotime($Orden->fecha_orden_compra. ' + '.$Orden->Vendor->time_despacho.' days')):'N/D'  }} </h5>
+                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($Orden->fecha_orden_compra ) ? date('D, M d, Y', strtotime($Orden->fecha_orden_compra. ' + '.$Orden->Vendor->time_despacho.' days')):'N/D'  }} </h5>
                                             </div>
                                           </div>
                                         </div>
@@ -332,7 +332,7 @@
                                           <div class="mb-3 pe-0">
                                             <h6 class="fs--2 text-600 mb-1">Fecha Real de Despacho</h6>
                                             <div class="d-flex align-items-center">
-                                              <h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert03(0,{{$lstProducto->id}})">{{ !empty($lstProducto->fecha_real_despacho ) ? date('M d, Y', strtotime($lstProducto->fecha_real_despacho))  :'N/D'  }}<span class="ms-1 fas fa-calendar-alt"></span> </h5>
+                                              <h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert03(0,{{$lstProducto->id}})">{{ !empty($lstProducto->fecha_real_despacho ) ? date('D, M d, Y', strtotime($lstProducto->fecha_real_despacho))  :'N/D'  }}<span class="ms-1 fas fa-calendar-alt"></span> </h5>
                                             </div>
                                           </div>
                                         </div>
@@ -377,7 +377,7 @@
                                           <div class="mb-3 pe-4 ">
                                             <h6 class="fs--2 text-600 mb-1">Fecha Real Despacho</h6>
                                             <div class="d-flex align-items-center">
-                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($lstProducto->fecha_real_despacho ) ? $lstProducto->fecha_real_despacho  :'N/D'  }}</h5>
+                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($lstProducto->fecha_real_despacho ) ? date('D, M d, Y', strtotime($lstProducto->fecha_real_despacho))  :'N/D'  }}</h5>
                                             </div>
                                           </div>
                                         </div>
@@ -386,7 +386,7 @@
                                           <div class="mb-3 pe-4 ">
                                             <h6 class="fs--2 text-600 mb-1">Estimada en Aduana </h6>
                                             <div class="d-flex align-items-center">
-                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($lstProducto->fecha_real_despacho ) ? date('Y-m-d', strtotime($lstProducto->fecha_real_despacho. ' + '.$Orden->Vendor->time_transito.' days')):'N/D'  }} </h5>
+                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($lstProducto->fecha_real_despacho ) ? date('D, M d, Y', strtotime($lstProducto->fecha_real_despacho. ' + '.$Orden->Vendor->time_transito.' days')):'N/D'  }} </h5>
                                             </div>
                                           </div>
                                         </div>
@@ -395,7 +395,7 @@
                                           <div class="mb-3 pe-0">
                                             <h6 class="fs--2 text-600 mb-1">Fecha Real en Aduana </h6>
                                             <div class="d-flex align-items-center">
-                                              <h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert03(1,{{$lstProducto->id}})">{{ !empty($lstProducto->fecha_real_aduana ) ? $lstProducto->fecha_real_aduana  :'N/D'  }}<span class="ms-1 fas fa-calendar-alt"></span> </h5>
+                                              <h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert03(1,{{$lstProducto->id}})">{{ !empty($lstProducto->fecha_real_aduana ) ? date('D, M d, Y', strtotime($lstProducto->fecha_real_aduana))  :'N/D'  }}<span class="ms-1 fas fa-calendar-alt"></span> </h5>
                                             </div>
                                           </div>
                                         </div>
@@ -447,7 +447,7 @@
                                           <div class="mb-3 pe-4 ">
                                             <h6 class="fs--2 text-600 mb-1">Fecha Real en Aduana</h6>
                                             <div class="d-flex align-items-center">
-                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($lstProducto->fecha_real_aduana ) ? $lstProducto->fecha_real_aduana  :'N/D'  }}</h5>
+                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($lstProducto->fecha_real_aduana ) ? date('D, M d, Y', strtotime($lstProducto->fecha_real_aduana))  :'N/D'  }}</h5>
                                             </div>
                                           </div>
                                         </div>
@@ -456,7 +456,7 @@
                                           <div class="mb-3 pe-4 ">
                                             <h6 class="fs--2 text-600 mb-1">Estimada en Bodega</h6>
                                             <div class="d-flex align-items-center">
-                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($lstProducto->fecha_real_aduana ) ? date('Y-m-d', strtotime($lstProducto->fecha_real_aduana. ' + '.$Orden->Vendor->time_aduana.' days')):'N/D'  }}</h5>
+                                              <h5 class="fs-0 text-900 mb-0 me-2">{{ !empty($lstProducto->fecha_real_aduana ) ? date('D, M d, Y', strtotime($lstProducto->fecha_real_aduana. ' + '.$Orden->Vendor->time_aduana.' days')):'N/D'  }}</h5>
                                             </div>
                                           </div>
                                         </div>
@@ -465,7 +465,7 @@
                                           <div class="mb-3 pe-0">
                                             <h6 class="fs--2 text-600 mb-1">Fecha Real Bodega </h6>
                                             <div class="d-flex align-items-center">
-                                              <h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert03(2,{{$lstProducto->id}})">{{ !empty($lstProducto->fecha_real_bodega ) ? $lstProducto->fecha_real_bodega  :'N/D'  }}<span class="ms-1 fas fa-calendar-alt"></span> </h5>
+                                              <h5 class="fs-0 text-900 mb-0 me-2" onclick="frmSweetAlert03(2,{{$lstProducto->id}})">{{ !empty($lstProducto->fecha_real_bodega ) ? date('D, M d, Y', strtotime($lstProducto->fecha_real_bodega))  :'N/D'  }}<span class="ms-1 fas fa-calendar-alt"></span> </h5>
                                             </div>
                                           </div>
                                         </div>
