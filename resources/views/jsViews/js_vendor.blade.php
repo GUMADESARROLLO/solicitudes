@@ -100,7 +100,7 @@
         if(Id!=0){
             id_vendor = Id
             $.ajax({
-                url: "../getOneVendor/" + Id,
+                url: "getOneVendor/" + Id,
                 type: 'GET',
                 async: true,
                 success: function(obj_vendor) {                    
