@@ -239,7 +239,7 @@ class ImportacionController extends Controller {
 
         if (count($details['dtArticu']) > 0){
 
-            //Mail::to($eTO)->cc($eCC)->send(new InfoEmail($details));
+            Mail::to($eTO)->cc($eCC)->send(new InfoEmail($details));
             
             $mail = new InfoEmail($details);
             return $mail->render();
