@@ -131,6 +131,7 @@ class ImportacionController extends Controller {
             'EstadosPagos'  => EstadosPagos::where('activo','S')->get(),
             'TipoCarga'     => TipoCarga::where('activo','S')->get(),
             'stdArticu'     => EstadoOrden::where('activo', 'S')->where('belongs', 'PD')->get(),
+            'EstadosPO'     => EstadoOrden::where('activo', 'S')->where('belongs', 'PO')->get(),
         );
         return response()->json($DataSelects);
     }
@@ -232,12 +233,16 @@ class ImportacionController extends Controller {
         $eTO = 'analista.guma@gmail.com';
         $eCC = ['analista.guma@gmail.com','analista2.guma@gmail.com','analista3.guma@gmail.com'];
         $details = [
-            'title'     => 'Ordenes de compras en estado',
+            'title'     => 'Ordenes de Compras con algunas Alerta',
             'dtArticu'  => OrdendesCompras::getInfoEmail()
         ];
 
-        Mail::to($eTO)->cc($eCC)->send(new InfoEmail($details));
-        $mail = new InfoEmail($details);
-        return $mail->render();
+        if (count($details['dtArticu']) > 0){
+
+            //Mail::to($eTO)->cc($eCC)->send(new InfoEmail($details));
+            
+            $mail = new InfoEmail($details);
+            return $mail->render();
+        }
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 09-08-2022 a las 23:04:15
+-- Tiempo de generación: 11-08-2022 a las 18:15:39
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 7.4.26
 
@@ -474,17 +474,17 @@ CREATE TABLE IF NOT EXISTS `tbl_imp_importacion` (
 INSERT INTO `tbl_imp_importacion` (`id`, `num_po`, `fecha`, `id_vendor`, `id_shipto`, `id_via`, `id_estados_pagos`, `tipo_carga`, `factura`, `recibo`, `fecha_despacho`, `fecha_orden_compra`, `fecha_factura`, `fecha_estimada`, `id_estado_orden`, `activo`, `created_at`, `updated_at`) VALUES
 (34, 'PO0036', '2022-08-05', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-05 21:53:22', '2022-08-05 21:53:22'),
 (33, 'PO0001', '2022-08-17', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-03 14:54:08', '2022-08-03 14:54:08'),
-(32, '1675', NULL, 12, 3, 2, 2, 2, '7845', '89133', '2022-08-03', '2022-07-01', '2022-08-03', '2022-08-03', 1, 'S', '2022-08-02 16:41:32', '2022-08-09 22:08:36'),
-(31, '1670', NULL, 11, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'S', '2022-08-02 16:38:06', '2022-08-02 16:38:06'),
-(30, '1067', '2021-12-30', 10, 2, NULL, NULL, NULL, NULL, NULL, '2022-08-08', '2022-08-08', '2022-08-08', '2022-08-08', 1, 'S', '2022-08-02 16:26:04', '2022-08-08 22:57:32'),
-(29, '1065', '2021-12-30', 15, 2, 2, NULL, NULL, '23', '43', NULL, '2022-08-03', NULL, NULL, 1, 'S', '2022-08-02 16:25:18', '2022-08-03 22:29:43'),
-(20, '1063', '2021-12-30', 8, 2, 2, 1, 1, '668768', '5675', '2022-08-09', '2022-07-01', '2022-08-09', '2022-08-09', 1, 'S', '2022-08-02 16:08:48', '2022-08-09 21:10:12'),
+(32, '1675', NULL, 12, 3, 2, 2, 2, '7845', '89133', '2022-08-03', '2022-07-01', '2022-08-03', '2022-08-03', 1, 'N', '2022-08-02 16:41:32', '2022-08-09 22:08:36'),
+(31, '1670', NULL, 11, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-02 16:38:06', '2022-08-02 16:38:06'),
+(30, '1067', '2021-12-30', 10, 2, NULL, NULL, NULL, NULL, NULL, '2022-08-08', '2022-08-08', '2022-08-08', '2022-08-08', 1, 'N', '2022-08-02 16:26:04', '2022-08-08 22:57:32'),
+(29, '1065', '2021-12-30', 15, 2, 2, NULL, NULL, '23', '43', NULL, '2022-08-03', NULL, NULL, 1, 'N', '2022-08-02 16:25:18', '2022-08-03 22:29:43'),
+(20, '1063', '2021-12-30', 8, 2, 2, 1, 1, '668768', '5675', '2022-08-09', '2022-07-01', '2022-08-09', '2022-08-09', 1, 'N', '2022-08-02 16:08:48', '2022-08-09 21:10:12'),
 (36, 'PO03157', '2022-04-14', 8, 2, 2, 1, 2, '1231546', '7897', '2022-08-05', '2022-08-05', '2022-08-05', '2022-08-05', 1, 'N', '2022-08-05 21:55:22', '2022-08-05 22:33:18'),
 (37, 'PO03158', '2022-04-14', 8, 3, 1, 1, 1, '12', '36', '2022-08-05', '2022-08-05', '2022-08-05', '2022-08-05', 1, 'N', '2022-08-05 21:55:41', '2022-08-05 22:33:03'),
 (38, 'PO78972', '2022-08-05', 8, 2, 2, 1, 1, '878798', '456456', '2022-08-05', '2022-08-05', '2022-08-05', '2022-08-05', 1, 'N', '2022-08-05 22:33:53', '2022-08-05 22:36:43'),
 (39, 'PO8448', '2022-08-09', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-09 21:23:44', '2022-08-09 21:25:36'),
 (40, 'PO8448', '2022-08-09', 8, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'N', '2022-08-09 21:25:49', '2022-08-09 21:26:02'),
-(41, 'PO8448', '2022-08-01', 8, 2, NULL, NULL, NULL, '40000', '3000', NULL, '2022-07-29', NULL, NULL, 1, 'S', '2022-08-09 21:28:00', '2022-08-09 21:58:18');
+(41, 'PO8448', '2022-08-01', 8, 2, NULL, NULL, NULL, '40000', '3000', NULL, '2022-06-01', NULL, NULL, 1, 'S', '2022-08-09 21:28:00', '2022-08-11 16:45:17');
 
 -- --------------------------------------------------------
 
@@ -569,7 +569,7 @@ INSERT INTO `tbl_imp_importacion_detalle` (`id`, `id_importacion`, `id_product`,
 (100, 37, 9, 1, 3, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 1, NULL, NULL, NULL, '2022-08-05 22:07:17', '2022-08-05 22:07:17'),
 (101, 37, 21, 2, 3, NULL, NULL, '1.00', '0.00', '0.00', '0.00', '1', '1', '1', 1, 2, NULL, NULL, NULL, '2022-08-05 22:07:28', '2022-08-05 22:07:28'),
 (103, 39, 9, 1, 3, NULL, NULL, '39.00', '1.00', '1.00', '1.00', '1', '1', '1', 0, 1, NULL, NULL, NULL, '2022-08-09 21:24:21', '2022-08-09 21:24:21'),
-(104, 41, 9, 1, 3, NULL, NULL, '15000.00', '1.00', '1.00', '1.00', '1', '1', '1', 1, 1, NULL, NULL, NULL, '2022-08-09 21:28:27', '2022-08-09 22:04:21');
+(104, 41, 9, 1, 3, NULL, NULL, '15000.00', '1.00', '1.00', '1.00', '1', '1', '1', 1, 1, '2022-07-20', '2022-07-20', '2022-08-11', '2022-08-09 21:28:27', '2022-08-11 16:49:37');
 
 -- --------------------------------------------------------
 
@@ -773,7 +773,7 @@ INSERT INTO `tbl_imp_vendor` (`id`, `nombre_vendor`, `Descripcion`, `time_despac
 (5, 'nombre de proveedor', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio.', 30, 30, 30, 'N', '2022-07-12 20:55:48', '2022-07-12 21:42:30'),
 (6, 'PROVEEDOR', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 30, 30, 30, 'N', '2022-07-12 21:43:01', '2022-07-12 21:44:03'),
 (7, 'PROVEEDOR', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.', 30, 30, 30, 'N', '2022-07-12 21:43:07', '2022-07-12 21:43:59'),
-(8, 'Hiral Labs Limited', '265, SISONA, Nr. Bhagwanpur, Roorkee, Uttarakhand- 247661, India\nPhone number: +91\n9368235030\nTax ID: 05AAACH9991E1ZF\nIndia', 10, 30, 30, 'S', '2022-07-12 21:43:28', '2022-08-09 21:09:58'),
+(8, 'Hiral Labs Limited', '265, SISONA, Nr. Bhagwanpur, Roorkee, Uttarakhand- 247661, India\nPhone number: +91\n9368235030\nTax ID: 05AAACH9991E1ZF\nIndia', 10, 10, 10, 'S', '2022-07-12 21:43:28', '2022-08-11 15:29:32'),
 (9, 'Bharat Parenterals Limited', 'Village: Haripura, Ta.Savli, Dist. Vadodara, Gujarat 391520 India', 30, 30, 30, 'N', '2022-07-12 21:43:49', '2022-07-13 14:52:59'),
 (10, 'Opsonin Pharma Limited', '30 New Eskaton Road Dhaka  1000 Bangladesh', 30, 30, 30, 'S', '2022-07-12 21:44:43', '2022-07-12 21:44:43'),
 (11, 'Ajit Mehta', 'MEDORBIS TRADE LLP	\n304, Town Centre, 3rd Floor,	\nAndheri Kurla Road, Andheri	\nEast,  Mumbai City,	\nMaharashtra 400059 India	\nTax ID: ABIFM8473A', 10, 30, 30, 'S', '2022-07-12 21:45:01', '2022-08-09 21:09:42'),

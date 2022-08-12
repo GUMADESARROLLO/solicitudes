@@ -110,7 +110,7 @@ class OrdendesCompras extends Model {
                 $valor      = $request->input('valor');
                 $Campo      = $request->input('Campo');
 
-                $array_Campos = ($ori == 0) ? array("factura", "recibo", "id_via", "","id_estados_pagos",'tipo_carga') : array("fecha_despacho", "fecha_estimada", "fecha_factura", "fecha_orden_compra") ;
+                $array_Campos = ($ori == 0) ? array("factura", "recibo", "id_via", "id_estado_orden","id_estados_pagos",'tipo_carga') : array("fecha_despacho", "fecha_estimada", "fecha_factura", "fecha_orden_compra") ;
                 
                 $response =   OrdendesCompras::where('id',  $id)->update([
                     $array_Campos[$Campo] => $valor,

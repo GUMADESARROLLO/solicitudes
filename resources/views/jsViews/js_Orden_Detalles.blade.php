@@ -458,19 +458,27 @@
 
         
 
-        var SelectData      = [[],[],[],['Estatus01','Estatus02','Estatus03'],[],[],[]];
+        var SelectData      = [[],[],[],[],[],[],[]];
+
         $.get( "../dtaSelect", function( data ) {
             
     
             $.map(data[0].Vias,function(o) {
                 SelectData[2][o.id] = o.Descripcion;
             });
+
+            $.map(data[0].EstadosPO,function(o) {
+                SelectData[3][o.id] = o.descripcion;
+            });
+
             $.map(data[0].EstadosPagos,function(o) {
                 SelectData[4][o.id] = o.Descripcion;
             });
+
             $.map(data[0].TipoCarga,function(o) {
                 SelectData[5][o.id] = o.Descripcion;
             });
+
             $.map(data[0].stdArticu,function(o) {
                 SelectData[6][o.id] = o.descripcion;
             });

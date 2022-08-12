@@ -127,12 +127,12 @@
         @include('layouts.nav_importacion')
             
             <div class="row g-3">
-              <div class="col-md-3 col-xxl-3">
+              <div class="col-md-4 col-xxl-4">
                 <div class="card h-100">
                   <div class="card-header">
                       <div class="row flex-between-center">  
                       <div class="col-auto">
-                        <h6 class="mb-2">ORDENES MIFIC</h6>
+                        <h6 class="mb-2">ORDENES CON REGISTRO MIFIC</h6>
                       </div>                      
                         <div class="col-auto mt-2">
                           <div class="row g-sm-4" >
@@ -166,7 +166,7 @@
                     </div>
                   </div>
             </div>
-            <div class="col-md-3 col-xxl-3">
+            <div class="col-md-4 col-xxl-4">
               <div class="card">
                 <div class="card-header">
                     <div class="row flex-between-center">
@@ -205,12 +205,13 @@
                   </div>
               </div>
             </div>
-            <div class="col-md-3 col-xxl-3">
+            
+            <div class="col-md-4 col-xxl-4">
               <div class="card">
                   <div class="card-header">
                     <div class="row flex-between-center">
                       <div class="col-auto">
-                        <h6 class="mb-2">MINSA Ó PRIVADO </h6>
+                        <h6 class="mb-2">ORDENES PARA MINSA Ó PRIVADO </h6>
                       </div>
                       <div class="col-auto mt-2">
                         <div class="row g-sm-4">
@@ -244,9 +245,17 @@
                   </div>
                 </div>
             </div>
-            <div class="col-md-3 col-xxl-3">
-              <div class="card">
-                <div class="card-header">
+
+            <div class="card">
+                <div class="card-header d-flex flex-between-center ps-0 py-0 border-bottom">
+                
+                  <ul class="nav nav-tabs border-0 flex-nowrap tab-active-caret" id="crm-revenue-chart-tab" role="tablist" data-tab-has-echarts="data-tab-has-echarts">
+                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0 active" id="po-resumen-tab" data-bs-toggle="tab" href="#po-resumen" role="tab" aria-controls="po-resumen-tab" aria-selected="true">Ordenes Compra</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_umk_privado_tab" data-bs-toggle="tab" href="#tns_umk_privado" role="tab" aria-controls="tns_umk_privado" aria-selected="false">Transito UNIMARK (PRIVADO)</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_umk_minsa_tab" data-bs-toggle="tab" href="#tns_umk_minsa" role="tab" aria-controls="tns_umk_minsa" aria-selected="false">Transito UNIMARK (MINSA)</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_guma_tab" data-bs-toggle="tab" href="#tns_guma" role="tab" aria-controls="tns_guma" aria-selected="false">Transito GUMA (PRIVANDO) </a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_guma_privado_tab" data-bs-toggle="tab" href="#tns_guma_privado" role="tab" aria-controls="tns_guma_privado" aria-selected="false">Transito GUMA (MINSA)</a></li>
+                  </ul>
                   <div class="col-md-auto ">
                     <form class="row align-items-center g-3">
                       <div class="col-auto"><h6 class="text-700 mb-0">Mostrando datos para: </h6></div>
@@ -256,19 +265,6 @@
                       </div>
                     </form>
                   </div>
-                </div>
-              </div>
-                  
-            </div>
-            <div class="card">
-                <div class="card-header d-flex flex-between-center ps-0 py-0 border-bottom">
-                  <ul class="nav nav-tabs border-0 flex-nowrap tab-active-caret" id="crm-revenue-chart-tab" role="tablist" data-tab-has-echarts="data-tab-has-echarts">
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0 active" id="po-resumen-tab" data-bs-toggle="tab" href="#po-resumen" role="tab" aria-controls="po-resumen-tab" aria-selected="true">Ordenes Compra</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_umk_privado_tab" data-bs-toggle="tab" href="#tns_umk_privado" role="tab" aria-controls="tns_umk_privado" aria-selected="false">Transito UNIMARK (PRIVADO)</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_umk_minsa_tab" data-bs-toggle="tab" href="#tns_umk_minsa" role="tab" aria-controls="tns_umk_minsa" aria-selected="false">Transito UNIMARK (MINSA)</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_guma_tab" data-bs-toggle="tab" href="#tns_guma" role="tab" aria-controls="tns_guma" aria-selected="false">Transito GUMA (PRIVANDO) </a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="tns_guma_privado_tab" data-bs-toggle="tab" href="#tns_guma_privado" role="tab" aria-controls="tns_guma_privado" aria-selected="false">Transito GUMA (MINSA)</a></li>
-                  </ul>
                 </div>
                 <div class="card-body">
                   <div class="row g-1">
