@@ -1,4 +1,3 @@
-
 FROM php:7.4-apache
 
 
@@ -9,9 +8,6 @@ RUN a2enmod rewrite
 
 # MSSQL drivers version
 ARG MSSQL_DRIVER_VER=5.6
-
-# installing cron package
-RUN apt-get update && apt-get -y install cron
 
 # Install the PHP Driver for SQL Server
 RUN apt-get update -yqq \
@@ -33,8 +29,12 @@ RUN apt-get update -yqq \
 RUN pecl install -f pdo_sqlsrv-${MSSQL_DRIVER_VER} sqlsrv-${MSSQL_DRIVER_VER} \
         && docker-php-ext-enable pdo_sqlsrv sqlsrv
 
-#RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN chown -R www-data /var/www/html
-
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
 
 WORKDIR /var/www/html
+
+EXPOSE 80
+
+
