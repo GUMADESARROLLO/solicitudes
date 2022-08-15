@@ -61,7 +61,7 @@
         }else{
 
             $.ajax({
-                url: "../SaveVendor",
+                url: "SaveVendor",
                 type: 'post',
                 data: {
                     name_vendor   : txt_nombre,
@@ -140,7 +140,7 @@
             showLoaderOnConfirm: true,
             preConfirm: () => {
                 $.ajax({
-                    url: "../DeleteVendor",
+                    url: "DeleteVendor",
                     type: 'post',
                     data: {
                         id      : id_vendor,
