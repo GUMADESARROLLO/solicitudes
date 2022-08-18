@@ -114,6 +114,7 @@ Auth::routes();
 
 //RUTAS DE IMPORTACIONES
 Route::get('Importacion', 'ImportacionController@getImportacion')->name('Importacion');
+Route::get('Detalles', 'ImportacionController@getDetallesHome')->name('Detalles');
 Route::get('ImportacionDetalles/{ID}', 'ImportacionController@getDetalles')->name('ImportacionDetalles');
 
 Route::get('Shipto', 'ImportacionController@getShipto')->name('Shipto');
@@ -137,6 +138,8 @@ Route::get('getOneShipTo/{ID}', 'ImportacionController@getOneShipTo')->name('get
 Route::post('SaveNewPO', 'ImportacionController@SaveNewPO')->name('SaveNewPO');
 Route::post('DeletePO', 'ImportacionController@DeletePO')->name('DeletePO');
 Route::post('getOrdenesRangeDates', 'ImportacionController@getOrdenesRangeDates')->name('getOrdenesRangeDates');
+
+Route::post('getAllOrdenesDetalles', 'ImportacionController@getAllOrdenesDetalles')->name('getAllOrdenesDetalles');
 Route::post('SaveProducto', 'ImportacionController@SaveProducto')->name('SaveProducto');
 Route::post('DeleteProducto', 'ImportacionController@DeleteProducto')->name('DeleteProducto');
 Route::get('getOneProducto/{ID}', 'ImportacionController@getOneProducto')->name('getOneProducto');

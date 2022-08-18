@@ -8,6 +8,7 @@ SELECT
 	t2.Clasificacion_1,
 	t2.Clasificacion_2,
 	t2.Clasificacion_3,
+	t2.id_type_product,
 	t2.descripcion_corta, 
 	t2.descripcion_larga,
 	t1.cantidad ,
@@ -23,6 +24,9 @@ SELECT
 	t1.minsa,
 	(SELECT  count(*) FROM tbl_imp_comentario t6 WHERE t6.id_linea= t1.id ORDER BY T6.ID desc LIMIT 1 ) Commentario,
 	t1.TieneVenta,
+	t1.mific,
+	t1.regencia,
+	t1.minsa eminsa,
 	T0.created_at
 FROM
 	tbl_imp_importacion T0
