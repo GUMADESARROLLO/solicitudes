@@ -101,6 +101,14 @@ class ImportacionController extends Controller {
         
     }
 
+    public function getDetallesHome()
+    {
+       
+        
+        return view('Importacion.DetallesCompleto');
+        
+    }
+
     //MUESTRA LA INFORMACION SOBRE LOS DETALLS DE LA ORDEN
     public function getDetalles($IdOrden)
     {   
@@ -157,6 +165,12 @@ class ImportacionController extends Controller {
     public function getOrdenesRangeDates(Request $request)
     {
         $response = OrdendesCompras::getOrdenesRangeDates($request);
+        return response()->json($response);
+    }
+    // RECIBE LAS PETICIONES DEL HOME POR RANGOS DE FECHAS RETORNAR TODOS LOS DETALLES DE ORDENS
+    public function getAllOrdenesDetalles(Request $request)
+    {
+        $response = OrdendesCompras::getAllOrdenesDetalles($request);
         return response()->json($response);
     }
     //OBTIENE EL VALOR DE UN PRODUCTO EN LA ORDEN

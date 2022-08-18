@@ -345,6 +345,97 @@ class OrdendesCompras extends Model {
 
     }
 
+    public static function getAllOrdenesDetalles(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+                $response = array();                
+                
+                $start   = $request->input('DateStart');
+                $end     = $request->input('DateEnds');
+
+                $start   = $start.' 00:00:00';
+                $end     = $end.' 23:59:59';
+
+                $Detalle        = OrdenesCompraRpt::whereBetween('created_at', [$start, $end])->get();
+                $UnidadDeMedida = UNIDAD_DE_MEDIDA::getUnidadDeMedida()->toArray();
+                $Proveedor      = PROVEEDOR::getProveedor()->toArray();
+                $Laboratorio    = LABORATORIO::getLaboratorio()->toArray();
+                $Mercados       = Mercados::all()->toArray();
+                $ProductoType   = ProductoType::all()->toArray();
+            
+                $i = 0;
+                foreach($Detalle as $d){
+
+                    $und = 'N/D';
+                    $Lab = 'N/D';
+                    $pro = 'N/D';
+                    $Mer = 'N/D';
+                    $Typ = 'N/D';
+                    
+                    if (!is_null($d->Clasificacion_1)) {
+                        $und = array_search($d->Clasificacion_1, array_column($UnidadDeMedida, 'UNIDAD_MEDIDA'));                        
+                        $und = $UnidadDeMedida[$und]['UNIDAD_MEDIDA'];
+                    }
+
+                    if (!is_null($d->Clasificacion_2)) {                        
+                        $Lab = array_search($d->Clasificacion_2, array_column($Laboratorio, 'CLASIFICACION'));                        
+                        $Lab = $Laboratorio[$Lab]['DESCRIPCION'];
+                    }
+                    if (!is_null($d->Clasificacion_3)) {
+                        $pro = array_search($d->Clasificacion_3, array_column($Proveedor, 'PROVEEDOR'));                        
+                        $pro = $Proveedor[$pro]['NOMBRE'];
+                    }
+                    $Mer = array_search($d->id_mercado, array_column($Mercados, 'id')); 
+                    $Mer = $Mercados[$Mer]['descripcion'];
+
+                    $Typ = array_search($d->id_type_product, array_column($ProductoType, 'id')); 
+                    $Typ = $ProductoType[$Typ]['descripcion'];
+
+                    $response['GUMA_MINSA'][$i]['id']                     =  $d->id;
+                    $response['GUMA_MINSA'][$i]['id_po']                  =  $d->id_po;
+                    $response['GUMA_MINSA'][$i]['Articulo_exactus']       =  $d->Articulo_exactus;
+                    $response['GUMA_MINSA'][$i]['descripcion_corta']      =  $d->descripcion_corta;
+                    $response['GUMA_MINSA'][$i]['descripcion_larga']      =  $d->descripcion_larga;                        
+                    $response['GUMA_MINSA'][$i]['cantidad']               =  number_format($d->cantidad,0);
+                    $response['GUMA_MINSA'][$i]['Estado']                 =  $d->Estado;
+                    $response['GUMA_MINSA'][$i]['fecha_orden_compra']     =  $d->fecha_orden_compra;
+                    $response['GUMA_MINSA'][$i]['DiasAcumulados']         =  $d->DiasAcumulados;
+                    $response['GUMA_MINSA'][$i]['fecha_despacho']         =  $d->fecha_despacho;
+                    $response['GUMA_MINSA'][$i]['fecha_estimada']         =  $d->fecha_estimada;
+                    $response['GUMA_MINSA'][$i]['Via']                    =  $d->Via;
+                    $response['GUMA_MINSA'][$i]['num_po']                 =  $d->num_po;
+                    $response['GUMA_MINSA'][$i]['factura']                =  $d->factura;
+                    $response['GUMA_MINSA'][$i]['recibo']                 =  $d->recibo;
+                    $response['GUMA_MINSA'][$i]['id_mercado']             =  $d->id_mercado;
+                    $response['GUMA_MINSA'][$i]['id_shipto']              =  $d->id_shipto;
+                    $response['GUMA_MINSA'][$i]['descripcion']            =  $d->descripcion;
+                    $response['GUMA_MINSA'][$i]['minsa']                  =  $Mer;
+                    $response['GUMA_MINSA'][$i]['Commentario']            =  $d->Commentario;
+                    $response['GUMA_MINSA'][$i]['TieneVenta']             =  $d->TieneVenta;
+
+                    $response['GUMA_MINSA'][$i]['UND']             =  $und;
+                    $response['GUMA_MINSA'][$i]['LAB']             =  $Lab;
+                    $response['GUMA_MINSA'][$i]['PRO']             =  $pro;
+
+                    $response['GUMA_MINSA'][$i]['eMIFIC']                 =  $d->mific;
+                    $response['GUMA_MINSA'][$i]['eREGENCIA']              =  $d->regencia;
+                    $response['GUMA_MINSA'][$i]['eMINSA']                 =  $d->eminsa;
+                    $response['GUMA_MINSA'][$i]['Typ']                    =  $Typ;
+
+                    $i++;
+                }
+                return response()->json($response);
+
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+
+    }
+
     public static function getInfoEmail()
     { 
             $response = array();

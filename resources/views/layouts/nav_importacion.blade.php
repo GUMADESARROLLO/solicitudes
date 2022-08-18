@@ -60,6 +60,7 @@
       <a class="dropdown-item" href="{{ route('Product') }}"><span class="fas fa-boxes me-1"></span>Producto</a>
       <a class="dropdown-item" href="{{ route('Vendor') }}"> <span class="fas fa-user-tie me-1"></span>Vendedor </a>
       <a class="dropdown-item" href="{{ route('Shipto') }}"><span class="fas fa-user-tie me-1"></span>Comprador</a>
+      <a class="dropdown-item" href="{{ route('Detalles') }}"><span class="far fa-clipboard me-1"></span>Detalles</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()"><span class="fas fa-sign-out-alt me-1"></span> Cerrar sesión</a>
       </div>

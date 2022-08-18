@@ -127,7 +127,7 @@
         @include('layouts.nav_importacion')
             
             <div class="row g-3">
-              <div class="col-md-4 col-xxl-4">
+            <div class="col-md-4 col-xxl-4" style="display:none">
                 <div class="card h-100">
                   <div class="card-header">
                       <div class="row flex-between-center">  
@@ -166,7 +166,7 @@
                     </div>
                   </div>
             </div>
-            <div class="col-md-4 col-xxl-4">
+            <div class="col-md-4 col-xxl-4" style="display:none">
               <div class="card">
                 <div class="card-header">
                     <div class="row flex-between-center">
@@ -206,7 +206,7 @@
               </div>
             </div>
             
-            <div class="col-md-4 col-xxl-4">
+            <div class="col-md-4 col-xxl-4" style="display:none">
               <div class="card">
                   <div class="card-header">
                     <div class="row flex-between-center">
@@ -333,8 +333,7 @@
                                   <th class="" ></th>
                                   <th class="" ></th>
                                   <th class="" ></th>
-                                  <th class="" ></th>
-                                
+                                  <th class="" ></th>                                
                                 </tr>
                               </thead>
                               <tbody class="list" >
