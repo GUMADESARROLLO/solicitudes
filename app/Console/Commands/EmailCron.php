@@ -42,7 +42,7 @@ class EmailCron extends Command
         $controller = new ImportacionController();
         $controller->SendEmailChangeStatus();
 
-        \Log::info("Tarea Ejecutada ... !");
+        \Log::info("Email:cron Command Run Successfully !");
         $this->info('Email:cron Command Run Successfully !');
     }
 }
