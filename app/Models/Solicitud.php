@@ -204,10 +204,64 @@ class solicitud extends Model {
         }
 
     }
-    public static function getSolicitudes(Request $request){
+    public static function AddFavs(Request $request)
+    {
+        if ($request->ajax()) {
+            try {
+
+                $Solicitud  = $request->input('Solicitud');
+                $id_user    = $request->user()->id;
+
+                $Estado     = $request->input('Stado');
+
+
+                if ($Estado=="S") {
+                    
+                    $response = SolicitudesFav::where('id_user',$id_user)->where('id_solicitud',$Solicitud)->delete();
+                }else{
+
+                    $ObjComment = new SolicitudesFav();
+                    $ObjComment->id_solicitud    = $Solicitud; 
+                    $ObjComment->id_user         = $id_user;           
+                    $response = $ObjComment->save(); 
+                    
+                }            
+
+                return response()->json($response);
+
+            } catch (Exception $e) {
+                $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+                return response()->json($mensaje);
+            }
+        }
+
+    }
+    public static function getSolicitudesFav(Request $request){
+
         $Mes     = $request->input('mes');
-        $Annio  = $request->input('annio');
-        return solicitud::where('Activo', 'S')->where('nMes', $Mes)->where('nAnnio', $Annio)->get();
+        $Annio   = $request->input('annio');
+
+        $userId  = $request->user()->id;
+
+    
+        return solicitud::where('Activo', 'S')->where('nMes', $Mes)->where('nAnnio', $Annio)->whereIn('id_solicitud', function($q)  use ($userId){
+            $q->select('id_solicitud')->from('tbl_solicitudes_fav')->where("id_user", $userId);
+        })->get();
+
+        
+
+    }
+    public static function getSolicitudes(Request $request){
+
+        $Mes     = $request->input('mes');
+        $Annio   = $request->input('annio');
+
+        $userId  = $request->user()->id;
+
+        return solicitud::where('Activo', 'S')->where('nMes', $Mes)->where('nAnnio', $Annio)->whereNotIn('id_solicitud', function($q)  use ($userId){
+            $q->select('id_solicitud')->from('tbl_solicitudes_fav')->where("id_user", $userId);
+        })->get();
+
     }
     public static function getSolicitudes_Detalles($id_solicitud){
         return Ingreso::where('id_solicitud', $id_solicitud)->where('Activo', 'S')->get();

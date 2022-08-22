@@ -26,7 +26,8 @@ class OrdenesController extends Controller {
     {
         $Solci[] = array(
             'Counteo' => solicitud::getSolicitudesCount($request),
-            'data' => solicitud::getSolicitudes($request)
+            'data' => solicitud::getSolicitudes($request),
+            'dtFav' => solicitud::getSolicitudesFav($request)
         );
 
         return response()->json($Solci);
@@ -80,6 +81,11 @@ class OrdenesController extends Controller {
     public function postGuardarComment(Request $request)
     {
         $response = Solicitud::postGuardarComment($request);
+        return response()->json($response);
+    }
+    public function AddFavs(Request $request)
+    {
+        $response = Solicitud::AddFavs($request);
         return response()->json($response);
     }
     public function getComment(Request $request)

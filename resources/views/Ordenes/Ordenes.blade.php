@@ -128,10 +128,12 @@
             <div class="col-lg-12 col-xxl-12">
               <div class="card">
               <div class="card-header">
+                
               <div class="row flex-between-center">
                 
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
                 <div class="w-100">
+                  
                     <h6 class="mb-3 text-800">Un total de <strong class="text-dark" id="id_total_solicitud"> 0.00 </strong> <span id="id_title_solicitudes"></span></h6>
                     
                     <div class="row fs--1 fw-semi-bold text-500 g-0" id="id_count_table">
@@ -139,11 +141,8 @@
                       <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-info"></span><span>Ingreso Parcial </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block" id="id_total_Parcial"> (0)</span></div>
                       <div class="col-auto d-flex align-items-center pe-3"><span class="dot bg-success"></span><span>Ingreso Total </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block" id="id_total_total"> (0)</span></div>
                       <div class="col-auto d-flex align-items-center"><span class="dot bg-200"></span><span>En Proceso </span><span class="d-none d-md-inline-block d-lg-none d-xxl-inline-block" id="id_total_soli"> (0)</span></div>
-                    </div>
+                    </div>                    
                   </div>
-
-               
-
 
                   <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0 invisible" >Historial de Solicitudes</h5> 
                   <span id="id_rol" class="invisible">{{Session::get('rol')}}</span>
@@ -162,13 +161,32 @@
                       <span class="d-none d-sm-inline-block ms-1">Cargar</span>
                     </button>
                   </div>
+                  
                 </div>
               </div>
             </div>  
             <div class="card-body p-0">
-              <div class="table-responsive scrollbar">
-                  <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden" id="tbl_solicitudes" ></table>  
+
+              <ul class="nav nav-tabs border-0 flex-nowrap tab-active-caret" id="crm-revenue-chart-tab" role="tablist" data-tab-has-echarts="data-tab-has-echarts">
+                <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0 active" id="crm-revenue-tab" data-bs-toggle="tab" href="#crm-revenue" role="tab" aria-controls="crm-revenue" aria-selected="true">Mis Favoritos</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link py-3 mb-0" id="crm-users-tab" data-bs-toggle="tab" href="#crm-users" role="tab" aria-controls="crm-users" aria-selected="false">Master Completo</a></li>
+              </ul>
+
+              <div class="tab-content">
+                <div class="tab-pane active" id="crm-revenue" role="tabpanel" aria-labelledby="crm-revenue-tab">
+                  <div class="table-responsive scrollbar">
+                    <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden" id="tbl_solicitudes_fav" style="width:100%"></table>  
+                  </div>
+                </div>
+                <div class="tab-pane" id="crm-users" role="tabpanel" aria-labelledby="crm-users-tab">
+                  <div class="table-responsive scrollbar">
+                    <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden" id="tbl_solicitudes" style="width:100%"></table>  
+                  </div>
+                </div>
+                </div>
               </div>
+              
+              
             </div>
               </div>
             </div>
@@ -371,6 +389,8 @@
                     
 
                       <div class="notification" href="#!">
+
+                      
                         
                         <div class="notification-body">
                         <table class="table table-hover table-striped overflow-hidden" id="tbl_excel" style="width:100%"></table>  
