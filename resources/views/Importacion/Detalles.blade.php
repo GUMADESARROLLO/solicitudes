@@ -231,7 +231,6 @@
                                   <div class="d-flex">
                                     <div class="avatar avatar-2xl status-online">
                                       <img class="rounded-circle" src="{{ asset('images/item.png') }}" alt="" />
-
                                     </div>
                                     <div class="flex-1 align-self-center ms-2">
                                     <p class="mb-1 lh-1"><a class="fw-semi-bold" href="#!">{{$lstProducto->isProduct->Tipo->descripcion}} : {{$lstProducto->isProduct->descripcion_corta}}</a> 

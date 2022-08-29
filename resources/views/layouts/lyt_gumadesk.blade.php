@@ -106,7 +106,7 @@
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
-    
+    <script src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
     @yield('metodosjs')
     
 

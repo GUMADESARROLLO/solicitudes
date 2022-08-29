@@ -289,6 +289,8 @@
                     var In_Total= 0;
 
                     table_render_solicitud(data[0]['data'])
+                    table_render_solicitud_fav(data[0]['dtFav'])
+                    
 
                     $.each(data[0]['Counteo'],function(key, registro) {
 
@@ -470,11 +472,36 @@
         table_excel.search(this.value).draw();
     });
 
+    function save_fav(Articulos,Stado){
+
+        $.ajax({
+            url: "AddFavs",
+            type: 'post',
+            data: {                
+                Solicitud   : Articulos,        
+                Stado       : Stado,            
+                _token      : "{{ csrf_token() }}" 
+            },
+            async: true,
+            success: function(response) {
+                console.log()
+                if(response.original){
+                    location.reload();
+                }
+                //getComment(id_Item)
+            },
+            error: function(response) {
+                // Swal.fire("Oops", "No se ha podido guardar!", "error");
+            }
+        }).done(function(data) {
+            //
+        });
+    }
 
 
-    function table_render_solicitud(datos){
+    function table_render_solicitud_fav(datos){
 
-        table = $('#tbl_solicitudes').DataTable({
+        table = $('#tbl_solicitudes_fav').DataTable({
             "data": datos,
             "destroy": true,
             "info": false,
@@ -498,7 +525,7 @@
                 "emptyTable": "-",
                 "search": "BUSCAR"
             },
-            'columns': [
+            'columns': [               
                 {
                     "title": "Solicitud",
                     "data": "Articulos",
@@ -535,7 +562,7 @@
 
                         }
 
-                        return '<div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset("images/item.png") }}"alt="" width="60">'+
+                        return '<div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset("images/item.png") }}" alt="" width="60">'+
                         '<div class="flex-1 ms-3">'+
                             '<h6 class="mb-1 fw-semi-bold text-nowrap"><a href="' + pathDelIngreso+ '"> <strong>#' + row.id_solicitud + ' </strong></a> - ' + row.Descripcion + '</h6>'+
                             '<p class="fw-semi-bold mb-0 text-500">' + row.Articulos + ' - '+ 
@@ -544,8 +571,9 @@
                             
                             '<div class="row g-0 fw-semi-bold text-center py-2 fs--1">'+ 
                                 '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ','+sta+')">'+btnRetencion+'<span class="ms-1">Retención</span></a></div>'+ 
-                                '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="AddComment(' + meta.row + ')"><span class="ms-1 fas fa-comment text-primary" data-fa-transform="shrink-2"  ></span><span class="ms-1">Comentarios ' + iComent +'</span></a></div>'+ 
-                                '<div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ',4)" ><span class="ms-1 fas fa-trash text-danger" data-fa-transform="shrink-2" ></span><span class="ms-1">Borrar</span></a></div>'+ 
+                                '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="AddComment(' + meta.row + ')"><span class="ms-1 fas fa-comment text-primary" data-fa-transform="shrink-2"  ></span><span class="ms-1"> ' + iComent +'</span></a></div>'+ 
+                                '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ',4)" ><span class="ms-1 fas fa-trash text-danger" data-fa-transform="shrink-2" ></span><span class="ms-1">Borrar</span></a></div>'+ 
+                                '<div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="save_fav(' + row.id_solicitud +',' + "'S'" + ' )" ><span class="ms-1 fas fa-star text-warning" data-fa-transform="shrink-2" ></span><span class="ms-1"> Fav. </span></a></div>'+ 
                             '</div>'+ 
                         '</div>'+
                         '</div>'
@@ -616,6 +644,7 @@
 
             ],
             "columnDefs": [
+                
                 {
                     "className": "py-2 align-middle text-center fs-0 fw-medium",
                     "targets": [1,7,8,9,10]
@@ -644,6 +673,228 @@
                     "targets": []
                 },
             ],
+          
+            "footerCallback": function(row, data, start, end, display) {
+             
+			},
+        });
+
+
+        var cEnProceso = 0;
+        var cRetenido = 0;
+        var cParcial = 0;
+        var cTotal = 0;
+        var lng = 0;
+        table.rows().every( function () {
+
+            var d   = this.data();
+
+            lng = this.column( 0 ).data().length;
+
+            if(d.Estados ==='1'){
+                cRetenido++;
+            }
+            if(intVal(d.Ingreso) === 0){
+                cEnProceso++;
+            }
+            if( ( intVal(d.Pendiente) ) > 0){                
+                cParcial++;
+            }
+
+            if( (intVal(d.Cant_solicitada) !== 0 && intVal(d.Ingreso) !== 0) ){
+                if(intVal(d.Cant_solicitada) == intVal(d.Ingreso)){
+                    cTotal++
+                }
+            }
+
+        } );
+
+
+        
+
+        $('#tbl_solicitudes_fav thead').addClass('bg-200 text-900');
+        $('#tbl_solicitudes_fav thead tr th').addClass('sort pe-1 align-middle white-space-nowrap');
+        
+        $("#tbl_solicitudes_fav_length").hide();
+        $("#tbl_solicitudes_fav_filter").hide();
+        
+    }
+
+    function table_render_solicitud(datos){
+
+        table = $('#tbl_solicitudes').DataTable({
+            "data": datos,
+            "destroy": true,
+            "info": false,
+            "bPaginate": true,
+            "order": [
+                [0, "asc"]
+            ],
+            "lengthMenu": [
+                [10, -1],
+                [10, "Todo"]
+            ],
+            "language": {
+                "zeroRecords": "NO HAY COINCIDENCIAS",
+                "paginate": {
+                    "first": "Primera",
+                    "last": "Última ",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "lengthMenu": "MOSTRAR _MENU_",
+                "emptyTable": "-",
+                "search": "BUSCAR"
+            },
+            'columns': [               
+                {
+                    "title": "Solicitud",
+                    "data": "Articulos",
+                    "render": function(data, type, row, meta) {
+                        
+                        var scope = moment(row.Fecha_Solicitada).format("D MMM, YYYY")
+
+
+                        var iComent = ''
+                        var icon = 'fa-ban text-warning'
+                        var sta = 1;
+                        var btnRetencion = ''
+                        var pathDelIngreso = '#!'
+
+                        if(row.CountComment !== 0){
+                            iComent = ' ( ' + row.CountComment + ' ) '
+                        }
+
+                        if(row.Estados === '1'){
+                            icon = 'fa-check text-danger'
+                            sta = 0;
+                        }
+
+
+                        if(( var_rol === 6 ) || ( var_rol === 1 ) ){
+
+                        pathDelIngreso = "OrdenesDetalles/" + row.id_solicitud 
+
+                        }
+
+                        if(( var_rol === 4 ) || ( var_rol === 1 ) ){
+
+                            btnRetencion = '<span class="ms-1 fas '+icon+' " data-fa-transform="shrink-2" ></span> '
+
+                        }
+
+                        return '<div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="{{ asset("images/item.png") }}"alt="" width="60">'+
+                        '<div class="flex-1 ms-3">'+
+                            '<h6 class="mb-1 fw-semi-bold text-nowrap"><a href="' + pathDelIngreso+ '"> <strong>#' + row.id_solicitud + ' </strong></a> - ' + row.Descripcion + '</h6>'+
+                            '<p class="fw-semi-bold mb-0 text-500">' + row.Articulos + ' - '+ 
+                            scope+
+                            '</p>'+ 
+                            
+                            '<div class="row g-0 fw-semi-bold text-center py-2 fs--1">'+ 
+                                '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ','+sta+')">'+btnRetencion+'<span class="ms-1">Retención</span></a></div>'+ 
+                                '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="AddComment(' + meta.row + ')"><span class="ms-1 fas fa-comment text-primary" data-fa-transform="shrink-2"  ></span><span class="ms-1"> ' + iComent +'</span></a></div>'+ 
+                                '<div class="col-auto"><a class="rounded-2 d-flex align-items-center me-3 text-700" href="#!" onclick="ChanceStatus(' + row.id_solicitud + ',4)" ><span class="ms-1 fas fa-trash text-danger" data-fa-transform="shrink-2" ></span><span class="ms-1">Borrar</span></a></div>'+ 
+                                '<div class="col-auto d-flex align-items-center"><a class="rounded-2 text-700 d-flex align-items-center" href="#!" onclick="save_fav(' + row.id_solicitud + ', ' + "'R'" +')" ><span class="ms-1 far fa-star text-warning" data-fa-transform="shrink-2" ></span> Fav. <span class="ms-1"></span></a></div>'+ 
+                            '</div>'+ 
+                        '</div>'+
+                        '</div>'
+
+                        
+
+                    },
+                },
+                //{"title": "Fecha Solicitada","data": "Fecha_Solicitada"},
+                {"title": "Proyeccion Mensual","data": "proyect_mensual", "render" : function (data, type, row, meta){
+
+                        
+                        return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
+                    } 
+                },
+                {"title": "Inventario Real","data": "Inventario_real", "render" : function (data, type, row, meta){
+
+                        return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
+                    }  
+                },
+                {"title": "Cant. Solicitada","data": "Cant_solicitada", "render" : function (data, type, row, meta){
+
+                        return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
+                    } 
+                },
+                {"title": "Ingreso","data": "Ingreso", "render" : function (data, type, row, meta){
+
+                    return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
+                    } 
+                },
+                {"title": "Pendiente","data": "Pendiente","render": $.fn.dataTable.render.number(',', '.', 2)},
+                {"title": "Tiempo Entrega","data": "Tiempo_Entrega", "render" : function (data, type, row, meta){
+
+                        return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
+                    } 
+                },
+                {"title": "Proveedor","data": "Proveedor", "render" : function (data, type, row, meta){
+
+                        return '<u class="dotted">  '+data +'</u>'
+                    } 
+                },
+                {"title": "Dias Transcurridos","data": "Dias_Transcurridos","render": $.fn.dataTable.render.number(',', '.', 0)},
+                {"title": "Transito","data": "Estados", "render" : function (data, type, row, meta){
+
+                        if(row.Estados === '1'){
+                            return '<span class="badge badge rounded-pill d-block badge-soft-warning">Retenido<span class="ms-1 fas fa-ban" data-fa-transform="shrink-2"></span></span>'
+                        }
+
+                        if(intVal(row.Ingreso) === 0){
+                            return '<span class="badge badge rounded-pill d-block badge-soft-secondary">En Proceso<span class="ms-1 fas fa-clock" data-fa-transform="shrink-2"></span></span> '
+                        }                       
+
+                        
+                        if(intVal(row.Pendiente) <= 0){
+                            
+                            return '<span class="badge badge rounded-pill d-block badge-soft-success">Ingreso Total<span class="ms-1 fas fa-check" data-fa-transform="shrink-2"></span></span>'
+                        }else{
+                            return '<span class="badge badge rounded-pill d-block badge-soft-primary">Ingreso Parcial<span class="ms-1 fas fa-redo" data-fa-transform="shrink-2"></span></span>'
+                        }
+
+                    }
+                },
+                
+                {"title": "","data": "Dias_Transcurridos","render": function(data, type, row, meta) {
+                    return 'COMENATARIOS'
+                }}
+                
+
+            ],
+            "columnDefs": [
+                
+                {
+                    "className": "py-2 align-middle text-center fs-0 fw-medium",
+                    "targets": [1,7,8,9,10]
+                },
+                {
+                    "className": "py-2 align-middle text-end fs-0 fw-medium",
+                    "targets": [2,3,4,5,6]
+                },
+                
+                {
+                    "className": "py-2 align-middle white-space-nowrap text-end",
+                    "targets": [10]
+                },
+                
+                {
+                    "visible": false,
+                    "searchable": false,
+                    "targets": tbl_hide_colum
+                },
+                {
+                    "width": "10%",
+                    "targets": [1,2,3,4,5,6,7]
+                },
+                {
+                    "width": "15%",
+                    "targets": []
+                },
+            ],
+          
             "footerCallback": function(row, data, start, end, display) {
              
 			},
