@@ -71,7 +71,7 @@
         <a class="dropdown-item" href="categorias">Categorias</a>
         <a class="dropdown-item" href="Usuarios">Usuarios</a>
         -->
-        @if( Session::get('rol')[0] == '5' || Session::get('rol')[0] == '1')
+        @if( Session::get('rol')[0] == '8' )
           <a class="dropdown-item" href="Calendario">Calendario</a>
           <a class="dropdown-item" href="proyecciones">Proyecciones</a>
           <a class="dropdown-item" href="{{ route('Importacion') }}">Importacion</a>
