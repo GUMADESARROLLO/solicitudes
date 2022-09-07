@@ -67,22 +67,22 @@
                 </div>
                 <div class="card-body pt-0">
                   <div class="row mb-2">
-                    <div class="col-3 border-end border-200">
+                    <div class="col-3 border-end border-200" style="display:none">
                     <p class="fs--1 text-600 mb-0">FECHA DESPACHO</p>
                     <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(0)">{{ !empty($Orden->fecha_despacho ) ? date('D, M d, Y', strtotime($Orden->fecha_despacho))  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span> </span>
                       
                     </div>
-                    <div class="col-3 border-end text-center border-200">
+                    <div class="col-3 border-end text-center border-200" style="display:none">
                       <p class="fs--1 text-600 mb-0">FECHA ESTIMADA</p>
                       <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(1)">{{ !empty($Orden->fecha_estimada ) ? date('D, M d, Y', strtotime($Orden->fecha_estimada))  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span> </span>
                       
                     </div>
-                    <div class="col-3 text-center">
+                    <div class="col-6 text-center">
                       <p class="fs--1 text-600 mb-0">FECHA FACTURA</p>
                       <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(2)">{{ !empty($Orden->fecha_factura ) ? date('D, M d, Y', strtotime($Orden->fecha_factura))  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span></span>
                       
                     </div>
-                    <div class="col-3 text-center">
+                    <div class="col-6 text-center">
                       <p class="fs--1 text-600 mb-0">FECHA PO</p>
                       <span class="badge rounded-pill bg-primary" onclick="frmSweetAlert02(3)" >{{ !empty($Orden->fecha_orden_compra ) ? date('D, M d, Y', strtotime($Orden->fecha_orden_compra))  :'N/D'  }} <span class="ms-1 fas fa-pencil-alt"></span></span>                      
                     </div>
@@ -150,7 +150,7 @@
                     <div class="col-sm-6 col-xxl-6 ps-sm-2 order-xxl-1 mb-3 mb-xxl-0">
                       <div class="border border-1 border-300 rounded-2 p-3 ask-analytics-item position-relative mb-3">
                         <div class="d-flex align-items-center mb-3"><span class="far fa-address-card text-primary"></span><a class="stretched-link text-decoration-none" href="#!">
-                            <h5 class="fs-0 mb-0 ps-3">Vendor : {{ $Orden->Vendor->nombre_vendor }}</h5>
+                            <h5 class="fs-0 mb-0 ps-3">Proveedor : {{ $Orden->Vendor->nombre_vendor }}</h5>
                           </a></div>
                         <h5 class="fs--1 text-800">{{ $Orden->Vendor->Descripcion }}</h5>
                       </div>
@@ -158,7 +158,7 @@
                     <div class="col-sm-6 col-xxl-6 ps-sm-2 order-xxl-1 mb-3 mb-xxl-0">
                       <div class="border border-1 border-300 rounded-2 p-3 ask-analytics-item position-relative mb-3">
                         <div class="d-flex align-items-center mb-3"><span class="far fa-building text-primary"></span><a class="stretched-link text-decoration-none" href="#!">
-                            <h5 class="fs-0 mb-0 ps-3">SHIP TO : {{ $Orden->proveedor->nombre_shipto }}</h5>
+                            <h5 class="fs-0 mb-0 ps-3">Comprador : {{ $Orden->proveedor->nombre_shipto }}</h5>
                           </a></div>
                         <h5 class="fs--1 text-800">{{ $Orden->proveedor->Descripcion }}</h5>
                       </div>                       

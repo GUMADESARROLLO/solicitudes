@@ -58,7 +58,7 @@
 
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="{{ route('Product') }}"><span class="fas fa-boxes me-1"></span>Producto</a>
-      <a class="dropdown-item" href="{{ route('Vendor') }}"> <span class="fas fa-user-tie me-1"></span>Vendedor </a>
+      <a class="dropdown-item" href="{{ route('Vendor') }}"> <span class="fas fa-user-tie me-1"></span>Proveedor </a>
       <a class="dropdown-item" href="{{ route('Shipto') }}"><span class="fas fa-user-tie me-1"></span>Comprador</a>
       <a class="dropdown-item" href="{{ route('Detalles') }}"><span class="far fa-clipboard me-1"></span>Detalles</a>
       <a class="dropdown-item" href="{{ route('Ordenes') }}"><span class="far fa-clipboard me-1"></span>Solicitudes</a>
