@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Exception;
 use App\Models\Notificaciones;
 use App\Models\Ingreso;
+use App\Models\tblsolicitud;
 
 class solicitud extends Model {
     protected $table = "view_solicitudes";
