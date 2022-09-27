@@ -1132,7 +1132,7 @@
 
         if(isSend){
             Swal.fire({
-            title: '¿Estas Seguro de cambiar el estado de la Solicitud?',
+            title: '¿Estas Seguro?',
             text: "¡Esta acción no podrá ser revertida!",
             icon: 'warning',
             showCancelButton: true,
