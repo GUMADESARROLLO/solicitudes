@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use Exception;
 use App\Models\Notificaciones;
 use App\Models\Ingreso;
-use App\Models\tblsolicitud;
 
 class solicitud extends Model {
     protected $table = "view_solicitudes";
@@ -23,7 +22,7 @@ class solicitud extends Model {
                 $Cantidad   = $request->input('cantidad');
 
 
-                $response =   tblsolicitud::where('id_solicitud',  $id)->update([
+                $response =   tblSolicitud::where('id_solicitud',  $id)->update([
                     'Fecha_Solicitada'  => $Fecha,
                     'proyect_mensual'   => $Cantidad,
                 ]);
@@ -76,7 +75,7 @@ class solicitud extends Model {
 
                 }else{                    
                     $id_insert = $isExit[0]['id_metas'];
-                    tblsolicitud::where('id_meta',$id_insert)->delete();
+                    tblSolicitud::where('id_meta',$id_insert)->delete();
                 }
                 
                 foreach ($request->input('datos') as $key => $val) {
@@ -91,7 +90,7 @@ class solicitud extends Model {
                     $datos_a_insertar[$key]['id_meta']              = $id_insert;
                 }
 
-                tblsolicitud::insert($datos_a_insertar); 
+                tblSolicitud::insert($datos_a_insertar); 
                 
                 return response()->json($datos_a_insertar);
                 
@@ -138,7 +137,7 @@ class solicitud extends Model {
                 
 
                 if($Campo!='Ingreso'){
-                    $response =   tblsolicitud::where('id_solicitud',  $id)->update([
+                    $response =   tblSolicitud::where('id_solicitud',  $id)->update([
                         $Campo => $Valor,
                     ]);
                 }else{
