@@ -1170,6 +1170,8 @@
     }
 
     $('#tbl_solicitudes').on('click', "td",function(){
+        
+        table = $('#tbl_solicitudes').DataTable()
 
         var visIdx = $(this).index();
         var Campo = ''
@@ -1181,8 +1183,6 @@
         var vali_number = 'soloNumeros(event.keyCode, event, $(this).val())'
 
         let estado = dtData.Estados
-
-        
 
         let IdSolci = dtData.id_solicitud;
 
@@ -1262,12 +1262,6 @@
         }
 
         if(var_rol === 6){
-            /*if(visIdx===1){
-                Campo = 'Inventario_real'
-                lblTitulo = 'Inventario Real'
-                isSend = true
-            }*/
-
             if(visIdx===1){
                 Campo = 'Ingreso'
                 lblTitulo = 'Ingreso'
@@ -1359,6 +1353,195 @@
             })
         }
     });
+
+    
+    $('#tbl_solicitudes_fav').on('click', "td",function(){
+        
+        table = $('#tbl_solicitudes_fav').DataTable()
+
+        var visIdx = $(this).index();
+        var Campo = ''
+        var lblTitulo = ''
+        var isSend = false
+        dtData = table.row( this ).data();
+
+
+        var vali_number = 'soloNumeros(event.keyCode, event, $(this).val())'
+
+        let estado = dtData.Estados
+
+        let IdSolci = dtData.id_solicitud;
+
+        if(var_rol === 1){
+            if(visIdx===1){               
+
+                $("#id_mdl_articulo").text(dtData.Articulos)
+                $("#id_row").text(dtData.id_solicitud)
+                $("#id_mdl_nombre_articulo").text(dtData.Descripcion)
+                
+
+                var addNuevaSolicitud = document.querySelector(Selectors.ADD_NUEVA_SOLCITUD);
+                var modal = new window.bootstrap.Modal(addNuevaSolicitud);
+                modal.show();
+
+                
+            }
+            if(visIdx===2){
+                Campo = 'Cant_solicitada'
+                lblTitulo ='Cantidad Solicitada'
+                isSend = true
+            }
+
+            if(visIdx===3){
+                Campo = 'Ingreso'
+                lblTitulo = 'Ingreso'
+                isSend = true
+            }
+            
+            if(visIdx===5){
+                Campo = 'Tiempo_Entrega'
+                lblTitulo = 'Tiempo de Entrega'
+                isSend = true
+            }
+            if(visIdx===6){
+                Campo = 'Proveedor'
+                lblTitulo = 'Proveedor'
+                isSend = true
+                vali_number = ''
+            }
+        }
+
+        if(var_rol === 4){
+            if(visIdx===1){
+                Campo = 'Cant_solicitada'
+                lblTitulo ='Cantidad Solicitada'
+                isSend = true
+            }
+
+            
+            if(visIdx===2){
+                Campo = 'Tiempo_Entrega'
+                lblTitulo = 'Tiempo de Entrega'
+                isSend = true
+            }
+            if(visIdx===3){
+                Campo = 'Proveedor'
+                lblTitulo = 'Proveedor'
+                isSend = true
+                vali_number = ''
+            }
+        }
+
+        if(var_rol === 5){
+            if(visIdx===1){
+                
+                $("#id_mdl_articulo").text(dtData.Articulos)
+                $("#id_row").text(dtData.id_solicitud)
+                $("#id_mdl_nombre_articulo").text(dtData.Descripcion)
+                
+
+                var addNuevaSolicitud = document.querySelector(Selectors.ADD_NUEVA_SOLCITUD);
+                var modal = new window.bootstrap.Modal(addNuevaSolicitud);
+                modal.show();                
+            }            
+            
+        }
+
+        if(var_rol === 6){
+            if(visIdx===1){
+                Campo = 'Ingreso'
+                lblTitulo = 'Ingreso'
+                isSend = true
+            }            
+            
+        }
+
+        if(intVal(estado) === 1){
+            isSend= false
+        }
+
+        
+
+
+
+        if(isSend){
+            Swal.fire({
+            title: lblTitulo,
+            text: "Digite el valor solicitado",
+            input: 'text',
+            inputPlaceholder: 'Digite el valor ',
+            target: document.getElementById('mdlMatPrima'),
+            inputAttributes: {
+                id: 'cantidad',
+                required: 'true',
+                onkeypress: vali_number
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Guardar',
+            showLoaderOnConfirm: true,
+            inputValue:  $(this). text(),
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Digita la cantidad por favor';
+                }
+
+                value = value.replace(/[',]+/g, '');
+
+                if (isNaN(value)) {
+                    
+                    if(vali_number===''){
+                        $.ajax({
+                            url: "Update",
+                            type: 'post',
+                            data: {
+                                id      : IdSolci,
+                                valor   : value,
+                                Campo   : Campo,
+                                _token  : "{{ csrf_token() }}" 
+                            },
+                            async: true,
+                            success: function(response) {
+                                Swal.fire("Exito!", "Guardado exitosamente", "success");
+                            },
+                            error: function(response) {
+                                Swal.fire("Oops", "No se ha podido guardar!", "error");
+                            }
+                        }).done(function(data) {
+                            CargarDatos(nMes,annio);
+                        });
+                    }else{
+                        return 'Formato incorrecto';
+                    }
+                } else {
+
+                        $.ajax({
+                            url: "Update",
+                            type: 'post',
+                            data: {
+                                id      : IdSolci,
+                                valor   : value,
+                                Campo   : Campo,
+                                _token  : "{{ csrf_token() }}" 
+                            },
+                            async: true,
+                            success: function(response) {
+                                Swal.fire("Exito!", "Guardado exitosamente", "success");
+                            },
+                            error: function(response) {
+                                Swal.fire("Oops", "No se ha podido guardar!", "error");
+                            }
+                        }).done(function(data) {
+                            CargarDatos(nMes,annio);
+                        });
+                        
+                    }
+                }
+            })
+        }
+    });
+
+
+
     dta_aportes_mercados.push(
             {value: 10,name: 'TRANSITO'}, 
             {value: 20,name: 'RETENIDO '}, 
