@@ -11,8 +11,7 @@ use App\Models\Ingreso;
 
 class solicitud extends Model {
     protected $table = "view_Solicitudes";
-    protected $fillable = ['id_metas','Articulos', 'Descripcion', 'Cant_solicitada','Fecha_Solicitada','Ingreso','proyect_mensual','Inventario_real','Tiempo_Entrega','Transito','Proveedor','Estados','Activo','Pendiente','Dias_Transcurridos','nMes','nAnnio','CountComment'];
-
+  
     public static function GuardarSolicitud(Request $request) {
         if ($request->ajax()) {
             try {

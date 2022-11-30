@@ -599,6 +599,14 @@
                         return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
                     } 
                 },
+
+                {"title": "Orden Compra","data": "OrdenCompra", "render" : function (data, type, row, meta){
+
+                    return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
+                    } 
+                },
+
+                
                 {"title": "Ingreso","data": "Ingreso", "render" : function (data, type, row, meta){
 
                     return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
@@ -820,6 +828,16 @@
                         return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
                     } 
                 },
+
+                {"title": "Orden Compra","data": "OrdenCompra", "render" : function (data, type, row, meta){
+
+                    console.log(data)
+
+                    return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
+                    } 
+                },
+
+
                 {"title": "Ingreso","data": "Ingreso", "render" : function (data, type, row, meta){
 
                     return '<u class="dotted">  '+numeral(data).format('0,0.00') +'</u>'
@@ -1206,18 +1224,24 @@
                 isSend = true
             }
 
-            if(visIdx===3){
+            if(visIdx===4){
                 Campo = 'Ingreso'
                 lblTitulo = 'Ingreso'
                 isSend = true
             }
+
+            if(visIdx===3){
+                Campo = 'OrdenCompra'
+                lblTitulo = 'Orden De Compra'
+                isSend = true
+            }
             
-            if(visIdx===5){
+            if(visIdx===6){
                 Campo = 'Tiempo_Entrega'
                 lblTitulo = 'Tiempo de Entrega'
                 isSend = true
             }
-            if(visIdx===6){
+            if(visIdx===7){
                 Campo = 'Proveedor'
                 lblTitulo = 'Proveedor'
                 isSend = true
@@ -1393,17 +1417,25 @@
             }
 
             if(visIdx===3){
+                Campo = 'OrdenCompra'
+                lblTitulo = 'Orden de Compra'
+                isSend = true
+            }
+
+            if(visIdx===4){
                 Campo = 'Ingreso'
                 lblTitulo = 'Ingreso'
                 isSend = true
             }
+
             
-            if(visIdx===5){
+            
+            if(visIdx===6){
                 Campo = 'Tiempo_Entrega'
                 lblTitulo = 'Tiempo de Entrega'
                 isSend = true
             }
-            if(visIdx===6){
+            if(visIdx===7){
                 Campo = 'Proveedor'
                 lblTitulo = 'Proveedor'
                 isSend = true
